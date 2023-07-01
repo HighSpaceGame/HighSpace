@@ -1,0 +1,238 @@
+body
+{
+	font-family: BankGothic Md BT;
+	font-weight: normal;
+	font-style: normal;
+	/*font-size: 1em;*/
+	font-charset: U+0020-00FF; /* By default, we specify all the Latin1 chars */
+	width: 100%;
+	height: 100%;
+	color: #7b7b7b;
+}
+
+li
+{
+	color: #7b7b7b;
+}
+
+.header_text
+{
+	color: #6f92f5;
+}
+
+select option:hover
+{
+	color: #abbbab;
+}
+
+select option:active,
+select option:checked,
+selectvalue
+{
+	color: #6f92f5;
+}
+
+
+.window_title
+{
+	position: absolute;
+	top: 0;
+}
+
+.button_text
+{
+	text-align: center;
+}
+
+.button_text_right
+{
+	text-align: left;
+}
+
+.button_text_right p
+{
+	display: block;
+	margin-left: 140%;
+	margin-top: -50%;
+	position: absolute;
+}
+
+.button_text_left
+{
+	text-align: right;
+}
+
+.button_text_left p
+{
+	display: block;
+	margin-left: -140%;
+	margin-top: -50%;
+	position: absolute;
+}
+
+.button_text_top
+{
+	text-align: center;
+}
+
+.button_text_top p
+{
+	display: block;
+	margin-top: -130%;
+	position: absolute;
+}
+
+.button_text_bottom
+{
+	text-align: center;
+}
+
+.button_text_bottom p
+{
+	display: block;
+	position: absolute;
+}
+
+.psuedo_img
+{
+	z-index: -1;
+}
+
+.hidden
+{
+	visibility: hidden;
+	display: none;
+	size: 0px;
+}
+
+.shown
+{
+	visibility: visible;
+}
+
+.drag
+{
+	drag: clone;
+}
+
+.underline
+{
+	text-decoration: underline;
+}
+
+/*Button Highlight Colors*/
+
+button:hover .neg
+{
+	color: #946565;
+}
+
+button:active .neg,
+button:checked .neg
+{
+	color: #dd9393;
+}
+
+button:hover .pos
+{
+	color: #abbbab;
+}
+
+button:active .pos,
+button:checked .pos
+{
+	color: #c9e4c9;
+}
+/*Button Sounds*/
+
+.button_1 /*General Select*/
+{
+	mouseover-sound: 17;
+	click-sound: 0,(error)15,(commit)0;
+}
+
+.button_2 /*Commit*/
+{
+    mouseover-sound: 17;
+	click-sound: (error)15,(commit)7;
+}
+
+.button_3 /*Select Icons*/
+{
+	click-sound: 0,(error)15,(commit)0;
+}
+
+/*Tooltips*/
+/*Tooltip divs need to be a child of a parent with absolute positioning!*/
+
+.tooltip
+{
+	position: relative;
+	display: inline-block;
+	visibility: hidden;
+}
+
+.tooltip .tooltiptext
+{
+	background-color: black;
+	color: white;
+	text-align: center;
+	padding: 5px 0;
+	border-color: yellow;
+	border-width: 1px;
+	position: absolute;
+	width: 100%;
+	z-index: 5;
+}
+
+.tooltip:shown
+{
+	visibility: visible;
+}
+
+/*Here are all briefing colors*/
+
+.blue
+{
+	color: rgb(93,93,128);
+}
+
+.brightblue
+{
+	color: rgb(185,185,255);
+}
+
+.green
+{
+	color: rgb(0,120,0);
+}
+
+.brightgreen
+{
+	color: rgb(50,190,50);
+}
+
+.red
+{
+	color: rgb(126,6,6);
+}
+
+.brightred
+{
+	color: rgb(200,0,0);
+}
+
+.yellow
+{
+	color: rgb(255,255,122);
+}
+
+.orange
+{
+	color: rgb(255,127,0);
+}
+
+.white
+{
+	color: rgb(255,255,255);
+}

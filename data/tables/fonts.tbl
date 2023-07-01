@@ -1,0 +1,15 @@
+#Fonts
+
+$TrueType: BankGothic BT Light.ttf
+	+Name: font01
+	+Size: 12
+
+$TrueType: BankGothic BT Light.ttf
+	+Name: font02
+	+Size: 20
+
+$TrueType: BankGothic BT Light.ttf
+	+Name: font03
+	+Size: 35
+
+#End

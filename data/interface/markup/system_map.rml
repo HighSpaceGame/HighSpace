@@ -1,0 +1,19 @@
+<rml>
+	<head>
+		<title>XSTR("System Map", -1)</title>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="system_map.rcss"/>
+		<script>
+			controller = require("system_map")()
+		</script>
+	</head>
+	<body class="window" onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)">
+		<div id="strat-map-window">
+			<div id="strat-map" onmousemove="controller:mouseMove(event, document, element)"
+				 onmousedown="controller:mouseDown(event, document, element)" onmouseup="controller:mouseUp(event, document, element)"
+				 onmousescroll="controller:wheel(event, document, element)"></div>
+		</div>
+	</body>
+</rml>

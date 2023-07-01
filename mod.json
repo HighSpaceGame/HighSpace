@@ -1,0 +1,46 @@
+{
+    "installed": true,
+    "id": "spacefleet",
+    "title": "SpaceFleet",
+    "type": "mod",
+    "parent": "FS2",
+    "version": "0.0.1",
+    "stability": "stable",
+    "description": "",
+    "notes": "",
+    "logo": null,
+    "tile": null,
+    "banner": null,
+    "release_thread": null,
+    "videos": [],
+    "screenshots": [],
+    "attachments": [],
+    "first_release": null,
+    "last_update": null,
+    "cmdline": "",
+    "mod_flag": [
+        "spacefleet"
+    ],
+    "dev_mode": true,
+    "custom_build": null,
+    "packages": [
+        {
+            "name": "core",
+            "notes": "",
+            "status": "required",
+            "dependencies": [
+                {
+                    "id": "FSO",
+                    "version": ">=23.0.0"
+                }
+            ],
+            "environment": null,
+            "folder": ".",
+            "is_vp": false,
+            "files": [],
+            "filelist": [],
+            "executables": [],
+            "check_notes": ""
+        }
+    ]
+}
