@@ -1,0 +1,262 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+div#logo_wide
+{
+	position: relative;
+	top: 1%;
+	margin: auto;
+	width: 50%;
+	height: auto;
+	overflow: hidden;
+}
+
+div#logo_wide img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#red_alert_text
+{
+	position: absolute;
+	top: 0;
+	margin-top: 2%;
+	margin-left: 10%;
+	margin-right: 7%;
+	color: grey;
+	overflow: scroll;
+	height: 85%;
+	line-height: 90%;
+}
+
+div#red_alert_wrapper
+{
+	position: absolute;
+	bottom: 0;
+	left: 10%;
+	width: 50%;
+	height: auto;
+}
+
+div#red_alert_text_window
+{
+	margin-left: 2%;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#red_alert_text_window img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#incoming_transmission
+{
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 35%;
+	font-size: 200%;
+	color: red;
+}
+
+/*Replay Buttons*/
+
+div#replay_wrapper
+{
+	position: absolute;
+	bottom: 8%;
+	width: 7%;
+	padding-left: 0.3%;
+}
+
+div#replay_cont
+{
+	width: 100%;
+	height: auto;
+	margin: auto;
+	margin-top: 1%;
+}
+
+.button_text_right p
+{
+	width: 200%;
+	margin-top: -75%;
+	margin-left: 120%;
+}
+
+.replay_btn
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+#replay_img
+{
+	background-decorator: image;
+	background-image: replay.png;
+}
+
+button#replay_btn:hover #replay_img
+{
+	background-decorator: image;
+	background-image: replay-neg-h.png;
+}
+
+button#replay_btn:active #replay_img
+{
+	background-decorator: image;
+	background-image: replay-neg-o.png;
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 15%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_a
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+}
+
+div#bottom_panel_a img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Accept Button*/
+
+div#a_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+button#accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}
+
+/*Scroll Buttons*/
+
+#red_alert_text scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 10%;
+	position: absolute;
+	left: -12.5%;
+	z-index: 5;
+}
+
+#red_alert_text scrollbarvertical slidertrack
+{
+	visibility: hidden;
+}
+
+#red_alert_text scrollbarvertical sliderbar
+{
+	visibility: hidden;
+}
+
+#red_alert_text scrollbarvertical sliderbar:hover
+{
+	
+}
+
+#red_alert_text scrollbarvertical sliderbar:active
+{
+	
+}
+
+#red_alert_text scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 10%;
+	margin-top: 23%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+#red_alert_text scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 10%;
+	margin-bottom: 54%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+#red_alert_text scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+#red_alert_text scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+#red_alert_text scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+#red_alert_text scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}

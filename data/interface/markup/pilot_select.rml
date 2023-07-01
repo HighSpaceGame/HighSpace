@@ -1,0 +1,128 @@
+<rml>
+	<head>
+		<title>XSTR("Pilot Select", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="pilot_select.rcss"/>
+		<script>
+			controller = require("pilotSelect")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onunload="controller = nil">
+		<div id=pilot_select>
+			<div class=window_title>
+				<p>XSTR("Choose Pilot", -1)</p>
+			</div>
+			<div id=pilotlist>
+				<input id=pilot_name_input class="hidden" type="text" onblur="controller:callsign_input_focus_lost()"
+						onchange="controller:callsign_input_change(event)"
+						onkeyup="controller:callsign_keyup(element, event)"></input>
+				<ul id=pilotlist_ul>
+				</ul>
+			</div>
+			<div id=player_type_select>
+				<div id=button_wrapper>
+					<div id=single_multi_cont>
+						<button id="multiplayer_btn" class="multiplayer button_1" onclick="controller:set_player_mode(element, 'multi')">
+							<span id="multiplayer_img" class="multiplayer">
+								<img src="multiplayer.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text">
+								<p>XSTR("Multi", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=single_multi_cont>
+						<button id="singleplayer_btn" class="singleplayer button_1" onclick="controller:set_player_mode(element, 'single')">
+							<span id="singleplayer_img" class="singleplayer">
+								<img src="single-player.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text">
+								<p>XSTR("Single", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div id=player_control>
+				<div id="player_control_wrapper">
+					<div id=player_control_cont>
+						<button id="createplayer_btn" class="createplayer button_1" onclick="controller:create_player(element)">
+							<span id="createplayer_img" class="createplayer">
+								<img src="create-pilot.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text below">
+								<p>XSTR("Create", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=player_control_cont>
+						<button id="cloneplayer_btn" class="cloneplayer button_1" onclick="controller:clone_player(element)">
+							<span id="cloneplayer_img" class="cloneplayer">
+								<img src="clone-pilot.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text below">
+								<p>XSTR("Clone", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=player_control_cont>
+						<button id="deleteplayer_btn" class="deleteplayer button_1" onclick="controller:delete_player(element)">
+							<span id="deleteplayer_img" class="deleteplayer">
+								<img src="delete-pilot.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text below">
+								<p>XSTR("Delete", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div id=player_select>
+				<div id=button_wrapper>
+					<div id=player_commit_cont>
+						<button id="playercommit_btn" class="playercommit button_2" onclick="controller:commit_pressed()">
+							<span id="playercommit_img" class="playercommit">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text below">
+								<p>XSTR("Select", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=arrow_cont>
+						<button id="playernext_btn" class="arrowbuttons button_1" onclick="controller:up_button_pressed()">
+							<span id="playernext_img" class="arrowbuttons">
+								<img src="arrow-down.png" class="psuedo_img"></img>
+							</span>
+						</button>
+					</div>
+					<div id=arrow_cont>
+						<button id="playerprev_btn" class="arrowbuttons button_1"  onclick="controller:down_button_pressed()">
+							<span id="playerprev_img" class="arrowbuttons">
+								<img src="arrow-up.png" class="psuedo_img"></img>
+							</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<img src="pilot-select-window.png"></img>
+		</div>
+		<div id="singleplayer_text" class="player_type_text">
+			<p>XSTR("Single Player Mode", -1)</p>
+		</div>
+		<div id="multiplayer_text" class="player_type_text">
+			<p>XSTR("Multi Player Mode", -1)</p>
+		</div>
+		<div id=logo_wide>
+			<img src="logo-wide.png"></img>
+		</div>
+		<div id=copyright_info>
+			<p id=fso_version_info></p>
+			<p>XSTR("Copyright © 1999, Volition, Inc.  All rights reserved.", -1)</p>
+		</div>
+	</body>
+
+</rml>

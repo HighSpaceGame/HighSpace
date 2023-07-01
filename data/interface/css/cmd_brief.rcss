@@ -1,0 +1,434 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+.below p
+{
+	padding-top:8%;
+}
+
+div#logo_wide
+{
+	position: relative;
+	top: 1%;
+	margin: auto;
+	width: 50%;
+	height: auto;
+	overflow: hidden;
+}
+
+div#logo_wide img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#cmd_text
+{
+	position: absolute;
+	top: 0;
+	margin-top: 2%;
+	margin-left: 2%;
+	margin-right: 7%;
+	color: grey;
+	overflow: scroll;
+	height: 75%;
+	/*font-size: 15px;*/
+	line-height: 50%;
+}
+
+div#cmd_wrapper
+{
+	margin: auto;
+	width: 80%;
+	height: auto;
+	position: relative;
+}
+
+div#cmd_text_window
+{
+	margin-top: 2%;
+	margin-left: 2%;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#cmd_text_window img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#cmd_anim_window
+{
+	width: 60%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#cmd_anim_window img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#cmd_anim_wrapper
+{
+	position: absolute;
+	margin-top: 4%;
+	margin-left: 4%;
+	height: 92%;
+}
+
+span#cmd_anim
+{
+	position: relative;
+	margin: auto;
+	display: block;
+	width: 92%;
+	height: 100%;
+	text-align: center;
+}
+
+ani
+{
+	height: 100%;
+}
+
+div#anim_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+div#cmd_stage_text
+{
+	text-align: right;
+}
+
+div#stage_select
+{
+	position: absolute;
+	bottom: 0;
+}
+
+/*Arrow Buttons*/
+
+div#arrow_cont
+{
+	float: right;
+	width: 5%;
+	height: auto;
+	margin-right: 2%;
+	margin-bottom: 2%;
+	margin-top: 7%;
+}
+
+div#skip_cont
+{
+	float: right;
+	width: 3%;
+	height: auto;
+	margin-right: 2%;
+	margin-bottom: 2%;
+	margin-top: 8%;
+}
+
+div#pause_cont
+{
+	float: right;
+	width: 2%;
+	height: auto;
+	margin-right: 2%;
+	margin-bottom: 2%;
+	margin-top: 9%;
+}
+
+.arrowbuttons
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#cmdlast_img
+{
+	background-decorator: image;
+	background-image: skip-r.png;
+}
+
+#cmdprev_img
+{
+	background-decorator: image;
+	background-image: arrow-left.png;
+}
+
+#cmdpause_img
+{
+	background-decorator: image;
+	background-image: pause.png;
+}
+
+#cmdnext_img
+{
+	background-decorator: image;
+	background-image: arrow-right.png;
+}
+
+#cmdfirst_img
+{
+	background-decorator: image;
+	background-image: skip-l.png;
+}
+
+button#cmdlast_btn:hover #cmdlast_img
+{
+	background-decorator: image;
+	background-image: skip-r-h.png;
+}
+
+button#cmdprev_btn:hover #cmdprev_img
+{
+	background-decorator: image;
+	background-image: arrow-left-h.png;
+}
+button#cmdpause_btn:hover #cmdpause_img
+{
+	background-decorator: image;
+	background-image: pause-h.png;
+}
+
+button#cmdnext_btn:hover #cmdnext_img
+{
+	background-decorator: image;
+	background-image: arrow-right-h.png;
+}
+
+button#cmdfirst_btn:hover #cmdfirst_img
+{
+	background-decorator: image;
+	background-image: skip-l-h.png;
+}
+
+button#cmdlast_btn:active #cmdlast_img
+{
+	background-decorator: image;
+	background-image: skip-r-o.png;
+}
+
+button#cmdprev_btn:active #cmdprev_img
+{
+	background-decorator: image;
+	background-image: arrow-left-o.png;
+}
+
+button#cmdpause_btn:active #cmdpause_img
+{
+	background-decorator: image;
+	background-image: pause-o.png;
+}
+
+button#cmdpause_btn:checked #cmdpause_img
+{
+    background-decorator: image;
+    background-image: pause-o.png;
+}
+
+button#cmdnext_btn:active #cmdnext_img
+{
+	background-decorator: image;
+	background-image: arrow-right-o.png;
+}
+
+button#cmdfirst_btn:active #cmdfirst_img
+{
+	background-decorator: image;
+	background-image: skip-l-o.png;
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 15%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_a
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+}
+
+div#bottom_panel_a img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#bottom_panel_b
+{
+	width: 34%;
+	height: auto;
+	margin-top: 1.1%;
+	position: relative;
+	float: left;
+}
+
+div#bottom_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+/*Accept Button*/
+
+div#a_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+button#accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}
+
+/*B Panel Buttons*/
+
+div#b_panel_wrapper
+{
+	position: absolute;
+	bottom: 5%;
+
+}
+
+.button_text_left p
+{
+	padding-top: 20%;
+	width: 100%;
+}
+
+/*Help Button*/
+
+div#help_cont
+{
+	width: 70%;
+	height: auto;
+	margin: auto;
+
+}
+
+.help
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#help_img
+{
+	background-decorator: image;
+	background-image: help.png;
+}
+
+button#help_btn:hover #help_img
+{
+	background-decorator: image;
+	background-image: help-h.png;
+}
+
+button#help_btn:active #help_img
+{
+	background-decorator: image;
+	background-image: help-o.png;
+}
+
+/*Options Button*/
+
+div#options_cont
+{
+	width: 70%;
+	height: auto;
+	margin: auto;
+}
+
+.options
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#options_img
+{
+	background-decorator: image;
+	background-image: diamonds.png;
+}
+button#options_btn:hover #options_img
+{
+	background-decorator: image;
+	background-image: diamonds-h.png;
+}
+
+button#options_btn:active #options_img
+{
+	background-decorator: image;
+	background-image: diamonds-o.png;
+}
+
+.button_brief_stage /*Button sounds for stage selection*/
+{
+    mouseover-sound: 17;
+    click-sound: (success)14,(fail)10;
+}

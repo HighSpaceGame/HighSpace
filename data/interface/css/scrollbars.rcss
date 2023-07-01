@@ -1,0 +1,452 @@
+/*Scrollbars*/
+
+/*General Scrollbar*/
+
+scrollbarvertical
+{
+	margin-top: -1%;
+	margin-bottom: -1%;
+	margin-right: -2.5%;
+	width: 5%;
+	scrollchange-sound: 9;
+	z-index: 5;
+}
+
+scrollbarvertical slidertrack
+{
+	background-decorator: image;
+	background-image: scroll-bar-line.png;
+	width: 10%;
+	margin: auto;
+}
+
+scrollbarvertical sliderbar
+{
+	width: 65%;
+	height: 15%;
+	background-decorator: image;
+	background-image: scroll-button.png;
+	margin-left: 20%;
+}
+
+scrollbarvertical sliderbar:hover
+{
+	background-image: scroll-button-h.png;
+}
+
+scrollbarvertical sliderbar:active
+{
+	background-image: scroll-button-o.png;
+}
+
+scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 25%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 25%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}
+
+/*Pilot List Scroll Bar*/
+
+#pilotlist scrollbarvertical
+{
+	margin-top: -1%;
+	margin-bottom: -1%;
+	margin-right: -2.5%;
+	width: 5%;
+	scrollchange-sound: 9;
+	z-index: 5;
+}
+
+#pilotlist scrollbarvertical slidertrack
+{
+	background-decorator: image;
+	background-image: scroll-bar-line.png;
+	width: 8%;
+	margin-left: 46%;
+}
+
+#pilotlist scrollbarvertical sliderbar
+{
+	width: 65%;
+	height: 15%;
+	background-decorator: image;
+	background-image: scroll-button.png;
+	margin-left: 20%;
+}
+
+#pilotlist scrollbarvertical sliderbar:hover
+{
+	background-image: scroll-button-h.png;
+}
+
+#pilotlist scrollbarvertical sliderbar:active
+{
+	background-image: scroll-button-o.png;
+}
+
+#pilotlist scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 27%;
+	padding-bottom: 10%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+#pilotlist scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 27%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+#pilotlist scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+#pilotlist scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+#pilotlist scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+#pilotlist scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}
+
+/*Pilot Stats Scrollbar*/
+
+#pilot_stats_text scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 10%;
+	position: absolute;
+	left: -16%;
+	z-index: 5;
+}
+
+#pilot_stats_text scrollbarvertical slidertrack
+{
+	display:none;
+}
+
+#pilot_stats_text scrollbarvertical sliderbar
+{
+	display:none;
+}
+
+#pilot_stats_text scrollbarvertical sliderbar:hover
+{
+	display:none;
+}
+
+#pilot_stats_text scrollbarvertical sliderbar:active
+{
+	display:none;
+}
+
+#pilot_stats_text scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 15%;
+	margin-top: 9%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+#pilot_stats_text scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 15%;
+	margin-bottom: 63%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+#pilot_stats_text scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+#pilot_stats_text scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+#pilot_stats_text scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+#pilot_stats_text scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}
+
+/*Campaign List Scrollbar*/
+
+#campaignlist scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 6%;
+	position: absolute;
+	left: -8.5%;
+	z-index: 5;
+}
+
+#campaignlist scrollbarvertical slidertrack
+{
+	display:none;
+}
+
+#campaignlist scrollbarvertical sliderbar
+{
+	display:none;
+}
+
+#campaignlist scrollbarvertical sliderbar:hover
+{
+	display:none;
+}
+
+#campaignlist scrollbarvertical sliderbar:active
+{
+	display:none;
+}
+
+#campaignlist scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 35%;
+	margin-top: 10%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+#campaignlist scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 35%;
+	margin-bottom: 10%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+#campaignlist scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+#campaignlist scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+#campaignlist scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+#campaignlist scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}
+
+/*Campaign Description Scrollbar*/
+
+#desc_text scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 10%;
+	position: absolute;
+	left: -12.5%;
+	z-index: 5;
+}
+
+#desc_text scrollbarvertical slidertrack
+{
+	display:none;
+}
+
+#desc_text scrollbarvertical sliderbar
+{
+	display:none;
+}
+
+#desc_text scrollbarvertical sliderbar:hover
+{
+	display:none;
+}
+
+#desc_text scrollbarvertical sliderbar:active
+{
+	display:none;
+}
+
+#desc_text scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 35%;
+	margin-top: 10%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+#desc_text scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 35%;
+	margin-bottom: 10%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+#desc_text scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+#desc_text scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+#desc_text scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+#desc_text scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}
+
+/*Command Brief Scrollbar*/
+
+#cmd_text scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 6%;
+	position: absolute;
+	right: -4.3%;
+	z-index: 5;
+}
+
+#cmd_text scrollbarvertical slidertrack
+{
+	display:none;
+}
+
+#cmd_text scrollbarvertical sliderbar
+{
+	display:none;
+}
+
+#cmd_text scrollbarvertical sliderbar:hover
+{
+	display:none;
+}
+
+#cmd_text scrollbarvertical sliderbar:active
+{
+	display:none;
+}
+
+#cmd_text scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 25%;
+	margin-top: 10%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+#cmd_text scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 25%;
+	margin-bottom: 30%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+#cmd_text scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+#cmd_text scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+#cmd_text scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+#cmd_text scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}

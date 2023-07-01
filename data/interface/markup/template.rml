@@ -1,0 +1,12 @@
+<template name="window" content="content">
+<head>
+	<link type="text/css" href="invader.rcss"/>
+</head>
+<body class="window">
+	<div id="title-bar">
+		<span id="title">$callsign</span>
+	</div>
+	<div id="content">
+	</div>
+</body>
+</template>

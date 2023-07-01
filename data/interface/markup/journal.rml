@@ -1,0 +1,76 @@
+<rml>
+	<head>
+		<title>XSTR("Journal", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="journal.rcss"/>
+		<script>
+			controller = require("journal")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onunload="controller = nil">
+		<div id=top_panel_wrapper>
+			<div id=top_panel_b>
+				<div id=top_b_panel_wrapper>
+					<div id=bullet_cont>
+						<button id="btn_1" class="bullet button_1" onclick="controller:ChangeSection(1)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right" id=label_1>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="btn_2" class="bullet button_1" onclick="controller:ChangeSection(2)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right" id=label_2>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="ops-panel-vert-tall-l.png"></img>
+			</div>
+		</div>
+		<div id=journal_wrapper>
+			<div id=journal_content>
+				<div id=journaltext>
+					<p style="text-align:center;font-size:24px;color:grey;margin-top:25%;">XSTR("Please make a selection below.", -1)</p>
+					<div id=journalpic>
+					</div>
+				</div>
+				<img src="campaign-main-window.png"></img>
+			</div>
+			<div id=journal_list>
+				<div id=list_items>
+					<ul id=list_items_ul>
+						<p></p>
+					</ul>
+				</div>
+				<img src="campaign-text-window.png"></img>
+			</div>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_b>
+				<div id=b_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1" onclick="controller:Exit(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Exit", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

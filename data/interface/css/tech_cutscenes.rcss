@@ -1,0 +1,427 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+.below p
+{
+	padding-top:8%;
+}
+
+div#logo_wide
+{
+	position: absolute;
+	top: 1%;
+	right: 15%;
+	width: 50%;
+	height: auto;
+	overflow: hidden;
+	font-size: 10px;
+}
+
+div#logo_wide img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#cutscene_panel_wrapper
+{
+	position: relative;
+	width: 80%;
+	height: auto;
+	margin: auto;
+	margin-top: 5%;
+}
+
+div#cutscene_window_wrapper
+{
+	width: 90%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#cutscene_window_wrapper img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#cutscene_list
+{
+	position: absolute;
+	top: 0;
+	margin-top: 2%;
+	margin-left: 6%;
+	color: white;
+	overflow: auto;
+}
+
+.cutscenelist_element
+{
+	display: block;
+	color: #7b7b7b;
+}
+.cutscenelist_element:hover
+{
+	color: #abbbab;
+}
+.cutscenelist_element:checked
+{
+	color: #6f92f5;
+}
+
+.cutscenelist_name
+{
+	position: relative;
+	width: 40%;
+	float: left;
+}
+
+div#cutscene_desc_wrapper
+{
+	width: 66%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#cutscene_desc_wrapper img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#cutscene_desc
+{
+	position: absolute;
+	top: 0;
+	margin-top: 2%;
+	margin-left: 7%;
+	margin-right: 5%;
+	color: grey;
+	overflow: auto;
+	width: 91%;
+	height: 90%;
+}
+
+div#scene_select
+{
+	position: absolute;
+	bottom: 0;
+	width: 20%;
+	padding-left: 1%;
+}
+
+div#play_select
+{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 10%;
+}
+
+/*Arrow Buttons*/
+
+div#arrow_cont
+{
+	float: left;
+	width: 25%;
+	height: auto;
+	margin-left: 8%;
+	margin-bottom: 2%;
+	margin-top: 1%;
+}
+
+.arrowbuttons
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#cmdprev_img
+{
+	background-decorator: image;
+	background-image: arrow-up.png;
+}
+
+#cmdnext_img
+{
+	background-decorator: image;
+	background-image: arrow-down.png;
+}
+
+button#cmdprev_btn:hover #cmdprev_img
+{
+	background-decorator: image;
+	background-image: arrow-up-h.png;
+}
+
+button#cmdnext_btn:hover #cmdnext_img
+{
+	background-decorator: image;
+	background-image: arrow-down-h.png;
+}
+
+button#cmdprev_btn:active #cmdprev_img
+{
+	background-decorator: image;
+	background-image: arrow-up-o.png;
+}
+
+button#cmdnext_btn:active #cmdnext_img
+{
+	background-decorator: image;
+	background-image: arrow-down-o.png;
+}
+
+/*Play Button*/
+
+div#play_cont
+{
+	float: left;
+	width: 75%;
+	height: auto;
+	margin-left: 15%;
+	margin-top: 1%;
+}
+
+.playbutton
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#play_img
+{
+	background-decorator: image;
+	background-image: arrow-right.png;
+}
+
+button#play_btn:hover #play_img
+{
+	background-decorator: image;
+	background-image: arrow-right-h.png;
+}
+
+button#play_btn:active #play_img
+{
+	background-decorator: image;
+	background-image: arrow-right-o.png;
+}
+
+/*Top Panel Elements*/
+
+div#top_panel_wrapper
+{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+
+}
+
+div#top_panel_b
+{
+	width: 4%;
+	height: auto;
+	position: relative;
+	float: left;
+}
+
+div#top_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+/*Top B Panel Buttons*/
+
+div#top_b_panel_wrapper
+{
+	position: absolute;
+	margin-top: 5%;
+}
+
+.button_text_right p
+{
+	margin-top: -20%;
+	width: 400%;
+	margin-left: 100%;
+}
+
+/*Bullet Button*/
+
+div#bullet_cont
+{
+	width: 65%;
+	height: auto;
+	margin: auto;
+
+}
+
+.bullet
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r.png;
+}
+
+button#data_btn:hover #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#data_btn:active #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#data_btn:checked #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#mission_btn:hover #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#mission_btn:active #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#mission_btn:checked #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#cutscene_btn:hover #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#cutscene_btn:active #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#cutscene_btn:checked #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#credits_btn:hover #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#credits_btn:active #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#credits_btn:checked #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 15%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_b
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+	margin-top: 15px;
+}
+
+div#bottom_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Accept Button*/
+
+div#b_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+button#accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}

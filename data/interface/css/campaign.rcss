@@ -1,0 +1,241 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+.below p
+{
+	padding-top:8%;
+}
+
+div#logo_wide
+{
+	position: absolute;
+	bottom: 1%;
+	margin: auto;
+	width: 50%;
+	height: auto;
+	overflow: hidden;
+}
+
+div#logo_wide img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#campaignlist
+{
+	position: absolute;
+	top: 0;
+	margin-top: 2%;
+	margin-left: 7%;
+	margin-right: 5%;
+	color: white;
+	overflow: scroll;
+	height: 52%;
+}
+
+.campaignlist_element
+{
+	display: block;
+	color: #7b7b7b;
+}
+.campaignlist_element:hover
+{
+	color: #abbbab;
+}
+.campaignlist_element:checked
+{
+	color: #6f92f5;
+}
+
+div#campaign_wrapper
+{
+	margin: auto;
+	width: 80%;
+	height: auto;
+	position: relative;
+}
+
+div#campaign_select
+{
+	margin-top: 2%;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#campaign_select img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#campaign_desc
+{
+	margin-top: 1%;
+	width: 60%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#campaign_desc img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#desc_text
+{
+	position: absolute;
+	top: 0;
+	margin-top: 2%;
+	margin-left: 10%;
+	margin-right: 5%;
+	color: grey;
+	overflow: scroll;
+	height: 90%;
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 15%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_a
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+}
+
+div#bottom_panel_a img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#bottom_panel_b
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+	margin-top: 15px;
+}
+
+div#bottom_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Restart Button*/
+
+div#a_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#restart_cont
+{
+	width: 80%;
+	height: auto;
+
+}
+
+.restart
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#restart_img
+{
+	background-decorator: image;
+	background-image: star.png;
+	margin-left: 15%;
+}
+#restart_btn
+{
+	click-sound: (error)10,(success)18;
+}
+button#restart_btn:hover #restart_img
+{
+	background-decorator: image;
+	background-image: star-pos-h.png;
+}
+
+button#restart_btn:active #restart_img
+{
+	background-decorator: image;
+	background-image: star-pos-o.png;
+}
+
+/*Accept Button*/
+
+div#b_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+
+#accept_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}

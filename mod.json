@@ -1,0 +1,3357 @@
+{
+    "installed": true,
+    "id": "SCPUI",
+    "title": "SCPUI Test Mod",
+    "type": "mod",
+    "parent": "FS2",
+    "version": "0.6.0",
+    "stability": null,
+    "description": "This is a proof-of-concept mod that allows easy testing of the new HD interface being built by m!m and mjn.mixael.\n\nThis version replaces the following screens...\n\n-pilot select\n-barracks\n-options\n-campaign\n-tech room database\n-tech room simulator\n-tech room cutscenes\n-tech room credits\n-fiction viewer\n-command briefing\n-briefing\n-ship select\n-weapon select\n-debriefing\n-all dialog popups",
+    "notes": "",
+    "logo": null,
+    "tile": "kn_tile.png",
+    "banner": "kn_banner.png",
+    "release_thread": "https://www.hard-light.net/forums/index.php?topic=98473.0",
+    "videos": [],
+    "screenshots": [],
+    "attachments": [],
+    "first_release": "2022-10-10",
+    "last_update": "2023-01-03",
+    "cmdline": "",
+    "mod_flag": [
+        "SCPUI"
+    ],
+    "dev_mode": false,
+    "custom_build": null,
+    "packages": [
+        {
+            "name": "content",
+            "notes": "",
+            "status": "required",
+            "dependencies": [
+                {
+                    "id": "FSO",
+                    "version": ">=22.3.0-20230103",
+                    "packages": []
+                }
+            ],
+            "environment": null,
+            "folder": "content",
+            "is_vp": false,
+            "files": [
+                {
+                    "filename": "content.7z",
+                    "dest": "",
+                    "checksum": [
+                        "sha256",
+                        "d99f4ee7261ca17cfa11aa3dfb81889cd7a19fdda0ec175f651f01fc3fe51e58"
+                    ],
+                    "filesize": 27973665,
+                    "urls": [
+                        "https://cf.fsnebula.org/storage/d9/9f/4ee7261ca17cfa11aa3dfb81889cd7a19fdda0ec175f651f01fc3fe51e58",
+                        "https://dl.fsnebula.org/storage/d9/9f/4ee7261ca17cfa11aa3dfb81889cd7a19fdda0ec175f651f01fc3fe51e58",
+                        "https://aigaion.feralhosting.com/discovery/nebula/d9/9f/4ee7261ca17cfa11aa3dfb81889cd7a19fdda0ec175f651f01fc3fe51e58"
+                    ]
+                }
+            ],
+            "filelist": [
+                {
+                    "filename": "data/cbanims/2_cb_bta.ani",
+                    "archive": "content.7z",
+                    "orig_name": "data/cbanims/2_cb_bta.ani",
+                    "checksum": [
+                        "sha256",
+                        "923272441e548d704080ca613b408906a43b2500d9a86fa2feb9376deb38e69e"
+                    ]
+                },
+                {
+                    "filename": "data/cbanims/cb_loop-a_c.ani",
+                    "archive": "content.7z",
+                    "orig_name": "data/cbanims/cb_loop-a_c.ani",
+                    "checksum": [
+                        "sha256",
+                        "01578f662c2d37f743885e6670012c96c77965e4ad916cb7938c9f0f587a8f28"
+                    ]
+                },
+                {
+                    "filename": "data/config/mod-options.cfg",
+                    "archive": "content.7z",
+                    "orig_name": "data/config/mod-options.cfg",
+                    "checksum": [
+                        "sha256",
+                        "ac0df0802bf28c44e8fcd197e367fd242e62f114a707948786eab7c13baba78f"
+                    ]
+                },
+                {
+                    "filename": "data/config/rocket-ui.cfg",
+                    "archive": "content.7z",
+                    "orig_name": "data/config/rocket-ui.cfg",
+                    "checksum": [
+                        "sha256",
+                        "65d99b8fe77bb0e1521fe7534c4e361c9607709aa7e6ec0c5cf238bd694b6832"
+                    ]
+                },
+                {
+                    "filename": "data/fiction/test.txt",
+                    "archive": "content.7z",
+                    "orig_name": "data/fiction/test.txt",
+                    "checksum": [
+                        "sha256",
+                        "26a3ae1d977a2868f72523363362f050142dbb57aee902dd198cffb47742f746"
+                    ]
+                },
+                {
+                    "filename": "data/fonts/arial.ttf",
+                    "archive": "content.7z",
+                    "orig_name": "data/fonts/arial.ttf",
+                    "checksum": [
+                        "sha256",
+                        "946fc67f78aae780447c4e2e4af3f1f1c9dfed6e215b87ad338cdad547071d63"
+                    ]
+                },
+                {
+                    "filename": "data/fonts/BankGothic BT Light.ttf",
+                    "archive": "content.7z",
+                    "orig_name": "data/fonts/BankGothic BT Light.ttf",
+                    "checksum": [
+                        "sha256",
+                        "a5b2680ae4b874a57fac68b2b05ccb0088af12e2de4b7b23ce31bfc00a9e17ae"
+                    ]
+                },
+                {
+                    "filename": "data/fonts/bnkgothm.ttf",
+                    "archive": "content.7z",
+                    "orig_name": "data/fonts/bnkgothm.ttf",
+                    "checksum": [
+                        "sha256",
+                        "3a0e078160d7a0e9d0d17c246ba3937ebe4ae264c0a19955f59b2557c4500a95"
+                    ]
+                },
+                {
+                    "filename": "data/fonts/calibri.ttf",
+                    "archive": "content.7z",
+                    "orig_name": "data/fonts/calibri.ttf",
+                    "checksum": [
+                        "sha256",
+                        "0d3628edf3d2f2b6e583eec2e8171800c9c5773ec259a7774c923980361cb738"
+                    ]
+                },
+                {
+                    "filename": "data/fonts/corbel.ttf",
+                    "archive": "content.7z",
+                    "orig_name": "data/fonts/corbel.ttf",
+                    "checksum": [
+                        "sha256",
+                        "83f5b36107f7ea50fd5c52b1c3e8d64de3edc5d0f2c2e2e9f634fbbcfd7abd74"
+                    ]
+                },
+                {
+                    "filename": "data/fonts/Hind-Regular.ttf",
+                    "archive": "content.7z",
+                    "orig_name": "data/fonts/Hind-Regular.ttf",
+                    "checksum": [
+                        "sha256",
+                        "40241ac8bb0d396b70740fd1c63ebd932990c32779595741489aacbc597829d3"
+                    ]
+                },
+                {
+                    "filename": "data/fonts/lucidasans.ttf",
+                    "archive": "content.7z",
+                    "orig_name": "data/fonts/lucidasans.ttf",
+                    "checksum": [
+                        "sha256",
+                        "b9ed2bf08381f8b763673504d82b27c6e029156c73cede54e551e59fe8e940da"
+                    ]
+                },
+                {
+                    "filename": "data/fonts/Nunito-Light.ttf",
+                    "archive": "content.7z",
+                    "orig_name": "data/fonts/Nunito-Light.ttf",
+                    "checksum": [
+                        "sha256",
+                        "451697a9f0dd899340f8708df44264f77e8a7c7bad7d6a61d50eb960878c16ac"
+                    ]
+                },
+                {
+                    "filename": "data/fonts/Roboto-Regular.ttf",
+                    "archive": "content.7z",
+                    "orig_name": "data/fonts/Roboto-Regular.ttf",
+                    "checksum": [
+                        "sha256",
+                        "f0e5a21bf5c95e4c1bce2be98a3656ebcc6d42a21f41c4e3ebf69dd815702e54"
+                    ]
+                },
+                {
+                    "filename": "data/fonts/segoeui.ttf",
+                    "archive": "content.7z",
+                    "orig_name": "data/fonts/segoeui.ttf",
+                    "checksum": [
+                        "sha256",
+                        "1e1975d9d7cff9ac9ddb197126be3d8202cc8e6cfbbeb1c793ab5240f0e95ea1"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefBadge01.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefBadge01.png",
+                    "checksum": [
+                        "sha256",
+                        "9a52c165e6c9c339a78d247bbc09b801e29590f6e86dc791736d0085c7b3a08b"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefBadge02.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefBadge02.png",
+                    "checksum": [
+                        "sha256",
+                        "dd48413a5cf0bde4e7b31351846de9af47f05efd03517774e4f0a6f21c4523ee"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefBadge03.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefBadge03.png",
+                    "checksum": [
+                        "sha256",
+                        "a63d6dcb664187d3dbe7913419dd1d3c9c7a7841518138514acbf4ea316c0d25"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefCrest.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefCrest.png",
+                    "checksum": [
+                        "sha256",
+                        "c3257c21f01b409f301bf6e4e7ff60f2d50811cca285e3e244117bbd54d69f82"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefMedal00.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefMedal00.png",
+                    "checksum": [
+                        "sha256",
+                        "6a18ce6a334d9dfe67a8acac3ca9ff1e5bafdcd6599207a03fdd93070dcc935d"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefMedal01.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefMedal01.png",
+                    "checksum": [
+                        "sha256",
+                        "e3a03511c330bdc57d759157a64b0d34869ce67b422ae5e3f09bff3274753f8f"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefMedal02.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefMedal02.png",
+                    "checksum": [
+                        "sha256",
+                        "ec4b41ac76e2c37b3241bc9227ff14d36072b807ebc6e1f10f940cd224c0ade3"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefMedal03.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefMedal03.png",
+                    "checksum": [
+                        "sha256",
+                        "803041b44111fbd03ffe11622c836aa482731fff5da4d32d9275a3d08d662d82"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefMedal04.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefMedal04.png",
+                    "checksum": [
+                        "sha256",
+                        "874994a751783c1afe42b8a3801f477df1de877f8ef585c93c210a53c7008167"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefMedal05.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefMedal05.png",
+                    "checksum": [
+                        "sha256",
+                        "dadb841220a5b70568a5a7cc526acbcb7812d01d579c3923d1aa838d606b71e2"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefMedal06.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefMedal06.png",
+                    "checksum": [
+                        "sha256",
+                        "562aaafe9c23c6a91f4fc300e4b0e51586ce342ba1d9682e279c627d82757a84"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefMedal07.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefMedal07.png",
+                    "checksum": [
+                        "sha256",
+                        "e3eb75e91cc5ea66f662096fb8be45246eaa66aeea217afb0d188a579cf01065"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefMedal08.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefMedal08.png",
+                    "checksum": [
+                        "sha256",
+                        "d217263cb27d6b1228e3037d5eb6929e6869aa3afce03127b118e7433d699b7b"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefMedal09.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefMedal09.png",
+                    "checksum": [
+                        "sha256",
+                        "ea6180a77961d9d4528a3a9f4196df6289c2ea3af6c871d48fdc44dee9b4bcb4"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefMedal10.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefMedal10.png",
+                    "checksum": [
+                        "sha256",
+                        "ddb771ae2d4677b9a08a23fbb73d5b0706be5393a527735f6ffb0566a7ecf1e6"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefMedal11.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefMedal11.png",
+                    "checksum": [
+                        "sha256",
+                        "9c5282cb494dad7ce929f129a7d32b351b7391a62c39130ed4aff40f8e5db23f"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefRank01.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefRank01.png",
+                    "checksum": [
+                        "sha256",
+                        "7831cb78febb72a109d56ea293d3fb505704e30dbce9bb2b2ee9db7092954e93"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefRank02.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefRank02.png",
+                    "checksum": [
+                        "sha256",
+                        "6f128e65e92ccba1b33398d400d7c41bb551fc3f57713da8197292643b767a99"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefRank03.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefRank03.png",
+                    "checksum": [
+                        "sha256",
+                        "dee08ea31efd4f6aa1cb759d1de50349a826de9435afdf9e095f240fe8d18ed7"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefRank04.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefRank04.png",
+                    "checksum": [
+                        "sha256",
+                        "9ba8f4faaf244e506b95069603916b43fe91c2a50f0b1b4c69c55312367d7bec"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefRank05.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefRank05.png",
+                    "checksum": [
+                        "sha256",
+                        "98efdde052862ac90967518d9cef9d8b751e57c11e35ae5d6b630b23d65c3b6b"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefRank06.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefRank06.png",
+                    "checksum": [
+                        "sha256",
+                        "77053d5ebc2ac782c361bb1b9d8bd0a8a2371e245521eb7b5ecb6d28bf995dab"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefRank07.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefRank07.png",
+                    "checksum": [
+                        "sha256",
+                        "8893f389bc176de723291e4c287553d45fba774c672f15fe8534072a5152491a"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefRank08.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefRank08.png",
+                    "checksum": [
+                        "sha256",
+                        "a42324784d7594b36b12597ee3320e13f33850570bfe8df5c93b507931de7b0f"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefRank09.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefRank09.png",
+                    "checksum": [
+                        "sha256",
+                        "844eae00898842ca6937a9654ead84a5fe4781dfa35be51f034080c54d014597"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefRank10.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefRank10.png",
+                    "checksum": [
+                        "sha256",
+                        "ba6bcf39015b9b321c27a0b6569ac6505f66bc00a4389433f31bbee5700a5b58"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefWings00.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefWings00.png",
+                    "checksum": [
+                        "sha256",
+                        "a5d7388a4201ae1a80ca3f81fd1c27de9b2538b3a9bec8411fa37cbbdab6aae1"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_DebriefWings01.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_DebriefWings01.png",
+                    "checksum": [
+                        "sha256",
+                        "2d1c3f409a40c9c07e7cf610345bd52250fd7edeef847f293bbcee8cf0d82546"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_fictionviewer-m.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_fictionviewer-m.pcx",
+                    "checksum": [
+                        "sha256",
+                        "5f47a2e1b5578a12bfcab445d71c587dd23d07477667101cf8f84aa5b47b8163"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_fictionviewer.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_fictionviewer.png",
+                    "checksum": [
+                        "sha256",
+                        "465be54ab4695a50a27882cb1fa83c15869b9aff27c485b69befb5f79b0def23"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_fvw_accept_0001.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_fvw_accept_0001.pcx",
+                    "checksum": [
+                        "sha256",
+                        "deb8e6a913acfe746143d5363c7018d45c8428b24bf8fdac6eece07391dd7ec7"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_fvw_accept_0002.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_fvw_accept_0002.pcx",
+                    "checksum": [
+                        "sha256",
+                        "14909ac11633439c19390a35fe225ba94a6b26e56dbcf037845b3b77fc52f36c"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_fvw_down_0001.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_fvw_down_0001.pcx",
+                    "checksum": [
+                        "sha256",
+                        "dbfb62905fa760ca492588c47ddc4d73c266f29b7375aae3016c8d9d3203b7c9"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_fvw_down_0002.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_fvw_down_0002.pcx",
+                    "checksum": [
+                        "sha256",
+                        "a88e17ccdbad93abb8a3d23eb822e0065a0d492767f532e25c197275341421f9"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_fvw_up_0001.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_fvw_up_0001.pcx",
+                    "checksum": [
+                        "sha256",
+                        "7a39ca14b73ce203755e608f023ad240aa1d82805661370c41e39542ecfa8ac5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/2_fvw_up_0002.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/2_fvw_up_0002.pcx",
+                    "checksum": [
+                        "sha256",
+                        "509a4266c5b103b0e869a24a1ee5a4b044443d08cdaeeaa1e76402dd904e9be3"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-dbl-down-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-dbl-down-h.png",
+                    "checksum": [
+                        "sha256",
+                        "23de6a016b5abf15c7c0e1ef81554b2fa2e160614276ea9e770adc511013e02d"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-dbl-down-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-dbl-down-o.png",
+                    "checksum": [
+                        "sha256",
+                        "18c7eb1a824830b6a5c89b9965b92890e2cb1ac17850f1bf5f869605e11af253"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-dbl-down.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-dbl-down.png",
+                    "checksum": [
+                        "sha256",
+                        "5c95584a191b5e3633191635fbb4a7aa885c7c7c9754deace7880bacc0051d76"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-dbl-up-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-dbl-up-h.png",
+                    "checksum": [
+                        "sha256",
+                        "c313afe0527dc3138ca16e17a0a9c0b268204349ea824098b9cc29e62f36326d"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-dbl-up-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-dbl-up-o.png",
+                    "checksum": [
+                        "sha256",
+                        "7d88bf3b389ea6541748c13c72b2715e66d5f218a7c03bfdbc20b37b5257c42d"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-dbl-up.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-dbl-up.png",
+                    "checksum": [
+                        "sha256",
+                        "e10552cfc7e5b28641221f4a23989768b482904f6a1b1da0dde8b83373755949"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-down-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-down-h.png",
+                    "checksum": [
+                        "sha256",
+                        "9c7a86e48467ff45fa2b031a8cb83ea218a29d29876e1b79b4ca6c3e542bca72"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-down-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-down-o.png",
+                    "checksum": [
+                        "sha256",
+                        "5b7d427b159949b1bd60b3a219046c70d856afb3777bb38d0e71b0892d90fda2"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-down.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-down.png",
+                    "checksum": [
+                        "sha256",
+                        "d376170774ea34b98cd5e1f06293d7469addb75b8ff56094f681b8e80b2d1d53"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-left-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-left-h.png",
+                    "checksum": [
+                        "sha256",
+                        "b100e6c93e3137fe094fa70cf22e35ccbcb4589ef0bfe101af14e4c69e9b9f32"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-left-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-left-o.png",
+                    "checksum": [
+                        "sha256",
+                        "e7968064d6ae1f30fe98c688fa2e2a926b2e61a2f5ec95193f4eb0200f3fda75"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-left.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-left.png",
+                    "checksum": [
+                        "sha256",
+                        "3f9347636ee89528f6913d07bbe3eaa2b77cd890c013c866f86aacd23c064055"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-right-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-right-h.png",
+                    "checksum": [
+                        "sha256",
+                        "613ad29d2effb614615a3c2256ada68e822a27894c8f81eef3df7dde19e552ca"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-right-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-right-o.png",
+                    "checksum": [
+                        "sha256",
+                        "78327bab727978b9cf95fd878664be5e559bb6cc336d4cf74d007c249eca3aae"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-right.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-right.png",
+                    "checksum": [
+                        "sha256",
+                        "35703f35d3f001e4555f4d1cc7e542b1bec2a365a5c1e073982f114eaa6a0fb9"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-up-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-up-h.png",
+                    "checksum": [
+                        "sha256",
+                        "850aea3c7f0d0bbe55c5b62b0d2173373707cb1c3c3a3a2619515a90b16c5e19"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-up-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-up-o.png",
+                    "checksum": [
+                        "sha256",
+                        "440102356b8811d20e97bd8ef9f598f0f791697aac356014a98a2e8e95c5cfe1"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-up.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-up.png",
+                    "checksum": [
+                        "sha256",
+                        "55b54f4d44262f0ee361f539d90656971c418024bf04213dacb5d1d929ada154"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-wide-down-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-wide-down-h.png",
+                    "checksum": [
+                        "sha256",
+                        "ed9db7583347db0e516cf67371a761cf11fb7a45c9b29c2750c019da15310c08"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-wide-down-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-wide-down-o.png",
+                    "checksum": [
+                        "sha256",
+                        "2f4ac7c59cee22933dabeae8fc20b66fb706e257b053cd6a8d08c01a46496a5e"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-wide-down.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-wide-down.png",
+                    "checksum": [
+                        "sha256",
+                        "c50ec7bad7b38f5087cd384a47c542d55cb8eaaff2ef4d4f5e34d45dcbc24e82"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-wide-up-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-wide-up-h.png",
+                    "checksum": [
+                        "sha256",
+                        "acca6d23b072ba0cd398a7d2b9cda4dfee8e72ff946f0599c2aacffc9f598516"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-wide-up-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-wide-up-o.png",
+                    "checksum": [
+                        "sha256",
+                        "6e584cd0f7ca3d0f1456a58e1a09d123bf8daa0c66278185da532feb925daf85"
+                    ]
+                },
+                {
+                    "filename": "data/interface/arrow-wide-up.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/arrow-wide-up.png",
+                    "checksum": [
+                        "sha256",
+                        "485739aae7d83b0d2d92aed1595314867fbf2cb528c3245040d112ef74cbeb33"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bg.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bg.png",
+                    "checksum": [
+                        "sha256",
+                        "bc2d2c27b07efe5fd9cdf4363016a4c5e529730fd1a8cbb16e8c91938b3d93e5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bottom-panel-a.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bottom-panel-a.png",
+                    "checksum": [
+                        "sha256",
+                        "2da7106d5411ce61e6aaee60c527738f2fff119a26d143ed36ce163d5542c0c7"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bottom-panel-b.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bottom-panel-b.png",
+                    "checksum": [
+                        "sha256",
+                        "241abe95b4538a92b296454039dd827628646d300bb53e22c21f29d59f4c6650"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bottom-panel-c.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bottom-panel-c.png",
+                    "checksum": [
+                        "sha256",
+                        "6414d4d2c4002e20536a4f452f45fd770dc47d979189b3aaf15453ed54b8f9ae"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bottom-panel-d.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bottom-panel-d.png",
+                    "checksum": [
+                        "sha256",
+                        "b5d93b11c77ef5ebaf1b039c90931a2d1f849edd5426fdde9e3a5a096f58f0ab"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bottom-panel-e.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bottom-panel-e.png",
+                    "checksum": [
+                        "sha256",
+                        "fa5335f9f2efecc66eeddf56d4693e1544e2ff9225b672fd827010918f80a761"
+                    ]
+                },
+                {
+                    "filename": "data/interface/brief-main-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/brief-main-window.png",
+                    "checksum": [
+                        "sha256",
+                        "1e85ec3cdcb47fdee6e9889bd043696aee1704dd72e7862517e644f9a7596876"
+                    ]
+                },
+                {
+                    "filename": "data/interface/brief-text-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/brief-text-window.png",
+                    "checksum": [
+                        "sha256",
+                        "c6398c5306cee0abf12efcbd7eb9f4f3b1eac3cb50952b98374eaf77278543f9"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bullet-l-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bullet-l-h.png",
+                    "checksum": [
+                        "sha256",
+                        "9677a8490f302a50240e796cf6bf4e93cbe76f1ebe8a32eb15eee5a47ec635f2"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bullet-l-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bullet-l-o.png",
+                    "checksum": [
+                        "sha256",
+                        "ce3d6a22ae240e302e280108754d7d200e4f4ea2757e881a5a36f778358671d0"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bullet-l.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bullet-l.png",
+                    "checksum": [
+                        "sha256",
+                        "c86afb9f3a963906d938ef4d5d2b86bdd942d3dda239c76d3a5d7e66151ad39c"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bullet-r-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bullet-r-h.png",
+                    "checksum": [
+                        "sha256",
+                        "e9eaf42b3da47eb19f57784663837b533e6bf799e81436de0d652fc8b5557ce8"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bullet-r-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bullet-r-o.png",
+                    "checksum": [
+                        "sha256",
+                        "94a3526fb0290baf9895b7f14487d7f565103045f51794a3c78e56e77c0c6139"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bullet-r.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bullet-r.png",
+                    "checksum": [
+                        "sha256",
+                        "b7f13cab4028727ddc0c57fd8eb00a29e4633a016e86db7475a5adbb98e32f4a"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bullet-u-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bullet-u-h.png",
+                    "checksum": [
+                        "sha256",
+                        "561276cdfedf2ca901b73115b9789b4ab2a31e7dd3c9de25b9e30448da1ece13"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bullet-u-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bullet-u-o.png",
+                    "checksum": [
+                        "sha256",
+                        "bf4e52d9e7d6b2e40850c159cfe2fd2aaccd553528bdcd08bc5c7ddd2069e0f8"
+                    ]
+                },
+                {
+                    "filename": "data/interface/bullet-u.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/bullet-u.png",
+                    "checksum": [
+                        "sha256",
+                        "a99e4abdc75c636624adcc8700cf525f38530b34ba701f3f04318a0a3761e71a"
+                    ]
+                },
+                {
+                    "filename": "data/interface/c-brief-anim-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/c-brief-anim-window.png",
+                    "checksum": [
+                        "sha256",
+                        "5436d8d9820bff64da3ab6771116ecd1dcf8728398c486b10178d279cd9c7dad"
+                    ]
+                },
+                {
+                    "filename": "data/interface/c-brief-text-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/c-brief-text-window.png",
+                    "checksum": [
+                        "sha256",
+                        "19532b1b2e2fd82f2d662695d4b75fac08c6fbe529d8970bcb73ba8eecce2def"
+                    ]
+                },
+                {
+                    "filename": "data/interface/c-config-main-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/c-config-main-window.png",
+                    "checksum": [
+                        "sha256",
+                        "cd790addc3c062ef0418d96c691c62b5a49dd2da91e9a86d0749d5c89913263e"
+                    ]
+                },
+                {
+                    "filename": "data/interface/c-config-modifier-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/c-config-modifier-window.png",
+                    "checksum": [
+                        "sha256",
+                        "4c8083129449667e180e7fe0dba6d6822913c0f525bbe808c8b405008b9d93c4"
+                    ]
+                },
+                {
+                    "filename": "data/interface/campaign-main-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/campaign-main-window.png",
+                    "checksum": [
+                        "sha256",
+                        "63a8f0a5b99f1c7a3df90e3329bd40e65a13873462540611b418c2b59a4edc61"
+                    ]
+                },
+                {
+                    "filename": "data/interface/campaign-text-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/campaign-text-window.png",
+                    "checksum": [
+                        "sha256",
+                        "00a2785054cdeb1479d7a3d3f25a6b9aa3e58deae507ce500671f6dfd282cb34"
+                    ]
+                },
+                {
+                    "filename": "data/interface/cancel-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/cancel-h.png",
+                    "checksum": [
+                        "sha256",
+                        "fdaee5e5fa44440c6e683a5f9dcc62fea4a573a32026737202b557b95aa52520"
+                    ]
+                },
+                {
+                    "filename": "data/interface/cancel-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/cancel-o.png",
+                    "checksum": [
+                        "sha256",
+                        "ef708885636223ad40dc9e1177c893d4052d914f84e43e1794a24d901d0b0f43"
+                    ]
+                },
+                {
+                    "filename": "data/interface/cancel.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/cancel.png",
+                    "checksum": [
+                        "sha256",
+                        "38e0ac0a43d510ef9e43e9cae7c64b57879bb1c0f6462952549ffbcdf791a9d6"
+                    ]
+                },
+                {
+                    "filename": "data/interface/clear-neg-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/clear-neg-h.png",
+                    "checksum": [
+                        "sha256",
+                        "2d20557e3782ab3a19eb0faf17b0e3dd8a923b4434f0fa4b0a43694c08a7d84c"
+                    ]
+                },
+                {
+                    "filename": "data/interface/clear-neg-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/clear-neg-o.png",
+                    "checksum": [
+                        "sha256",
+                        "cd105a796f51e7302690fa75925891d73649f3119fdc263db6e9c1297653e854"
+                    ]
+                },
+                {
+                    "filename": "data/interface/clear-pos-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/clear-pos-h.png",
+                    "checksum": [
+                        "sha256",
+                        "6b77fb3bd4530b0cf10d6429e229948d630a80df9ad18298ee31bbb33360352b"
+                    ]
+                },
+                {
+                    "filename": "data/interface/clear-pos-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/clear-pos-o.png",
+                    "checksum": [
+                        "sha256",
+                        "3c07c3a55ac3a2725ca9ac9872907d90f1a728f575c1f149b66a54fb6dcd17d0"
+                    ]
+                },
+                {
+                    "filename": "data/interface/clear.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/clear.png",
+                    "checksum": [
+                        "sha256",
+                        "ad3da29e381dd1c22ac19ba0c4d3c598383b0081d8bcde92291fb4ad8dd9cf3d"
+                    ]
+                },
+                {
+                    "filename": "data/interface/clone-pilot-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/clone-pilot-h.png",
+                    "checksum": [
+                        "sha256",
+                        "579d3d7c8f31d75091e6178e520238066a8f9b5508c687c86b9ffde527e7c471"
+                    ]
+                },
+                {
+                    "filename": "data/interface/clone-pilot-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/clone-pilot-o.png",
+                    "checksum": [
+                        "sha256",
+                        "bffaa0bf31b294264874c85bb2702e79001993d24688c65061df839b9da9cf47"
+                    ]
+                },
+                {
+                    "filename": "data/interface/clone-pilot.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/clone-pilot.png",
+                    "checksum": [
+                        "sha256",
+                        "5f55f64c07b61e98180fb42527e03570b0e874c3ace9476ed6398ac1b5a5ac18"
+                    ]
+                },
+                {
+                    "filename": "data/interface/computer-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/computer-h.png",
+                    "checksum": [
+                        "sha256",
+                        "add493d7b7d7e03cffe46e46fa06f9262fe83582ea9e83798b3dbd87d2e5ee8d"
+                    ]
+                },
+                {
+                    "filename": "data/interface/computer-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/computer-o.png",
+                    "checksum": [
+                        "sha256",
+                        "141e053b303606838a47dcbb098d400452f736e9e32e6a39e096da4dac73caad"
+                    ]
+                },
+                {
+                    "filename": "data/interface/computer.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/computer.png",
+                    "checksum": [
+                        "sha256",
+                        "53978b0274f1ae8bb709895a567d5e4062ef420969996bda552d44aaa377ccd5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/create-pilot-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/create-pilot-h.png",
+                    "checksum": [
+                        "sha256",
+                        "7cc52917788f1bc93938eedf6a626bfcb26ede43e8c4ccc2ba76926a9d0979ed"
+                    ]
+                },
+                {
+                    "filename": "data/interface/create-pilot-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/create-pilot-o.png",
+                    "checksum": [
+                        "sha256",
+                        "e562075b54c27e01c8e256bf32134c5e55c9319ada4d7a1261a3616750369a62"
+                    ]
+                },
+                {
+                    "filename": "data/interface/create-pilot.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/create-pilot.png",
+                    "checksum": [
+                        "sha256",
+                        "f879a9d6ea29577e8b531d2c83686f64daa8cc5408a234b4b3a8528e2ef6ccff"
+                    ]
+                },
+                {
+                    "filename": "data/interface/credits-image-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/credits-image-window.png",
+                    "checksum": [
+                        "sha256",
+                        "f9270e91aef23e11e031c96e6b22658051cfdab0bc101654c0b62befa2d27aeb"
+                    ]
+                },
+                {
+                    "filename": "data/interface/credits-text-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/credits-text-window.png",
+                    "checksum": [
+                        "sha256",
+                        "5ff36b8c7a308ec4de31843f73fdbd91f4bacdc61e13e38d3246fc0e37ab2ab8"
+                    ]
+                },
+                {
+                    "filename": "data/interface/cutscene-window-main.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/cutscene-window-main.png",
+                    "checksum": [
+                        "sha256",
+                        "a62ed0e9aeba5fc89ffb4afda42d0328f55f518168b4c659356b31249842d8ec"
+                    ]
+                },
+                {
+                    "filename": "data/interface/cutscene-window-sub.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/cutscene-window-sub.png",
+                    "checksum": [
+                        "sha256",
+                        "861f0b7e8629050760d02d355b626365252815fef4e84bd9c4e94c5ecf13f505"
+                    ]
+                },
+                {
+                    "filename": "data/interface/debrief-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/debrief-window.png",
+                    "checksum": [
+                        "sha256",
+                        "ccec01e4f8656ba11ea79e654f2e520ee1266040f90a41292502f27703673bbd"
+                    ]
+                },
+                {
+                    "filename": "data/interface/decline-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/decline-h.png",
+                    "checksum": [
+                        "sha256",
+                        "d652f6b0e6940779e4c3fc4920b9c229c3b6cb26564bb89c0317452f0b69116f"
+                    ]
+                },
+                {
+                    "filename": "data/interface/decline-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/decline-o.png",
+                    "checksum": [
+                        "sha256",
+                        "b02bbcbb8c5fade656bc2b892842e537e2f3c762d38b2978b2f89f8642f5a949"
+                    ]
+                },
+                {
+                    "filename": "data/interface/decline.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/decline.png",
+                    "checksum": [
+                        "sha256",
+                        "e1aa9b8230a20d1a9619129553604f104087066c6559d1d63a53c77e8017f791"
+                    ]
+                },
+                {
+                    "filename": "data/interface/default-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/default-h.png",
+                    "checksum": [
+                        "sha256",
+                        "e5c77c8f4fae5449fc16984268efc653d7e90d7e31a12907014a7a2d20105ce3"
+                    ]
+                },
+                {
+                    "filename": "data/interface/default-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/default-o.png",
+                    "checksum": [
+                        "sha256",
+                        "7c480b4c7d391757babe8d1032234a0cd7d8ee56ce68fe65163f773ee53fd9f0"
+                    ]
+                },
+                {
+                    "filename": "data/interface/default.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/default.png",
+                    "checksum": [
+                        "sha256",
+                        "41fd88cff0e2eba4df698607b840384e4e115aac36a4783faf17cd4b19d9616d"
+                    ]
+                },
+                {
+                    "filename": "data/interface/delete-pilot-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/delete-pilot-h.png",
+                    "checksum": [
+                        "sha256",
+                        "78f64972a53a8aed3f3cd81ba44dc73bfff0451f433b43b49541d88d209776dc"
+                    ]
+                },
+                {
+                    "filename": "data/interface/delete-pilot-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/delete-pilot-o.png",
+                    "checksum": [
+                        "sha256",
+                        "f4e1c2c440c0ffd0ee80f10e0f82135f7dd0b5bb87f5d601a3d78e6f4fd5d652"
+                    ]
+                },
+                {
+                    "filename": "data/interface/delete-pilot.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/delete-pilot.png",
+                    "checksum": [
+                        "sha256",
+                        "27e95cdfa9c6257346cae0fedf07d6983d0a81649ab1aa39a7b1ed69ae8fd747"
+                    ]
+                },
+                {
+                    "filename": "data/interface/detail-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/detail-h.png",
+                    "checksum": [
+                        "sha256",
+                        "a4ef033f1f7e8f8e5397dc2b3d57456723d1a0a03f52527c5c4a765ef49e148b"
+                    ]
+                },
+                {
+                    "filename": "data/interface/detail-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/detail-o.png",
+                    "checksum": [
+                        "sha256",
+                        "076b3dd7de1779030ccdcae7b63f52080e7eea8dd6deb9f93f6737733ca9b3fc"
+                    ]
+                },
+                {
+                    "filename": "data/interface/detail.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/detail.png",
+                    "checksum": [
+                        "sha256",
+                        "325089dffdbe5fd440c7045da97c30ce05a326ca1f6c2991b859792b6a20085d"
+                    ]
+                },
+                {
+                    "filename": "data/interface/dialog-box.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/dialog-box.png",
+                    "checksum": [
+                        "sha256",
+                        "071e67bdf507b5eb47b3fb56df575cdf8d1da32bc2700bb3a8ad0d7502b495c5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/diamonds-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/diamonds-h.png",
+                    "checksum": [
+                        "sha256",
+                        "e73a1b973e9995d0757c59f27986a0c8f71809eac12250d79da216efdc361125"
+                    ]
+                },
+                {
+                    "filename": "data/interface/diamonds-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/diamonds-o.png",
+                    "checksum": [
+                        "sha256",
+                        "2330ce04db652e3b45d8165ac3307b428cda05dcca5f57cce3a9ca7ef4aae287"
+                    ]
+                },
+                {
+                    "filename": "data/interface/diamonds.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/diamonds.png",
+                    "checksum": [
+                        "sha256",
+                        "9aeecadd0d7708fc29ec2b33bae1ae5a7e664916f920a6082ddd83bd816c8f8a"
+                    ]
+                },
+                {
+                    "filename": "data/interface/dish-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/dish-h.png",
+                    "checksum": [
+                        "sha256",
+                        "b11a57dc6247d7c5ea845df3f9b4d56f96aa75d599b665be65020294155c4d85"
+                    ]
+                },
+                {
+                    "filename": "data/interface/dish-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/dish-o.png",
+                    "checksum": [
+                        "sha256",
+                        "dc1c142bfa6e3befe415e687be15e6b174ba6a209a3f06f7178397e8cd540b9e"
+                    ]
+                },
+                {
+                    "filename": "data/interface/dish.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/dish.png",
+                    "checksum": [
+                        "sha256",
+                        "7cc861aa9f30dd6cc92836b7d56381140129442e521403d43b3bd861b609a679"
+                    ]
+                },
+                {
+                    "filename": "data/interface/exit-neg-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/exit-neg-h.png",
+                    "checksum": [
+                        "sha256",
+                        "e3880f5249d5a2c1e1e96f472473f9782ddfc635074a1b9977767d9533b1b404"
+                    ]
+                },
+                {
+                    "filename": "data/interface/exit-neg-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/exit-neg-o.png",
+                    "checksum": [
+                        "sha256",
+                        "fd10580f33c6d0cface8cc63447c08a6670881aca0b5760801e41595475737ee"
+                    ]
+                },
+                {
+                    "filename": "data/interface/exit-panel.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/exit-panel.png",
+                    "checksum": [
+                        "sha256",
+                        "30f94a435fd21554c68d6c2771b3c7e8b937bc6429bcca40c26e30374c643d8b"
+                    ]
+                },
+                {
+                    "filename": "data/interface/exit-pos-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/exit-pos-h.png",
+                    "checksum": [
+                        "sha256",
+                        "5c70c09bd625ebf63a4795a77fad4d24379aa9b7a9ee03c10c03a06c212d703d"
+                    ]
+                },
+                {
+                    "filename": "data/interface/exit-pos-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/exit-pos-o.png",
+                    "checksum": [
+                        "sha256",
+                        "2bf953a062ceeb182a51987c3d668708e1ddace1c2543d4a6c5f16e30c41e5e8"
+                    ]
+                },
+                {
+                    "filename": "data/interface/exit.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/exit.png",
+                    "checksum": [
+                        "sha256",
+                        "24a7bcc9b22d3c64868e812b65c5a737e77f824cb41cd9a8ec01c363263b62f5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/fiction-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/fiction-window.png",
+                    "checksum": [
+                        "sha256",
+                        "25a67907d46525badfcb5c70c42f5bbb078e7c0fc3a03dcb4fb9d7bf44a186c5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/fictionviewer-m.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/fictionviewer-m.pcx",
+                    "checksum": [
+                        "sha256",
+                        "613b0a73ba64ab4f030f1037faa0243de5e31d34f61a646fdd55a9d103d791b8"
+                    ]
+                },
+                {
+                    "filename": "data/interface/fictionviewer.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/fictionviewer.png",
+                    "checksum": [
+                        "sha256",
+                        "eb59e31771b510c7a9d581cb5a624b7603af8ed7550c939e0f0eb07ee8b69519"
+                    ]
+                },
+                {
+                    "filename": "data/interface/fvw_accept_0001.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/fvw_accept_0001.pcx",
+                    "checksum": [
+                        "sha256",
+                        "2ac7620039b84c8528540a020e44556e4cf4fd2c6e6ff043568faf1a7619ad79"
+                    ]
+                },
+                {
+                    "filename": "data/interface/fvw_accept_0002.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/fvw_accept_0002.pcx",
+                    "checksum": [
+                        "sha256",
+                        "67e60e8fc7dd911529d402739f7a54a27c9321ae66c2c6d4dcad5ccb510a2154"
+                    ]
+                },
+                {
+                    "filename": "data/interface/fvw_down_0001.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/fvw_down_0001.pcx",
+                    "checksum": [
+                        "sha256",
+                        "3d9ea5bd60f2b3a924b843655d0a1c882105474a07f468f0fe0599eaa0a806da"
+                    ]
+                },
+                {
+                    "filename": "data/interface/fvw_down_0002.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/fvw_down_0002.pcx",
+                    "checksum": [
+                        "sha256",
+                        "4fffd2aa60f60d3d3ab5e8a10d7249d6251637f1b25d279111bbe7f6a41d458c"
+                    ]
+                },
+                {
+                    "filename": "data/interface/fvw_up_0001.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/fvw_up_0001.pcx",
+                    "checksum": [
+                        "sha256",
+                        "d86d82301bd673bed0bf473aab3a5806b691ec08e3f16b55f4eaca0a425ff671"
+                    ]
+                },
+                {
+                    "filename": "data/interface/fvw_up_0002.pcx",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/fvw_up_0002.pcx",
+                    "checksum": [
+                        "sha256",
+                        "e0d1847852d2e980b415e91bc258bfe7d7f14d9136b63ce7301e08b3c101166e"
+                    ]
+                },
+                {
+                    "filename": "data/interface/gamma.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/gamma.png",
+                    "checksum": [
+                        "sha256",
+                        "4f02962f29c34a4097c36fd2331a447d3612dcfea397e3c1247a149dc2bb72d2"
+                    ]
+                },
+                {
+                    "filename": "data/interface/gun-neg-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/gun-neg-h.png",
+                    "checksum": [
+                        "sha256",
+                        "130a1968a777ccfd5878ac7925574061efc2d882ed3120f0a7b479aa13f3bb19"
+                    ]
+                },
+                {
+                    "filename": "data/interface/gun-neg-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/gun-neg-o.png",
+                    "checksum": [
+                        "sha256",
+                        "0d9ec8bf89af2ec0b8d7ebf3524268ff880b478cb8e5a292512bc79fdd9b3ebe"
+                    ]
+                },
+                {
+                    "filename": "data/interface/gun-pos-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/gun-pos-h.png",
+                    "checksum": [
+                        "sha256",
+                        "a320ec462042b6068991b7190cdd3c6fec1d4bd23582f2c24f90af8543ba2160"
+                    ]
+                },
+                {
+                    "filename": "data/interface/gun-pos-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/gun-pos-o.png",
+                    "checksum": [
+                        "sha256",
+                        "c4e7849a1a83b166a224b6d676167d43c5e52c829cee07e82b03439b980748b2"
+                    ]
+                },
+                {
+                    "filename": "data/interface/gun.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/gun.png",
+                    "checksum": [
+                        "sha256",
+                        "8cc2205d5aabcb08d9ef3e7c0210ef18f265e535c55d88b9142e4e59a6352a61"
+                    ]
+                },
+                {
+                    "filename": "data/interface/h-config-left-a.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/h-config-left-a.png",
+                    "checksum": [
+                        "sha256",
+                        "dfbb74ec91dc3e0dddb5edc6c5d1af96389f9d00d0ac0cc4f42a36c6cf996c0a"
+                    ]
+                },
+                {
+                    "filename": "data/interface/h-config-left-b.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/h-config-left-b.png",
+                    "checksum": [
+                        "sha256",
+                        "87d6dbfb32cc22e8dfe9edcfba8bcc1886311cc9fca11deb7a02d3585c74597b"
+                    ]
+                },
+                {
+                    "filename": "data/interface/h-config-main-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/h-config-main-window.png",
+                    "checksum": [
+                        "sha256",
+                        "0cc4c5584ec418f309337c87427e4e0885074103c6f9cbc716800664a2794daa"
+                    ]
+                },
+                {
+                    "filename": "data/interface/h-config-sliders.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/h-config-sliders.png",
+                    "checksum": [
+                        "sha256",
+                        "924afb84af007b1678fc938f2c0d18b687f82287e4c55b8ca9ca2e1e5bbdefaf"
+                    ]
+                },
+                {
+                    "filename": "data/interface/help-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/help-h.png",
+                    "checksum": [
+                        "sha256",
+                        "3f801dea7de3a88710d33c148da1650f703b20c8762e6242c4576fd0437e4192"
+                    ]
+                },
+                {
+                    "filename": "data/interface/help-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/help-o.png",
+                    "checksum": [
+                        "sha256",
+                        "654a48ccaae535b6c165b30c9c3a0f585229f0784b1c031ceaad2460956ef4be"
+                    ]
+                },
+                {
+                    "filename": "data/interface/help.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/help.png",
+                    "checksum": [
+                        "sha256",
+                        "77801cec232a0207a5356ffceb96399920906ba7c13022fedbdd3bc7758cde2e"
+                    ]
+                },
+                {
+                    "filename": "data/interface/hud-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/hud-h.png",
+                    "checksum": [
+                        "sha256",
+                        "879357c41d6cd1d726dcc7c350df63a18bac8a850fdf4cdd5aeca5c93b53b861"
+                    ]
+                },
+                {
+                    "filename": "data/interface/hud-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/hud-o.png",
+                    "checksum": [
+                        "sha256",
+                        "4b5819006fe642deae62c61a92a42f43df5cc1fb147ed50d343d7fcf57406a08"
+                    ]
+                },
+                {
+                    "filename": "data/interface/hud.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/hud.png",
+                    "checksum": [
+                        "sha256",
+                        "b36c66b4f3181583e76a0a0a5ea9f25daac35f0a1064de5ad26ba483a9922da0"
+                    ]
+                },
+                {
+                    "filename": "data/interface/icon_myrm.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/icon_myrm.png",
+                    "checksum": [
+                        "sha256",
+                        "41a41832f6733c13a18433ba64a1550638d9b0f0b868c5b67701c6f06e76b225"
+                    ]
+                },
+                {
+                    "filename": "data/interface/in-mission-ops-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/in-mission-ops-window.png",
+                    "checksum": [
+                        "sha256",
+                        "28618c0b83dbd2e7ceea792feb8ac169390efeb2561b355179d1af329b88b4af"
+                    ]
+                },
+                {
+                    "filename": "data/interface/input-box.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/input-box.png",
+                    "checksum": [
+                        "sha256",
+                        "832666b9b3d71b204391b851d971faacf5bd7e7842162b3acfe44d69ff280135"
+                    ]
+                },
+                {
+                    "filename": "data/interface/invader.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/invader.png",
+                    "checksum": [
+                        "sha256",
+                        "0790ffb63cc3373e5513740100f0b32127df87e04c6071b0ea655f58fe12177e"
+                    ]
+                },
+                {
+                    "filename": "data/interface/logo-wide.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/logo-wide.png",
+                    "checksum": [
+                        "sha256",
+                        "a98af7a17605a6aa0f39296c4b620bc295469443c28e78e63e2d4cad6088271b"
+                    ]
+                },
+                {
+                    "filename": "data/interface/logo.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/logo.png",
+                    "checksum": [
+                        "sha256",
+                        "84d05e4cd8a383472b9eec08c6f1986bdb99726c405ce5a2e2c716bacc000441"
+                    ]
+                },
+                {
+                    "filename": "data/interface/loop-logo.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/loop-logo.png",
+                    "checksum": [
+                        "sha256",
+                        "3f07a0f130ca442eff876af74278d8ce4952bf2d854bfebfa9e35a2698e15440"
+                    ]
+                },
+                {
+                    "filename": "data/interface/medals-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/medals-h.png",
+                    "checksum": [
+                        "sha256",
+                        "829ac0b6e382128eb574ace7dc03b536678a69a6210799b68995fb335adc07c9"
+                    ]
+                },
+                {
+                    "filename": "data/interface/medals-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/medals-o.png",
+                    "checksum": [
+                        "sha256",
+                        "68f9ee97cc45d1f7fedf8b8f7e145c79518a9dc0777c4055d24a47189c9eeec0"
+                    ]
+                },
+                {
+                    "filename": "data/interface/medals.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/medals.png",
+                    "checksum": [
+                        "sha256",
+                        "493cf1c7de6964d9019156c37914b02056afbc720cf9948b9e8af9291d213fb9"
+                    ]
+                },
+                {
+                    "filename": "data/interface/mission-sim-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/mission-sim-window.png",
+                    "checksum": [
+                        "sha256",
+                        "306df8bcc9a4d489e46c2e9ffb7af07456830235be50a2bad4d36aca4349fc78"
+                    ]
+                },
+                {
+                    "filename": "data/interface/multiplayer-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/multiplayer-h.png",
+                    "checksum": [
+                        "sha256",
+                        "4294240daff26e72e2a59516bb894508214d80282a128cc4cd5b841384b5a406"
+                    ]
+                },
+                {
+                    "filename": "data/interface/multiplayer-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/multiplayer-o.png",
+                    "checksum": [
+                        "sha256",
+                        "c8fa2731803c6a492ce22f6a68169474acbfba7ccb3ce6a4fbb1767f54afdc8b"
+                    ]
+                },
+                {
+                    "filename": "data/interface/multiplayer.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/multiplayer.png",
+                    "checksum": [
+                        "sha256",
+                        "6dcaf03c8ede6c2ff6bb85f3bbf02753ceb1b615f0c3fce522e806b5b116a23c"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ops-panel-gamma.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ops-panel-gamma.png",
+                    "checksum": [
+                        "sha256",
+                        "5cb131e57644f0c31ebfb79b9c30e9a76a46d061e76e9ae38ad4861e5b334fb5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ops-panel-gen-l.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ops-panel-gen-l.png",
+                    "checksum": [
+                        "sha256",
+                        "7883a5aeacb8d427924a800b92028db7bc56d87448e0c53fbea75a82865d6e04"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ops-panel-gen-r.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ops-panel-gen-r.png",
+                    "checksum": [
+                        "sha256",
+                        "a05d414e8e3bb514a0adf94221be9caa855040e6a649c22a920d1dfc34ab8b91"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ops-panel-horz-wide.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ops-panel-horz-wide.png",
+                    "checksum": [
+                        "sha256",
+                        "e5cdc23b2df831f91df584ce6831fcf356f1f76b59fe32d1d58b3e4e0adc8e53"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ops-panel-horz.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ops-panel-horz.png",
+                    "checksum": [
+                        "sha256",
+                        "597c015cdf8813a2837ae83ed7c3ceef144b8a0f4d86e4a845743c3e603f5ee9"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ops-panel-large-l.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ops-panel-large-l.png",
+                    "checksum": [
+                        "sha256",
+                        "956ea041c35f2ed7bd403f548527924cc03ab85aad8b92214213512eac5cdd27"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ops-panel-large-r.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ops-panel-large-r.png",
+                    "checksum": [
+                        "sha256",
+                        "abcc1451c7270b5f431fc717c0b97fde8cc4ecdb15efe42c6dec814912347de2"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ops-panel-vert-l.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ops-panel-vert-l.png",
+                    "checksum": [
+                        "sha256",
+                        "a9c3ae6411a402d34f837ac3eb2f25d5c6fa1fd8b7c663a3b1cd4f119ca84922"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ops-panel-vert-r.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ops-panel-vert-r.png",
+                    "checksum": [
+                        "sha256",
+                        "5862dc63903e9c42a80b8d279b2c675febdd6402e33bcd791542b9efc9ed7b02"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ops-panel-vert-tall-l.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ops-panel-vert-tall-l.png",
+                    "checksum": [
+                        "sha256",
+                        "7b245ceb013e2042aef3693aeb66fcae467fe7c5089bcd64bec435bca808d441"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ops-panel-vert-tall-r.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ops-panel-vert-tall-r.png",
+                    "checksum": [
+                        "sha256",
+                        "4654119364afa7f39cb68694229ec162fc399ba92d66fde2263f7355f245c2b5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/options-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/options-window.png",
+                    "checksum": [
+                        "sha256",
+                        "18d70b4f65bf6ed3f011548b18363be3b02360d25e8ed006de6cbd996c466772"
+                    ]
+                },
+                {
+                    "filename": "data/interface/oval-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/oval-h.png",
+                    "checksum": [
+                        "sha256",
+                        "7ab020b2d9f9df1be28a8b4350fdfeefb342acdb91718d64936272b203d73b4b"
+                    ]
+                },
+                {
+                    "filename": "data/interface/oval-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/oval-o.png",
+                    "checksum": [
+                        "sha256",
+                        "2ae384a737a93720566bd62b2ecfee860c1c01b035b14643f78756a6b0cb7e92"
+                    ]
+                },
+                {
+                    "filename": "data/interface/oval.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/oval.png",
+                    "checksum": [
+                        "sha256",
+                        "51c99ffba1ae8fc2ca515724e55731575fe55085daa828a5563d7af58f19b9a1"
+                    ]
+                },
+                {
+                    "filename": "data/interface/pause-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/pause-h.png",
+                    "checksum": [
+                        "sha256",
+                        "151b7b4014ecd96d41274c89bb924d893ff5d16dab0f1ea545b1199a36dc329c"
+                    ]
+                },
+                {
+                    "filename": "data/interface/pause-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/pause-o.png",
+                    "checksum": [
+                        "sha256",
+                        "1ddc5f1d249392e781eb9617f8f1ef9689d76c9b27905024cb68e123e7351f97"
+                    ]
+                },
+                {
+                    "filename": "data/interface/pause.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/pause.png",
+                    "checksum": [
+                        "sha256",
+                        "da2d773fed3cd6ed5c5d4e523489421520f40b433055cfc1cf5dc34fd318a51b"
+                    ]
+                },
+                {
+                    "filename": "data/interface/pilot-head-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/pilot-head-window.png",
+                    "checksum": [
+                        "sha256",
+                        "4d9fdbbfd461753fff63233527166144e746557fcf1170ae7a70ce225dbf8051"
+                    ]
+                },
+                {
+                    "filename": "data/interface/pilot-info-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/pilot-info-window.png",
+                    "checksum": [
+                        "sha256",
+                        "e4f558fefce35fd831b53a79e673a8bb751e8e0c19fefe763dfd86672a7fe378"
+                    ]
+                },
+                {
+                    "filename": "data/interface/pilot-select-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/pilot-select-window.png",
+                    "checksum": [
+                        "sha256",
+                        "d503248ff348883593bbc8f4b23b4b2fbebd61c302e3b7429ceb960c7c852cb3"
+                    ]
+                },
+                {
+                    "filename": "data/interface/pilot-squad-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/pilot-squad-window.png",
+                    "checksum": [
+                        "sha256",
+                        "c7235fb05e6832a27bce65f3c61d439a4c201498f802e1148be4b35ecaf4e6ce"
+                    ]
+                },
+                {
+                    "filename": "data/interface/prefs-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/prefs-h.png",
+                    "checksum": [
+                        "sha256",
+                        "1433ce01ab1b4590afe0e080f9e4ea8751bbdca73bcb895f07aec1271ffbd339"
+                    ]
+                },
+                {
+                    "filename": "data/interface/prefs-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/prefs-o.png",
+                    "checksum": [
+                        "sha256",
+                        "b29483e3b610d745033009add886be77af3f7688b00d65ecf718f13cd5ec9f29"
+                    ]
+                },
+                {
+                    "filename": "data/interface/prefs.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/prefs.png",
+                    "checksum": [
+                        "sha256",
+                        "cf1493665f0f8f31c4f350d2c6a2b5d8132b91e7dbd0a7afe3fd9bf3b5a7cbb2"
+                    ]
+                },
+                {
+                    "filename": "data/interface/replay-neg-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/replay-neg-h.png",
+                    "checksum": [
+                        "sha256",
+                        "bc930a1d4eb34160144f80ccf2940d6362c439592f0d3f363f7e4e8d3f83df86"
+                    ]
+                },
+                {
+                    "filename": "data/interface/replay-neg-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/replay-neg-o.png",
+                    "checksum": [
+                        "sha256",
+                        "233feb4e21b751acf9dec52a0ebfcd02c74991a87fcba9161f1846cf5ec2a4cd"
+                    ]
+                },
+                {
+                    "filename": "data/interface/replay-pos-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/replay-pos-h.png",
+                    "checksum": [
+                        "sha256",
+                        "3cb6ebb319d7159cc2611cbd37d99290d4d7605e035d3dc4dff637c86040f0e5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/replay-pos-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/replay-pos-o.png",
+                    "checksum": [
+                        "sha256",
+                        "30b5d80bf6118336082b73709b3e7e903d5be1b988f43a3a348bdb7e13fb9002"
+                    ]
+                },
+                {
+                    "filename": "data/interface/replay.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/replay.png",
+                    "checksum": [
+                        "sha256",
+                        "dd4f05f3be713bfe1d2b910392046efb4edbc658ed43ce18e688a42eb03cdf42"
+                    ]
+                },
+                {
+                    "filename": "data/interface/right-button-panel.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/right-button-panel.png",
+                    "checksum": [
+                        "sha256",
+                        "e9b0518641bea69c1d4b144c89b8791f2d5b39df16e4d215d1ffb6ab60dd6ed7"
+                    ]
+                },
+                {
+                    "filename": "data/interface/round-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/round-h.png",
+                    "checksum": [
+                        "sha256",
+                        "6387c1b780622792385e2598a693b216475885a30efabe0518bb904ef50297cc"
+                    ]
+                },
+                {
+                    "filename": "data/interface/round-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/round-o.png",
+                    "checksum": [
+                        "sha256",
+                        "9aa67e4ea385751778288081d21cf14fe4b74e751f9ea4ffb70f3e5c08dac4d4"
+                    ]
+                },
+                {
+                    "filename": "data/interface/round.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/round.png",
+                    "checksum": [
+                        "sha256",
+                        "91230a019c03722fa087aad83dd83548298f9a58cfc968b64ed072783154af02"
+                    ]
+                },
+                {
+                    "filename": "data/interface/scroll-bar-line-horz.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/scroll-bar-line-horz.png",
+                    "checksum": [
+                        "sha256",
+                        "9cc818f6e3a03491ec23792d930dfea4a087d2aebc6f8ed8bbca098300b88a47"
+                    ]
+                },
+                {
+                    "filename": "data/interface/scroll-bar-line.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/scroll-bar-line.png",
+                    "checksum": [
+                        "sha256",
+                        "c368685152123b1f6a594f4116fb3002867c4bfc1d6805ed7afc94cdeb09ce55"
+                    ]
+                },
+                {
+                    "filename": "data/interface/scroll-button-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/scroll-button-h.png",
+                    "checksum": [
+                        "sha256",
+                        "36fa16171928e4d3234bbc00d58285b5ace61c02b586cdc8ecfa66d9f318e6ec"
+                    ]
+                },
+                {
+                    "filename": "data/interface/scroll-button-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/scroll-button-o.png",
+                    "checksum": [
+                        "sha256",
+                        "870c0036b1d07e84c30be3af6577c6979e57d3e38761add65e2f37a7cda728f3"
+                    ]
+                },
+                {
+                    "filename": "data/interface/scroll-button.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/scroll-button.png",
+                    "checksum": [
+                        "sha256",
+                        "887123c6194b9da3b805a0a05a12928a04d3e286b2d6d642f5c92d00cfeb43f4"
+                    ]
+                },
+                {
+                    "filename": "data/interface/select-neg-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/select-neg-h.png",
+                    "checksum": [
+                        "sha256",
+                        "eb2981f0bcf51d3cb167781b1b7e67787f9394e5d4033015be690510839f67ac"
+                    ]
+                },
+                {
+                    "filename": "data/interface/select-neg-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/select-neg-o.png",
+                    "checksum": [
+                        "sha256",
+                        "7ae025bdd26d53081f4bbd5f70f8099dbf6387687a735cfe3629434e93566cb8"
+                    ]
+                },
+                {
+                    "filename": "data/interface/select-pos-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/select-pos-h.png",
+                    "checksum": [
+                        "sha256",
+                        "64799f90326caed25f6b2e39755660de6558d39f70d173bad757b68316f98818"
+                    ]
+                },
+                {
+                    "filename": "data/interface/select-pos-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/select-pos-o.png",
+                    "checksum": [
+                        "sha256",
+                        "2ef20b445ded85b1c80d04d7234c203b81b4bbdf570fd959fd6dc208f7102634"
+                    ]
+                },
+                {
+                    "filename": "data/interface/select-scroll-panel.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/select-scroll-panel.png",
+                    "checksum": [
+                        "sha256",
+                        "815158e0e6088ff95b107e6458af7432570c57288d9d86a3b7a80cd507b4c3be"
+                    ]
+                },
+                {
+                    "filename": "data/interface/select-window-left.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/select-window-left.png",
+                    "checksum": [
+                        "sha256",
+                        "9d71137b14569c239b163f9594eff199bb0cd7db6652b87d140a3f8dc670e007"
+                    ]
+                },
+                {
+                    "filename": "data/interface/select-window-right.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/select-window-right.png",
+                    "checksum": [
+                        "sha256",
+                        "b42dd806fad0a5200c5d1eafdb4aaf5ab54a0d1084ec547355dd9ae87c725fb7"
+                    ]
+                },
+                {
+                    "filename": "data/interface/select.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/select.png",
+                    "checksum": [
+                        "sha256",
+                        "e77cdf1e0e9a6918ee565ce04999643cbb450e3780ac93a2647b65798ee53624"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ship-neg-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ship-neg-h.png",
+                    "checksum": [
+                        "sha256",
+                        "2bdd324dfbf5d7d6c4c6510eaaa5defe2c6fac59e6fa62ea7a21f10305c96084"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ship-neg-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ship-neg-o.png",
+                    "checksum": [
+                        "sha256",
+                        "bd7fda7a9d0555fc445acd8e5f555acd215cd773363f70fc1312d46d9221834d"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ship-pos-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ship-pos-h.png",
+                    "checksum": [
+                        "sha256",
+                        "ef6b006a58515ef2007c2a1537807a01d91207e8c5d60fe3d274f4f14f5baf40"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ship-pos-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ship-pos-o.png",
+                    "checksum": [
+                        "sha256",
+                        "707ec3e92985e238d3695cdc18116635bf05fc0ebce58b05a5fccbc158cb9a96"
+                    ]
+                },
+                {
+                    "filename": "data/interface/ship.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/ship.png",
+                    "checksum": [
+                        "sha256",
+                        "7b533d3f28598a894a0630362f21a5e28e94cdebf3879b1005e094a60cbfa495"
+                    ]
+                },
+                {
+                    "filename": "data/interface/single-player-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/single-player-h.png",
+                    "checksum": [
+                        "sha256",
+                        "3d1f6a7ec2b40cd857bb995c961446c98bc19a4a69c77579956e850304398ad5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/single-player-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/single-player-o.png",
+                    "checksum": [
+                        "sha256",
+                        "111aa96b679c9455e6ec9846c5f7208a4afb610010578f022e0a4ee91d106d30"
+                    ]
+                },
+                {
+                    "filename": "data/interface/single-player.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/single-player.png",
+                    "checksum": [
+                        "sha256",
+                        "50eeea2f33742a07ab4dacb8365c791e7b7062a4bf1cba8d77e7f571deea2f52"
+                    ]
+                },
+                {
+                    "filename": "data/interface/skip-l-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/skip-l-h.png",
+                    "checksum": [
+                        "sha256",
+                        "47db02ce90327fcd0bd60dbd58d507cf584235b9c84909fa859833e9bba58a07"
+                    ]
+                },
+                {
+                    "filename": "data/interface/skip-l-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/skip-l-o.png",
+                    "checksum": [
+                        "sha256",
+                        "525b8c8c3be80600a99df67e3a5b9d8dac4fd035af47ab071be48b6a0d39efd0"
+                    ]
+                },
+                {
+                    "filename": "data/interface/skip-l.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/skip-l.png",
+                    "checksum": [
+                        "sha256",
+                        "fa6a4cf9759d2d14bcf37609694344e47f2e7a05b52c56563fd3dfdc29682b96"
+                    ]
+                },
+                {
+                    "filename": "data/interface/skip-r-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/skip-r-h.png",
+                    "checksum": [
+                        "sha256",
+                        "7c7b0d3023479fce5eb9fc58d6b1b46d3d88a2bb8cee0b96d64ba83fc0896f59"
+                    ]
+                },
+                {
+                    "filename": "data/interface/skip-r-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/skip-r-o.png",
+                    "checksum": [
+                        "sha256",
+                        "09b710a324f9505c0983a8abe28e426c995e76726e92d5af1010bd6fe942df45"
+                    ]
+                },
+                {
+                    "filename": "data/interface/skip-r.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/skip-r.png",
+                    "checksum": [
+                        "sha256",
+                        "0bee1aa011bc22daf0c5c58553eb9934a4906dd799ada25960053be4faa4e87c"
+                    ]
+                },
+                {
+                    "filename": "data/interface/star-neg-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/star-neg-h.png",
+                    "checksum": [
+                        "sha256",
+                        "bd5a8e667fcecfac9cc36af21ac83896e8ff8fa8bc57a87ca4770a9bef54d999"
+                    ]
+                },
+                {
+                    "filename": "data/interface/star-neg-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/star-neg-o.png",
+                    "checksum": [
+                        "sha256",
+                        "34bf38477e5ccee32f21be88af7d0f8d8013c029ace956b3e1904edca8a1803c"
+                    ]
+                },
+                {
+                    "filename": "data/interface/star-pos-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/star-pos-h.png",
+                    "checksum": [
+                        "sha256",
+                        "9117e6c2e3697ca3913d87c48a2d3098237efd82230ad4bf227732f1cca59d27"
+                    ]
+                },
+                {
+                    "filename": "data/interface/star-pos-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/star-pos-o.png",
+                    "checksum": [
+                        "sha256",
+                        "1f75d4db2d5f9d7a5e4d76c181afe6cda9c0688141ec42785784e5400465f4b9"
+                    ]
+                },
+                {
+                    "filename": "data/interface/star.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/star.png",
+                    "checksum": [
+                        "sha256",
+                        "e09b72d5fa9abf9cc4884965a9e0026864f6483bf81065ed43fa9d328eab695d"
+                    ]
+                },
+                {
+                    "filename": "data/interface/static.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/static.png",
+                    "checksum": [
+                        "sha256",
+                        "92fa089e58c93224e1d21a3f6da2e9b9b5b280dd626b58d02dbe94301c01aac4"
+                    ]
+                },
+                {
+                    "filename": "data/interface/target-neg-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/target-neg-h.png",
+                    "checksum": [
+                        "sha256",
+                        "a7e6929eff7c86f721a7857d9afa9d29ff68b0f4339a20d22bce4921e5a2e0f5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/target-neg-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/target-neg-o.png",
+                    "checksum": [
+                        "sha256",
+                        "478159080806286fa919d2811d23da31d632a7e07c683c338759d13df71c530a"
+                    ]
+                },
+                {
+                    "filename": "data/interface/target-pos-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/target-pos-h.png",
+                    "checksum": [
+                        "sha256",
+                        "086c518e4c5a2c3057119f4fe72818c46368c42b97393cf6e6a3a08b791d87d8"
+                    ]
+                },
+                {
+                    "filename": "data/interface/target-pos-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/target-pos-o.png",
+                    "checksum": [
+                        "sha256",
+                        "f1e45fdf77165de4e7492d91bba6cd593a286bb15ddd8ff8f8b633774b714ea8"
+                    ]
+                },
+                {
+                    "filename": "data/interface/target.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/target.png",
+                    "checksum": [
+                        "sha256",
+                        "5bd3292d74255f95a28e5e389416bf4257e08d089b869caa67af0c82fe61b292"
+                    ]
+                },
+                {
+                    "filename": "data/interface/tech-room-list-window-l.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/tech-room-list-window-l.png",
+                    "checksum": [
+                        "sha256",
+                        "119724d9f2dffd4c50eb5adbd056291f8050836025e50f7f66a9c387facba195"
+                    ]
+                },
+                {
+                    "filename": "data/interface/tech-room-list-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/tech-room-list-window.png",
+                    "checksum": [
+                        "sha256",
+                        "58a35583b3fb411639b6e8f290b3d9397959365d4976b35178e6603c875160f1"
+                    ]
+                },
+                {
+                    "filename": "data/interface/tech-room-text-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/tech-room-text-window.png",
+                    "checksum": [
+                        "sha256",
+                        "2a2f17a54f7743b612b66e24ee67747a9ba0873d8e040ba336b722854abc0fc3"
+                    ]
+                },
+                {
+                    "filename": "data/interface/tech-room-view-window.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/tech-room-view-window.png",
+                    "checksum": [
+                        "sha256",
+                        "88d40a6bea5cd5f03e66a71f8f0417e15133426862c3ada28bcfe269abeee982"
+                    ]
+                },
+                {
+                    "filename": "data/interface/top-right-panel.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/top-right-panel.png",
+                    "checksum": [
+                        "sha256",
+                        "456d1c77214777abda83d596124d7f138b311e20898e040c432f2d2011d8f75e"
+                    ]
+                },
+                {
+                    "filename": "data/interface/undo-h.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/undo-h.png",
+                    "checksum": [
+                        "sha256",
+                        "76e78d4412469fbaab39fa17ef70616e65bbed86127e4f4408b8974c9be56585"
+                    ]
+                },
+                {
+                    "filename": "data/interface/undo-o.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/undo-o.png",
+                    "checksum": [
+                        "sha256",
+                        "50283bfa534e2bc655b0c6f75bb7fb253de67c4c40a0856f9d24e3d04998800b"
+                    ]
+                },
+                {
+                    "filename": "data/interface/undo.png",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/undo.png",
+                    "checksum": [
+                        "sha256",
+                        "4625ac9b4c1a8f641c04671be3a4b60c10a9c80e2a14ad65ec1ed3ab49893e20"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/barracks.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/barracks.rcss",
+                    "checksum": [
+                        "sha256",
+                        "bec05218d82424af9b8c069e3d95b5e2b2b1e39da870dadc2ab78e4153b2464c"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/briefing.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/briefing.rcss",
+                    "checksum": [
+                        "sha256",
+                        "415ea98dba1bd8a94cf32bfcd90d6212e785a1a1e4eb431ba495d776fd942480"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/campaign.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/campaign.rcss",
+                    "checksum": [
+                        "sha256",
+                        "909632f21cec49c23ff628df52414769b88ea98ab6b7dfffa66749c7415d4027"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/cmd_brief.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/cmd_brief.rcss",
+                    "checksum": [
+                        "sha256",
+                        "a7fabbb62da99f7f9e49c488dc0f74346826ef5f2a027f00c021fd9befc81ab8"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/common.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/common.rcss",
+                    "checksum": [
+                        "sha256",
+                        "85dc9c6e22c2555b74359a3ad7d6f95d0f43caeca5a550c103cf83d9b02e8777"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/deathdialog.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/deathdialog.rcss",
+                    "checksum": [
+                        "sha256",
+                        "b623c6a5ebde7caa6ca0800d45a9271fedbeb45ff530de3980969c056d23685a"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/debrief.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/debrief.rcss",
+                    "checksum": [
+                        "sha256",
+                        "57ea4f6bd7435b69ad66e69bddb74e648d7c46710769d3ebd2cbd4bdc31abe04"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/default.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/default.rcss",
+                    "checksum": [
+                        "sha256",
+                        "c5ee143e266cf500e62e57f062d49b287aabcb3b033d89944f4617f3a4d0b503"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/dialog.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/dialog.rcss",
+                    "checksum": [
+                        "sha256",
+                        "5230cb219ad502db289ae6ce47cc9107ec8cd06be63bb5bf878229c003ee7167"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/fiction_viewer.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/fiction_viewer.rcss",
+                    "checksum": [
+                        "sha256",
+                        "b912c48836c0dbaf3643549ab9a13fb113cc3acf9ef778906b1162ee394c3c50"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/fontsizes.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/fontsizes.rcss",
+                    "checksum": [
+                        "sha256",
+                        "4d63b632324ff42f0585f8807d3b9e8a6589d1d4eda7f60978973aeaa6ec7ba5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/journal.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/journal.rcss",
+                    "checksum": [
+                        "sha256",
+                        "93aa127a9442a42f7a124ff11e398c31f901a544ce3da436194b4909c59e87ad"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/loop_brief.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/loop_brief.rcss",
+                    "checksum": [
+                        "sha256",
+                        "96aec96f455318ab140204294563799f8fc14c778b5b024d07b6bb0d8c907efd"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/options.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/options.rcss",
+                    "checksum": [
+                        "sha256",
+                        "9ea352cdb878814de8509b574f0b5b2f24c990554e0eac156689e384bdb8eb79"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/pilot_select.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/pilot_select.rcss",
+                    "checksum": [
+                        "sha256",
+                        "c27fdede7169bbaecfed7612c1db581f7e69367fec3373b3e99dbb9693359382"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/red_alert.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/red_alert.rcss",
+                    "checksum": [
+                        "sha256",
+                        "819470242d25c7b81f9b8897fa30f8352ccbd458ec0d755c9ec057c69118e796"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/scrollbars.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/scrollbars.rcss",
+                    "checksum": [
+                        "sha256",
+                        "82e6de0c85d3ef1787014ada168a4c03bf3fde61373efa3d8a55a2624ce898b1"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/ship_select.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/ship_select.rcss",
+                    "checksum": [
+                        "sha256",
+                        "00bb61a3cdd8f96ed50d143be91eab2baac48d57a76d0ae3a50a9b3b5a88e2bf"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/tech_credits.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/tech_credits.rcss",
+                    "checksum": [
+                        "sha256",
+                        "459b72570eaae599aa616ea35b7f6a7f844d291b74cb76f1f8792147f9b59aca"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/tech_cutscenes.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/tech_cutscenes.rcss",
+                    "checksum": [
+                        "sha256",
+                        "32596334f291e57246841c19894177bc90309f147186e83443db1886125801e2"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/tech_database.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/tech_database.rcss",
+                    "checksum": [
+                        "sha256",
+                        "78996fe1ff73f2852049f289224e2c198bac5994750376f7d721dc082bce9512"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/tech_missions.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/tech_missions.rcss",
+                    "checksum": [
+                        "sha256",
+                        "4325939095b3e6027e627223af8fe95ab8eeca5cf511005a73eaa1f1277feee4"
+                    ]
+                },
+                {
+                    "filename": "data/interface/css/weapon_select.rcss",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/css/weapon_select.rcss",
+                    "checksum": [
+                        "sha256",
+                        "9a6ed861c94ce24f70e91b814a7d42b17e943ddf75034bdf1cbec5a260b7fa25"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/barracks.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/barracks.rml",
+                    "checksum": [
+                        "sha256",
+                        "409f38fa8ebf2a56f74f3c4abba49e58a47d98b818ed2295fb93c40553b5176c"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/briefing.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/briefing.rml",
+                    "checksum": [
+                        "sha256",
+                        "401a2e10b73fc6fe28244a7a302404d97e48fc594e9c043f49442d23a18257b8"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/campaign.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/campaign.rml",
+                    "checksum": [
+                        "sha256",
+                        "907ce3ca123124a0fa4fd5a1a5b5e63eab0cafcf436f4a5e07f1ed5b0c31dc85"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/cmd_brief.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/cmd_brief.rml",
+                    "checksum": [
+                        "sha256",
+                        "4e7e57ed9d980138483ed2d3b2fbcdfebde90a60eea850c161e91e1a64d8f97f"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/cutscene.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/cutscene.rml",
+                    "checksum": [
+                        "sha256",
+                        "f482ca78502f81b959439a25b0cd05529b917501d4449bf132685f05462f7dc0"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/deathdialog.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/deathdialog.rml",
+                    "checksum": [
+                        "sha256",
+                        "6e12d2fa640e444d54a2a0492adb0bd3c67486ea9006b735e2dbbc26ef82f903"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/debrief.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/debrief.rml",
+                    "checksum": [
+                        "sha256",
+                        "574c4bed0b1c7df224cb706a83703fc7400d3b941c3bf0ae8e4edb503de0d747"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/dialog.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/dialog.rml",
+                    "checksum": [
+                        "sha256",
+                        "0ce424c30c59127497b1bdf21415bcc86d309c7903a942c216a4e69859e772df"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/fiction_viewer.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/fiction_viewer.rml",
+                    "checksum": [
+                        "sha256",
+                        "0f3eebbfc03156951fdacb5748dc1c9773ee6e94f778f29b225fc5a6773e4aac"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/journal.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/journal.rml",
+                    "checksum": [
+                        "sha256",
+                        "596b13f0d87afe2630b7174917b6239e1065aaf7573922b79f5091f3d45510bd"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/loop_brief.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/loop_brief.rml",
+                    "checksum": [
+                        "sha256",
+                        "24f071bef842c91a769ba9c7620c173d4a0360fcd9a76d1e197176b8d3376027"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/options.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/options.rml",
+                    "checksum": [
+                        "sha256",
+                        "47e06a2b0d728e096813aec333eea979e0e9ce96284ec275d7a1c30ab070c74a"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/options_basic_tab.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/options_basic_tab.rml",
+                    "checksum": [
+                        "sha256",
+                        "9911a5b1e97b4765a15e29483ca3168e8181829fed5a8609749d0c7bb5f7b3c2"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/options_detail_tab.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/options_detail_tab.rml",
+                    "checksum": [
+                        "sha256",
+                        "c0b4ab9ed2733dc0d6051f1ae7b0d4325e6d53884e6c2886f57b45ce6cfa6be0"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/options_multi_tab.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/options_multi_tab.rml",
+                    "checksum": [
+                        "sha256",
+                        "903a88818e3313f1c71d5d652805e4252adf553c871af7aaae697ac331632fba"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/options_other_tab.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/options_other_tab.rml",
+                    "checksum": [
+                        "sha256",
+                        "1e741f364846ca763a47975dba17da10f5b333aa10a062439d729e65d493fc87"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/options_templates.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/options_templates.rml",
+                    "checksum": [
+                        "sha256",
+                        "0e38089795963f29596ddfc37b4299ef4f3c17a3db34a7e7338e65a43016830a"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/pilot_select.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/pilot_select.rml",
+                    "checksum": [
+                        "sha256",
+                        "01877947be2f8847fb81b67d7b0ead43c034778faaa1a30031cf0d5b183170b2"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/red_alert.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/red_alert.rml",
+                    "checksum": [
+                        "sha256",
+                        "7417e62076b6cb564dadd9f781e7e623d4b081ab61d444b37e51ef1102d1d882"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/ship_select.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/ship_select.rml",
+                    "checksum": [
+                        "sha256",
+                        "3865a9d9cf79f5a45c00ce4ca3f588f9ca90aa55def5f87cd4a16ed5c400c690"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/tech_credits.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/tech_credits.rml",
+                    "checksum": [
+                        "sha256",
+                        "465ec379251c150b307298ad6bccfed658939a9b5ab04210b92813b6285db2c4"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/tech_cutscenes.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/tech_cutscenes.rml",
+                    "checksum": [
+                        "sha256",
+                        "1a94628e359980d0e70d261642d754b310abb9b4665c09b2e319cf4f5f47e96c"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/tech_database.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/tech_database.rml",
+                    "checksum": [
+                        "sha256",
+                        "47b2bbcf6f01d9ad542b57cb65eacaf265d32e0ed76fac0dfc9cbfd00eb1ab7f"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/tech_missions.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/tech_missions.rml",
+                    "checksum": [
+                        "sha256",
+                        "940057add9189d3b024e6c9912e732de25248c2145bcdae658b5d4309209d841"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/template.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/template.rml",
+                    "checksum": [
+                        "sha256",
+                        "53f7358d9d68faffe4faecdaab65065fe6993854c1262d907707539dd5e752f5"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/tutorial.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/tutorial.rml",
+                    "checksum": [
+                        "sha256",
+                        "19bf89e8e912fa7c5f722232d0e283dae020d7311c33418e6d7aaaf980423b15"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/weapon_select.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/weapon_select.rml",
+                    "checksum": [
+                        "sha256",
+                        "889f7f37bf3d46aaf8f8aba770582b8cf60f45b7216dd12d091d8c806ccf7530"
+                    ]
+                },
+                {
+                    "filename": "data/interface/markup/window.rml",
+                    "archive": "content.7z",
+                    "orig_name": "data/interface/markup/window.rml",
+                    "checksum": [
+                        "sha256",
+                        "5486b09e2706aca0ce14c7b6c9a005294ce30e22291bda0c8d5903b843fbb04b"
+                    ]
+                },
+                {
+                    "filename": "data/missions/DebriefingTest.fc2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/DebriefingTest.fc2",
+                    "checksum": [
+                        "sha256",
+                        "98c4dbfabaa3569a0721d1f6bbde14f690763e349ce930f2ff6a908457c9318a"
+                    ]
+                },
+                {
+                    "filename": "data/missions/DebriefTest.fs2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/DebriefTest.fs2",
+                    "checksum": [
+                        "sha256",
+                        "38b68a8dc3bd04586b92861383fd672522d8da28b43ffccf7e94561216a49b4a"
+                    ]
+                },
+                {
+                    "filename": "data/missions/FictionViewerTest.fs2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/FictionViewerTest.fs2",
+                    "checksum": [
+                        "sha256",
+                        "1bacb79295e9f9b87da4b3ea39c52a12b20c32be1c568a695a7d920432da1857"
+                    ]
+                },
+                {
+                    "filename": "data/missions/Goals Test.fs2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/Goals Test.fs2",
+                    "checksum": [
+                        "sha256",
+                        "e87e93d4212bf54d46d819e343003ee2a686cdbc8a5ea629dd181e38b99b81c1"
+                    ]
+                },
+                {
+                    "filename": "data/missions/Loop1.fs2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/Loop1.fs2",
+                    "checksum": [
+                        "sha256",
+                        "c1c7324a872e687ebdb279df6322b3785b624773503e7a2840799be268de23ba"
+                    ]
+                },
+                {
+                    "filename": "data/missions/Loop2.fs2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/Loop2.fs2",
+                    "checksum": [
+                        "sha256",
+                        "20c23ffad2b176359bd5577f9e4e7197661b5684fa18496d3d750438a3634f0a"
+                    ]
+                },
+                {
+                    "filename": "data/missions/Loop3.fs2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/Loop3.fs2",
+                    "checksum": [
+                        "sha256",
+                        "5c463d560b81b565d21fcd398a7dc77cd5cd8651f9d38dd56939fc22a758945d"
+                    ]
+                },
+                {
+                    "filename": "data/missions/LoopTest.fc2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/LoopTest.fc2",
+                    "checksum": [
+                        "sha256",
+                        "c55f9204d028db66236f696b04690e37cb14db46fe015915b197231dcfcde6df"
+                    ]
+                },
+                {
+                    "filename": "data/missions/RedAlert.fs2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/RedAlert.fs2",
+                    "checksum": [
+                        "sha256",
+                        "70ab1ad5743e50bcfc55b2db3cc583ac3e85530f65a6c148a5637da4e7b56d36"
+                    ]
+                },
+                {
+                    "filename": "data/missions/RedAlertTest.fc2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/RedAlertTest.fc2",
+                    "checksum": [
+                        "sha256",
+                        "82a466266c3e5cce6bda093665650281dd97e58a7b2af05e9255299c63d48114"
+                    ]
+                },
+                {
+                    "filename": "data/missions/SimTest - Copy.fs2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/SimTest - Copy.fs2",
+                    "checksum": [
+                        "sha256",
+                        "1bb4c3f35d1a5be0b0b095a1447c37671c60882a0870e5105595e48960c22166"
+                    ]
+                },
+                {
+                    "filename": "data/missions/SimTest2.fs2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/SimTest2.fs2",
+                    "checksum": [
+                        "sha256",
+                        "d88a52e842e698a14e0beced8bd3057e21c01fa9043c19b316949e9248de55d9"
+                    ]
+                },
+                {
+                    "filename": "data/missions/SimTest3.fs2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/SimTest3.fs2",
+                    "checksum": [
+                        "sha256",
+                        "edd5e1c4b95933b406289c8975338c7ae8aad1e130ead26f3cda64b549aa08c5"
+                    ]
+                },
+                {
+                    "filename": "data/missions/training-1.fs2",
+                    "archive": "content.7z",
+                    "orig_name": "data/missions/training-1.fs2",
+                    "checksum": [
+                        "sha256",
+                        "85440bca5843abf898fe47957f6142c80cf518b53e53d18f30d2900035cea7ee"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/async_util.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/async_util.lua",
+                    "checksum": [
+                        "sha256",
+                        "accc7f7aef6a4370af4c6c1b987ce8456c11d45b0790958760316d5137163fbe"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/barracks.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/barracks.lua",
+                    "checksum": [
+                        "sha256",
+                        "16d190aa9356a64374bb05d2d41f2f06720d6d2602c7d028dc744a31dd8030f8"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/briefing.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/briefing.lua",
+                    "checksum": [
+                        "sha256",
+                        "af8403b57e09f63144817d4f3abedcd0c1cb908ab3cea266415f8fff11562d65"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/briefingCommon.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/briefingCommon.lua",
+                    "checksum": [
+                        "sha256",
+                        "92b79a03cd6578b86655b26173485969886acccedbc49d39325851ae568f5538"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/campaign.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/campaign.lua",
+                    "checksum": [
+                        "sha256",
+                        "4680dfa3d8607ab8df380c7558c47b7757c83be06079feef8e46fb9b7b749fd7"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/class.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/class.lua",
+                    "checksum": [
+                        "sha256",
+                        "d1a6fe88ac1fad5c1a17cdba6c12506803e44389436f86bd79739e240f8991b4"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/cmd_brief.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/cmd_brief.lua",
+                    "checksum": [
+                        "sha256",
+                        "fa75351ae1bdc185b26e47a4568cd090b091ccd03854259e31015954e4ac9eb7"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/cutscene.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/cutscene.lua",
+                    "checksum": [
+                        "sha256",
+                        "daa6ca5c9263553ac9ad15fa2dfb072b63054fce9574b6336c903f260f6b9c44"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/debrief.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/debrief.lua",
+                    "checksum": [
+                        "sha256",
+                        "7b1ff3b734b4f95a8a786f00cd8d1717c9453bc5021afe06e50e97f7bab51e6e"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/dialogs.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/dialogs.lua",
+                    "checksum": [
+                        "sha256",
+                        "e3009364ad1e7c9ea8155c23749acf0cc0ee26c40c3f74ef40583222cd61f53c"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/dkjson.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/dkjson.lua",
+                    "checksum": [
+                        "sha256",
+                        "67b3d037f6e357209728de692732e53d9bd0ac03833414a4369118c47adcf5de"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/fiction_viewer.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/fiction_viewer.lua",
+                    "checksum": [
+                        "sha256",
+                        "94b2736122beb7c916593636705198bc2724a2e6966981270fc41cae55ebaaa0"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/journal.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/journal.lua",
+                    "checksum": [
+                        "sha256",
+                        "88a146388da247454f0da4ee6cd9317dbf5f59a6196e212dca7e380a8dd99e65"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/loop_brief.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/loop_brief.lua",
+                    "checksum": [
+                        "sha256",
+                        "4fc48befaea947b2a99762226702711162f7dbecaf4541aa81e7fa13e8704323"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/options.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/options.lua",
+                    "checksum": [
+                        "sha256",
+                        "ccaf4bc6821e7793b348e371ff6d6d52e0ba0f853f15febb7fc4bda7aa5bc1de"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/pilotSelect.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/pilotSelect.lua",
+                    "checksum": [
+                        "sha256",
+                        "a8de6ab79cf4df11a61504adfb7e2ed968d93a07bc826fc47c84183c9fa1854c"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/redalert.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/redalert.lua",
+                    "checksum": [
+                        "sha256",
+                        "94c7c909ae6f452b2016bbb9033873bf1ed7653d300fe5b7370d442fe08e91e1"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/rocket_templates.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/rocket_templates.lua",
+                    "checksum": [
+                        "sha256",
+                        "bb750d0315428b6cc2189f063a8bb72e48d59174d8fb69052af9775e5ba9bd28"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/rocket_util.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/rocket_util.lua",
+                    "checksum": [
+                        "sha256",
+                        "67bea32dba35338d0f98b2e4a114aad52041fe37605e57b3a06e209488a08bd0"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/shipselect.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/shipselect.lua",
+                    "checksum": [
+                        "sha256",
+                        "e9843796d0e2e01fdaaa7efc9803c4d4277b02fcc056d2e5c925c931d05f749b"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/tech_credits.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/tech_credits.lua",
+                    "checksum": [
+                        "sha256",
+                        "bde810b89897e369652f16b2684c1cfd570168bad73d661a0fb037dda33120a1"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/tech_cutscenes.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/tech_cutscenes.lua",
+                    "checksum": [
+                        "sha256",
+                        "44c4d89b15e933cc3bb33e6e4d77bff3e2a4240b943987d83653456be7250824"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/tech_database.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/tech_database.lua",
+                    "checksum": [
+                        "sha256",
+                        "47fd91889f9f9c0117a91e8ced07bf0de8dc4a7ed4714b35ada9e9bc0c3acccc"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/tech_missions.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/tech_missions.lua",
+                    "checksum": [
+                        "sha256",
+                        "1e7ace676371e80c6a0e52bce3c4bb6195ad9d6ccd8fa21e3e241620b2aa4d66"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/utils.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/utils.lua",
+                    "checksum": [
+                        "sha256",
+                        "ed46cd396911b2cfc740d9a65a2479cf9c124f72e9cf6806911de0fdffd914a7"
+                    ]
+                },
+                {
+                    "filename": "data/scripts/weaponselect.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/scripts/weaponselect.lua",
+                    "checksum": [
+                        "sha256",
+                        "fa5357506868115a415d84e5727d115266364f1149fed0329d3db43c68313e3e"
+                    ]
+                },
+                {
+                    "filename": "data/tables/a_ui_options-sct.tbm",
+                    "archive": "content.7z",
+                    "orig_name": "data/tables/a_ui_options-sct.tbm",
+                    "checksum": [
+                        "sha256",
+                        "c29cfe0ca238d203ed527eff0b3d3eb65fbbef494caf2e1ed53df9b99fb5ca61"
+                    ]
+                },
+                {
+                    "filename": "data/tables/fonts.tbl",
+                    "archive": "content.7z",
+                    "orig_name": "data/tables/fonts.tbl",
+                    "checksum": [
+                        "sha256",
+                        "9ff86a5c445b07208fbb01dd100d71bb3c4033f19a847792ce0f3803a0c42290"
+                    ]
+                },
+                {
+                    "filename": "data/tables/game_settings.tbl",
+                    "archive": "content.7z",
+                    "orig_name": "data/tables/game_settings.tbl",
+                    "checksum": [
+                        "sha256",
+                        "b4e59f0df8d10edba1f189b9d432475dcc3c4d2db4293a20e341ba86ef12f6cf"
+                    ]
+                },
+                {
+                    "filename": "data/tables/gen_icons-sct.tbm",
+                    "archive": "content.7z",
+                    "orig_name": "data/tables/gen_icons-sct.tbm",
+                    "checksum": [
+                        "sha256",
+                        "3ce0142b68f40544b3da3a30c14cf9f9aa2e25895bed88ff34d0c74de8ada324"
+                    ]
+                },
+                {
+                    "filename": "data/tables/ships.tbl",
+                    "archive": "content.7z",
+                    "orig_name": "data/tables/ships.tbl",
+                    "checksum": [
+                        "sha256",
+                        "60266906ff4bc25932ecda1aa8070c92de0e7ab6cde42c2d5a02169c7e6315ca"
+                    ]
+                },
+                {
+                    "filename": "data/tables/strings.tbl",
+                    "archive": "content.7z",
+                    "orig_name": "data/tables/strings.tbl",
+                    "checksum": [
+                        "sha256",
+                        "0afb94c21b9a5b568d5162e993406a6e1cb28e201215766b2c14811feee146f5"
+                    ]
+                },
+                {
+                    "filename": "data/tables/tstrings.tbl",
+                    "archive": "content.7z",
+                    "orig_name": "data/tables/tstrings.tbl",
+                    "checksum": [
+                        "sha256",
+                        "aad408f452952e92d9f39f9db98ffb97a895fe06ca948ef0cd107de9d6d40cb2"
+                    ]
+                },
+                {
+                    "filename": "data/tables/ui-mod.tbm",
+                    "archive": "content.7z",
+                    "orig_name": "data/tables/ui-mod.tbm",
+                    "checksum": [
+                        "sha256",
+                        "9bcf6ac76ba3f789aa3d473f435bbf107642edab4d1398f26a68e5d868afb0c1"
+                    ]
+                },
+                {
+                    "filename": "data/tables/ui_system-sct.lua",
+                    "archive": "content.7z",
+                    "orig_name": "data/tables/ui_system-sct.lua",
+                    "checksum": [
+                        "sha256",
+                        "25af8c56ef5d95107554cb70b0e23e77fa8dd08f1dfc6821837e7a76a1a94464"
+                    ]
+                },
+                {
+                    "filename": "data/tables/weapons.tbl",
+                    "archive": "content.7z",
+                    "orig_name": "data/tables/weapons.tbl",
+                    "checksum": [
+                        "sha256",
+                        "e75c5069fb2127133192283af863755826b47e4feed3d368b6967bc786d52cd8"
+                    ]
+                },
+                {
+                    "filename": "data/voice/special/1_backup.wav",
+                    "archive": "content.7z",
+                    "orig_name": "data/voice/special/1_backup.wav",
+                    "checksum": [
+                        "sha256",
+                        "4ae7327cadf9398cd0c8409261640f4f62492c690ea58ba1db103ec0b4de2100"
+                    ]
+                }
+            ],
+            "executables": [],
+            "check_notes": ""
+        }
+    ]
+}

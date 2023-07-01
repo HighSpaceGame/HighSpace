@@ -1,0 +1,253 @@
+/*
+* Default styles for all the basic elements.
+*/
+
+.p1-1
+{
+	font-size: 0.6em;
+}
+
+.p1-2
+{
+	font-size: 0.7em;
+}
+
+.p1-3
+{
+	font-size: 0.8em;
+}
+
+.p1-4
+{
+	font-size: 0.9em;
+}
+
+.p1-5
+{
+	font-size: 1em;
+}
+
+.p1-6
+{
+	font-size: 1.1em;
+}
+
+.p1-7
+{
+	font-size: 1.2em;
+}
+
+.p1-8
+{
+	font-size: 1.3em;
+}
+
+.p1-9
+{
+	font-size: 1.4em;
+}
+
+.p1-10
+{
+	font-size: 1.5em;
+}
+
+.p2-1
+{
+	font-size: 0.7em;
+}
+
+.p2-2
+{
+	font-size: 0.8em;
+}
+
+.p2-3
+{
+	font-size: 0.9em;
+}
+
+.p2-4
+{
+	font-size: 1em;
+}
+
+.p2-5
+{
+	font-size: 1.1em;
+}
+
+.p2-6
+{
+	font-size: 1.2em;
+}
+
+.p2-7
+{
+	font-size: 1.3em;
+}
+
+.p2-8
+{
+	font-size: 1.4em;
+}
+
+.p2-9
+{
+	font-size: 1.5em;
+}
+
+.p2-10
+{
+	font-size: 1.6em;
+}
+
+.s1-1
+{
+	font-size: 0.3em;
+}
+
+.s1-2
+{
+	font-size: 0.4em;
+}
+
+.s1-3
+{
+	font-size: 0.5em;
+}
+
+.s1-4
+{
+	font-size: 0.6em;
+}
+
+.s1-5
+{
+	font-size: 0.7em;
+}
+
+.s1-6
+{
+	font-size: 0.8em;
+}
+
+.s1-7
+{
+	font-size: 0.9em;
+}
+
+.s1-8
+{
+	font-size: 1em;
+}
+
+.s1-9
+{
+	font-size: 1.1em;
+}
+
+.s1-10
+{
+	font-size: 1.5em;
+}
+
+.h1-1
+{
+	font-size: 1.3em;
+}
+
+.h1-2
+{
+	font-size: 1.4em;
+}
+
+.h1-3
+{
+	font-size: 1.5em;
+}
+
+.h1-4
+{
+	font-size: 1.6em;
+}
+
+.h1-5
+{
+	font-size: 1.7em;
+}
+
+.h1-6
+{
+	font-size: 1.8em;
+}
+
+.h1-7
+{
+	font-size: 1.9em;
+}
+
+.h1-8
+{
+	font-size: 2em;
+}
+
+.h1-9
+{
+	font-size: 2.1em;
+}
+
+.h1-10
+{
+	font-size: 2.2em;
+}
+
+.h2-1
+{
+	font-size: 2.1em;
+}
+
+.h2-2
+{
+	font-size: 2.2em;
+}
+
+.h2-3
+{
+	font-size: 2.3em;
+}
+
+.h2-4
+{
+	font-size: 2.4em;
+}
+
+.h2-5
+{
+	font-size: 2.5em;
+}
+
+.h2-6
+{
+	font-size: 2.6em;
+}
+
+.h2-7
+{
+	font-size: 2.7em;
+}
+
+.h2-8
+{
+	font-size: 2.8em;
+}
+
+.h2-9
+{
+	font-size: 2.9em;
+}
+
+.h2-10
+{
+	font-size: 3em;
+}

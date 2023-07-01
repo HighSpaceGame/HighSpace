@@ -1,0 +1,46 @@
+<rml>
+<head>
+	<link type="text/template" href="template.rml"/>
+	<title>Window</title>
+	<style>
+		body
+		{
+			width: 30cm;
+			height: 20cm;
+
+			margin: auto;
+		}
+			
+		form div
+		{
+			width: 200px;
+			margin: auto;
+		}
+	</style>
+</head>
+<body template="window">
+	<tabset>
+		<tab>Video</tab>
+		<panel>
+    		<p>
+    			Colour:<br />
+    			<select name="colour">
+    				<option value="233,116,81">Burnt Sienna</option>
+    				<option value="127,255,0">Chartreuse</option>
+    				<option value="21,96,189">Denim</option>
+    				<option value="246,74,138">French Rose</option>
+    				<option value="255,0,255">Fuschia</option>
+    				<option value="218,165,32">Goldenrod</option>
+    				<option selected value="255,255,240">Ivory</option>
+    			</select>
+				<ani src="intel_ancients" />
+    		</p>
+		</panel>
+		<tab>Advanced</tab>
+		<panel>
+			Welcome to the second tab!
+		</panel>
+	</tabset>
+	<input type="submit">Apply</input>
+</body>
+</rml>

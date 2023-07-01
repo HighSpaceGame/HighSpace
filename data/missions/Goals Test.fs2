@@ -1,0 +1,266 @@
+#Mission Info
+
+$Version: 0.10
+$Name:  XSTR("Goals Test", -1)
+$Author: TempUser
+$Created: 08/26/22 at 20:53:12
+$Modified: 08/28/22 at 16:44:00
+$Notes:
+This is a FRED2_OPEN created mission.
+$End Notes:
+
+$Mission Desc:
+ XSTR("Put mission description here
+", -1)
+$end_multi_text
++Game Type Flags: 1
++Flags: 0
++Fog Near Mult: 1.000000
+
++Fog Far Mult: 1.000000
+
++Disallow Support: 0
++Hull Repair Ceiling: 0.000000
++Subsystem Repair Ceiling: 100.000000
+
++Viewer pos: 0.000000, 150.000000, -200.000000
++Viewer orient:
+	1.000000, 0.000000, -0.000000,
+	0.000000, 0.866025, 0.500000,
+	0.000000, -0.500000, 0.866025
+
+
+$AI Profile: FS2 RETAIL
+
+#Command Briefing
+
+#Briefing
+$start_briefing
+$num_stages: 2
+$start_stage
+$multi_text
+ XSTR("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit. Venenatis cras sed felis eget velit aliquet sagittis id. Mauris nunc congue nisi vitae suscipit. Ultrices vitae auctor eu augue ut lectus arcu bibendum. Diam vulputate ut pharetra sit amet. Faucibus et molestie ac feugiat sed lectus vestibulum. Non diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat. Porttitor lacus luctus accumsan tortor posuere ac ut consequat semper. Vulputate dignissim suspendisse in est ante in. At ultrices mi tempus imperdiet. In aliquam sem fringilla ut morbi tincidunt augue interdum. Et malesuada fames ac turpis. Nunc mi ipsum faucibus vitae aliquet nec.
+
+Maecenas ultricies mi eget mauris. Aenean vel elit scelerisque mauris pellentesque. Vulputate ut pharetra sit amet aliquam id diam. Sit amet justo donec enim diam vulputate. Elit ullamcorper dignissim cras tincidunt lobortis. Bibendum neque egestas congue quisque egestas diam in. Est sit amet facilisis magna etiam tempor. Vel facilisis volutpat est velit egestas dui id ornare. Sem nulla pharetra diam sit. Tortor condimentum lacinia quis vel eros. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Sem integer vitae justo eget magna. Posuere morbi leo urna molestie. Morbi tincidunt augue interdum velit.
+
+Cursus sit amet dictum sit amet. Convallis tellus id interdum velit. Ut tortor pretium viverra suspendisse potenti nullam ac. Ornare arcu odio ut sem nulla pharetra diam sit. Bibendum arcu vitae elementum curabitur vitae nunc sed. Nulla facilisi nullam vehicula ipsum a arcu cursus. Egestas purus viverra accumsan in nisl nisi. Fusce ut placerat orci nulla. Enim facilisis gravida neque convallis a cras semper. Euismod quis viverra nibh cras pulvinar mattis nunc sed blandit. Viverra nibh cras pulvinar mattis nunc sed blandit libero. In dictum non consectetur a erat nam at.
+
+Molestie a iaculis at erat pellentesque adipiscing. Blandit aliquam etiam erat velit scelerisque in dictum. Eget velit aliquet sagittis id consectetur purus. Eget egestas purus viverra accumsan in. Porta non pulvinar neque laoreet suspendisse interdum consectetur libero. Sodales neque sodales ut etiam sit amet. Enim diam vulputate ut pharetra. Auctor neque vitae tempus quam pellentesque nec nam. Integer quis auctor elit sed vulputate mi sit amet mauris. Arcu cursus vitae congue mauris. Maecenas ultricies mi eget mauris pharetra et ultrices. Non odio euismod lacinia at quis risus sed. Suspendisse in est ante in nibh mauris cursus. Senectus et netus et malesuada fames. Blandit aliquam etiam erat velit scelerisque in dictum non consectetur. Tortor at auctor urna nunc id. Tristique magna sit amet purus. Id aliquet lectus proin nibh nisl condimentum id venenatis a. Nisl purus in mollis nunc sed id semper risus. Consequat interdum varius sit amet mattis vulputate enim.
+
+Et malesuada fames ac turpis egestas maecenas. Quis ipsum suspendisse ultrices gravida dictum fusce. Id cursus metus aliquam eleifend mi in nulla. Pellentesque habitant morbi tristique senectus et. Risus in hendrerit gravida rutrum quisque non tellus orci ac. Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Sit amet luctus venenatis lectus magna fringilla urna porttitor rhoncus. Enim sit amet venenatis urna cursus eget. Congue eu consequat ac felis donec. Semper quis lectus nulla at volutpat diam ut venenatis. Pellentesque nec nam aliquam sem et tortor consequat id porta. Pretium nibh ipsum consequat nisl vel. Nisl pretium fusce id velit ut tortor pretium. Lectus arcu bibendum at varius. Viverra aliquet eget sit amet tellus cras adipiscing enim eu. Amet venenatis urna cursus eget nunc. Pharetra diam sit amet nisl suscipit adipiscing. Neque egestas congue quisque egestas diam in arcu cursus euismod.", -1)
+$end_multi_text
+$voice: none.wav
+$camera_pos: 0.000000, 150.000000, -200.000000
+$camera_orient:
+	1.000000, 0.000000, -0.000000,
+	0.000000, 0.866025, 0.500000,
+	0.000000, -0.500000, 0.866025
+$camera_time: 500
+$num_lines: 0
+$num_icons: 0
+$Flags: 0
+$Formula: ( true ) 
+$end_stage
+$start_stage
+$multi_text
+ XSTR("This is stage two and it is false", -1)
+$end_multi_text
+$voice: none.wav
+$camera_pos: 0.000000, 150.000000, -200.000000
+$camera_orient:
+	1.000000, 0.000000, -0.000000,
+	0.000000, 0.866025, 0.500000,
+	0.000000, -0.500000, 0.866025
+$camera_time: 500
+$num_lines: 0
+$num_icons: 0
+$Flags: 0
+$Formula: ( false ) 
+$end_stage
+$end_briefing
+
+#Debriefing_info
+
+$Num stages: 0
+
+#Players		;! 1 total
+
+$Starting Shipname: Alpha 1
+$Ship Choices: (
+	"GTF Ulysses"	5
+	"GTF Hercules"	5
+	"GTF Hercules Mark II"	5
+	"GTF Ares"	5
+	"GTF Erinyes"	5
+	"GTF Loki"	5
+	"GTF Pegasus"	5
+	"GTF Perseus"	5
+	"GTF Myrmidon"	5
+	"SF Mara (terrans)"	5
+	"GTB Artemis"	5
+	"GTB Artemis D.H."	5
+	"GTB Medusa"	5
+	"GTB Ursa"	5
+	"GTB Zeus"	5
+	"GTB Boanerges"	5
+	"GVF Ptah"	5
+)
+
++Weaponry Pool: (
+	"Subach HL-7"	17
+	"Subach HL-D"	16
+	"Mekhu HL-7"	16
+	"Mekhu HL-7D"	16
+	"Akheton SDG"	16
+	"Morning Star"	16
+	"MorningStar D"	16
+	"Prometheus R"	17
+	"Prometheus S"	16
+	"Prometheus D"	16
+	"Maxim"	16
+	"Maxim D"	16
+	"UD-8 Kayser"	16
+	"UD-D Kayser"	16
+	"Circe"	16
+	"Lamprey"	16
+	"Rockeye"	500
+	"Rockeye D"	500
+	"Tempest"	500
+	"Tempest D"	500
+	"Hornet"	500
+	"Hornet D"	500
+	"Tornado"	500
+	"Tornado D"	500
+	"Harpoon"	516
+	"Harpoon D"	500
+	"Trebuchet"	500
+	"TAG-A"	500
+	"TAG-B"	500
+	"Piranha"	500
+	"Stiletto II"	500
+	"Infyrno"	500
+	"Infyrno D"	500
+	"Cyclops"	500
+	"Cyclops#short"	500
+	"Helios"	500
+	"EMP Adv."	500
+)
+
+#Objects		;! 1 total
+
+$Name: Alpha 1		;! Object #0
+$Class: GTF Ulysses
+$Team: Friendly
+$Location: 0.000000, 0.000000, 0.000000
+$Orientation:
+	1.000000, 0.000000, 0.000000,
+	0.000000, 1.000000, 0.000000,
+	0.000000, 0.000000, 1.000000
+$AI Behavior: None
+$Cargo 1:  XSTR("Nothing", -1)
++Initial Velocity: 33
++Initial Hull: 100
++Subsystem: Pilot
+$Arrival Location: Hyperspace
+$Arrival Cue: ( false ) 
+$Departure Location: Hyperspace
+$Departure Cue: ( false ) 
+$Determination: 10
++Flags: ( "cargo-known" "player-start" )
++Flags2: ( )
++Respawn priority: 0
++Group: 0
++Use Table Score:
++Score: 8
+
+#Wings		;! 1 total
+
+$Name: Alpha
+$Waves: 1
+$Wave Threshold: 0
+$Special Ship: 0		;! Alpha 1
+$Arrival Location: Hyperspace
+$Arrival Cue: ( true ) 
+$Departure Location: Hyperspace
+$Departure Cue: ( false ) 
+$Ships: (		;! 1 total
+	"Alpha 1"
+)
++Hotkey: 0
++Flags: ( )
+
+#Events		;! 0 total
+
+
+#Goals		;! 6 total
+
+$Type: Primary
++Name: Primary Valid
+$MessageNew:  XSTR("Primary Valid Text", -1)
+$end_multi_text
+$Formula: ( true ) 
+
+$Type: Primary
++Name: Primary Invalid
+$MessageNew:  XSTR("Primary Invalid Text", -1)
+$end_multi_text
+$Formula: ( true ) 
++Invalid
+
+$Type: Secondary
++Name: Secondary Valid
+$MessageNew:  XSTR("Secondary Valid Text", -1)
+$end_multi_text
+$Formula: ( true ) 
+
+$Type: Secondary
++Name: Secondary Invalid
+$MessageNew:  XSTR("Secondary Invalid Text", -1)
+$end_multi_text
+$Formula: ( true ) 
++Invalid
+
+$Type: Bonus
++Name: Bonus Valid
+$MessageNew:  XSTR("Bonus Valid Text", -1)
+$end_multi_text
+$Formula: ( true ) 
+
+$Type: Bonus
++Name: Bonus Invalid
+$MessageNew:  XSTR("Bonus Invalid Text", -1)
+$end_multi_text
+$Formula: ( true ) 
++Invalid
+
+#Waypoints		;! 0 lists total
+
+
+#Messages		;! 0 total
+
+
+#Reinforcements		;! 0 total
+
+
+#Background bitmaps		;! 0 total
+
+$Num stars: 500
+$Ambient light level: 7895160
++Nebula: Nebula01
++Color: Blue
++Pitch: 45
++Bank: 21
++Heading: 347
+
+$Bitmap List:
++Flags: ( "corrected angles" )
+
+#Asteroid Fields
+
+#Music
+
+$Event Music: None
+$Briefing Music: None
+
+#End
+

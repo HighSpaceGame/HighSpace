@@ -1,0 +1,86 @@
+$Name: Loop Test
+$Type: single
++Description:
+ XSTR("Testing Loops", -1)
+$end_multi_text
+$Flags: 1
+
+
++Starting Ships: ( "GTF Ulysses"  "GTF Hercules"  "GTF Hercules Mark II"  "GTF Ares"  "GTF Erinyes"  "GTF Loki"  "GTF Pegasus"  "GTF Perseus"  "GTF Myrmidon"  "SF Mara (terrans)"  "GTB Artemis"  "GTB Artemis D.H."  "GTB Medusa"  "GTB Ursa"  "GTB Zeus"  "GTB Boanerges"  "GVF Seth"  "GVF Horus"  "GVF Thoth"  "GVF Serapis"  "GVF Tauret"  "GVB Sekhmet"  "GVB Osiris"  "GVB Bakha"  "GVF Ptah" )
+
++Starting Weapons: ( "Subach HL-7"  "Subach HL-D"  "Mekhu HL-7"  "Mekhu HL-7D"  "Akheton SDG"  "Morning Star"  "MorningStar D"  "Prometheus R"  "Prometheus S"  "Prometheus D"  "Maxim"  "Maxim D"  "UD-8 Kayser"  "UD-D Kayser"  "Circe"  "Lamprey"  "Rockeye"  "Rockeye D"  "Tempest"  "Tempest D"  "Hornet"  "Hornet D"  "Tornado"  "Tornado D"  "Harpoon"  "Harpoon D"  "Trebuchet"  "TAG-A"  "TAG-B"  "Piranha"  "Stiletto II"  "Infyrno"  "Infyrno D"  "Cyclops"  "Cyclops#short"  "Helios"  "EMP Adv." )
+
+
+$Mission: loop1.fs2
++Flags: 4
++Main Hall: 0
++Formula: ( cond
+   (
+      ( is-previous-event-true 
+         "loop1.fs2" 
+         "Warp Out" 
+      )
+      ( next-mission "loop3.fs2" )
+   )
+   ( ( true ) ( next-mission "loop1.fs2" ) )
+)
+
++Mission Loop:
++Mission Loop Text:
+ XSTR("Commander Rai has requested a squadron leader to accompany her on a theater critical operation. This mission requires a pilot with an intelligence unit background. The pilot will be witness to extended exchanges of highly sensitive information. Unfortunately, this opration will cut in to your leave time. Accept or refuse?", 3569)
+$end_multi_text
++Mission Loop Brief Anim:
+ XSTR("2_cb_bta.ani", -1)
+$end_multi_text
++Mission Loop Brief Sound:
+ XSTR("1_backup.wav", -1)
+$end_multi_text
++Formula: ( cond
+   (
+      ( is-previous-event-true 
+         "loop1.fs2" 
+         "Warp Out" 
+      )
+      ( next-mission "loop2.fs2" )
+   )
+)
+
++Level: 0
++Position: 0
+
+$Mission: loop2.fs2
++Flags: 0
++Main Hall: 0
++Formula: ( cond
+   (
+      ( is-previous-event-true 
+         "loop2.fs2" 
+         "Warp Out" 
+      )
+      ( next-mission "loop3.fs2" )
+   )
+   ( ( true ) ( next-mission "loop2.fs2" ) )
+)
+
++Level: 1
++Position: 0
+
+$Mission: loop3.fs2
++Flags: 0
++Main Hall: 0
++Formula: ( cond
+   (
+      ( is-previous-event-true 
+         "loop3.fs2" 
+         "Warp Out" 
+      )
+      ( end-of-campaign )
+   )
+   ( ( true ) ( next-mission "loop3.fs2" ) )
+)
+
++Level: 2
++Position: 0
+
+#End
+

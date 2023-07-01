@@ -1,0 +1,101 @@
+$E{ Interrogation Report: Senator Hoshi $}
+$E{ Date: August 13, 2336 $}
+
+$E{ [Loud movements and sounds] $}
+
+$g{ LT. SCEFFE: $} What is your name?
+
+$y{ SATO HOSHI: $} $e{ Sato Hoshi $}
+
+$g{ LT. SCEFFE: $} Alright, let's talk about the transport you were on, the Tranquility. Do you own it?
+
+$y{ SATO HOSHI: $} $e{ Of course. You have the registration papers. $}
+
+$g{ LT. SCEFFE: $} You're right, I do. What I don't have is a record of the cargo on board. You understand that it's illegal to transport neutrinium.
+
+$y{ SATO HOSHI: $} $e{ Then it must've been placed by someone else. Someone's trying to frame me. $}
+
+$g{ LT. SCEFFE: $} You were making deals with smugglers.
+
+$y{ SATO HOSHI: $} $e{ I don't know what you're talking about. $}
+
+$g{ LT. SCEFFE: $} We have evidence.
+
+$y{ SATO HOSHI: $} $e{ Then why am I here? You have nothing. $}
+
+$g{ LT. SCEFFE: $} We have an audio recording of you communicating with known smugglers.
+
+$y{ SATO HOSHI: $} $e{ What do you want from me? $}
+
+$g{ LT. SCEFFE: $} What were you doing with neutrinium?
+
+$y{ SATO HOSHI: $} $e{ I said I don't know what you are talking about. $}
+
+$g{ LT. SCEFFE: $} Playing dumb doesn't put you above the law.
+
+$y{ SATO HOSHI: $} $e{ I'm a senator! $}
+
+$g{ LT. SCEFFE: $} You're a criminal.
+
+$y{ SATO HOSHI: $} $e{ And you're a pawn! You don't know what you're getting yourselves in to. $}
+
+$g{ LT. SCEFFE: $} What does that mean?
+
+$y{ SATO HOSHI: $} $e{ You think you control these systems? The whole world's corrupt. $}
+
+$g{ LT. SCEFFE: $} This coming from a senator involved in smuggling?
+
+$y{ SATO HOSHI: $} $e{ Smuggling! That's not even half of it. $}
+
+$g{ LT. SCEFFE: $} Oh? Then enlighten me.
+
+$y{ SATO HOSHI: $} $e{ (inaudible) $}
+
+$g{ LT. SCEFFE: $} What did you say?
+
+$y{ SATO HOSHI: $} $e{ (inaudible) $}
+
+$g{ LT. SCEFFE: $} Speak up. I can't hear you.
+
+$y{ SATO HOSHI: $} $e{ (speaking Vasudan) $}
+
+$g{ LT. SCEFFE: $} Why are you speaking Vasudan? What do they have to do with anything?
+
+$y{ SATO HOSHI: $} $e{ He has to do with everything, and he's going to win. $}
+
+$g{ LT. SCEFFE: $} Who?
+
+$y{ SATO HOSHI: $} $e{ (inaudible) $}
+
+$g{ LT. SCEFFE: $} Ozymandias? Speak up, Senator!
+
+$y{ SATO HOSHI: $} $e{ Yes. Ozymandias. $}
+
+$g{ LT. SCEFFE: $} What can you tell me about him, Ozymandias?
+
+$y{ SATO HOSHI: $} $e{ Nothing. I know nothing about him, except that, except that.. (inaudible) $}
+
+$g{ LT. SCEFFE: $} Except what?
+
+$y{ SATO HOSHI: $} $e{ He has enough force to challenge the Intrepid. $}
+
+$g{ LT. SCEFFE: $} Did you meet with Ozymandias? Can you tell me where?
+
+$y{ SATO HOSHI: $} $e{ I can't remember. Somewhere in Sirius. $}
+
+$g{ LT. SCEFFE: $} And he promised you that he'll force the GTA to reprioritize their targets?
+
+$g{ LT. SCEFFE: $} Senator?
+
+$y{ SATO HOSHI: $} $e{ I have my rights. $}
+
+$g{ LT. SCEFFE: $} Senator Hoshi! Answer the que-
+
+$y{ SATO HOSHI: $} $e{ I'm Sato Hoshi, Senator of Regulus, and I demand that you let me out immediately! $}
+
+$E{ [Loud movement sounds] $}
+
+$g{ LT. SCEFFE: $} Sit down!
+
+$E{ [Banging sounds. Voices inaudible over noise.] $}
+$E{ [Recording ends.] $}

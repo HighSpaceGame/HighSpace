@@ -1,0 +1,10 @@
+<rml>
+	<head>
+		<script>
+			controller = require("cutscene")()
+		</script>
+	</head>
+	<body onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onunload="controller = nil">
+	</body>
+
+</rml>

@@ -1,0 +1,230 @@
+<rml>
+	<head>
+		<title>XSTR("Briefing", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="briefing.rcss"/>
+		<script>
+			controller = require("briefing")()
+		</script>
+	</head>
+	<body id=main_background onkeydown="controller:global_keydown(element, event)" onload="controller:initialize(document)"
+		  onunload="controller:unload(); controller = nil">
+		<div id=top_panel_wrapper>
+			<div id=top_panel_a>
+				<div id=top_a_panel_wrapper>
+					<div id=skip_m_cont>
+						<button id="skip_btn" class="skip button_1" onclick="controller:skip_pressed(element)">
+							<span id="skip_img" class="skip">
+								<img src="skip-r.png" class="psuedo_img"></img>
+							</span>
+							<span id="skip_m_text" class="pos button_text_left">
+								<p></p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="top-right-panel.png"></img>
+			</div>
+			<div id=top_panel_b>
+				<div id=top_b_panel_wrapper>
+					<div id=bullet_cont>
+						<button id="brief_btn" class="bullet button_1" onclick="controller:ChangeBriefState(1)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Briefing", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="s_select_btn" class="bullet button_1" onclick="controller:ChangeBriefState(2)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Ship Selection", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="w_select_btn" class="bullet button_1" onclick="controller:ChangeBriefState(3)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Weapon Selection", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="ops-panel-vert-tall-l.png"></img>
+			</div>
+		</div>
+		<div id=brief_wrapper>
+			<div id=brief_grid_window>
+				<div id=brief_grid_cut>
+				</div>
+				<div id=mission_debug_info>
+				</div>
+				<div id=brief_stage_wrapper>
+					<div id=brief_stage_text>
+						<p id="brief_stage_text_el"></p>
+					</div>
+					<div id=mission_title>
+					</div>
+				</div>
+				<div id=briefing_grid>
+				</div>
+				<div id=briefing_goals>
+					<div id=primary_goals>
+						<div id=goal_wrapper>
+							<div id="primary_goals_header" class="brightblue">
+								<div id="goalsline_img" class="leftline">
+									<img src="scroll-bar-line-horz.png" class="psuedo_img"></img>
+								</div>
+								<div id="primary_goal_text">
+									<p>XSTR("Primary Objectives", -1)</p>
+								</div>
+								<div id="goalsline_img" class="primary_rightline rightline">
+									<img src="scroll-bar-line-horz.png" class="psuedo_img"></img>
+								</div>
+							</div>
+							<div id="primary_goal_list">
+							</div>
+						</div>
+					</div>
+					<div id=secondary_goals>
+						<div id=goal_wrapper>
+							<div id="secondary_goals_header" class="brightblue">
+								<div id="goalsline_img" class="leftline">
+									<img src="scroll-bar-line-horz.png" class="psuedo_img"></img>
+								</div>
+								<div id="secondary_goal_text">
+									<p>XSTR("Secondary Objectives", -1)</p>
+								</div>
+								<div id="goalsline_img" class="secondary_rightline rightline">
+									<img src="scroll-bar-line-horz.png" class="psuedo_img"></img>
+								</div>
+							</div>
+							<div id="secondary_goal_list">
+							</div>
+						</div>
+					</div>
+					<div id=bonus_goals>
+						<div id=goal_wrapper>
+							<div id="bonus_goals_header" class="brightblue">
+								<div id="goalsline_img" class="leftline">
+									<img src="scroll-bar-line-horz.png" class="psuedo_img"></img>
+								</div>
+								<div id="bonus_goal_text">
+									<p>XSTR("Bonus Objectives", -1)</p>
+								</div>
+								<div id="goalsline_img" class="bonus_rightline rightline">
+									<img src="scroll-bar-line-horz.png" class="psuedo_img"></img>
+								</div>
+							</div>
+							<div id="bonus_goal_list">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id=stage_select>
+					<div id=button_wrapper>
+						<div id=skip_cont>
+							<button id="cmdfirst_btn" class="arrowbuttons button_1">
+								<span id="cmdfirst_img" class="arrowbuttons">
+									<img src="skip-l.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+						<div id=arrow_cont>
+							<button id="cmdprev_btn" class="arrowbuttons button_1">
+								<span id="cmdprev_img" class="arrowbuttons">
+									<img src="arrow-up.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+						<div id=pause_cont>
+							<button id="cmdpause_btn" class="arrowbuttons button_1">
+								<span id="cmdpause_img" class="arrowbuttons">
+									<img src="pause.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+						<div id=arrow_cont>
+							<button id="cmdnext_btn" class="arrowbuttons button_1">
+								<span id="cmdnext_img" class="arrowbuttons">
+									<img src="arrow-down.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+						<div id=skip_cont>
+							<button id="cmdlast_btn" class="arrowbuttons button_1">
+								<span id="cmdlast_img" class="arrowbuttons">
+									<img src="skip-r.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<img src="brief-main-window.png"></img>
+			</div>
+			<div id=brief_text_window>
+				<div id=brief_text_wrapper>
+					<div id=brief_text>
+						<scrollingText id="brief_text_el">
+						</scrollingText>
+					</div>
+				</div>
+				<img src="brief-text-window.png"></img>
+			</div>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_a>
+				<div id=a_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Continue", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+			<div id=bottom_panel_b>
+				<div id=b_panel_wrapper>
+					<div id=help_cont>
+						<button id="help_btn" class="help button_1">
+							<span id="help_img" class="help">
+								<img src="help.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_left">
+								<p>XSTR("Help", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=options_cont>
+						<button id="options_btn" class="options button_1">
+							<span id="options_img" class="options">
+								<img src="diamonds.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_left">
+								<p>XSTR("Options", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-b.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>
