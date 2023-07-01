@@ -1,7 +1,7 @@
 {
     "installed": true,
-    "id": "spacefleet",
-    "title": "SpaceFleet",
+    "id": "highhpace",
+    "title": "HighSpace",
     "type": "mod",
     "parent": "FS2",
     "version": "0.0.1",
@@ -19,7 +19,7 @@
     "last_update": null,
     "cmdline": "",
     "mod_flag": [
-        "spacefleet"
+        "highhpace"
     ],
     "dev_mode": true,
     "custom_build": null,
