@@ -1,0 +1,38 @@
+<body>
+<div id="prefs_column_1" class="options_column_25">
+    <div class="btn_panel_vert">
+        <div id="vert_panel_text">
+            <p id="preset_title">XSTR("Game Options", -1)</p>
+        </div>
+        <div id=vert_panel_wrapper>
+            <div id=bullet_choice_cont>
+                <button id="mod_custom_btn" class="bullet button_1" onclick="controller:ModCustom(element)">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>XSTR("Custom", -1)</p>
+                    </div>
+                </button>
+            </div>
+            <div id=bullet_choice_cont>
+                <button id="mod_default_btn" class="bullet button_1" onclick="controller:ModDefault(element)">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>XSTR("Mod Default", -1)</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <img src="ops-panel-vert-l.png"></img>
+    </div>
+</div>
+<div id="prefs_column_2" class="options_column_25">
+</div> <!--middle column. Any buttons here need "horz_middle" added to their class-->
+<div id="prefs_column_3" class="options_column_25">
+</div> <!--middle column. Any buttons here need "horz_middle" added to their class-->
+<div id="prefs_column_4" class="options_column_25">
+</div> <!--middle column. Any buttons here need "horz_right" added to their class-->
+</body>

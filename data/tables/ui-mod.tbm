@@ -1,0 +1,18 @@
+#GAME SETTINGS
+
+$Unicode mode: Yes
+
+;;$Use 3d ship select: true
+;;$Default ship select effect: FS2
+;;$Use 3d ship icons: true
+;;$Use 3d weapon select: true
+;;$Default weapon select effect: FS2
+;;$Use 3d weapon icons: true
+;;$Use 3d overhead ship: true
+;;$Default overhead ship style: ROTATE
+
+$Movie Subtitle Font: font01
+
+$Enable in-game options: Yes
+
+#End

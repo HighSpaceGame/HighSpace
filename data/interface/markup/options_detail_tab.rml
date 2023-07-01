@@ -1,0 +1,78 @@
+<body>
+<div id="detail_column_1" class="options_column_25"> <!--left column button panels-->
+    <div class="btn_panel_vert_tall"> <!--This begins all the rml for the preset selector-->
+        <div id="vert_tall_panel_text">
+            <p id="preset_title">XSTR("Preset Graphics Level", -1)</p>
+        </div>
+        <div id=vert_tall_panel_wrapper>
+            <div id=bullet_choice_cont>
+                <button id="det_min_btn" class="bullet button_1" onclick="controller:DetailMinimum(element)">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>XSTR("Minimum", -1)</p>
+                    </div>
+                </button>
+            </div>
+            <div id=bullet_choice_cont>
+                <button id="det_low_btn" class="bullet button_1" onclick="controller:DetailLow(element)">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>XSTR("Low", -1)</p>
+                    </div>
+                </button>
+            </div>
+            <div id=bullet_choice_cont>
+                <button id="det_med_btn" class="bullet button_1" onclick="controller:DetailMedium(element)">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>XSTR("Medium", -1)</p>
+                    </div>
+                </button>
+            </div>
+            <div id=bullet_choice_cont>
+                <button id="det_hig_btn" class="bullet button_1" onclick="controller:DetailHigh(element)">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>XSTR("High", -1)</p>
+                    </div>
+                </button>
+            </div>
+            <div id=bullet_choice_cont>
+                <button id="det_ult_btn" class="bullet button_1" onclick="controller:DetailUltra(element)">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>XSTR("Ultra", -1)</p>
+                    </div>
+                </button>
+            </div>
+            <div id=bullet_choice_cont>
+                <button id="det_cst_btn" class="bullet button_1" onclick="controller:DetailCustom(element)">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>XSTR("Custom", -1)</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <img src="ops-panel-vert-tall-l.png"></img>
+    </div>
+</div>
+<div id="detail_column_2" class="options_column_25">
+</div> <!--middle column. Any buttons here need "horz_middle" added to their class-->
+<div id="detail_column_3" class="options_column_25">
+</div> <!--middle column. Any buttons here need "horz_middle" added to their class-->
+<div id="detail_column_4" class="options_column_25">
+</div> <!--middle column. Any buttons here need "horz_right" added to their class-->
+</body>

@@ -1,0 +1,956 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+div#weapon_view_wrapper
+{
+	margin: auto;
+	width: 100%;
+	height: auto;
+	position: relative;
+}
+
+div#ship_view_window
+{
+	margin-top: 2%;
+	margin-left: 21%;
+	width: 37%;
+	height: 48%;
+	overflow: hidden;
+	position: relative;
+	float: left;
+}
+
+div#ship_view_window img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#ship_view_wrapper
+{
+	width: 100%;
+	height: 100%;
+}
+
+div#ship_view
+{
+	width: 100%;
+	height: 100%;
+}
+
+div#primary_slots
+{
+	width: 20%;
+	height: 60%;
+	position: absolute;
+	top: 7%;
+	left: 5%;
+}
+
+div#primary_slots .weapon_slot img
+{
+	width: 80%;
+}
+
+div#secondary_slots
+{
+	width: 20%;
+	height: 60%;
+	position: absolute;
+	top: 7%;
+	right: 1%;
+}
+
+div#secondary_slots .weapon_slot img
+{
+	width: 80%;
+}
+
+div#secondary_slot_amounts
+{
+	width: 5%;
+	height: 60%;
+	position: absolute;
+	top: 7%;
+	right: 15%;
+}
+
+.slot_3d
+{
+	border-width: 0.6%;
+	border-color: teal;
+}
+
+.weapon_slot
+{
+	width: 100%;
+	height: 23%;
+	margin-bottom: 1%;
+}
+
+.weapon_slot_amount
+{
+	width: 100%;
+	height: 23.6%;
+	margin-bottom: 1%;
+}
+
+.weapon_slot img
+{
+	margin-top: 20%;
+	margin-left: 12%;
+}
+
+div#ship_name
+{
+	width: 100%;
+	height: auto;
+	line-height: 90%;
+}
+
+div#weapon_view_window
+{
+	width: 35%;
+	height: 50%;
+	overflow: hidden;
+	position: absolute;
+	right: 3%;
+	top: 15%;
+}
+
+div#weapon_view_window img
+{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+div#weapon_wrapper
+{
+	position: absolute;
+	width: 90%;
+	margin-top: 8%;
+	margin-left: 2%;
+}
+
+div#weapon_view
+{
+	width: 98%;
+	height: 87%;
+}
+
+div#weapon_view ani
+{
+	height: 100%;
+}
+
+div#weapon_name
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+div#weapon_stats
+{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+div#weapon_left_column
+{
+	margin-left: 5%;
+	position: absolute;
+	bottom: 0;
+	width: 10.5%;
+	height: 80%;
+}
+
+div#copy_to_wing_panel
+{
+	width: 50%;
+	height: 7%;
+	overflow: hidden;
+	position: relative;
+	margin-left: 1%;
+	margin-bottom: 1%;
+}
+
+div#copy_to_wing_panel img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#weapon_scroll_panel
+{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+	margin-bottom: 1%;
+}
+
+div#weapon_scroll_panel img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#primary_scroll_wrapper
+{
+	position: absolute;
+	margin-top: 10%;
+	margin-left: 6%;
+	width: 90%;
+	height: 80%;
+}
+
+div#secondary_scroll_wrapper
+{
+	position: absolute;
+	margin-top: 10%;
+	margin-left: 6%;
+	width: 500%;
+	height: 80%;
+}
+
+div#ship_scroll
+{
+	width: 80%;
+	height: 60%;
+	margin-top: 40%;
+	margin-left: 20%;
+}
+
+div#primary_icon_list
+{
+	width: 140%;
+	height: 80%;
+	overflow: scroll;
+	margin-top: 10%;
+}
+
+div#secondary_icon_list
+{
+	width: 140%;
+	height: 80%;
+	overflow: scroll;
+	margin-top: 10%;
+}
+
+.select_item
+{
+	width: 80%;
+}
+
+.amount
+{
+	width: 30%;
+	float: left;
+	padding-top: 8%;
+	padding-right: 5%;
+	text-align: center;
+	margin-right: 3%;
+}
+
+div#primary_icon_list .icon
+{
+	width: 60%;
+	float: left;
+	z-index: 7;
+	margin-top: 3%;
+}
+
+div#secondary_icon_list .icon
+{
+	width: 60%;
+	float: left;
+	z-index: 7;
+	margin-top: 3%;
+}
+
+.shiplist_element
+{
+	display: block;
+	color: #7b7b7b;
+}
+.shiplist_element:hover
+{
+	color: #abbbab;
+}
+.shiplist_element:checked
+{
+	color: #6f92f5;
+}
+
+div#wings_wrapper
+{
+	position: absolute;
+	left: 28%;
+	bottom: 5%;
+	width: 50%;
+	height: 20%;
+}
+
+.wing
+{
+	width: 20%;
+	float: left;
+	margin-right: 3%;
+}
+
+.slot_wrapper
+{
+	height: 85%;
+}
+
+.wing_name
+{
+	height: 15%;
+	text-align: center;
+}
+
+.wing_slot
+{
+	width:31%;
+	height:31%;
+}
+
+.wing_slot img
+{
+	width: 100%;
+	height: 100%;
+}
+
+.wing_slot ani
+{
+	width: 100%;
+	height: 100%;
+}
+
+.wing_one
+{
+	margin-left: 33.5%;
+	margin-right: 33.5%;
+}
+
+.wing_two
+{
+	float: left;
+}
+
+.wing_three
+{
+	float: right;
+}
+
+.wing_four
+{
+	margin-top: 32.5%;
+	margin-left: 33.5%;
+	margin-right: 33.5%;
+}
+
+.highlighted
+{
+	border-width: 0.9%;
+	border-color: green;
+}
+
+.available
+{
+	border-width: 0.9%;
+	border-color: teal;
+}
+
+.locked
+{
+	border-width: 0.9%;
+	border-color: grey;
+}
+
+.weapon_locked
+{
+	border-width: 0.9%;
+	border-color: orange;
+}
+
+/*Top Panel Elements*/
+
+div#top_panel_wrapper
+{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+
+}
+
+div#top_panel_b
+{
+	width: 4%;
+	height: auto;
+	position: relative;
+	float: left;
+}
+
+div#top_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+/*Top B Panel Buttons*/
+
+div#top_b_panel_wrapper
+{
+	position: absolute;
+	margin-top: 5%;
+}
+
+.button_text_right p
+{
+	padding-top: 50%;
+	width: 400%;
+	margin-left: 100%;
+}
+
+/*Bullet Button*/
+
+div#bullet_cont
+{
+	width: 90%;
+	height: auto;
+	margin: auto;
+
+}
+
+.bullet
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r.png;
+}
+
+button#brief_btn:hover #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#brief_btn:active #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#brief_btn:checked #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#s_select_btn:hover #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#s_select_btn:active #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#s_select_btn:checked #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#w_select_btn:hover #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#w_select_btn:active #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#w_select_btn:checked #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 15%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_a
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+}
+
+div#bottom_panel_a img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#bottom_panel_b
+{
+	width: 34%;
+	height: auto;
+	margin-top: 1.1%;
+	position: relative;
+	float: left;
+}
+
+div#bottom_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+div#bottom_panel_c
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+	margin-bottom: 2%;
+}
+
+div#bottom_panel_c img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Reset Button*/
+
+div#c_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#reset_cont
+{
+	width: 80%;
+	height: auto;
+
+}
+
+.reset
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#reset_img
+{
+	background-decorator: image;
+	background-image: default.png;
+	margin-left: 15%;
+}
+button#reset_btn:hover #reset_img
+{
+	background-decorator: image;
+	background-image: default-h.png;
+}
+
+button#reset_btn:active #reset_img
+{
+	background-decorator: image;
+	background-image: default-o.png;
+}
+
+/*Copy To Wing Button*/
+
+div#copy_to_wing_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#copy_to_wing_cont
+{
+	width: 65%;
+	height: auto;
+	margin-left: 20%;
+}
+
+.copy
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#copy_img
+{
+	background-decorator: image;
+	background-image: multiplayer.png;
+}
+button#copy_btn:hover #copy_img
+{
+	background-decorator: image;
+	background-image: multiplayer-h.png;
+}
+
+button#copy_btn:active #copy_img
+{
+	background-decorator: image;
+	background-image: multiplayer-o.png;
+}
+
+/*Accept Button*/
+
+div#a_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+button#accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}
+
+/*B Panel Buttons*/
+
+div#b_panel_wrapper
+{
+	position: absolute;
+	bottom: 5%;
+
+}
+
+.button_text_left p
+{
+	padding-top: 20%;
+	width: 100%;
+}
+
+/*Help Button*/
+
+div#help_cont
+{
+	width: 70%;
+	height: auto;
+	margin: auto;
+
+}
+
+.help
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#help_img
+{
+	background-decorator: image;
+	background-image: help.png;
+}
+
+button#help_btn:hover #help_img
+{
+	background-decorator: image;
+	background-image: help-h.png;
+}
+
+button#help_btn:active #help_img
+{
+	background-decorator: image;
+	background-image: help-o.png;
+}
+
+/*Options Button*/
+
+div#options_cont
+{
+	width: 70%;
+	height: auto;
+	margin: auto;
+}
+
+.options
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#options_img
+{
+	background-decorator: image;
+	background-image: diamonds.png;
+}
+button#options_btn:hover #options_img
+{
+	background-decorator: image;
+	background-image: diamonds-h.png;
+}
+
+button#options_btn:active #options_img
+{
+	background-decorator: image;
+	background-image: diamonds-o.png;
+}
+
+/*Scroll Buttons*/
+
+div#scroll_button_wrapper
+{
+	position: absolute;
+	height: 100%;
+}
+
+#primary_icon_list scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 20%;
+	position: absolute;
+	left:27%;
+	z-index: 5;
+}
+
+#primary_icon_list scrollbarvertical slidertrack
+{
+	visibility: hidden;
+}
+
+#primary_icon_list scrollbarvertical sliderbar
+{
+	visibility: hidden;
+}
+
+#primary_icon_list scrollbarvertical sliderbar:hover
+{
+	
+}
+
+#primary_icon_list scrollbarvertical sliderbar:active
+{
+	
+}
+
+#primary_icon_list scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 10%;
+	margin-top: -11%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-wide-up.png;
+}
+
+#primary_icon_list scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 10%;
+	margin-bottom: -11%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-wide-down.png;
+}
+
+#primary_icon_list scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-wide-up-h.png;
+}
+
+#primary_icon_list scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-wide-down-h.png;
+}
+
+#primary_icon_list scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-wide-up-o.png;
+}
+
+#primary_icon_list scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-wide-down-o.png;
+}
+
+#secondary_icon_list scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 20%;
+	position: absolute;
+	left:27%;
+	z-index: 5;
+}
+
+#secondary_icon_list scrollbarvertical slidertrack
+{
+	visibility: hidden;
+}
+
+#secondary_icon_list scrollbarvertical sliderbar
+{
+	visibility: hidden;
+}
+
+#secondary_icon_list scrollbarvertical sliderbar:hover
+{
+	
+}
+
+#secondary_icon_list scrollbarvertical sliderbar:active
+{
+	
+}
+
+#secondary_icon_list scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 10%;
+	margin-top: -11%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-wide-up.png;
+}
+
+#secondary_icon_list scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 10%;
+	margin-bottom: -11%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-wide-down.png;
+}
+
+#secondary_icon_list scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-wide-up-h.png;
+}
+
+#secondary_icon_list scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-wide-down-h.png;
+}
+
+#secondary_icon_list scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-wide-up-o.png;
+}
+
+#secondary_icon_list scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-wide-down-o.png;
+}
+
+/*Tooltip placements*/
+
+div#top_panel_wrapper .tooltip
+{
+	width: 25%;
+	top: 5%;
+	left: 10%;
+}
+
+div#weapon_scroll_panel .tooltip
+{
+	width: 75%;
+	top: 50%;
+	left: 140%;
+}
+
+div#main_background .tooltip
+{
+	width: 50%;
+	bottom: -25%;
+}
+
+div#bottom_panel_a .tooltip
+{
+	width: 75%;
+	top: -10%;
+	left: -10%;
+}
+
+div#bottom_panel_c .tooltip
+{
+	width: 75%;
+	left: -50%;
+}

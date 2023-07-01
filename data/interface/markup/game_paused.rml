@@ -1,0 +1,21 @@
+<rml>
+	<head>
+		<title>XSTR("Button Dialog", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="game_paused.rcss"/>
+		<script>
+			controller = require("game_paused")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onunload="controller:unload(); controller = nil">
+		<div id=screenrender>
+		</div>
+		<div id=content>
+			<div id=text>
+			</div>
+			<img src="paused.png"></img>
+		</div>
+	</body>
+</rml>

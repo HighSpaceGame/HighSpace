@@ -1,0 +1,70 @@
+<rml>
+	<head>
+		<title>XSTR("Game Help", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="gamehelp.rcss"/>
+		<script>
+			controller = require("gamehelp")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onunload="controller = nil">
+		<div id=gamehelp_wrapper>
+			<div id=gamehelp_content>
+				<div id=gamehelp_text_wrapper>
+					<div id=gamehelp_title class="brightblue">
+					</div>
+					<div id=gamehelp_subtitle class="brightblue">
+					</div>
+					<div id=gamehelp_header class="brightblue">
+					</div>
+					<div id=gamehelp_list>
+						<ul id=list_keys_ul>
+							<p></p>
+						</ul>
+						<ul id=list_texts_ul>
+							<p></p>
+						</ul>
+					</div>
+				</div>
+				<div id=arrows_wrapper>
+					<div id=left_cont>
+						<button id="left_btn" class="left button_1" onclick="controller:DecrementSection(element)">
+							<span id="left_img" class="left">
+								<img src="arrow-left.png" class="psuedo_img"></img>
+							</span>
+						</button>
+					</div>
+					<div id=right_cont>
+						<button id="right_btn" class="right button_1" onclick="controller:IncrementSection(element)">
+							<span id="right_img" class="right">
+								<img src="arrow-right.png" class="psuedo_img"></img>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="in-mission-ops-window.png"></img>
+			</div>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_b>
+				<div id=b_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1" onclick="controller:Exit(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Continue", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

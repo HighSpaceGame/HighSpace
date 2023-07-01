@@ -1,0 +1,250 @@
+<rml>
+	<head>
+		<title>XSTR("Control Config", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="controlconfig.rcss"/>
+		<script>
+			controller = require("controlconfig")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onunload="controller = nil">
+		<div id=conflict_text_wrapper>
+			<div id=conflict_warning>
+			</div>
+			<div id=conflict_description>
+			</div>
+		</div>
+		<div id=control_config_wrapper>
+			<div id=control_config_content>
+				<div id=log_text_wrapper>
+					<ul id=list_items_ul>
+					</ul>
+				</div>
+				<div id=tab_buttons_wrapper>
+					<div id=target_cont>
+						<button id="target_btn" class="target button_1" onclick="controller:changeSection(0)">
+							<span id="target_img" class="target">
+								<img src="target.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Targeting", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=ship_cont>
+						<button id="ship_btn" class="ship button_1" onclick="controller:changeSection(1)">
+							<span id="ship_img" class="ship">
+								<img src="ship.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Ship", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=weapon_cont>
+						<button id="weapon_btn" class="weapon button_1" onclick="controller:changeSection(2)">
+							<span id="weapon_img" class="weapon">
+								<img src="gun.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Weapons", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=misc_cont>
+						<button id="misc_btn" class="misc button_1" onclick="controller:changeSection(3)">
+							<span id="misc_img" class="misc">
+								<img src="star.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Misc", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div id=clear_buttons_wrapper>
+					<div id=clear_conflict_cont>
+						<div id=clear_conflict_lock>
+						</div>
+						<button id="clear_conflict_btn" class="clear_conflict button_1" onclick="controller:clearConflict()">
+							<span id="clear_conflict_img" class="clear_conflict">
+								<img src="cancel.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Clear Conflict", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=clear_all_cont>
+						<button id="clear_all_btn" class="clear_all button_1" onclick="controller:clearAll()">
+							<span id="clear_all_img" class="clear_all">
+								<img src="exit.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_bottom">
+								<p>XSTR("Clear All", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=clear_selected_cont>
+						<div id=clear_selected_lock>
+						</div>
+						<button id="clear_selected_btn" class="clear_selected button_1" onclick="controller:clearSelected()">
+							<span id="clear_selected_img" class="clear_selected">
+								<img src="clear.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_bottom">
+								<p>XSTR("Clear Selected", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=undo_cont>
+						<button id="undo_btn" class="undo button_1" onclick="controller:undoChange()">
+							<span id="undo_img" class="undo">
+								<img src="undo.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Undo", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div id=search_button_wrapper>
+					<div id=search_cont>
+						<button id="search_btn" class="search button_1" onclick="controller:searchForBind()">
+							<span id="search_img" class="search">
+								<img src="detail.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Search", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bind_cont>
+						<div id=bind_lock>
+						</div>
+						<button id="bind_btn" class="bind button_1" onclick="controller:beginBind()">
+							<span id="bind_img" class="bind">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Bind", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="c-config-main-window.png"></img>
+			</div>
+		</div>
+		<div id=mod_panel_wrapper>
+			<div id=mod_panel>
+				<div id=mod_btn_wrapper>
+					<div id=alt_cont>
+						<div id=alt_lock>
+						</div>
+						<button id="alt_btn" class="alt button_1" onclick="controller:toggleAlt()">
+							<span id="alt_img" class="alt">
+								<img src="bullet-u.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_top">
+								<p>XSTR("Alt", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=shift_cont>
+						<div id=shift_lock>
+						</div>
+						<button id="shift_btn" class="shift button_1" onclick="controller:toggleShift()">
+							<span id="shift_img" class="shift">
+								<img src="bullet-u.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_top">
+								<p>XSTR("Shift", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=invert_cont>
+						<div id=invert_lock>
+						</div>
+						<button id="invert_btn" class="invert button_1" onclick="controller:toggleInvert()">
+							<span id="invert_img" class="invert">
+								<img src="bullet-u.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_top">
+								<p>XSTR("Invert", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="c-config-mod-window.png"></img>
+			</div>
+		</div>
+		<div id=preset_panel_wrapper>
+			<div id=preset_panel>
+				<div id=preset_text_wrapper>
+					<ul id=list_presets_ul>
+					</ul>
+				</div>
+				<div id=preset_btn_wrapper>
+					<div id=new_cont>
+						<div id=new_lock>
+						</div>
+						<button id="new_btn" class="new button_1" onclick="controller:getPresetInput(1)">
+							<span id="new_img" class="new">
+								<img src="star.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Save Preset", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=clone_cont>
+						<div id=clone_lock>
+						</div>
+						<button id="clone_btn" class="clone button_1" onclick="controller:getPresetInput(2)">
+							<span id="clone_img" class="clone">
+								<img src="diamonds.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Clone Preset", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=delete_cont>
+						<div id=delete_lock>
+						</div>
+						<button id="delete_btn" class="delete button_1" onclick="controller:verifyDelete()">
+							<span id="delete_img" class="delete">
+								<img src="exit.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_bottom">
+								<p>XSTR("Delete Preset", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="select-scroll-panel.png"></img>
+			</div>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_b>
+				<div id=b_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1" onclick="controller:Exit(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Accept", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

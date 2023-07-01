@@ -1,0 +1,189 @@
+<rml>
+	<head>
+		<title>XSTR("Tech Database", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="tech_database.rcss"/>
+		<script>
+			controller = require("tech_database")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onmouseup="controller:mouse_up(element,event)" onunload="controller:unload(); controller = nil">
+		<div id=top_panel_wrapper>
+			<div id=top_panel_b>
+				<div id=top_b_panel_wrapper>
+					<div id=bullet_cont>
+						<button id="data_btn" class="bullet button_1" onclick="controller:ChangeTechState(1)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Technical Database", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="mission_btn" class="bullet button_1" onclick="controller:ChangeTechState(2)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Mission Simulator", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="cutscene_btn" class="bullet button_1" onclick="controller:ChangeTechState(3)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Cutscenes", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="credits_btn" class="bullet button_1" onclick="controller:ChangeTechState(4)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Credits", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="ops-panel-vert-tall-l.png"></img>
+			</div>
+		</div>
+		<div id=logo_wide>
+			<img src="logo-wide.png"></img>
+		</div>
+		<div id=tech_list_panel_wrapper>
+			<div id=tech_list_wrapper>
+				<div id=tech_list>
+					<ul id=list_items_ul>
+						<p></p>
+					</ul>
+				</div>
+				<img src="tech-room-list-window.png"></img>
+			</div>
+			<div id=tech_view_wrapper>
+				<div id=tech_view onmousemove="controller:mouse_move(element, event)" onmousedown="controller:mouse_down(element, event)">
+				</div>
+				<div id=ship_select>
+					<div id=button_wrapper>
+						<div id=arrow_cont>
+							<button id="cmdprev_btn" class="arrowbuttons button_1" onclick="controller:select_prev()">
+								<span id="cmdprev_img" class="arrowbuttons">
+									<img src="arrow-up.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+						<div id=arrow_cont>
+							<button id="cmdnext_btn" class="arrowbuttons button_1" onclick="controller:select_next()">
+								<span id="cmdnext_img" class="arrowbuttons">
+									<img src="arrow-down.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+					</div>
+					<div class="tooltip">
+						<span class="tooltiptext">XSTR("View the next or previous data entry", -1)</span>
+					</div>
+				</div>
+				<img src="tech-room-view-window.png"></img>
+			</div>
+		</div>
+		<div id=tech_desc_wrapper>
+			<div id=tech_desc_panel>
+				<div id=tech_desc>
+					<p></p>
+				</div>
+				<div id=tech_select>
+					<div id=button_wrapper>
+						<div id=ships_cont>
+							<button id="ships_btn" class="techbuttons button_1" onclick="controller:ChangeSection(1)">
+								<span id="ships_img" class="techbuttons">
+									<img src="ship.png" class="psuedo_img"></img>
+								</span>
+								<span id="tech_button_text" class="pos button_text_right">
+									<p>XSTR("Ships", -1)</p>
+								</span>
+							</button>
+						</div>
+						<div id=weapons_cont>
+							<button id="weapons_btn" class="techbuttons button_1" onclick="controller:ChangeSection(2)">
+								<span id="weapons_img" class="techbuttons">
+									<img src="gun.png" class="psuedo_img"></img>
+								</span>
+								<span id="tech_button_text" class="pos button_text_right">
+									<p>XSTR("Weapons", -1)</p>
+								</span>
+							</button>
+						</div>
+						<div id=intel_cont>
+							<button id="intel_btn" class="techbuttons button_1" onclick="controller:ChangeSection(3)">
+								<span id="intel_img" class="techbuttons">
+									<img src="computer.png" class="psuedo_img"></img>
+								</span>
+								<span id="tech_button_text" class="pos button_text_right">
+									<p>XSTR("Intelligence", -1)</p>
+								</span>
+							</button>
+						</div>
+					</div>
+					<div class="tooltip">
+						<span class="tooltiptext">XSTR("Study technical data on all known ships and weapons, as well as historical and species information", -1)</span>
+					</div>
+				</div>
+				<img src="tech-room-text-window.png"></img>
+			</div>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_a>
+				<div id=a_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1" onclick="controller:commit_pressed(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>Exit</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+			<div id=bottom_panel_b>
+				<div id=b_panel_wrapper>
+					<div id=help_cont>
+						<button id="help_btn" class="help button_1" onclick="controller:help_clicked()">
+							<span id="help_img" class="help">
+								<img src="help.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_left">
+								<p>Help</p>
+							</span>
+						</button>
+					</div>
+					<div id=options_cont>
+						<button id="options_btn" class="options button_1" onclick="controller:options_button_clicked()">
+							<span id="options_img" class="options">
+								<img src="diamonds.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_left">
+								<p>Options</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-b.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

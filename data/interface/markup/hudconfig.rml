@@ -1,0 +1,156 @@
+<rml>
+	<head>
+		<title>XSTR("HUD Config", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="hudconfig.rcss"/>
+		<script>
+			controller = require("hudconfig")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onmousemove="controller:mouse_move(element, event)" onkeydown="controller:global_keydown(element, event)" onunload="controller = nil">
+		<div id=hud_config_wrapper>
+			<div id=hud_config_content>
+				<div id=hud_drawn_content onclick="controller:mouse_click()">
+				</div>
+				<div id=mod_panel_wrapper>
+					<div id=mod_panel>
+						<div id=mod_btn_wrapper>
+							<div id=hud_on_cont>
+								<button id="hud_on_btn" class="hud_on button_1" onclick="controller:setGaugeFlags(1)">
+									<span id="hud_on_img" class="hud_on">
+										<img src="round.png" class="psuedo_img"></img>
+									</span>
+									<span class="pos button_text_left">
+										<p>XSTR("On", -1)</p>
+									</span>
+								</button>
+							</div>
+							<div id=hud_off_cont>
+								<button id="hud_off_btn" class="hud_off button_1" onclick="controller:setGaugeFlags(2)">
+									<span id="hud_off_img" class="hud_off">
+										<img src="round.png" class="psuedo_img"></img>
+									</span>
+									<span class="pos button_text_left">
+										<p>XSTR("Off", -1)</p>
+									</span>
+								</button>
+							</div>
+							<div id=popup_cont>
+								<button id="popup_btn" class="popup button_1" onclick="controller:setGaugeFlags(3)">
+									<span id="popup_img" class="popup">
+										<img src="round.png" class="psuedo_img"></img>
+									</span>
+									<span class="pos button_text_left">
+										<p>XSTR("Popup", -1)</p>
+									</span>
+								</button>
+							</div>
+						</div>
+						<img src="ops-panel-vert-tall-r.png"></img>
+					</div>
+				</div>
+				<div id=global_panel_wrapper>
+					<div id=global_btn_panel>
+						<div id=global_btn_wrapper>
+							<div id=reset_cont>
+								<button id="reset_btn" class="reset button_1" onclick="controller:setDefault()">
+									<span id="reset_img" class="reset">
+										<img src="default.png" class="psuedo_img"></img>
+									</span>
+									<span class="pos button_text_bottom">
+										<p>XSTR("Use Default", -1)</p>
+									</span>
+								</button>
+							</div>
+							<div id=select_all_cont>
+								<button id="select_all_btn" class="select_all button_1" onclick="controller:select_all()">
+									<span id="select_all_img" class="select_all">
+										<img src="star.png" class="psuedo_img"></img>
+									</span>
+									<span class="pos button_text_bottom">
+										<p>XSTR("Select All", -1)</p>
+									</span>
+								</button>
+							</div>
+						</div>
+						<img src="ops-panel-horz.png"></img>
+					</div>
+				</div>
+				<img src="h-config-main-window.png"></img>
+			</div>
+		</div>
+		<div id=color_panel_wrapper>
+			<div id=color_lock class ="locked">
+			</div>
+			<div id=color_panel>
+				<div id=range_cont_r>
+					<input id=r_slider class="slider_range_el" type="range" min="0" max="1" step="0.01" orientation="vertical" onchange="controller:slider_update(element, event, 1)"></input>
+				</div>
+				<div id=range_cont_g>
+					<input id=g_slider class="slider_range_el" type="range" min="0" max="1" step="0.01" orientation="vertical" onchange="controller:slider_update(element, event, 2)"></input>
+				</div>
+				<div id=range_cont_b>
+					<input id=b_slider class="slider_range_el" type="range" min="0" max="1" step="0.01" orientation="vertical" onchange="controller:slider_update(element, event, 3)"></input>
+				</div>
+				<div id=range_cont_a>
+					<input id=a_slider class="slider_range_el" type="range" min="0" max="1" step="0.01" orientation="vertical" onchange="controller:slider_update(element, event, 4)"></input>
+				</div>
+				<div id=color_text_wrapper>
+				</div>
+				<img src="h-config-sliders.png"></img>
+			</div>
+		</div>
+		<div id=preset_panel_wrapper>
+			<div id=preset_panel>
+				<div id=preset_text_wrapper>
+					<ul id=list_presets_ul>
+					</ul>
+				</div>
+				<div id=preset_btn_wrapper>
+					<div id=new_cont>
+						<button id="new_btn" class="new button_1" onclick="controller:getPresetInput()">
+							<span id="new_img" class="new">
+								<img src="star.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Save as Preset", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=delete_cont>
+						<button id="delete_btn" class="delete button_1" onclick="controller:deletePreset()">
+							<span id="delete_img" class="delete">
+								<img src="exit.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_bottom">
+								<p>XSTR("Delete Preset", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="select-scroll-panel.png"></img>
+			</div>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_b>
+				<div id=b_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1" onclick="controller:Exit(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Accept", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

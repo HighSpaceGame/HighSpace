@@ -1,0 +1,79 @@
+<body>
+<div class="options_column_40">
+    <!--<div id="briefing_voice_container">-->
+        <!-- Filled in by Lua -->
+    <!--</div>-->
+    <div class="btn_panel_large">
+        <div id="large_panel_text" class="ops_left_header">
+            <p>XSTR("Volume", -1)</p>
+        </div>
+        <div id="volume_sliders_container" class=large_panel_wrapper>
+            <!-- Filled in by Lua -->
+        </div>
+        <img src="ops-panel-large-l.png"></img>
+    </div>
+    <div class="btn_panel_large mouse_settings">
+        <div id="mouse_options_container" class=large_panel_wrapper>
+            <!-- Filled in by Lua -->
+        </div>
+    </div>
+</div>
+<div class="options_column_20">
+</div>
+<div class="options_column_40 panel_right">
+    <div id="skill_level_container">
+        <!-- Filled in by Lua -->
+    </div>
+    <div class="btn_panel_large panel_right">
+        <div id="large_panel_text" class="ops_right_header">
+            <p>XSTR("Brightness", -1)</p>
+        </div>
+        <div id=gamma_panel_wrapper>
+            <div id="gamma_controls" class="gamma_setting">
+                <div id=arrow_cont>
+                    <button id="brightness_increase_btn" class="right_arrow_btn arrow button_1">
+                        <div id="right_arrow_img" class="arrow">
+                            <img src="arrow-right.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=arrow_cont>
+                    <button id="brightness_decrease_btn" class="left_arrow_btn arrow button_1">
+                        <div id="left_arrow_img" class="arrow">
+                            <img src="arrow-left.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id="gamma_value" class="header_text">
+                    <p id="brightness_value_el">1.00</p>
+                </div>
+            </div>
+        </div>
+        <div id=gamma_graphic_wrapper>
+            <div id=gamma_graphic>
+                <img src="gamma.png" height="60px" />
+            </div>
+        </div>
+        <img src="ops-panel-gamma.png"></img>
+    </div>
+	<div id="joystick_selection_wrapper">
+		<div id="joystick_category_text">
+            <p>XSTR("Joystick Selections", -1)</p>
+        </div>
+		<div id="joystick_column_1">
+			<!-- Lua will fill in the options UI elements here -->
+		</div>
+		<div id="joystick_column_2">
+			<!-- Lua will fill in the options UI elements here -->
+		</div>
+	</div>
+	<div id="joystick_settings" class="joystick_settings1">
+        <div id="joystick_category_text">
+            <p>XSTR("Global Joystick Settings", -1)</p>
+        </div>
+        <div id="joystick_values_wrapper" class=large_panel_wrapper>
+            <!-- Lua will fill in the options UI elements here -->
+        </div>
+    </div>
+</div>
+</body>

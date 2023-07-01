@@ -1,0 +1,788 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+.below p
+{
+	padding-top:8%;
+}
+
+div#debrief_text
+{
+	position: absolute;
+	top: 0;
+	margin-top: 2%;
+	margin-left: 10%;
+	margin-right: 7%;
+	color: grey;
+	overflow: scroll;
+	height: 85%;
+	line-height: 90%;
+}
+
+.debrief_text_actual
+{
+	margin-top: 4%;
+	margin-bottom: 1%;
+}
+
+.recommendation
+{
+	margin: 1%;
+}
+
+div#debrief_wrapper
+{
+	position: absolute;
+	bottom: 0;
+	left: 10%;
+	width: 50%;
+	height: auto;
+}
+
+div#debrief_text_window
+{
+	margin-left: 2%;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#debrief_text_window img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#mission_name
+{
+	text-align: left;
+	color: white;
+	margin-left: 8%;
+}
+
+div#stage_select
+{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 50%;
+}
+
+.stats_header
+{
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+
+.stats_subheader
+{
+	margin-bottom: 5%;
+}
+
+.stats_header_left
+{
+	float: left;
+	width: 50%;
+	text-align: left;
+}
+
+.stats_header_right
+{
+	float: right;
+	width: 50%;
+	text-align: right;
+}
+
+.stats_left
+{
+	float: left;
+	width: 75%;
+	text-align: left;
+}
+
+.stats_right
+{
+	float: right;
+	width: 25%;
+	text-align: left;
+}
+
+/*Replay Buttons*/
+
+div#replay_wrapper
+{
+	position: absolute;
+	bottom: 2%;
+	width: 7%;
+	padding-left: 0.3%;
+	z-index: 7;
+}
+
+div#replay_cont
+{
+	width: 100%;
+	height: auto;
+	margin: auto;
+	margin-top: 1%;
+}
+
+div#recommend_cont
+{
+	width: 100%;
+	height: auto;
+}
+
+.replay_btn
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.recommend_btn
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+#replay_img
+{
+	background-decorator: image;
+	background-image: replay.png;
+}
+
+button#replay_btn:hover #replay_img
+{
+	background-decorator: image;
+	background-image: replay-neg-h.png;
+}
+
+button#replay_btn:active #replay_img
+{
+	background-decorator: image;
+	background-image: replay-neg-o.png;
+}
+
+#recommend_img
+{
+	background-decorator: image;
+	background-image: bullet-r.png;
+}
+
+button#recommend_btn:hover #recommend_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#recommend_btn:active #recommend_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+/*Top Panel Elements*/
+
+div#top_panel_wrapper
+{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+div#top_panel_b
+{
+	width: 4%;
+	height: auto;
+	position: relative;
+	float: left;
+}
+
+div#top_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+/*Top B Panel Buttons*/
+
+div#top_b_panel_wrapper
+{
+	position: absolute;
+	margin-top: 5%;
+	padding-top: 25%;
+}
+
+.button_text_right p
+{
+	padding-top: 25%;
+	width: 400%;
+	margin-left: 100%;
+}
+
+/*Bullet Button*/
+
+div#bullet_cont
+{
+	width: 90%;
+	height: auto;
+	margin: auto;
+
+}
+
+.bullet
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r.png;
+}
+
+button#debrief_btn:hover #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#debrief_btn:active #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#debrief_btn:checked #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#stats_btn:hover #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#stats_btn:active #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#stats_btn:checked #bullet_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+/*Arrow Buttons*/
+
+div#arrow_cont
+{
+	float: right;
+	width: 14%;
+	height: auto;
+	margin-right: 4%;
+	margin-bottom: 0.0%;
+	margin-top: 9%;
+}
+
+div#skip_cont
+{
+	float: right;
+	width: 8%;
+	height: auto;
+	margin-right: 4%;
+	margin-bottom: 0.0%;
+	margin-top: 10%;
+}
+
+.arrowbuttons
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#cmdlast_img
+{
+	background-decorator: image;
+	background-image: skip-r.png;
+}
+
+#cmdprev_img
+{
+	background-decorator: image;
+	background-image: arrow-left.png;
+}
+
+#cmdnext_img
+{
+	background-decorator: image;
+	background-image: arrow-right.png;
+}
+
+#cmdfirst_img
+{
+	background-decorator: image;
+	background-image: skip-l.png;
+}
+
+button#cmdlast_btn:hover #cmdlast_img
+{
+	background-decorator: image;
+	background-image: skip-r-h.png;
+}
+
+button#cmdprev_btn:hover #cmdprev_img
+{
+	background-decorator: image;
+	background-image: arrow-left-h.png;
+}
+button#cmdpause_btn:hover #cmdpause_img
+{
+	background-decorator: image;
+	background-image: pause-h.png;
+}
+
+button#cmdnext_btn:hover #cmdnext_img
+{
+	background-decorator: image;
+	background-image: arrow-right-h.png;
+}
+
+button#cmdfirst_btn:hover #cmdfirst_img
+{
+	background-decorator: image;
+	background-image: skip-l-h.png;
+}
+
+button#cmdlast_btn:active #cmdlast_img
+{
+	background-decorator: image;
+	background-image: skip-r-o.png;
+}
+
+button#cmdprev_btn:active #cmdprev_img
+{
+	background-decorator: image;
+	background-image: arrow-left-o.png;
+}
+
+button#cmdpause_btn:active #cmdpause_img
+{
+	background-decorator: image;
+	background-image: pause-o.png;
+}
+
+button#cmdnext_btn:active #cmdnext_img
+{
+	background-decorator: image;
+	background-image: arrow-right-o.png;
+}
+
+button#cmdfirst_btn:active #cmdfirst_img
+{
+	background-decorator: image;
+	background-image: skip-l-o.png;
+}
+
+/* Awards Window Elements */
+
+div#awards_wrapper
+{
+	width: 34%;
+	height: auto;
+	margin-top: 1.1%;
+	position: absolute;
+	top: 25%;
+	right: 3%;
+}
+
+div#awards_wrapper img
+{
+
+	width: 100%;
+	height: auto;
+
+}
+
+div#medal_image_wrapper
+{
+	width: 93%;
+	height: 83%;
+	margin-top: 1.1%;
+	position: absolute;
+	top: 1%;
+	left: 2%;
+}
+
+/*Unused but could be used if medal images are saved as properly
+cropped instead of the retail style where the image has lots of
+empty space to account for it's position in the box*/
+/*div#badge_wrapper
+{
+	width: 47%;
+	height: 25%;
+	margin-top: 1.1%;
+	position: absolute;
+	top: 1%;
+	left: 2%;
+	z-index: 10;
+}
+
+div#promotion_wrapper
+{
+	width: 47%;
+	height: 25%;
+	margin-top: 1.1%;
+	position: absolute;
+	top: 27%;
+	left: 2%;
+}
+
+div#medal_wrapper
+{
+	width: 45%;
+	height: 83%;
+	margin-top: 1.1%;
+	position: absolute;
+	top: 1%;
+	right: 5%;
+}*/
+
+div#medal_image_wrapper .medal_img
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+div#award_text_wrapper
+{
+	width: 47%;
+	height: 33%;
+	margin-top: 1.1%;
+	position: absolute;
+	top: 54%;
+	left: 2%;
+}
+
+.award_text
+{
+	margin: 3%;
+	margin-top: 10%;
+	margin-bottom: 10%;
+}
+
+div#medals_cont
+{
+	width: 7%;
+	height: auto;
+	margin: auto;
+	position: absolute;
+	bottom: 0;
+	left: 39%;
+
+}
+
+.medals
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#medals_img
+{
+	background-decorator: image;
+	background-image: medals.png;
+}
+
+button#medals_btn:hover #medals_img
+{
+	background-decorator: image;
+	background-image: medals-h.png;
+}
+
+button#medals_btn:active #medals_img
+{
+	background-decorator: image;
+	background-image: medals-o.png;
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 15%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_a
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+}
+
+div#bottom_panel_a img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#bottom_panel_b
+{
+	width: 34%;
+	height: auto;
+	margin-top: 1.1%;
+	position: relative;
+	float: left;
+}
+
+div#bottom_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+/*Accept Button*/
+
+div#a_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+button#accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}
+
+/*B Panel Buttons*/
+
+div#b_panel_wrapper
+{
+	position: absolute;
+	bottom: 5%;
+
+}
+
+.button_text_left p
+{
+	padding-top: 20%;
+	width: 100%;
+}
+
+/*Help Button*/
+
+div#help_cont
+{
+	width: 70%;
+	height: auto;
+	margin: auto;
+
+}
+
+.help
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#help_img
+{
+	background-decorator: image;
+	background-image: help.png;
+}
+
+button#help_btn:hover #help_img
+{
+	background-decorator: image;
+	background-image: help-h.png;
+}
+
+button#help_btn:active #help_img
+{
+	background-decorator: image;
+	background-image: help-o.png;
+}
+
+/*Options Button*/
+
+div#options_cont
+{
+	width: 70%;
+	height: auto;
+	margin: auto;
+}
+
+.options
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#options_img
+{
+	background-decorator: image;
+	background-image: diamonds.png;
+}
+button#options_btn:hover #options_img
+{
+	background-decorator: image;
+	background-image: diamonds-h.png;
+}
+
+button#options_btn:active #options_img
+{
+	background-decorator: image;
+	background-image: diamonds-o.png;
+}
+
+/*Scroll Buttons*/
+
+#debrief_text scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 7%;
+	position: absolute;
+	top: 21%;
+	left: -11.1%;
+	z-index: 5;
+}
+
+#debrief_text scrollbarvertical slidertrack
+{
+	visibility: hidden;
+}
+
+#debrief_text scrollbarvertical sliderbar
+{
+	visibility: hidden;
+}
+
+#debrief_text scrollbarvertical sliderbar:hover
+{
+	
+}
+
+#debrief_text scrollbarvertical sliderbar:active
+{
+	
+}
+
+#debrief_text scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 11%;
+	margin-top: 2%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+#debrief_text scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 11%;
+	margin-bottom: 75%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+#debrief_text scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+#debrief_text scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+#debrief_text scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+#debrief_text scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}
+
+/*Tooltip placements*/
+
+div#top_panel_wrapper .tooltip
+{
+	width: 25%;
+	top: 5%;
+	left: 10%;
+}
+
+div#replay_wrapper .tooltip
+{
+	width: 300%;
+	top: -10%;
+	left: 130%;
+}

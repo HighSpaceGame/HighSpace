@@ -1,0 +1,376 @@
+<body>
+<div class="options_column_40">
+    <div class="btn_panel_general">
+        <div id="large_panel_text" class="ops_left_header">
+            <p>XSTR("IP Address", -1)</p>
+        </div>
+        <div id=ipaddress_arrows_wrapper>
+            <div id="ipaddress_arrows">
+                <div id=arrow_cont>
+                    <button id="up_arrow_btn" class="arrow button_1">
+                        <div id="up_arrow_img" class="arrow">
+                            <img src="arrow-up.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=arrow_cont>
+                    <button id="down_arrow_btn" class="arrow button_1">
+                        <div id="down_arrow_img" class="arrow">
+                            <img src="arrow-down.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id=ipaddress_controls_wrapper>
+            <div id="ipaddress_controls">
+                <div id=add_remove_cont>
+                    <button id="add_btn" class="controls button_1">
+                        <div id="add_img" class="controls">
+                            <img src="star.png" class="psuedo_img"></img>
+                        </div>
+                        <div class="pos button_text">
+                            <p>XSTR("Add", -1)</p>
+                        </div>
+                    </button>
+                </div>
+                <div id=add_remove_cont>
+                    <button id="remove_btn" class="controls button_1">
+                        <div id="remove_img" class="controls">
+                            <img src="exit.png" class="psuedo_img"></img>
+                        </div>
+                        <div class="neg button_text">
+                            <p>XSTR("Remove", -1)</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <img src="ops-panel-gen-l.png"></img>
+    </div>
+    <div class="btn_panel_general">
+        <div id="large_panel_text" class="ops_left_header">
+            <p>XSTR("FS2NetD Login", -1)</p>
+        </div>
+        <div id=network_select_wrapper>
+            <div id="network_select">
+                <div id=round_server_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                        <div class="pos button_text_right">
+                            <p>XSTR("Broadcast Locally", -1)</p>
+                        </div>
+                    </button>
+                </div>
+                <div id=round_server_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                        <div class="pos button_text_right">
+                            <p>XSTR("FS2NetD", -1)</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id=login_creds_wrapper>
+            <div class="login_entry_wrapper">
+                <span>XSTR("Login", -1)</span><input id="login_field" type="text" size=20 maxlength=50></input>
+            </div>
+            <div class="login_entry_wrapper">
+                <span>XSTR("Pass", -1)</span><input id="login_field" type="password" size=20 maxlength=50></input>
+            </div>
+            <div class="login_entry_wrapper">
+                <span>XSTR("Squad", -1)</span><input id="login_field" type="text" size=20 maxlength=50></input>
+            </div>
+        </div>
+        <img src="ops-panel-gen-l.png"></img>
+    </div>
+</div>
+<div class="options_column_20">
+    <div class="btn_panel_vert_tall object_update"> <!--This begins all the rml for the preset selector-->
+        <div id="vert_tall_panel_text">
+            <p id="object_update_title">XSTR("Object Update", -1)</p>
+        </div>
+        <div id=vert_tall_panel_wrapper>
+            <div id=bullet_choice_cont>
+                <button id="bullet_r_btn" class="bullet button_1">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>XSTR("Low", -1)</p>
+                    </div>
+                </button>
+            </div>
+            <div id=bullet_choice_cont>
+                <button id="bullet_r_btn" class="bullet button_1">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>XSTR("Medium", -1)</p>
+                    </div>
+                </button>
+            </div>
+            <div id=bullet_choice_cont>
+                <button id="bullet_r_btn" class="bullet button_1">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>XSTR("High", -1)</p>
+                    </div>
+                </button>
+            </div>
+            <div id=bullet_choice_cont>
+                <button id="bullet_r_btn" class="bullet button_1">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>XSTR("Very High", -1)</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <img src="ops-panel-vert-tall-l.png"></img>
+    </div>
+    <div class="btn_panel_horz">
+        <div id="horz_panel_text" class="ops_left_header">
+            <p id="binary_title">XSTR("Pilot / Squad Images", -1)</p>
+        </div>
+        <div id=horz_panel_wrapper>
+            <div id=round_option_cont>
+                <button id="round_btn" class="round button_1">
+                    <div id="round_img" class="round">
+                        <img src="round.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_left">
+                        <p>XSTR("No", -1)</p>
+                    </div>
+                </button>
+            </div>
+            <div id=round_option_cont>
+                <button id="round_btn" class="round button_1">
+                    <div id="round_img" class="round">
+                        <img src="round.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_left">
+                        <p>XSTR("Yes", -1)</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <img src="ops-panel-horz.png"></img>
+    </div>
+    <div class="btn_panel_vert">
+        <div id="vert_panel_text">
+            <p id="preset_title">XSTR("Transfer Missions", -1)</p>
+        </div>
+        <div id=vert_panel_wrapper>
+            <div id=bullet_choice_cont>
+                <button id="bullet_r_btn" class="bullet button_1">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>/multidata</p>
+                    </div>
+                </button>
+            </div>
+            <div id=bullet_choice_cont>
+                <button id="bullet_r_btn" class="bullet button_1">
+                    <div id="bullet_r_img" class="bullet">
+                        <img src="bullet-r.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_right">
+                        <p>/missions</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <img src="ops-panel-vert-l.png"></img>
+    </div>
+</div>
+<div class="options_column_40 panel_right">
+    <div class="btn_panel_horz horz_right">
+        <div id="horz_panel_text" class="ops_left_header">
+            <p id="binary_title">XSTR("Voice Transmission", -1)</p>
+        </div>
+        <div id=horz_panel_wrapper>
+            <div id=round_option_cont>
+                <button id="round_btn" class="round button_1">
+                    <div id="round_img" class="round">
+                        <img src="round.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_left">
+                        <p>XSTR("Off", -1)</p>
+                    </div>
+                </button>
+            </div>
+            <div id=round_option_cont>
+                <button id="round_btn" class="round button_1">
+                    <div id="round_img" class="round">
+                        <img src="round.png" class="psuedo_img"></img>
+                    </div>
+                    <div class="pos button_text_left">
+                        <p>XSTR("On", -1)</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <img src="ops-panel-horz.png"></img>
+    </div>
+    <div class="btn_panel_large horz_right">
+        <div id="large_panel_text" class="ops_left_header">
+            <p>XSTR("Voice Quality", -1)</p>
+        </div>
+        <div id=horz_wide_panel_wrapper>
+            <div id="mouse_sensitivity" class="ten_dot_slider">
+                <div id=arrow_cont>
+                    <button id="right_arrow_btn" class="arrow button_1">
+                        <div id="right_arrow_img" class="arrow">
+                            <img src="arrow-right.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=round_ten_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=round_ten_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=round_ten_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=round_ten_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=round_ten_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=round_ten_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=round_ten_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=round_ten_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=round_ten_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=round_ten_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=arrow_cont>
+                    <button id="left_arrow_btn" class="arrow button_1">
+                        <div id="left_arrow_img" class="arrow">
+                            <img src="arrow-left.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <img src="ops-panel-horz-wide.png"></img>
+    </div>
+    <div class="btn_panel_horz horz_right mic_test">
+        <div id="horz_panel_text" class="ops_left_header">
+            <p id="binary_title">XSTR("Mic Test", -1)</p>
+        </div>
+        <div id=horz_panel_wrapper>
+            <div id=oval_cont>
+                <button id="oval_btn" class="oval button_1">
+                    <div id="oval_img" class="oval">
+                        <img src="oval.png" class="psuedo_img"></img>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <img src="ops-panel-horz.png"></img>
+    </div>
+    <div class="btn_panel_general horz_right">
+        <div id="large_panel_text" class="ops_left_header">
+            <p>XSTR("Mute Players", -1)</p>
+        </div>
+        <div id=muteplayers_arrows_wrapper>
+            <div id="muteplayers_arrows">
+                <div id=arrow_cont>
+                    <button id="up_arrow_btn" class="arrow button_1">
+                        <div id="up_arrow_img" class="arrow">
+                            <img src="arrow-up.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+                <div id=arrow_cont>
+                    <button id="down_arrow_btn" class="arrow button_1">
+                        <div id="down_arrow_img" class="arrow">
+                            <img src="arrow-down.png" class="psuedo_img"></img>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id=muteplayers_controls_wrapper>
+            <div id="muteplayers_controls">
+                <div id=round_mute_cont>
+                    <button id="round_btn" class="round button_1">
+                        <div id="round_img" class="round">
+                            <img src="round.png" class="psuedo_img"></img>
+                        </div>
+                        <div class="pos button_text">
+                            <p>XSTR("Mute", -1)</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <img src="ops-panel-gen-r.png"></img>
+    </div>
+</div>
+</body>

@@ -1,0 +1,75 @@
+#Custom Options
+
+$Name: XSTR("Font Size Multiplier", -1)
++Description: XSTR("Multiplies the font size", -1)
++Key: Font_Multiplier
++Type: TenPoint
++Column: 1
++Default Value: 5
++No Default: true
+
+$Name: XSTR("Example Header", -1)
++Description: XSTR("Category header", -1)
++Key: Header_Example
++Type: Header
++Column: 2
+
+$Name: XSTR("Example Binary Option", -1)
++Description: XSTR("This is a binary option. You can force it to be a selector with ForceSelector True.", -1)
++Key: Example_Binary
++Type: Binary
++Column: 2
++Valid Values
+	+Val: Off
+	+Val: On
++Display Names
+	+Val: XSTR("Off", -1)
+	+Val: XSTR("On", -1)
++Default Value: On
++Force Selector: false
+
+$Name: XSTR("Example Selector Option", -1)
++Description: XSTR("This is a selector option.", -1)
++Key: Example_Selector
++Type: Multi
++Column: 2
++Valid Values
+	+Val: String1
+	+Val: String2
+	+Val: String3
++Display Names
+	+Val: XSTR("String1", -1)
+	+Val: XSTR("String2", -1)
+	+Val: XSTR("String3", -1)
++Default Value: String1
+
+$Name: XSTR("Example Range Option", -1)
++Description: XSTR("This is a range option. It needs more testing. Min cannot be negative!", -1)
++Key: Example_Range
++Type: Range
++Column: 2
++Min: 0
++Max: 2
++Default Value: 1
+
+$Name: XSTR("Example Ten Point", -1)
++Description: XSTR("This is a ten point dot selector. It functions as a range where saved values will be 1-10.", -1)
++Key: Example_Ten_Point
++Type: TenPoint
++Column: 2
++Default Value: 1
+
+$Name: XSTR("Example Five Point", -1)
++Description: XSTR("This is a five point dot selector. It functions as a range where saved values will be 1-5.", -1)
++Key: Example_Five_Point
++Type: FivePoint
++Column: 2
++Display Names
+	+Val: XSTR("String1", -1)
+	+Val: XSTR("String2", -1)
+	+Val: XSTR("String3", -1)
+	+Val: XSTR("String4", -1)
+	+Val: XSTR("String5", -1)
++Default Value: 1
+
+#End

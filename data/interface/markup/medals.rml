@@ -1,0 +1,72 @@
+<rml>
+	<head>
+		<title>XSTR("Fiction Viewer", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="medals.rcss"/>
+		<script>
+			controller = require("medals")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onmousemove="controller:mouse_move(element, event)" onunload="controller = nil">
+		<div id=medals_wrapper>
+			<div id=medals_case>
+				<img src="medalcase.png"></img>
+			</div>
+			<div id=medals_wrapper_actual>
+				<div id=medals_text>
+				</div>
+				<div id=medal01 class="medal">
+				<img src="medal01_00.png"></img>
+				</div>
+				<div id=medal02 class="medal">
+				<img src="medal02_00.png"></img>
+				</div>
+				<div id=medal03 class="medal">
+				<img src="medal03_00.png"></img>
+				</div>
+				<div id=medal04 class="medal">
+				<img src="medal04_00.png"></img>
+				</div>
+				<div id=medal05 class="medal">
+				<img src="medal05_00.png"></img>
+				</div>
+				<div id=medal06 class="medal">
+				<img src="medal06_00.png"></img>
+				</div>
+				<div id=medal07 class="medal">
+				<img src="medal07_00.png"></img>
+				</div>
+				<div id=medal08 class="medal">
+				<img src="medal08_00.png"></img>
+				</div>
+				<div id=medal09 class="medal">
+				<img src="medal09_00.png"></img>
+				</div>
+			</div>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_a>
+				<div id=a_panel_wrapper>
+					<div id=accept_cont>
+						<button id="fv_accept_btn" class="accept button_1" onclick="controller:accept_pressed(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>Exit</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+		</div>
+		<div id=logo_wide>
+			<img src="logo-wide.png"></img>
+		</div>
+	</body>
+
+</rml>

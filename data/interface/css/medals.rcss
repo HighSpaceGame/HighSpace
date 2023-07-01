@@ -1,0 +1,227 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+.main_bg
+{
+	background-decorator: image;
+	background-image: bg.png;
+}
+
+.below p
+{
+	padding-top:8%;
+}
+
+div#logo_wide
+{
+	position: absolute;
+	bottom: 1%;
+	margin: auto;
+	width: 35%;
+	height: auto;
+	overflow: hidden;
+}
+
+div#logo_wide img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#medals_text
+{
+	position: absolute;
+	top: 16.5%;
+	left: 35%;
+	color: grey;
+	width: 30%;
+	height: 3%;
+	text-align: center;
+	z-index: 1;
+}
+
+div#medals_wrapper
+{
+	margin: auto;
+	width: 100%;
+	height: auto;
+}
+
+div#medals_wrapper_actual
+{
+	width: 90%;
+	height: auto;
+}
+
+div#medals_case
+{
+	width: 90%;
+	height: auto;
+}
+
+div#medals_case img
+{
+	position: absolute;
+	width: 100%;
+	height: auto;
+}
+
+
+
+/*Medal div positions*/
+
+.medal
+{
+	z-index: 1;
+}
+
+.medal img
+{
+	width: 100%;
+	height: auto;
+}
+
+div#medal01
+{
+	position: absolute;
+	top: 35%;
+	left: 20%;
+	width: 12%;
+}
+
+div#medal02
+{
+	position: absolute;
+	top: 50%;
+	left: 56%;
+	width: 12%;
+}
+
+div#medal03
+{
+	position: absolute;
+	top: 50%;
+	left: 32%;
+	width: 12%;
+}
+
+div#medal04
+{
+	position: absolute;
+	top: 35%;
+	left: 44%;
+	width: 12%;
+}
+
+div#medal05
+{
+	position: absolute;
+	top: 35%;
+	left: 68%;
+	width: 12%;
+}
+
+div#medal06
+{
+	position: absolute;
+	top: 25%;
+	left: 30%;
+	width: 13%;
+}
+
+div#medal07
+{
+	position: absolute;
+	top: 25%;
+	left: 58%;
+	width: 5%;
+}
+
+div#medal08
+{
+	position: absolute;
+	top: 25%;
+	left: 62%;
+	width: 5%;
+}
+
+div#medal09
+{
+	position: absolute;
+	top: 25%;
+	left: 66%;
+	width: 5%;
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 15%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_a
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+}
+
+div#bottom_panel_a img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Accept Button*/
+
+div#a_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+button#fv_accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#fv_accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}

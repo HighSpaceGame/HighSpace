@@ -1,0 +1,1607 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+.below p
+{
+	padding-top:8%;
+}
+
+div#logo_wide
+{
+	position: absolute;
+	bottom: 2%;
+	margin-left: 16%;
+	width: 45%;
+	height: auto;
+	overflow: hidden;
+}
+
+div#logo_wide img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#options_window
+{
+	margin: auto;
+	margin-top: 0%;
+	width: 83%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#options_window img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 30%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_a
+{
+	width: 30%;
+	height: auto;
+	position: relative;
+	float: right;
+}
+
+div#bottom_panel_a img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#bottom_panel_c
+{
+	width: 70%;
+	height: auto;
+	margin-top: 5.0%;
+	position: relative;
+	float: left;
+}
+
+div#bottom_panel_c img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+.options_panel
+{
+	width: 355%;
+	margin-left: -8%;
+	padding-top: 5%;
+}
+
+.options_column_20
+{
+	width: 19%;
+	float: left;
+}
+
+.options_column_25
+{
+	width: 24%;
+	float: left;
+}
+
+.options_column_40
+{
+	width: 39%;
+	float: left;
+}
+
+/*Options Selection Buttons*/
+
+#ops_tabs_cont
+{
+	float: left;
+	width: 28%;
+	height: auto;
+	margin-left: 4%;
+	margin-bottom: 1%;
+	margin-top: 0%;
+}
+
+.tab
+{
+	width: 25%;
+}
+
+/*Options*/
+
+.options
+{
+	display: block;
+	width: 68%;
+	height: auto;
+	margin: auto;
+
+}
+
+#options_img
+{
+	background-decorator: image;
+	background-image: diamonds.png;
+}
+
+#options_btn:hover #options_img
+{
+	background-decorator: image;
+	background-image: diamonds-h.png;
+}
+
+#options_btn:active #options_img
+{
+	background-decorator: image;
+	background-image: diamonds-o.png;
+}
+
+#options_btn:selected #options_img
+{
+	background-decorator: image;
+	background-image: diamonds-o.png;
+}
+
+/*Detail*/
+
+.detail
+{
+	display: block;
+	width: 75%;
+	height: auto;
+	margin: auto;
+
+}
+
+#detail_img
+{
+	background-decorator: image;
+	background-image: detail.png;
+}
+
+#detail_btn:hover #detail_img
+{
+	background-decorator: image;
+	background-image: detail-h.png;
+}
+
+#detail_btn:active #detail_img
+{
+	background-decorator: image;
+	background-image: detail-o.png;
+}
+
+#detail_btn:selected #detail_img
+{
+	background-decorator: image;
+	background-image: detail-o.png;
+}
+
+/*Preferences*/
+
+.prefs
+{
+	display: block;
+	width: 50%;
+	height: auto;
+	margin: auto;
+
+}
+
+#prefs_img
+{
+	background-decorator: image;
+	background-image: prefs.png;
+}
+
+#prefs_btn:hover #prefs_img
+{
+	background-decorator: image;
+	background-image: prefs-h.png;
+}
+
+#prefs_btn:active #prefs_img
+{
+	background-decorator: image;
+	background-image: prefs-o.png;
+}
+
+#prefs_btn:selected #prefs_img
+{
+	background-decorator: image;
+	background-image: prefs-o.png;
+}
+
+/*Multiplayer*/
+
+.multi
+{
+	display: block;
+	width: 70%;
+	height: auto;
+	margin: auto;
+
+}
+
+#multi_img
+{
+	background-decorator: image;
+	background-image: multiplayer.png;
+}
+
+#multi_btn:hover #multi_img
+{
+	background-decorator: image;
+	background-image: multiplayer-h.png;
+}
+
+#multi_btn:active #multi_img
+{
+	background-decorator: image;
+	background-image: multiplayer-o.png;
+}
+
+#multi_btn:selected #multi_img
+{
+	background-decorator: image;
+	background-image: multiplayer-o.png;
+}
+
+#multi_btn
+{
+	visibility: hidden;
+}
+
+/*Accept Button*/
+
+div#a_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+button#accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}
+
+/*C Panel Buttons*/
+
+div#c_panel_wrapper
+{
+	position: absolute;
+	bottom: 5%;
+
+}
+
+#c_panel_wrapper .button_text_top p
+{
+	margin-top: -170%;
+}
+
+/*HUD Button Option*/
+
+div#hud_cont
+{
+	width: 25%;
+	height: auto;
+	float: right;
+	margin-right: 10%;
+}
+
+.hud
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#hud_img
+{
+	background-decorator: image;
+	background-image: hud.png;
+}
+
+button#hud_btn:hover #hud_img
+{
+	background-decorator: image;
+	background-image: hud-h.png;
+}
+
+button#hud_btn:active #hud_img
+{
+	background-decorator: image;
+	background-image: hud-o.png;
+}
+
+/*Control Button*/
+
+div#control_cont
+{
+	width: 20%;
+	height: auto;
+	float: left;
+	margin-left: 10%;
+}
+
+.control
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#control_img
+{
+	background-decorator: image;
+	background-image: ship.png;
+}
+button#control_btn:hover #control_img
+{
+	background-decorator: image;
+	background-image: ship-pos-h.png;
+}
+
+button#control_btn:active #control_img
+{
+	background-decorator: image;
+	background-image: ship-pos-o.png;
+}
+
+/*Exit Button*/
+
+div#left_panel_wrapper
+{
+	width: 7.5%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+div#bottom_panel_exit
+{
+	width: 100%;
+	height: auto;
+	position: relative;
+	float: left;
+}
+
+div#bottom_panel_exit img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#exit_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#exit_cont
+{
+	width: 80%;
+	height: auto;
+	margin: auto;
+
+}
+
+.exit
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#exit_img
+{
+	background-decorator: image;
+	background-image: exit.png;
+}
+button#exit_btn:hover #exit_img
+{
+	background-decorator: image;
+	background-image: exit-neg-h.png;
+}
+
+button#exit_btn:active #exit_img
+{
+	background-decorator: image;
+	background-image: exit-neg-o.png;
+}
+
+/*Ops Panels*/
+
+.ops_left_header
+{
+	margin-left: 12%;
+}
+
+.ops_right_header
+{
+	margin-right: 12%;
+	text-align: right;
+}
+
+.ops_center_header
+{
+	text-align: center;
+}
+
+.options_column_25 #large_panel_text
+{
+	margin-left: 6.5%;
+	text-align: left;
+
+}
+
+.btn_panel_large .ops_right_header
+{
+	margin-right: 7%;
+	text-align: right;
+}
+
+.btn_panel_large .ops_left_header
+{
+	margin-left: 7%;
+}
+
+.btn_panel_general .ops_right_header
+{
+	margin-right: 7%;
+	text-align: right;
+}
+
+.btn_panel_general .ops_left_header
+{
+	margin-left: 16%;
+	position: absolute;
+}
+
+/*Horizontal Panel*/
+
+div#horz_panel_wrapper
+{
+	position: absolute;
+	bottom: 5%;
+	padding-right: 8%;
+}
+
+#horz_panel_wrapper .button_text_left p
+{
+	width: 100%;
+	margin-left: -100%;
+	margin-top: -85%;
+}
+
+.btn_panel_horz
+{
+	width: 67%;
+	height: auto;
+	position: relative;
+
+}
+
+.btn_panel_horz img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+.title_panel_horz
+{
+	width: 67%;
+	height: auto;
+	position: relative;
+	border-bottom-width: 2px;
+	border-bottom-color: grey;
+
+}
+
+/*Vertical Panel*/
+
+.btn_panel_vert
+{
+	width: 20%;
+	height: auto;
+	position: relative;
+	margin-top: 1%;
+	margin-bottom: 4%;
+}
+
+.btn_panel_vert img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+.btn_panel_vert #bullet_choice_cont
+{
+	width: 60%;
+}
+
+div#vert_panel_wrapper
+{
+	position: absolute;
+	bottom: 10%;
+}
+
+#vert_panel_wrapper .button_text_right p
+{
+	width: 200%;
+	margin-left: 80%;
+	margin-top: -40%;
+}
+
+#vert_panel_text
+{
+	width: 400%;
+	margin-left: 40%;
+}
+
+/*Vertical Tall Panel*/
+
+.btn_panel_vert_tall
+{
+	width: 25%;
+	height: auto;
+	position: relative;
+	margin-top: 1%;
+}
+
+.btn_panel_vert_tall img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+div#vert_tall_panel_wrapper
+{
+	position: absolute;
+	bottom: 4%;
+}
+
+.object_update #vert_tall_panel_wrapper
+{
+	bottom: 18%;
+}
+
+#vert_tall_panel_wrapper .button_text_right p
+{
+	width: 200%;
+	margin-left: 80%;
+	margin-top: -17%;
+}
+
+#vert_tall_panel_text
+{
+	width: 400%;
+	margin-left: 30%;
+}
+
+/*Large Multi-Slider Panel*/
+
+div.large_panel_wrapper
+{
+	position: absolute;
+	bottom: 5%;
+	padding-left: 1%;
+}
+
+.large_panel_wrapper .button_text_top p
+{
+	width: 100%;
+	margin-left: 50%;
+	margin-top: -135%;
+}
+
+.panel_right .large_panel_wrapper .button_text_top p
+{
+	width: 100%;
+	margin-left: -200%;
+	margin-top: -135%;
+}
+
+/*Horizontal Wide Panel*/
+
+div#horz_wide_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+	padding-left: 1%;
+}
+
+/*Gamma Panel*/
+
+div#gamma_panel_wrapper
+{
+	position: absolute;
+	top: 1em;
+	padding-left: 1%;
+	z-index: 8;
+}
+
+#gamma_value
+{
+	float: left;
+	width: 70%;
+	margin-top: 10%;
+}
+
+#gamma_value p
+{
+	text-align: center;
+}
+
+#gamma_graphic_wrapper
+{
+	position: absolute;
+	top: 52%;
+	width: 89%;
+	height: 42%;
+	margin-left: 3%;
+	margin-bottom: 4%;
+	margin-right: 10%;
+}
+
+/*Generic Multi Window Panel*/
+.btn_panel_general
+{
+	width: 70%;
+	height: auto;
+	position: relative;
+	margin-top: 2%;
+}
+
+.btn_panel_general img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+/*Mic Test*/
+.mic_test
+{
+	
+}
+
+.mic_test #oval_cont
+{
+	width: 40%;
+	float: left;
+	margin-left: 10%;
+}
+
+.mic_test #horz_panel_wrapper
+{
+	bottom: 0%;
+}
+
+/*Mute Players Panel*/
+
+div#muteplayers_arrows_wrapper
+{
+	position: absolute;
+	top: 5%;
+	float: right;
+	padding-left: 1%;
+}
+
+#muteplayers_arrows_wrapper #arrow_cont
+{
+	float: none;
+	margin-left: 6%;
+	margin-top: 0%;
+	width: 80%;
+}
+
+div#muteplayers_controls_wrapper
+{
+	position: absolute;
+	bottom: -1em;
+	padding-left: 1%;
+}
+
+#muteplayers_arrows
+{
+	float: right;
+	width: 13%;
+}
+
+/*IP Address Panel*/
+
+div#ipaddress_arrows_wrapper
+{
+	position: absolute;
+	top: 5%;
+	padding-left: 1%;
+}
+
+#ipaddress_arrows_wrapper #arrow_cont
+{
+	float: none;
+	margin-left: 2%;
+	margin-top: 2%;
+}
+
+div#ipaddress_controls_wrapper
+{
+	position: absolute;
+	bottom: -1em;
+	padding-left: 1%;
+}
+
+/*FS2NetD Panel*/
+
+div#network_select_wrapper
+{
+	position: absolute;
+	top: 11%;
+	padding-left: 5%;
+}
+
+#network_select_wrapper #round_cont
+{
+	float: none;
+	margin-left: 2%;
+	margin-top: 4%;
+}
+
+#network_select_wrapper .button_text_right p
+{
+	margin-left: 10%;
+}
+
+#login_creds_wrapper
+{
+	position: absolute;
+	top: 42%;
+	width: 80%;
+	height: 39%;
+	margin-left: 16%;
+	margin-bottom: 4%;
+	margin-right: 10%;
+}
+
+input.text,
+input.password,
+{
+	border-color: rgba(127,127,127,125);
+	border-width: 1px;
+	background-color: rgba(0,0,0,100);
+	margin-left: 2%;
+	float: right;
+}
+
+#login_creds_wrapper span
+{
+	float: left;
+	width: 10%;
+}
+
+/*Misc Panel Positioning*/
+
+.btn_panel_large
+{
+	width: 100%;
+	height: auto;
+	position: relative;
+	margin-top: 1%;
+}
+
+.btn_panel_large img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+.horz_middle /*For controls in the middle columns*/
+{
+	margin: auto;
+}
+
+.horz_right /*For controls in the right hand column*/
+{
+	float: right;
+}
+
+.panel_middle /*For controls in the middle columns*/
+{
+	margin: auto;
+}
+
+.panel_right /*For controls in the right hand column*/
+{
+	float: right;
+}
+
+/*Round Button*/
+
+div#round_option_cont
+{
+	width: 18%;
+	height: auto;
+	float: right;
+	margin-right: 15%;
+}
+
+div#round_choice_cont
+{
+	width: 18%;
+	height: auto;
+	float: right;
+}
+
+div#round_ten_cont
+{
+	width: 8.3%;
+	height: auto;
+	float: right;
+	margin-right: 0%;
+}
+
+div#round_server_cont
+{
+	width: 8.3%;
+	height: auto;
+	float: none;
+	margin-right: 0%;
+}
+
+div#round_mute_cont
+{
+	width: 8.3%;
+	height: auto;
+	float: right;
+	margin-right: 30%;
+}
+
+
+.ten_dot_slider
+{
+	margin-bottom: 2.5%;
+	margin-top: 2%;
+}
+
+.options_column_25 .ten_dot_slider
+{
+	margin-bottom: 0%;
+	margin-top: 2%;
+}
+
+.ten_dot_slider #ten_dot_text
+{
+	position: absolute;
+	top: -45%;
+	width: 800%;
+	margin-left: 35%;
+
+}
+
+.options_column_25 .ten_dot_slider #ten_dot_text
+{
+	position: absolute;
+	top: -70%;
+	width: 800%;
+	margin-left: 75%;
+
+}
+
+.round
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#round_img
+{
+	background-decorator: image;
+	background-image: round.png;
+}
+
+button#round_btn:hover #round_img
+{
+	background-decorator: image;
+	background-image: round-h.png;
+}
+
+button#round_btn:active #round_img,
+button#round_btn:checked #round_img
+{
+	background-decorator: image;
+	background-image: round-o.png;
+}
+
+/*Bullet Button*/
+
+div#bullet_choice_cont
+{
+	width: 45%;
+	height: auto;
+	margin-left: 30%;
+}
+
+.bullet
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r.png;
+}
+
+button#bullet_r_btn:hover #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#bullet_r_btn:active #bullet_r_img,
+button#bullet_r_btn:checked #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+#det_min_img
+{
+	background-decorator: image;
+	background-image: bullet-r.png;
+}
+
+button#det_min_btn:hover #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#det_min_btn:active #bullet_r_img,
+button#det_min_btn:checked #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+#det_low_img
+{
+	background-decorator: image;
+	background-image: bullet-r.png;
+}
+
+button#det_low_btn:hover #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#det_low_btn:active #bullet_r_img,
+button#det_low_btn:checked #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+#det_med_img
+{
+	background-decorator: image;
+	background-image: bullet-r.png;
+}
+
+button#det_med_btn:hover #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#det_med_btn:active #bullet_r_img,
+button#det_med_btn:checked #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+#det_hig_img
+{
+	background-decorator: image;
+	background-image: bullet-r.png;
+}
+
+button#det_hig_btn:hover #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#det_hig_btn:active #bullet_r_img,
+button#det_hig_btn:checked #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+#det_ult_img
+{
+	background-decorator: image;
+	background-image: bullet-r.png;
+}
+
+button#det_ult_btn:hover #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#det_ult_btn:active #bullet_r_img,
+button#det_ult_btn:checked #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+#det_cst_img
+{
+	background-decorator: image;
+	background-image: bullet-r.png;
+}
+
+button#det_cst_btn:hover #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#det_cst_btn:active #bullet_r_img,
+button#det_cst_btn:checked #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#mod_default_btn:hover #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#mod_default_btn:active #bullet_r_img,
+button#mod_default_btn:checked #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+button#mod_custom_btn:hover #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-h.png;
+}
+
+button#mod_custom_btn:active #bullet_r_img,
+button#mod_custom_btn:checked #bullet_r_img
+{
+	background-decorator: image;
+	background-image: bullet-r-o.png;
+}
+
+#bullet_l_img
+{
+	background-decorator: image;
+	background-image: bullet-l.png;
+}
+
+button#bullet_l_btn:hover #bullet_l_img
+{
+	background-decorator: image;
+	background-image: bullet-l-h.png;
+}
+
+button#bullet_l_btn:active #bullet_l_img
+{
+	background-decorator: image;
+	background-image: bullet-l-o.png;
+}
+
+/*Oval Button*/
+
+div#oval_cont
+{
+	width: 16%;
+	height: auto;
+	float: right;
+	margin-right: 0%;
+}
+
+.fps_slider
+{
+	margin-bottom: 2.5%;
+}
+
+.oval
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#oval_img
+{
+	background-decorator: image;
+	background-image: oval.png;
+}
+
+button#oval_btn:hover #oval_img
+{
+	background-decorator: image;
+	background-image: oval-h.png;
+}
+
+button#oval_btn:active #oval_img,
+button#oval_btn:checked #oval_img
+{
+	background-decorator: image;
+	background-image: oval-o.png;
+}
+
+/*Add Remove Buttons*/
+
+div#add_remove_cont
+{
+	width: 10%;
+	height: auto;
+	float: left;
+	margin-left: 7%;
+}
+
+.controls
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#add_img
+{
+	background-decorator: image;
+	background-image: star.png;
+}
+
+button#add_btn:hover #add_img
+{
+	background-decorator: image;
+	background-image: star-pos-h.png;
+}
+
+button#add_btn:active #add_img
+{
+	background-decorator: image;
+	background-image: star-pos-o.png;
+}
+
+#remove_img
+{
+	background-decorator: image;
+	background-image: exit.png;
+}
+
+button#remove_btn:hover #remove_img
+{
+	background-decorator: image;
+	background-image: exit-neg-h.png;
+}
+
+button#remove_btn:active #remove_img
+{
+	background-decorator: image;
+	background-image: exit-neg-o.png;
+}
+
+/*Arrow Buttons*/
+
+div#arrow_cont
+{
+	width: 8.3%;
+	height: auto;
+	float: right;
+	margin-right: 0%;
+	z-index: 0;
+}
+
+.fps_slider #arrow_cont
+{
+	margin-right: 1%;
+}
+
+.gamma_setting #arrow_cont
+{
+	margin-right: 4%;
+	margin-top: 5%;
+}
+
+.arrow
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+	mouseover-sound: 17;
+	click-sound: (error)15,(success)0;
+}
+
+#left_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-left.png;
+}
+
+button#left_arrow_btn:hover #left_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-left-h.png;
+}
+
+button#left_arrow_btn:active #left_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-left-o.png;
+}
+
+#right_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-right.png;
+}
+
+button#right_arrow_btn:hover #right_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-right-h.png;
+}
+
+button#right_arrow_btn:active #right_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-right-o.png;
+}
+
+button.left_arrow_btn:hover #left_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-left-h.png;
+}
+
+button.left_arrow_btn:active #left_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-left-o.png;
+}
+
+button.right_arrow_btn:hover #right_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-right-h.png;
+}
+
+button.right_arrow_btn:active #right_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-right-o.png;
+}
+
+#up_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-up.png;
+}
+
+button#up_arrow_btn:hover #up_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-up-h.png;
+}
+
+button#up_arrow_btn:active #up_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-up-o.png;
+}
+
+#down_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-down.png;
+}
+
+button#down_arrow_btn:hover #down_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-down-h.png;
+}
+
+button#down_arrow_btn:active #down_arrow_img
+{
+	background-decorator: image;
+	background-image: arrow-down-o.png;
+}
+
+/*Range Slider*/
+
+#range_cont
+{
+	width: 100%;
+
+}
+
+input.range
+{
+	width: 98%;
+	height: 100%;
+	scrollchange-sound: 9;
+
+	position: absolute;
+}
+
+input.range slidertrack
+{
+	background-decorator: image;
+	background-image: scroll-bar-line-horz.png;
+	height: 2%;
+	margin-top: 9%;
+}
+
+input.range sliderbar
+{
+	width: 10%;
+	height: 50%;
+	margin-top: 28%;
+	background-decorator: image;
+	background-image: scroll-button.png;
+
+}
+
+input.range sliderbar:hover
+{
+	background-image: scroll-button-h.png;
+}
+
+input.range sliderbar:active
+{
+	background-image: scroll-button-o.png;
+}
+
+input.range sliderarrowdec
+{
+	width: 10%;
+	height: 20%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-left.png;
+}
+
+input.range sliderarrowinc
+{
+	width: 10%;
+	height: 20%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-right.png;
+}
+
+input.range sliderarrowdec:hover
+{
+	icon-image: arrow-left-h.png;
+}
+
+input.range sliderarrowinc:hover
+{
+	icon-image: arrow-right-h.png;
+}
+
+input.range sliderarrowdec:active
+{
+	icon-image: arrow-left-o.png;
+}
+
+input.range sliderarrowinc:active
+{
+	icon-image: arrow-right-o.png;
+}
+
+/*Dropdown Selector*/
+
+#dropdown_cont
+{
+	width: 100%;
+}
+
+select,
+dataselect
+{
+	width: 98%;
+	margin-left: 10%;
+	margin-bottom: 3%;
+
+}
+
+selectvalue
+{
+	border-color: rgba(127,127,127,200);
+	border-width: 1px;
+	width: 75%;
+	height: 70%;
+	background-color: rgba(0,0,0,100);
+	text-align: center;
+	padding-bottom: 3%;
+}
+
+selectvalue:hover
+{
+	border-color: rgba(127,127,127,255);
+	background-color: rgba(255,255,255,50);
+}
+
+selectarrow
+{
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+	width: 20%;
+}
+
+selectarrow:hover
+{
+	icon-decorator: image;
+	icon-image: arrow-dbl-down-h.png;
+}
+
+selectarrow:active,
+selectarrow:checked
+{
+	icon-decorator: image;
+	icon-image: arrow-dbl-down-o.png;
+}
+
+selectbox
+{
+	width: 75%;
+	text-align: center;
+	background-color: rgba(0,0,0,220);
+	border-color: rgba(127,127,127,255);
+	border-width: 1px;
+}
+
+selectbox option:hover
+{
+	color: white;
+}
+
+.mouse_settings
+{
+	margin-top: 20%;
+}
+
+#option_input_mousesensitivity_element
+{
+	margin-top: 25px;
+}
+
+#joystick_values_wrapper
+{
+	position:relative;
+	margin-top: 2%;
+}
+
+#joystick_selection_wrapper
+{
+	position:relative;
+	margin-top: 1%;
+}
+
+#joystick_column_1
+{
+	width: 46%;
+	float: left;
+}
+
+#joystick_column_2
+{
+	width: 46%;
+	float: right;
+}
+
+#option_input_joystick_element
+{
+	margin: 5px;
+	width: 100%;
+}
+#option_input_joystick1_element
+{
+	margin: 5px;
+	width: 100%;
+}
+#option_input_joystick2_element
+{
+	margin: 5px;
+	width: 100%;
+}
+#option_input_joystick3_element
+{
+	margin: 5px;
+	width: 100%;
+}

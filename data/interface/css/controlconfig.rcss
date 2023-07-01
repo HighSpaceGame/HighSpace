@@ -1,0 +1,1143 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+.main_bg
+{
+	background-decorator: image;
+	background-image: bg-cockpit.png;
+}
+
+.below p
+{
+	padding-top:8%;
+}
+
+ul#list_times_ul
+{
+	float: left;
+	width: 10%;
+}
+
+div#control_config_wrapper
+{
+	width: 70%;
+	height: auto;
+	position: absolute;
+	right: 5%;
+}
+
+div#conflict_text_wrapper
+{
+	width: 35%;
+	height: 10%;
+	overflow: hidden;
+	position: absolute;
+	top: 1.5%;
+	left: 30%;
+	z-index: 7;
+}
+
+div#conflict_warning
+{
+	color: red;
+}
+
+.control_configlist_element
+{
+	display: block;
+	color: #7b7b7b;
+	z-index: 7;
+}
+.control_configlist_element:hover
+{
+	color: #abbbab;
+}
+
+.preset_list_element
+{
+	display: block;
+	color: #7b7b7b;
+}
+.preset_list_element:hover
+{
+	color: #abbbab;
+}
+
+.preset_list_element:checked
+{
+	color: #6f92f5;
+}
+
+.control_config_header
+{
+	text-align: center;
+}
+
+.name_display
+{
+	width: 40%;
+	float: left;
+}
+
+.name_display:hover
+{
+	color: #abbbab;
+}
+.name_display:checked
+{
+	color: #4e629c;
+}
+.name_display:enabled
+{
+	color: #6f92f5;
+}
+
+.bind_display
+{
+	width: 25%;
+	float: left;
+}
+
+.bind_display:hover
+{
+	color: #abbbab;
+}
+.bind_display:checked
+{
+	color: #4e629c;
+}
+.bind_display:enabled
+{
+	color: #6f92f5;
+}
+
+div#log_text_wrapper
+{
+	position: absolute;
+	top: 15%;
+	width: 87%;
+	height: 72%;
+	margin-left: 7%;
+	overflow: scroll;
+}
+
+div#preset_text_wrapper
+{
+	position: absolute;
+	top: 12%;
+	width: 87%;
+	height: 75%;
+	margin-left: 2%;
+	overflow: hidden;
+}
+
+div#control_config_content
+{
+	margin-top: 2%;
+	width: 100%;
+	height: auto;
+}
+
+div#control_config_content img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Section Buttons*/
+
+div#tab_buttons_wrapper
+{
+	position: absolute;
+	bottom: 0;
+	width: 39%;
+	height: 12%;
+}
+
+div#target_cont
+{
+	width: 18%;
+	height: auto;
+	float: left;
+	margin-left: 4%;
+}
+
+.target
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#target_img
+{
+	background-decorator: image;
+	background-image: target.png;
+}
+
+button#target_btn:hover #target_img
+{
+	background-decorator: image;
+	background-image: target-pos-h.png;
+}
+
+button#target_btn:active #target_img
+{
+	background-decorator: image;
+	background-image: target-pos-o.png;
+}
+
+button#target_btn:checked #target_img
+{
+	background-decorator: image;
+	background-image: target-pos-o.png;
+}
+
+div#ship_cont
+{
+	width: 18%;
+	height: auto;
+	float: left;
+	margin-left: 4%;
+}
+
+.ship
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#ship_img
+{
+	background-decorator: image;
+	background-image: ship.png;
+}
+
+button#ship_btn:hover #ship_img
+{
+	background-decorator: image;
+	background-image: ship-pos-h.png;
+}
+
+button#ship_btn:active #ship_img
+{
+	background-decorator: image;
+	background-image: ship-pos-o.png;
+}
+
+button#ship_btn:checked #ship_img
+{
+	background-decorator: image;
+	background-image: ship-pos-o.png;
+}
+
+div#weapon_cont
+{
+	width: 27%;
+	height: auto;
+	float: left;
+	margin-left: 4%;
+}
+
+.weapon
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#weapon_img
+{
+	background-decorator: image;
+	background-image: gun.png;
+}
+
+button#weapon_btn:hover #weapon_img
+{
+	background-decorator: image;
+	background-image: gun-pos-h.png;
+}
+
+button#weapon_btn:active #weapon_img
+{
+	background-decorator: image;
+	background-image: gun-pos-o.png;
+}
+
+button#weapon_btn:checked #weapon_img
+{
+	background-decorator: image;
+	background-image: gun-pos-o.png;
+}
+
+div#misc_cont
+{
+	width: 18%;
+	height: auto;
+	float: left;
+	margin-left: 4%;
+}
+
+.misc
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#misc_img
+{
+	background-decorator: image;
+	background-image: star.png;
+}
+
+button#misc_btn:hover #misc_img
+{
+	background-decorator: image;
+	background-image: star-pos-h.png;
+}
+
+button#misc_btn:active #misc_img
+{
+	background-decorator: image;
+	background-image: star-pos-o.png;
+}
+
+button#misc_btn:checked #misc_img
+{
+	background-decorator: image;
+	background-image: star-pos-o.png;
+}
+
+/*Clear and Undo Buttons*/
+
+div#clear_buttons_wrapper
+{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 39%;
+	height: 12%;
+}
+
+div#clear_conflict_cont
+{
+	width: 18%;
+	height: auto;
+	float: left;
+	margin-left: 2%;
+}
+
+div#clear_conflict_lock
+{
+	width: 100%;
+	height: 150%;
+	position: absolute;
+}
+
+.clear_conflict
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#clear_conflict_img
+{
+	background-decorator: image;
+	background-image: cancel.png;
+}
+
+button#clear_conflict_btn:hover #clear_conflict_img
+{
+	background-decorator: image;
+	background-image: cancel-h.png;
+}
+
+button#clear_conflict_btn:active #clear_conflict_img
+{
+	background-decorator: image;
+	background-image: cancel-o.png;
+}
+
+button#clear_conflict_btn:checked #clear_conflict_img
+{
+	background-decorator: image;
+	background-image: cancel-o.png;
+}
+
+div#clear_all_cont
+{
+	width: 18%;
+	height: auto;
+	float: left;
+	margin-left: 2%;
+}
+
+.clear_all
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#clear_all_img
+{
+	background-decorator: image;
+	background-image: exit.png;
+}
+
+button#clear_all_btn:hover #clear_all_img
+{
+	background-decorator: image;
+	background-image: exit-neg-h.png;
+}
+
+button#clear_all_btn:active #clear_all_img
+{
+	background-decorator: image;
+	background-image: exit-neg-o.png;
+}
+
+button#clear_all_btn:checked #clear_all_img
+{
+	background-decorator: image;
+	background-image: exit-neg-o.png;
+}
+
+div#clear_selected_cont
+{
+	width: 27%;
+	height: auto;
+	float: left;
+	margin-left: 2%;
+}
+
+div#clear_selected_lock
+{
+	width: 100%;
+	height: 150%;
+	position: absolute;
+}
+
+.clear_selected
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#clear_selected_img
+{
+	background-decorator: image;
+	background-image: clear.png;
+}
+
+button#clear_selected_btn:hover #clear_selected_img
+{
+	background-decorator: image;
+	background-image: clear-neg-h.png;
+}
+
+button#clear_selected_btn:active #clear_selected_img
+{
+	background-decorator: image;
+	background-image: clear-neg-o.png;
+}
+
+button#clear_selected_btn:checked #clear_selected_img
+{
+	background-decorator: image;
+	background-image: clear-neg-o.png;
+}
+
+div#undo_cont
+{
+	width: 27%;
+	height: auto;
+	float: left;
+	margin-left: 2%;
+}
+
+.undo
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#undo_img
+{
+	background-decorator: image;
+	background-image: undo.png;
+}
+
+button#undo_btn:hover #undo_img
+{
+	background-decorator: image;
+	background-image: undo-h.png;
+}
+
+button#undo_btn:active #undo_img
+{
+	background-decorator: image;
+	background-image: undo-o.png;
+}
+
+button#undo_btn:checked #undo_img
+{
+	background-decorator: image;
+	background-image: undo-o.png;
+}
+
+/*Search Buttons*/
+
+div#search_button_wrapper
+{
+	position: absolute;
+	top: 3%;
+	right: 0;
+	width: 39%;
+	height: 12%;
+}
+
+div#search_cont
+{
+	width: 18%;
+	height: auto;
+	float: left;
+	margin-left: 25%;
+}
+
+.search
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#search_img
+{
+	background-decorator: image;
+	background-image: detail.png;
+}
+
+button#search_btn:hover #search_img
+{
+	background-decorator: image;
+	background-image: detail-h.png;
+}
+
+button#search_btn:active #search_img
+{
+	background-decorator: image;
+	background-image: detail-o.png;
+}
+
+button#search_btn:checked #search_img
+{
+	background-decorator: image;
+	background-image: detail-o.png;
+}
+
+div#bind_cont
+{
+	width: 19%;
+	height: auto;
+	float: left;
+	margin-left: 2%;
+}
+
+div#bind_lock
+{
+	width: 100%;
+	height: 150%;
+	position: absolute;
+}
+
+.bind
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#bind_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+
+button#bind_btn:hover #bind_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#bind_btn:active #bind_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}
+
+button#bind_btn:checked #bind_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}
+
+/*Preset Panel Elements*/
+
+div#preset_panel_wrapper
+{
+	width: 18%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	top: 4%;
+	left: 4%;
+}
+
+div#preset_panel
+{
+	width: 100%;
+	height: auto;
+	position: relative;
+	margin-top: 15px;
+}
+
+div#preset_panel img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#preset_btn_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+/*New Button*/
+
+div#new_cont
+{
+	width: 20%;
+	height: auto;
+	float: left;
+	margin-left: 10%;
+}
+
+div#new_lock
+{
+	width: 100%;
+	height: 200%;
+	position: absolute;
+}
+
+.new
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#new_img
+{
+	background-decorator: image;
+	background-image: star.png;
+}
+
+#new_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#new_btn:hover #new_img
+{
+	background-decorator: image;
+	background-image: star-pos-h.png;
+}
+
+button#new_btn:active #new_img
+{
+	background-decorator: image;
+	background-image: star-pos-o.png;
+}
+
+button#new_btn:checked #new_img
+{
+	background-decorator: image;
+	background-image: star-pos-o.png;
+}
+
+/*Clone Button*/
+
+div#clone_cont
+{
+	width: 20%;
+	height: auto;
+	float: left;
+	margin-left: 10%;
+}
+
+div#clone_lock
+{
+	width: 100%;
+	height: 200%;
+	position: absolute;
+}
+
+.clone
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#clone_img
+{
+	background-decorator: image;
+	background-image: diamonds.png;
+}
+
+#clone_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#clone_btn:hover #clone_img
+{
+	background-decorator: image;
+	background-image: diamonds-h.png;
+}
+
+button#clone_btn:active #clone_img
+{
+	background-decorator: image;
+	background-image: diamonds-o.png;
+}
+
+button#clone_btn:checked #clone_img
+{
+	background-decorator: image;
+	background-image: diamonds-o.png;
+}
+
+/*Delete Button*/
+
+div#delete_cont
+{
+	width: 20%;
+	height: auto;
+	float: left;
+	margin-left: 10%;
+}
+div#delete_lock
+{
+	width: 100%;
+	height: 200%;
+	position: absolute;
+}
+
+.delete
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#delete_img
+{
+	background-decorator: image;
+	background-image: exit.png;
+}
+
+#delete_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#delete_btn:hover #delete_img
+{
+	background-decorator: image;
+	background-image: exit-neg-h.png;
+}
+
+button#delete_btn:active #delete_img
+{
+	background-decorator: image;
+	background-image: exit-neg-o.png;
+}
+
+button#delete_btn:checked #delete_img
+{
+	background-decorator: image;
+	background-image: exit-neg-o.png;
+}
+
+/*Mod Panel Elements*/
+
+div#mod_panel_wrapper
+{
+	width: 35%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	left: 25%;
+}
+
+div#mod_panel
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	margin-top: 15px;
+}
+
+div#mod_panel img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#mod_btn_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+/*Alt Button*/
+
+div#alt_cont
+{
+	width: 13%;
+	height: auto;
+	float: left;
+	margin-left: 15%;
+}
+
+div#alt_lock
+{
+	width: 100%;
+	height: 150%;
+	position: absolute;
+	top: -30%;
+}
+
+.alt
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#alt_img
+{
+	background-decorator: image;
+	background-image: bullet-u.png;
+}
+
+#alt_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#alt_btn:hover #alt_img
+{
+	background-decorator: image;
+	background-image: bullet-u-h.png;
+}
+
+button#alt_btn:active #alt_img
+{
+	background-decorator: image;
+	background-image: bullet-u-o.png;
+}
+
+button#alt_btn:checked #alt_img
+{
+	background-decorator: image;
+	background-image: bullet-u-o.png;
+}
+
+/*Shift Button*/
+
+div#shift_cont
+{
+	width: 13%;
+	height: auto;
+	float: left;
+	margin-left: 15%;
+}
+
+div#shift_lock
+{
+	width: 100%;
+	height: 150%;
+	position: absolute;
+	top: -30%;
+}
+
+.shift
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#shift_img
+{
+	background-decorator: image;
+	background-image: bullet-u.png;
+}
+
+#shift_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#shift_btn:hover #shift_img
+{
+	background-decorator: image;
+	background-image: bullet-u-h.png;
+}
+
+button#shift_btn:active #shift_img
+{
+	background-decorator: image;
+	background-image: bullet-u-o.png;
+}
+
+button#shift_btn:checked #shift_img
+{
+	background-decorator: image;
+	background-image: bullet-u-o.png;
+}
+
+/*Invert Button*/
+
+div#invert_cont
+{
+	width: 13%;
+	height: auto;
+	float: left;
+	margin-left: 15%;
+}
+
+div#invert_lock
+{
+	width: 100%;
+	height: 150%;
+	position: absolute;
+	top: -30%;
+}
+
+.invert
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#invert_img
+{
+	background-decorator: image;
+	background-image: bullet-u.png;
+}
+
+#invert_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#invert_btn:hover #invert_img
+{
+	background-decorator: image;
+	background-image: bullet-u-h.png;
+}
+
+button#invert_btn:active #invert_img
+{
+	background-decorator: image;
+	background-image: bullet-u-o.png;
+}
+
+button#invert_btn:checked #invert_img
+{
+	background-decorator: image;
+	background-image: bullet-u-o.png;
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 15%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_b
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+	margin-top: 15px;
+}
+
+div#bottom_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Accept Button*/
+
+div#b_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+
+#accept_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}
+
+/*Scroll Buttons*/
+
+#log_text_wrapper scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 7%;
+	position: absolute;
+	right: 1%;
+	z-index: 5;
+}
+
+#log_text_wrapper scrollbarvertical slidertrack
+{
+	display:none;
+}
+
+#log_text_wrapper scrollbarvertical sliderbar
+{
+	display:none;
+}
+
+#log_text_wrapper scrollbarvertical sliderbar:hover
+{
+	display:none;
+}
+
+#log_text_wrapper scrollbarvertical sliderbar:active
+{
+	display:none;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowdec
+{
+	width: 80%;
+	height: 16%;
+	margin-top: 7%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowinc
+{
+	width: 80%;
+	height: 16%;
+	margin-bottom: 9%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}

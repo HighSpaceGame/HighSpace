@@ -1,0 +1,182 @@
+<rml>
+	<head>
+		<title>XSTR("Debrief", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="debrief.rcss"/>
+		<script>
+			controller = require("debrief")()
+		</script>
+	</head>
+	<body id=main_background onkeydown="controller:global_keydown(element, event)" onload="controller:initialize(document)"
+		  onunload="controller:unload(); controller = nil">
+		<div id=top_panel_wrapper>
+			<div id=top_panel_b>
+				<div id=top_b_panel_wrapper>
+					<div id=bullet_cont>
+						<button id="debrief_btn" class="bullet button_1" onclick="controller:debrief_pressed(element)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Debriefing", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="stats_btn" class="bullet button_1" onclick="controller:stats_pressed(element)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Statistics", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="ops-panel-vert-tall-l.png"></img>
+			</div>
+			<div class="tooltip">
+				<span class="tooltiptext">XSTR("Receive your mission debriefing or view your mission stats", -1)</span>
+			</div>
+		</div>
+		<div id=debrief_wrapper>
+			<div id=mission_name>
+				<p></p>
+			</div>
+			<div id=debrief_text_window>
+				<div id=debrief_text>
+				</div>
+				<div id=replay_wrapper>
+					<div id=replay_cont>
+						<button id="replay_btn" class="replay_btn button_1" onclick="controller:replay_pressed(element)">
+							<span id="replay_img" class="replay_btn">
+								<img src="replay.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_right">
+								<p>XSTR("Replay Mission", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=recommend_cont>
+						<button id="recommend_btn" class="recommend_btn button_1" onclick="controller:recommend_pressed(element)">
+							<span id="recommend_img" class="recommend_btn">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Recommendations", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div class="tooltip">
+						<span class="tooltiptext">XSTR("See advice on improving your performance", -1)</span>
+					</div>
+				</div>
+				<div id=stage_select>
+					<div id=button_wrapper>
+						<div id=skip_cont>
+							<button id="cmdlast_btn" class="arrowbuttons button_1" onclick="controller:page_pressed(4)">
+								<span id="cmdlast_img" class="arrowbuttons">
+									<img src="skip-r.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+						<div id=arrow_cont>
+							<button id="cmdnext_btn" class="arrowbuttons button_1" onclick="controller:page_pressed(3)">
+								<span id="cmdnext_img" class="arrowbuttons">
+									<img src="arrow-down.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+						<div id=arrow_cont>
+							<button id="cmdprev_btn" class="arrowbuttons button_1" onclick="controller:page_pressed(2)">
+								<span id="cmdprev_img" class="arrowbuttons">
+									<img src="arrow-up.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+						<div id=skip_cont>
+							<button id="cmdfirst_btn" class="arrowbuttons button_1" onclick="controller:page_pressed(1)">
+								<span id="cmdfirst_img" class="arrowbuttons">
+									<img src="skip-l.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<img src="debrief-window.png"></img>
+			</div>
+		</div>
+		<div id=awards_wrapper>
+			<div id=medal_image_wrapper>
+			</div>
+			<!--<div id=badge_wrapper>
+			</div>
+			<div id=promotion_wrapper>
+			</div>
+			<div id=medal_wrapper>
+			</div>-->
+			<div id=award_text_wrapper>
+				<div id=medal_text class="award_text">
+				</div>
+				<div id=badge_text class="award_text">
+				</div>
+				<div id=promotion_text class="award_text">
+				</div>
+			</div>
+			<div id=medals_cont>
+				<button id="medals_btn" class="medals button_1" onclick="controller:medals_button_clicked(element)">
+					<span id="medals_img" class="medals">
+						<img src="medals.png" class="psuedo_img"></img>
+					</span>
+				</button>
+			</div>
+		<img src="tech-room-view-window.png"></img>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_a>
+				<div id=a_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1" onclick="controller:accept_pressed(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Accept", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+			<div id=bottom_panel_b>
+				<div id=b_panel_wrapper>
+					<div id=help_cont>
+						<button id="help_btn" class="help button_1" onclick="controller:help_clicked()">
+							<span id="help_img" class="help">
+								<img src="help.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_left">
+								<p>XSTR("Help", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=options_cont>
+						<button id="options_btn" class="options button_1" onclick="controller:options_button_clicked()">
+							<span id="options_img" class="options">
+								<img src="diamonds.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_left">
+								<p>XSTR("Options", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-b.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

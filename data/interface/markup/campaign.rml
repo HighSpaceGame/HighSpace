@@ -1,0 +1,65 @@
+<rml>
+	<head>
+		<title>XSTR("Campaign Room", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="campaign.rcss"/>
+		<script>
+			controller = require("campaign")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onunload="controller = nil">
+		<div id=campaign_wrapper>
+			<div id=campaign_select>
+				<div id=campaignlist>
+					<ul id=campaignlist_ul>
+					</ul>
+				</div>
+				<img src="campaign-main-window.png"></img>
+			</div>
+			<div id=campaign_desc>
+				<div id=desc_text>
+				</div>
+				<img src="campaign-text-window.png"></img>
+			</div>
+		</div>
+		<div id=logo_wide>
+			<img src="logo-wide.png"></img>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_a>
+				<div id=a_panel_wrapper>
+					<div id=restart_cont>
+						<button id="restart_btn" class="restart button_1" onclick="controller:restart_pressed(element)">
+							<span id="restart_img" class="restart">
+								<img src="star.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_top">
+								<p>XSTR("Restart Campaign", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+			<div id=bottom_panel_b>
+				<div id=b_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1" onclick="controller:commit_pressed(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Select", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

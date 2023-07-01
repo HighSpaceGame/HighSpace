@@ -1,0 +1,163 @@
+<rml>
+	<head>
+		<title>XSTR("Mission Simulator", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="tech_missions.rcss"/>
+		<script>
+			controller = require("tech_missions")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onunload="controller = nil">
+		<div id=top_panel_wrapper>
+			<div id=top_panel_b>
+				<div id=top_b_panel_wrapper>
+					<div id=bullet_cont>
+						<button id="data_btn" class="bullet button_1" onclick="controller:ChangeTechState(1)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Technical Database", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="mission_btn" class="bullet button_1" onclick="controller:ChangeTechState(2)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Mission Simulator", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="cutscene_btn" class="bullet button_1" onclick="controller:ChangeTechState(3)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Cutscenes", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="credits_btn" class="bullet button_1" onclick="controller:ChangeTechState(4)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Credits", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="ops-panel-vert-tall-l.png"></img>
+			</div>
+		</div>
+		<div id=logo_wide>
+			<img src="logo-wide.png"></img>
+		</div>
+		<div id=simulator_panel_wrapper>
+			<div id=simulator_window_wrapper>
+				<div id=column_titles>
+					<span class="missionlist_name">XSTR("Mission", -1)</span>
+					<span class="missionlist_author">XSTR("Author", -1)</span>
+					<span class="missionlist_filename">XSTR("Filename", -1)</span>
+					<span class="missionlist_Description">XSTR("Description", -1)</span>
+				</div>
+				<div id=campaign_name_wrapper class="blue">
+					<div id=campaign_title>
+					</div>
+					<div id=campaign_file>
+					</div>
+				</div>
+				<div id=mission_list>
+					<ul id=list_item_names_ul>
+						<p></p>
+					</ul>
+					<div class="tooltip">
+						<span class="tooltiptext">XSTR("Select a mission", -1)</span>
+					</div>
+				</div>
+				<img src="mission-sim-window.png"></img>
+			</div>
+		</div>
+		<div id=bot_left_panel_wrapper>
+			<div id=bot_left_panel>
+				<div id=bot_left_wrapper>
+					<div id=bullet_cont>
+						<button id="single_btn" class="bullet button_1" onclick="controller:ChangeSection(1)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span id="simulator_type" class="pos button_text_right">
+								<p>XSTR("Single Missions", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="campaign_btn" class="bullet button_1" onclick="controller:ChangeSection(2)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span id="simulator_type" class="pos button_text_right">
+								<p>XSTR("Campaign Missions", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div class="tooltip">
+						<span class="tooltiptext">XSTR("Filter standalone missions or missions that are in a campaign", -1)</span>
+					</div>
+				</div>
+				<img src="ops-panel-vert-tall-l.png"></img>
+			</div>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_a>
+				<div id=a_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1" onclick="controller:commit_pressed(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Commit", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+			<div id=bottom_panel_b>
+				<div id=b_panel_wrapper>
+					<div id=help_cont>
+						<button id="help_btn" class="help button_1" onclick="controller:help_clicked()">
+							<span id="help_img" class="help">
+								<img src="help.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_left">
+								<p>XSTR("Help", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=options_cont>
+						<button id="options_btn" class="options button_1" onclick="controller:options_button_clicked()">
+							<span id="options_img" class="options">
+								<img src="diamonds.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_left">
+								<p>XSTR("Options", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-b.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

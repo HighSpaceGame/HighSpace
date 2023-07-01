@@ -1,0 +1,402 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+.below p
+{
+	padding-top:8%;
+}
+
+div#logo_wide
+{
+	position: absolute;
+	bottom: 4%;
+	margin: auto;
+	width: 70%;
+	height: auto;
+	overflow: hidden;
+}
+
+div#logo_wide img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#copyright_info
+{
+	position: absolute;
+	bottom: 1%;
+	margin: auto;
+	width: 70%;
+	width: 70%;
+	height: auto;
+	overflow: hidden;
+	text-align: center;
+}
+
+div#pilotlist
+{
+	position: absolute;
+	top: 0;
+	margin-top: 23%;
+	margin-left: 2%;
+	margin-right: 5%;
+	color: white;
+	overflow: auto;
+	height: 52%;
+}
+
+.pilotlist_element
+{
+	display: block;
+	color: #7b7b7b;
+}
+.pilotlist_element:hover
+{
+	color: #abbbab;
+}
+.pilotlist_element:checked
+{
+	color: #6f92f5;
+}
+
+.player_type_text
+{
+	color: white;
+	display: none;
+	text-align: center;
+	margin: 5%;
+}
+
+div#singleplayer_text:checked
+{
+	display: block;
+}
+
+div#multiplayer_text:checked
+{
+	display: block;
+}
+
+div#pilot_select
+{
+	margin: auto;
+	margin-top: 15%;
+	width: 50%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#pilot_select img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.window_title
+{
+	margin-top: 4%;
+	margin-left: 4%;
+}
+
+div#player_select
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#player_type_select
+{
+	position: absolute;
+	top: 0;
+}
+
+div#player_control
+{
+	position: absolute;
+	bottom: 0;
+}
+
+
+div#player_control_wrapper
+{
+	margin-bottom: 4%;
+}
+
+/*Arrow Buttons*/
+
+div#arrow_cont
+{
+	float: right;
+	width: 5%;
+	height: auto;
+	margin-right: 1%;
+	margin-bottom: 1%;
+	margin-top: 7%;
+}
+
+.arrowbuttons
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#playerprev_img
+{
+	background-decorator: image;
+	background-image: arrow-up.png;
+}
+
+#playernext_img
+{
+	background-decorator: image;
+	background-image: arrow-down.png;
+}
+
+button#playerprev_btn:hover #playerprev_img
+{
+	background-decorator: image;
+	background-image: arrow-up-h.png;
+}
+
+button#playernext_btn:hover #playernext_img
+{
+	background-decorator: image;
+	background-image: arrow-down-h.png;
+}
+
+button#playerprev_btn:active #playerprev_img
+{
+	background-decorator: image;
+	background-image: arrow-up-o.png;
+}
+
+button#playernext_btn:active #playernext_img
+{
+	background-decorator: image;
+	background-image: arrow-down-o.png;
+}
+
+/*Commit Button*/
+
+div#player_commit_cont
+{
+	float: right;
+	width: 9%;
+	height: auto;
+	margin-right: 1%;
+	top: 0;
+	margin-bottom: -8%;
+}
+
+.playercommit
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#playercommit_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+
+button#playercommit_btn:hover #playercommit_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#playercommit_btn:active #playercommit_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}
+
+/*Singleplayer Selection Button*/
+
+div#single_multi_cont
+{
+	float: right;
+	width: 6%;
+	height: auto;
+	margin-right: 4%;
+	margin-bottom: 1%;
+	margin-top: 1%;
+}
+
+.singleplayer
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#singleplayer_img
+{
+	background-decorator: image;
+	background-image: single-player.png;
+}
+
+#singleplayer_btn:hover #singleplayer_img
+{
+	background-decorator: image;
+	background-image: single-player-h.png;
+}
+
+#singleplayer_btn:active #singleplayer_img
+{
+	background-decorator: image;
+	background-image: single-player-o.png;
+}
+
+#singleplayer_btn:checked #singleplayer_img
+{
+	background-decorator: image;
+	background-image: single-player-o.png;
+}
+
+/*Multiplayer Selection Button*/
+
+.multiplayer
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#multiplayer_img
+{
+	background-decorator: image;
+	background-image: multiplayer.png;
+}
+
+button#multiplayer_btn:hover #multiplayer_img
+{
+	background-decorator: image;
+	background-image: multiplayer-h.png;
+}
+
+button#multiplayer_btn:active #multiplayer_img
+{
+	background-decorator: image;
+	background-image: multiplayer-o.png;
+}
+
+button#multiplayer_btn:checked #multiplayer_img
+{
+	background-decorator: image;
+	background-image: multiplayer-o.png;
+}
+
+
+
+/*Create Player Button*/
+
+div#player_control_cont
+{
+	float: left;
+	width: 6%;
+	height: auto;
+	margin-right: 1%;
+	margin-left: 5%;
+	top: 0;
+	margin-bottom: -6%;
+	z-index: 1;
+}
+
+.createplayer
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#createplayer_img
+{
+	background-decorator: image;
+	background-image: create-pilot.png;
+}
+
+button#createplayer_btn:hover #createplayer_img
+{
+	background-decorator: image;
+	background-image: create-pilot-h.png;
+}
+
+button#createplayer_btn:active #createplayer_img
+{
+	background-decorator: image;
+	background-image: create-pilot-o.png;
+}
+
+/*Clone Player Button*/
+
+.cloneplayer
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#cloneplayer_img
+{
+	background-decorator: image;
+	background-image: clone-pilot.png;
+}
+
+button#cloneplayer_btn:hover #cloneplayer_img
+{
+	background-decorator: image;
+	background-image: clone-pilot-h.png;
+}
+
+button#cloneplayer_btn:active #cloneplayer_img
+{
+	background-decorator: image;
+	background-image: clone-pilot-o.png;
+}
+
+/*Delete Player Button*/
+
+.deleteplayer
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#deleteplayer_img
+{
+	background-decorator: image;
+	background-image: delete-pilot.png;
+}
+
+button#deleteplayer_btn:hover #deleteplayer_img
+{
+	background-decorator: image;
+	background-image: delete-pilot-h.png;
+}
+
+button#deleteplayer_btn:active #deleteplayer_img
+{
+	background-decorator: image;
+	background-image: delete-pilot-o.png;
+}

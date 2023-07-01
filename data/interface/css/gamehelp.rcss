@@ -1,0 +1,319 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+.main_bg
+{
+	background-decorator: image;
+	background-image: bg-cockpit.png;
+}
+
+.below p
+{
+	padding-top:8%;
+}
+
+div#gamehelp_title
+{
+	text-align: center;
+}
+
+div#gamehelp_subtitle
+{
+	text-align: center;
+}
+
+div#gamehelp_header
+{
+	text-align: center;
+	margin: 5%;
+}
+
+div#gamehelp_list
+{
+	text-align: left;
+	width: 100%;
+	margin-top: 5%;
+}
+
+ul#list_keys_ul
+{
+	float:left;
+	width: 25%;
+}
+
+ul#list_texts_ul
+{
+	float:left;
+	width: 50%;
+}
+
+div#gamehelp_wrapper
+{
+	margin: auto;
+	width: 80%;
+	height: auto;
+	position: relative;
+}
+
+div#gamehelp_text_wrapper
+{
+	position: absolute;
+	top: 7%;
+	width: 78%;
+	margin-left: 7%;
+}
+
+div#gamehelp_content
+{
+	margin-top: 2%;
+	width: 100%;
+	height: auto;
+	overflow: scroll;
+}
+
+div#gamehelp_content img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Left Arrow Button*/
+
+div#arrows_wrapper
+{
+	position: absolute;
+	bottom: 0;
+	width: 33%;
+	height: 10%;
+}
+
+div#left_cont
+{
+	width: 15%;
+	height: auto;
+	float: left;
+	margin-left: 25%;
+}
+
+.left
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#left_img
+{
+	background-decorator: image;
+	background-image: arrow-left.png;
+}
+
+#left_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#left_btn:hover #left_img
+{
+	background-decorator: image;
+	background-image: arrow-left-h.png;
+}
+
+button#left_btn:active #left_img
+{
+	background-decorator: image;
+	background-image: arrow-left-o.png;
+}
+
+div#right_cont
+{
+	width: 15%;
+	height: auto;
+	float: left;
+	margin-left: 15%;
+}
+
+.right
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#right_img
+{
+	background-decorator: image;
+	background-image: arrow-right.png;
+}
+
+#right_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#right_btn:hover #right_img
+{
+	background-decorator: image;
+	background-image: arrow-right-h.png;
+}
+
+button#right_btn:active #right_img
+{
+	background-decorator: image;
+	background-image: arrow-right-o.png;
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 15%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_b
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+	margin-top: 15px;
+}
+
+div#bottom_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Accept Button*/
+
+div#b_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+
+#accept_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}
+
+/*Scroll Buttons*/
+
+#gamehelp_content scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 5%;
+	position: absolute;
+	left: 0.7%;
+	z-index: 5;
+}
+
+#gamehelp_content scrollbarvertical slidertrack
+{
+	display:none;
+}
+
+#gamehelp_content scrollbarvertical sliderbar
+{
+	display:none;
+}
+
+#gamehelp_content scrollbarvertical sliderbar:hover
+{
+	display:none;
+}
+
+#gamehelp_content scrollbarvertical sliderbar:active
+{
+	display:none;
+}
+
+#gamehelp_content scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 13%;
+	margin-top: 12.5%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+#gamehelp_content scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 13%;
+	margin-bottom: 17%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+#gamehelp_content scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+#gamehelp_content scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+#gamehelp_content scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+#gamehelp_content scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}

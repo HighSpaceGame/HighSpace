@@ -1,0 +1,59 @@
+<rml>
+	<head>
+		<title>XSTR("Red Alert", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="red_alert.rcss"/>
+		<script>
+			controller = require("redalert")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onunload="controller:unload(); controller = nil">
+		<div id=logo_wide>
+			<img src="logo-wide.png"></img>
+		</div>
+		<div id=red_alert_wrapper>
+			<div id=red_alert_text_window>
+				<div id=red_alert_text>
+					<p></p>
+				</div>
+				<div id=replay_wrapper>
+					<div id=replay_cont>
+						<button id="replay_btn" class="replay_btn button_1" onclick="controller:replay_pressed(element)">
+							<span id="replay_img" class="replay_btn">
+								<img src="replay.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_right">
+								<p>XSTR("Replay Previous Mission", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="debrief-window.png"></img>
+			</div>
+		</div>
+		<div id=incoming_transmission>
+			<p>XSTR("Incoming Transmission", -1)</p>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_a>
+				<div id=a_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1" onclick="controller:commit_pressed(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Continue", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

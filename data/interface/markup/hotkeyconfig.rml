@@ -1,0 +1,90 @@
+<rml>
+	<head>
+		<title>XSTR("Hotkey Config", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="hotkeyconfig.rcss"/>
+		<script>
+			controller = require("hotkeyconfig")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onunload="controller = nil">
+		<div id=hotkey_wrapper>
+			<div id=hotkey_content>
+				<div id=current_key>
+				</div>
+				<div id=top_right_btn_wrapper>
+					<div id=increment_cont>
+						<button id="increment_btn" class="increment button_1" onclick="controller:IncrementKey()">
+							<span id="increment_img" class="increment">
+								<img src="arrow-up.png" class="psuedo_img"></img>
+							</span>
+						</button>
+					</div>
+					<div id=decrement_cont>
+						<button id="decrement_btn" class="decrement button_1" onclick="controller:DecrementKey()">
+							<span id="decrement_img" class="decrement">
+								<img src="arrow-down.png" class="psuedo_img"></img>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div id=log_text_wrapper>
+				</div>
+				<div id=buttons_wrapper>
+					<div id=reset_cont>
+						<button id="reset_btn" class="reset button_1" onclick="controller:ResetKeys()">
+							<span id="reset_img" class="reset">
+								<img src="decline.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Reset", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=clear_cont>
+						<button id="clear_btn" class="clear button_1" onclick="controller:ClearKey()">
+							<span id="clear_img" class="clear">
+								<img src="exit.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Clear", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=default_cont>
+						<button id="default_btn" class="default button_1" onclick="controller:SetDefaults()">
+							<span id="default_img" class="default">
+								<img src="default.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_bottom">
+								<p>XSTR("Default", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="in-mission-ops-window.png"></img>
+			</div>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_b>
+				<div id=b_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1" onclick="controller:Exit(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Accept", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

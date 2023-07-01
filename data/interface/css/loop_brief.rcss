@@ -1,0 +1,328 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+.below p
+{
+	padding-top:8%;
+}
+
+div#logo_wide
+{
+	position: relative;
+	top: 1%;
+	margin: auto;
+	width: 50%;
+	height: auto;
+	overflow: hidden;
+}
+
+div#logo_wide img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#loop_logo
+{
+	position: absolute;
+	bottom: 5%;
+	right: 15%;
+	width: 25%;
+	height: auto;
+	overflow: hidden;
+}
+
+div#loop_logo img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#loop_text
+{
+	position: absolute;
+	top: 0;
+	margin-top: 2%;
+	margin-left: 2%;
+	margin-right: 7%;
+	color: grey;
+	overflow: scroll;
+	height: 52%;
+	line-height: 90%;
+}
+
+div#loop_wrapper
+{
+	margin: auto;
+	width: 80%;
+	height: auto;
+	position: relative;
+}
+
+div#loop_text_window
+{
+	margin-top: 2%;
+	margin-left: 2%;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#loop_text_window img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#loop_anim_window
+{
+	width: 60%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#loop_anim_window img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#loop_anim_wrapper
+{
+	position: absolute;
+	margin-top: 4%;
+	margin-left: 4%;
+}
+
+span#loop_anim
+{
+	position: relative;
+	margin: auto;
+	display: block;
+	width: 92%;
+	height: auto;
+}
+
+ani
+{
+	height: 92%;
+}
+
+div#anim_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 15%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_a
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+}
+
+div#bottom_panel_a img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#bottom_panel_b
+{
+	width: 34%;
+	height: auto;
+	margin-top: 1.1%;
+	position: relative;
+	float: left;
+}
+
+div#bottom_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+/*Accept Button*/
+
+div#a_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+button#accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-pos-h.png;
+}
+
+button#accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-pos-o.png;
+}
+
+/*B Panel Buttons*/
+
+div#b_panel_wrapper
+{
+	position: absolute;
+	bottom: 5%;
+	padding-bottom: 23%;
+}
+
+/*Decline Button*/
+
+div#decline_cont
+{
+	width: 90%;
+	height: auto;
+	margin: auto;
+}
+
+.decline
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#decline_img
+{
+	background-decorator: image;
+	background-image: decline.png;
+}
+
+button#decline_btn:hover #decline_img
+{
+	background-decorator: image;
+	background-image: decline-h.png;
+}
+
+button#decline_btn:active #decline_img
+{
+	background-decorator: image;
+	background-image: decline-o.png;
+}
+
+/*Scroll Buttons*/
+
+#loop_text scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 10%;
+	position: absolute;
+	right: -8.3%;
+	z-index: 5;
+}
+
+#loop_text scrollbarvertical slidertrack
+{
+	visibility: hidden;
+}
+
+#loop_text scrollbarvertical sliderbar
+{
+	visibility: hidden;
+}
+
+#loop_text scrollbarvertical sliderbar:hover
+{
+	
+}
+
+#loop_text scrollbarvertical sliderbar:active
+{
+	
+}
+
+#loop_text scrollbarvertical sliderarrowdec
+{
+	width: 60%;
+	height: 40%;
+	margin-top: 13%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+#loop_text scrollbarvertical sliderarrowinc
+{
+	width: 60%;
+	height: 40%;
+	margin-bottom: 4%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+#loop_text scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+#loop_text scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+#loop_text scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+#loop_text scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}

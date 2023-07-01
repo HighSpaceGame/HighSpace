@@ -1,0 +1,130 @@
+<rml>
+	<head>
+		<title>XSTR("Options", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="options.rcss"/>
+		<script>
+			controller = require("options")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onunload="controller = nil">
+	<div class="hidden">
+		<include src="options_templates.rml"/>
+	</div>
+		<div id=options_window>
+			<tabset id="ops_tabs_cont">
+				<tab id="options_btn" class="button_1 tab">
+					<span id="options_img" class="options">
+						<img src="diamonds.png" class="psuedo_img"></img>
+					</span>
+					<span class="pos button_text">
+						<p>XSTR("Options", -1)</p>
+					</span>
+				</tab>
+					<panel class="options_panel">
+						<include src="options_basic_tab.rml"/>
+					</panel>
+				<tab id="detail_btn" class="button_1 tab">
+					<span id="detail_img" class="detail">
+						<img src="detail.png" class="psuedo_img"></img>
+					</span>
+					<span class="pos button_text">
+						<p>XSTR("Detail", -1)</p>
+					</span>
+				</tab>
+					<panel class="options_panel">
+						<include src="options_detail_tab.rml"/>
+					</panel>
+				<tab id="prefs_btn" class="button_1 tab">
+					<span id="prefs_img" class="prefs">
+						<img src="prefs.png" class="psuedo_img"></img>
+					</span>
+					<span class="pos button_text">
+						<p>XSTR("Preferences", -1)</p>
+					</span>
+				</tab>
+					<panel class="options_panel">
+						<include src="options_other_tab.rml"/>
+					</panel>
+				<tab id="multi_btn" class="button_1 tab">
+					<span id="multi_img" class="multi">
+						<img src="multiplayer.png" class="psuedo_img"></img>
+					</span>
+					<span class="pos button_text">
+						<p>XSTR("Multi", -1)</p>
+					</span>
+				</tab>
+					<panel class="options_panel">
+						<include src="options_multi_tab.rml"/>
+					</panel>
+			</tabset>
+			<img src="options-window.png"></img>
+		</div>
+		<div id=logo_wide>
+			<img src="logo-wide.png"></img>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_a>
+				<div id=a_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1" onclick="controller:accept_clicked(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Accept", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+			<div id=bottom_panel_c>
+				<div id=c_panel_wrapper>
+					<div id=control_cont>
+						<button id="control_btn" class="control button_1" onclick="controller:control_config_clicked()">
+							<span id="control_img" class="control">
+								<img src="ship.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_top">
+								<p>XSTR("Control Config", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=hud_cont>
+						<button id="hud_btn" class="hud button_1" onclick="controller:hud_config_clicked()">
+							<span id="hud_img" class="hud">
+								<img src="hud.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_top">
+								<p>XSTR("HUD Config", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-c.png"></img>
+			</div>
+		</div>
+		<div id=left_panel_wrapper>
+			<div id=bottom_panel_exit>
+				<div id=exit_panel_wrapper>
+					<div id=exit_cont>
+						<button id="exit_btn" class="exit button_1" onclick="controller:exit_game_clicked()">
+							<span id="exit_img" class="exit">
+								<img src="exit.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Exit Game", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="exit-panel.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

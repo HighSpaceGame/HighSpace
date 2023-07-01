@@ -1,0 +1,487 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+.main_bg
+{
+	background-decorator: image;
+	background-image: bg-cockpit.png;
+}
+
+.below p
+{
+	padding-top:8%;
+}
+
+div#current_key
+{
+	position: absolute;
+	top: 6%;
+	right: 0;
+	width: 5%;
+}
+
+div#hotkey_title
+{
+	text-align: center;
+}
+
+div#hotkey_subtitle
+{
+	text-align: center;
+}
+
+div#hotkey_header
+{
+	text-align: center;
+	margin: 5%;
+}
+
+div#hotkey_list
+{
+	text-align: left;
+	width: 100%;
+	margin-top: 5%;
+}
+
+ul#list_times_ul
+{
+	float: left;
+	width: 10%;
+}
+
+ul#list_subjects_ul
+{
+	float: left;
+	width: 25%;
+}
+ul#list_descriptions_ul
+{
+	float: left;
+	width: 50%;
+}
+
+ul#list_clear_ul
+{
+	float: left;
+	width: 80%;
+}
+
+div#hotkey_wrapper
+{
+	margin: auto;
+	width: 80%;
+	height: auto;
+	position: relative;
+}
+
+.hotkeylist_element
+{
+	display: block;
+	color: #7b7b7b;
+}
+.hotkeylist_element:hover
+{
+	color: #abbbab;
+}
+.hotkeylist_element:checked
+{
+	color: #6f92f5;
+}
+
+.hotkey_header
+{
+	text-align: center;
+}
+
+.key_display
+{
+	width: 5%;
+	float: left;
+}
+
+.wing_icon
+{
+	width: 2%;
+	height: 2.5%;
+	float: left;
+}
+
+.wing_icon_vis
+{
+	background-decorator: image;
+	background-image: multiplayer-h.png;
+}
+
+.ship_name
+{
+	width: 50%;
+	float: left;
+}
+
+.wing_item
+{
+	margin-left: 2%;
+}
+
+div#log_text_wrapper
+{
+	position: absolute;
+	top: 7%;
+	width: 78%;
+	height: 81%;
+	margin-left: 7%;
+	overflow: scroll;
+}
+
+div#hotkey_content
+{
+	margin-top: 2%;
+	width: 100%;
+	height: auto;
+}
+
+div#hotkey_content img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Buttons*/
+
+div#top_right_btn_wrapper
+{
+	position: absolute;
+	top: 4%;
+	right: 6.6%;
+	width: 4%;
+	height: 10%;
+}
+
+div#increment_cont
+{
+	width: 100%;
+	height: auto;
+}
+
+.increment
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#increment_img
+{
+	background-decorator: image;
+	background-image: arrow-up.png;
+}
+
+button#increment_btn:hover #increment_img
+{
+	background-decorator: image;
+	background-image: arrow-up-h.png;
+}
+
+button#increment_btn:active #increment_img
+{
+	background-decorator: image;
+	background-image: arrow-up-o.png;
+}
+
+div#decrement_cont
+{
+	width: 100%;
+	height: auto;
+}
+
+.decrement
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#decrement_img
+{
+	background-decorator: image;
+	background-image: arrow-down.png;
+}
+
+button#decrement_btn:hover #decrement_img
+{
+	background-decorator: image;
+	background-image: arrow-down-h.png;
+}
+
+button#decrement_btn:active #decrement_img
+{
+	background-decorator: image;
+	background-image: arrow-down-o.png;
+}
+
+/*Buttons*/
+
+div#buttons_wrapper
+{
+	position: absolute;
+	bottom: 0;
+	width: 33%;
+	height: 10%;
+}
+
+div#reset_cont
+{
+	width: 19%;
+	height: auto;
+	float: left;
+	margin-left: 13%;
+}
+
+.reset
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#reset_img
+{
+	background-decorator: image;
+	background-image: decline.png;
+}
+
+button#reset_btn:hover #reset_img
+{
+	background-decorator: image;
+	background-image: decline-h.png;
+}
+
+button#reset_btn:active #reset_img
+{
+	background-decorator: image;
+	background-image: decline-o.png;
+}
+
+div#clear_cont
+{
+	width: 20%;
+	height: auto;
+	float: left;
+	margin-left: 10%;
+}
+
+.clear
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#clear_img
+{
+	background-decorator: image;
+	background-image: exit.png;
+}
+
+button#clear_btn:hover #clear_img
+{
+	background-decorator: image;
+	background-image: exit-neg-h.png;
+}
+
+button#clear_btn:active #clear_img
+{
+	background-decorator: image;
+	background-image: exit-neg-o.png;
+}
+
+div#default_cont
+{
+	width: 22%;
+	height: auto;
+	float: left;
+	margin-left: 10%;
+}
+
+.default
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#default_img
+{
+	background-decorator: image;
+	background-image: default.png;
+}
+
+button#default_btn:hover #default_img
+{
+	background-decorator: image;
+	background-image: default-h.png;
+}
+
+button#default_btn:active #default_img
+{
+	background-decorator: image;
+	background-image: default-o.png;
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 15%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_b
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+	margin-top: 15px;
+}
+
+div#bottom_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Accept Button*/
+
+div#b_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+
+#accept_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}
+
+/*Scroll Buttons*/
+
+#log_text_wrapper scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 7%;
+	position: absolute;
+	left: -8.5%;
+	z-index: 5;
+}
+
+#log_text_wrapper scrollbarvertical slidertrack
+{
+	display:none;
+}
+
+#log_text_wrapper scrollbarvertical sliderbar
+{
+	display:none;
+}
+
+#log_text_wrapper scrollbarvertical sliderbar:hover
+{
+	display:none;
+}
+
+#log_text_wrapper scrollbarvertical sliderbar:active
+{
+	display:none;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 16%;
+	margin-top: 9%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 16%;
+	margin-bottom: 6%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}

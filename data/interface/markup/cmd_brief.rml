@@ -1,0 +1,125 @@
+<rml>
+	<head>
+		<title>XSTR("Command Briefing", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="cmd_brief.rcss"/>
+		<script>
+			controller = require("cmd_brief")()
+		</script>
+	</head>
+	<body id=main_background onkeydown="controller:global_keydown(element, event)" onload="controller:initialize(document)"
+		  onunload="controller:unload(); controller = nil">
+		<div id=logo_wide>
+			<img src="logo-wide.png"></img>
+		</div>
+		<div id=cmd_wrapper>
+			<div id=cmd_stage_text>
+				<p id="cmd_stage_text_el">Stage 1 of 5</p>
+			</div>
+			<div id=cmd_text_window>
+				<div id=cmd_text>
+					<scrollingText id="cmd_text_el">
+					</scrollingText>
+				</div>
+				<div id=stage_select>
+					<div id=button_wrapper>
+						<div id=skip_cont>
+							<button id="cmdlast_btn" class="arrowbuttons button_brief_stage">
+								<span id="cmdlast_img" class="arrowbuttons">
+									<img src="skip-r.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+						<div id=arrow_cont>
+							<button id="cmdnext_btn" class="arrowbuttons button_brief_stage">
+								<span id="cmdnext_img" class="arrowbuttons">
+									<img src="arrow-down.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+						<div id=pause_cont>
+							<button id="cmdpause_btn" class="arrowbuttons button_1">
+								<span id="cmdpause_img" class="arrowbuttons">
+									<img src="pause.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+						<div id=arrow_cont>
+							<button id="cmdprev_btn" class="arrowbuttons button_brief_stage">
+								<span id="cmdprev_img" class="arrowbuttons">
+									<img src="arrow-up.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+						<div id=skip_cont>
+							<button id="cmdfirst_btn" class="arrowbuttons button_brief_stage">
+								<span id="cmdfirst_img" class="arrowbuttons">
+									<img src="skip-l.png" class="psuedo_img"></img>
+								</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<img src="c-brief-text-window.png"></img>
+			</div>
+			<div id=cmd_anim_window>
+				<div id=cmd_anim_wrapper>
+					<div id=anim_cont>
+						<span id=cmd_anim>
+						</span>
+					</div>
+				</div>
+				<img src="c-brief-anim-window.png"></img>
+			</div>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_a>
+				<div id=a_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_2">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Continue", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div class="tooltip">
+					<span class="tooltiptext">XSTR("Proceed to the mission briefing", -1)</span>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+			<div id=bottom_panel_b>
+				<div id=b_panel_wrapper>
+					<div id=help_cont>
+						<button id="help_btn" class="help button_1" onclick="controller:help_clicked()">
+							<span id="help_img" class="help">
+								<img src="help.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_left">
+								<p>XSTR("Help", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=options_cont>
+						<button id="options_btn" class="options button_1">
+							<span id="options_img" class="options">
+								<img src="diamonds.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_left">
+								<p>XSTR("Options", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-b.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

@@ -1,0 +1,212 @@
+<rml>
+	<head>
+		<title>XSTR("Weapon Select", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="weapon_select.rcss"/>
+		<script>
+			controller = require("weaponselect")()
+		</script>
+	</head>
+	<body id=main_background onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)" onunload="controller:unload(); controller = nil">
+		<div id=top_panel_wrapper>
+			<div id=top_panel_b>
+				<div id=top_b_panel_wrapper>
+					<div id=bullet_cont>
+						<button id="brief_btn" class="bullet button_1" onclick="controller:ChangeBriefState(1)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Briefing", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="s_select_btn" class="bullet button_1" onclick="controller:ChangeBriefState(2)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Ship Selection", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=bullet_cont>
+						<button id="w_select_btn" class="bullet button_1" onclick="controller:ChangeBriefState(3)">
+							<span id="bullet_img" class="bullet">
+								<img src="bullet-r.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_right">
+								<p>XSTR("Weapon Selection", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="ops-panel-vert-tall-l.png"></img>
+			</div>
+			<div class="tooltip">
+				<span class="tooltiptext">XSTR("Click here to return to the briefing or change ship selection", -1)</span>
+			</div>
+		</div>
+		<div id=ship_view_window>
+			<div id=ship_view_wrapper>
+				<div id=ship_name>
+				</div>
+				<div id=ship_view>
+					<div id=primary_slots>
+						<div id=primary_one class="weapon_slot button_3" onclick="controller:SelectAssignedEntry(element, 1)" ondragdrop="controller:DragDrop(element, 1)" ondragend="controller:DragSlotEnd(element, 1)" ondragover="controller:DragOver(element, 1)" ondragout="controller:DragOut(element, 1)">
+						</div>
+						<div id=primary_two class="weapon_slot button_3" onclick="controller:SelectAssignedEntry(element, 2)" ondragdrop="controller:DragDrop(element, 2)" ondragend="controller:DragSlotEnd(element, 2)" ondragover="controller:DragOver(element, 2)"
+						 ondragout="controller:DragOut(element, 2)">
+						</div>
+						<div id=primary_three class="weapon_slot button_3" onclick="controller:SelectAssignedEntry(element, 3)" ondragdrop="controller:DragDrop(element, 3)" ondragend="controller:DragSlotEnd(element, 3)" ondragover="controller:DragOver(element, 3)"
+						 ondragout="controller:DragOut(element, 3)">
+						</div>
+					</div>
+					<div id=secondary_slots>
+						<div id=secondary_one class="weapon_slot button_3" onclick="controller:SelectAssignedEntry(element, 4)" ondragdrop="controller:DragDrop(element, 4)" ondragend="controller:DragSlotEnd(element, 4)" ondragover="controller:DragOver(element, 4)"
+						 ondragout="controller:DragOut(element, 4)">
+						</div>
+						<div id=secondary_two class="weapon_slot button_3" onclick="controller:SelectAssignedEntry(element, 5)" ondragdrop="controller:DragDrop(element, 5)" ondragend="controller:DragSlotEnd(element, 5)" ondragover="controller:DragOver(element, 5)"
+						 ondragout="controller:DragOut(element, 5)">
+						</div>
+						<div id=secondary_three class="weapon_slot button_3" onclick="controller:SelectAssignedEntry(element, 6)" ondragdrop="controller:DragDrop(element, 6)" ondragend="controller:DragSlotEnd(element, 6)" ondragover="controller:DragOver(element, 6)"
+						 ondragout="controller:DragOut(element, 6)">
+						</div>
+						<div id=secondary_four class="weapon_slot button_3" onclick="controller:SelectAssignedEntry(element, 7)" ondragdrop="controller:DragDrop(element, 7)" ondragend="controller:DragSlotEnd(element, 7)" ondragover="controller:DragOver(element, 7)"
+						 ondragout="controller:DragOut(element, 7)">
+						</div>
+					</div>
+					<div id=secondary_slot_amounts>
+						<div id=secondary_amount_one class="weapon_slot_amount">
+						</div>
+						<div id=secondary_amount_two class="weapon_slot_amount">
+						</div>
+						<div id=secondary_amount_three class="weapon_slot_amount">
+						</div>
+						<div id=secondary_amount_four class="weapon_slot_amount">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id=weapon_view_window>
+			<div id=weapon_wrapper>
+				<div id=weapon_name>
+				</div>
+				<div id=weapon_view>
+				</div>
+				<div id=weapon_stats>
+				</div>
+			</div>
+			<img src="select-window-right.png"></img>
+		</div>
+		<div id=weapon_left_column>
+			<div id=copy_to_wing_panel>
+				<div id=copy_to_wing_wrapper>
+					<div id=copy_to_wing_cont>
+						<button id="copy_btn" class="copy button_1"  onclick="controller:CopyToWing(element)">
+							<span id="copy_img" class="copy">
+								<img src="multiplayer.png" class="psuedo_img"></img>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="ops-panel-vert-l.png"></img>
+			</div>
+			<div id=weapon_scroll_panel>
+				<div id=scroll_button_wrapper ondragdrop="controller:DragDrop(element, 0)">
+					<div id=primary_icon_list>
+						<ul id=primary_icon_list_ul>
+						</ul>
+					</div>
+				</div>
+				<img src="select-scroll-panel.png"></img>
+				<div class="tooltip">
+					<span class="tooltiptext">XSTR("Choose a new weapon type by dragging its icon over one of the available weapon slots", -1)</span>
+				</div>
+			</div>
+			<div id=weapon_scroll_panel>
+				<div id=scroll_button_wrapper ondragdrop="controller:DragDrop(element, 0)">
+					<div id=secondary_icon_list>
+						<ul id=secondary_icon_list_ul>
+						</ul>
+					</div>
+				</div>
+				<img src="select-scroll-panel.png"></img>
+				<div class="tooltip">
+					<span class="tooltiptext">XSTR("Choose a ship to modify the weapons loadout", -1)</span>
+				</div>
+			</div>
+		</div>
+		<div id=wings_wrapper>
+		</div>
+		<div id=bottom_panel_wrapper>
+			<div id=bottom_panel_c>
+				<div id=c_panel_wrapper>
+					<div id=reset_cont>
+						<button id="reset_btn" class="reset button_1" onclick="controller:reset_pressed(element)">
+							<span id="reset_img" class="reset">
+								<img src="default.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_top">
+								<p>XSTR("Reset", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div class="tooltip">
+					<span class="tooltiptext">XSTR("Revert to the original weapon distribution", -1)</span>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+			<div id=bottom_panel_a>
+				<div id=a_panel_wrapper>
+					<div id=accept_cont>
+						<button id="accept_btn" class="accept button_1" onclick="controller:accept_pressed(element)">
+							<span id="accept_img" class="accept">
+								<img src="select.png" class="psuedo_img"></img>
+							</span>
+							<span class="neg button_text_top">
+								<p>XSTR("Commit", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div class="tooltip">
+					<span class="tooltiptext">XSTR("Click here to begin the mission", -1)</span>
+				</div>
+				<img src="bottom-panel-a.png"></img>
+			</div>
+			<div id=bottom_panel_b>
+				<div id=b_panel_wrapper>
+					<div id=help_cont>
+						<button id="help_btn" class="help button_1" onclick="controller:help_clicked()">
+							<span id="help_img" class="help">
+								<img src="help.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_left">
+								<p>XSTR("Help", -1)</p>
+							</span>
+						</button>
+					</div>
+					<div id=options_cont>
+						<button id="options_btn" class="options button_1" onclick="controller:options_button_clicked()">
+							<span id="options_img" class="options">
+								<img src="diamonds.png" class="psuedo_img"></img>
+							</span>
+							<span class="pos button_text_left">
+								<p>XSTR("Options", -1)</p>
+							</span>
+						</button>
+					</div>
+				</div>
+				<img src="bottom-panel-b.png"></img>
+			</div>
+		</div>
+	</body>
+
+</rml>

@@ -1,0 +1,237 @@
+;;This tbm sets custom data for all player weapons. SCPUI uses this custom data to know which weapons to generate select icons for
+
+#Primary Weapons
+
+$Name: @Subach HL-7
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Subach HL-D
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Mekhu HL-7
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Mekhu HL-7D
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Akheton SDG
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Morning Star
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @MorningStar D
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Prometheus R
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Prometheus S
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Prometheus D
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Maxim
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Maxim D
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: UD-8 Kayser
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: UD-D Kayser
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Circe
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Lamprey
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+#End
+
+#Secondary Weapons
+
+$Name: @Rockeye
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Rockeye D
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Tempest
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Tempest D
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Hornet
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Hornet D
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Tornado
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Tornado D
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Harpoon
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Harpoon D
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Trebuchet
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Tag-A
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Tag-B
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Tag-C
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Piranha
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: @Stiletto II
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Infyrno
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Infyrno D
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Cyclops
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Cyclops#short
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: Helios
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+$Name: EMP Adv.
++nocreate
+$Custom Data:
+	+Val: PlayerWeapon true
+$end_custom_data
+
+#End

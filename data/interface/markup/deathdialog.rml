@@ -1,0 +1,34 @@
+<rml>
+	<head>
+		<title>XSTR("Button Dialog", -1)</title>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="scrollbars.rcss"/>
+		<link type="text/rcss" href="deathdialog.rcss"/>
+	</head>
+	<body id=dialog_body>
+		<div class="hidden">
+			<!-- Container for templates used below -->
+			<button id="button_template" class="dialog_button button_1">
+				<div class="button_image_container">
+					<img class="button_image_id psuedo_img"></img>
+				</div>
+				<span class="button_text_dialog">
+					<p class="button_text_id"></p>
+				</span>
+			</button>
+		</div>
+		<div id=content>
+			<div id=title_wrapper>
+				<p id=title_container></p>
+			</div>
+			<div id=text_wrapper>
+				<p id=text_container></p>
+			</div>
+			<div id=button_container>
+			</div>
+			<img src="dialog-box.png"></img>
+		</div>
+	</body>
+</rml>

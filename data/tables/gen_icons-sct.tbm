@@ -1,0 +1,158 @@
+#Conditional Hooks
+$Application: FS2_Open
+$On Game Init:
+[
+
+rocketUiIcons = {}
+
+function RocketUiSystem:setIconFrames(item, is_ship)
+
+	ba.print("RocketUI is generating an icon for " .. item .. "\n")
+	
+	local ship3d, shipEffect, shipicon3d = ui.ShipWepSelect.get3dShipChoices()
+	local weapon3d, weaponEffect, weaponicon3d = ui.ShipWepSelect.get3dWeaponChoices()
+	
+	local gen3d = false
+	
+	if (shipicon3d and is_ship) or (weaponicon3d and not is_ship) then
+		gen3d = true
+	end
+	
+	local icon_details = {
+		Icon = {}
+	}
+	
+	--Create a texture and then draw to it, save the output
+	if gen3d then
+		
+		local model_h = nil
+		local modelDetails = {
+			width = nil,
+			height = nil,
+			heading = nil,
+			pitch = nil,
+			bank = nil,
+			zoom = nil
+		}
+
+		if is_ship == true then
+			model_h = tb.ShipClasses[item]
+			modelDetails.width = 128
+			modelDetails.height = 112
+			modelDetails.heading = 50
+			modelDetails.pitch = 15
+			modelDetails.bank = 0
+			modelDetails.zoom = 1.1
+		else
+			model_h = tb.WeaponClasses[item]
+			modelDetails.width = 112
+			modelDetails.height = 48
+			modelDetails.heading = 75
+			modelDetails.pitch = 0
+			modelDetails.bank = 40
+			modelDetails.zoom = 0.4
+		end
+
+		local tex_h = gr.createTexture(modelDetails.width, modelDetails.height)
+		gr.setTarget(tex_h)
+		for j = 1, 6, 1 do
+			gr.clearScreen(0,0,0,0)
+			model_h:renderTechModel(0, 0, modelDetails.width, modelDetails.height, modelDetails.heading, modelDetails.pitch, modelDetails.bank, modelDetails.zoom, false)
+			icon_details.Icon[j] = gr.screenToBlob()
+		end
+		icon_details.Width = modelDetails.width
+		icon_details.Height = modelDetails.height
+		
+		--clean up
+		gr.setTarget()
+		tex_h:unload()
+	else
+		--Create a texture and then draw to it, save the output
+		local imag_h = nil
+		
+		if is_ship == true then
+			imag_h = gr.loadTexture(tb.ShipClasses[item].SelectIconFilename , true, true)
+		else
+			imag_h = gr.loadTexture(tb.WeaponClasses[item].SelectIconFilename , true, true)
+		end
+		
+		local width = imag_h:getWidth()
+		local height = imag_h:getHeight()
+		local tex_h = gr.createTexture(width, height)
+		gr.setTarget(tex_h)
+		for j = 1, 6, 1 do
+			gr.clearScreen(0,0,0,0)
+			gr.drawImage(imag_h[j], 0, 0, width, height, 0, 1, 1, 0, 1)
+			icon_details.Icon[j] = gr.screenToBlob()
+		end
+		icon_details.Width = width
+		icon_details.Height = height
+		
+		--clean up
+		gr.setTarget()
+		imag_h:unload()
+		tex_h:unload()
+	end
+
+	rocketUiIcons[item] = icon_details
+
+end
+
+]
+
+$On State About To End: [
+
+if RocketUiSystem.initIcons then
+	return
+end
+
+local validStates = {
+	"GS_STATE_BRIEFING",
+	"GS_STATE_FICTION_VIEWER",
+	"GS_STATE_CMD_BRIEF",
+	"GS_STATE_RED_ALERT"
+}
+
+local continueLoad = false
+
+for i = 1, #validStates do
+	if validStates[i] == hv.NewState.Name then
+		continueLoad = true
+	end
+end
+
+if not continueLoad then
+	return
+end
+
+for i = 1, #tb.ShipClasses do
+
+	v = tb.ShipClasses[i]
+
+	if v:hasCustomData() then
+		if v.CustomData["PlayerShip"] == "true" then
+			RocketUiSystem:setIconFrames(v.Name, true)
+		end
+	end
+
+end
+
+for i = 1, #tb.WeaponClasses do
+
+	v = tb.WeaponClasses[i]
+
+	if v:hasCustomData() then
+		if v.CustomData["PlayerWeapon"] == "true" then
+			RocketUiSystem:setIconFrames(v.Name, false)
+		end
+	end
+
+end
+
+ba.print("RocketUI successfully generated ship and weapon loadout icons!\n")
+
+RocketUiSystem.initIcons = true
+
+]
+
+#End

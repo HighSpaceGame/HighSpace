@@ -1,0 +1,161 @@
+;;This tbm sets custom data for all player ships. SCPUI uses this custom data to know which ships to generate select icons for
+
+#Ship Classes
+
+$Name: GTF Ulysses
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTF Hercules
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTF Hercules Mark II
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTF Ares
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTF Erinyes
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTF Loki
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTF Pegasus
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTF Perseus
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTF Myrmidon
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: SF Mara (terrans)
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTB Artemis
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTB Artemis D.H.
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTB Medusa
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTB Ursa
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTB Zeus
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTB Boanerges
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GTB Artemis
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GVF Seth
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GVF Horus
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GVF Thoth
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GVF Serapis
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GVF Tauret
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GVB Sekhmet
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GVB Osiris
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GVB Bakha
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+$Name: GVF Ptah
++nocreate
+$Custom Data:
+	+Val: PlayerShip true
+$end_custom_data
+
+#End

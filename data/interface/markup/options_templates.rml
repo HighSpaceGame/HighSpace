@@ -1,0 +1,236 @@
+<body>
+
+<!--This begins all the rml for a dropdown selector
+Parameters:
+    - no_title: true if there should be no title added
+-->
+<div id="dropdown_template" class="btn_panel_horz">
+    <if condition="not no_title">
+        <div id="horz_panel_text" class="ops_left_header">
+            <span id="dropdown_title" class="dropdown_text_el"></span>
+        </div>
+    </if>
+    <div id=horz_panel_wrapper>
+        <div id=dropdown_cont>
+            <dataselect class="dropdown_dataselect_el" fields="display" valuefield="serialized">
+            </dataselect>
+        </div>
+    </div>
+    <img src="ops-panel-horz.png"></img>
+</div>
+
+<!--This begins all the rml for a five point range selector-->
+<div id="fivepoint_selector_template" class="btn_panel_large panel_right">
+    <div id="large_panel_text" class="ops_right_header">
+        <span class="fps_title_text">Fivepoint selector</span>: <span class="fps_value_text header_text">Value</span>
+    </div>
+    <div id=horz_wide_panel_wrapper>
+        <div class="fps_slider">
+            <div id=arrow_cont>
+                <button id="right_arrow_btn" class="fps_right_btn arrow button_1">
+                    <div id="right_arrow_img" class="arrow">
+                        <img src="arrow-right.png" class="psuedo_img"></img>
+                    </div>
+                </button>
+            </div>
+            <div id=oval_cont>
+                <button id="oval_btn" class="fps_button_4 oval button_1">
+                    <div id="oval_img" class="oval">
+                        <img src="oval.png" class="psuedo_img"></img>
+                    </div>
+                </button>
+            </div>
+            <div id=oval_cont>
+                <button id="oval_btn" class="fps_button_3 oval button_1">
+                    <div id="oval_img" class="oval">
+                        <img src="oval.png" class="psuedo_img"></img>
+                    </div>
+                </button>
+            </div>
+            <div id=oval_cont>
+                <button id="oval_btn" class="fps_button_2 oval button_1">
+                    <div id="oval_img" class="oval">
+                        <img src="oval.png" class="psuedo_img"></img>
+                    </div>
+                </button>
+            </div>
+            <div id=oval_cont>
+                <button id="oval_btn" class="fps_button_1 oval button_1">
+                    <div id="oval_img" class="oval">
+                        <img src="oval.png" class="psuedo_img"></img>
+                    </div>
+                </button>
+            </div>
+            <div id=oval_cont>
+                <button id="oval_btn" class="fps_button_0 oval button_1">
+                    <div id="oval_img" class="oval">
+                        <img src="oval.png" class="psuedo_img"></img>
+                    </div>
+                </button>
+            </div>
+            <div id=arrow_cont>
+                <button id="left_arrow_btn" class="fps_left_btn arrow button_1">
+                    <div id="left_arrow_img" class="arrow">
+                        <img src="arrow-left.png" class="psuedo_img"></img>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <img src="ops-panel-horz-wide.png"></img>
+</div>
+
+<!--This begins all the rml for a ten point range selector
+Parameters:
+    - text_alignment: 'left' or 'right'
+    - no_background: true if there should be no background image, false otherwise
+-->
+<div id="tenpoint_selector_template" class="ten_dot_slider">
+    <div id=arrow_cont>
+        <button id="right_arrow_btn" class="arrow">
+            <div id="right_arrow_img" class="tps_right_arrow arrow">
+                <img src="arrow-right.png" class="psuedo_img"></img>
+            </div>
+            <if condition="text_alignment == 'right'">
+                <div class="button_text_top">
+                    <p class="tps_title_el">Ten point range selector</p>
+                </div>
+            </if>
+        </button>
+    </div>
+    <div id=round_ten_cont>
+        <button id="round_btn" class="round button_1 tps_button_9">
+            <div id="round_img" class="round">
+                <img src="round.png" class="psuedo_img"></img>
+            </div>
+        </button>
+    </div>
+    <div id=round_ten_cont>
+        <button id="round_btn" class="round button_1 tps_button_8">
+            <div id="round_img" class="round">
+                <img src="round.png" class="psuedo_img"></img>
+            </div>
+        </button>
+    </div>
+    <div id=round_ten_cont>
+        <button id="round_btn" class="round button_1 tps_button_7">
+            <div id="round_img" class="round">
+                <img src="round.png" class="psuedo_img"></img>
+            </div>
+        </button>
+    </div>
+    <div id=round_ten_cont>
+        <button id="round_btn" class="round button_1 tps_button_6">
+            <div id="round_img" class="round">
+                <img src="round.png" class="psuedo_img"></img>
+            </div>
+        </button>
+    </div>
+    <div id=round_ten_cont>
+        <button id="round_btn" class="round button_1 tps_button_5">
+            <div id="round_img" class="round">
+                <img src="round.png" class="psuedo_img"></img>
+            </div>
+        </button>
+    </div>
+    <div id=round_ten_cont>
+        <button id="round_btn" class="round button_1 tps_button_4">
+            <div id="round_img" class="round">
+                <img src="round.png" class="psuedo_img"></img>
+            </div>
+        </button>
+    </div>
+    <div id=round_ten_cont>
+        <button id="round_btn" class="round button_1 tps_button_3">
+            <div id="round_img" class="round">
+                <img src="round.png" class="psuedo_img"></img>
+            </div>
+        </button>
+    </div>
+    <div id=round_ten_cont>
+        <button id="round_btn" class="round button_1 tps_button_2">
+            <div id="round_img" class="round">
+                <img src="round.png" class="psuedo_img"></img>
+            </div>
+        </button>
+    </div>
+    <div id=round_ten_cont>
+        <button id="round_btn" class="round button_1 tps_button_1">
+            <div id="round_img" class="round">
+                <img src="round.png" class="psuedo_img"></img>
+            </div>
+        </button>
+    </div>
+    <div id=round_ten_cont>
+        <button id="round_btn" class="round button_1 tps_button_0">
+            <div id="round_img" class="round">
+                <img src="round.png" class="psuedo_img"></img>
+            </div>
+        </button>
+    </div>
+    <div id=arrow_cont>
+        <button id="left_arrow_btn" class="tps_left_arrow arrow">
+            <div id="left_arrow_img" class="arrow">
+                <img src="arrow-left.png" class="psuedo_img"></img>
+            </div>
+        </button>
+		<if condition="text_alignment == 'left'">
+			<div id=ten_dot_text>
+				<p class="tps_title_el">Ten point range selector</p>
+			</div>
+		</if>
+    </div>
+    <if condition="not no_background">
+        <img src="ops-panel-horz-wide.png"></img>
+    </if>
+</div>
+<!--This begins all the rml for a binary option-->
+<div id="binary_selector_template" class="btn_panel_horz">
+    <div id="horz_panel_text" class="ops_left_header">
+        <p class="binary_text_el">Binary Option</p>
+    </div>
+    <div id=horz_panel_wrapper>
+        <div id=round_option_cont>
+            <button id="round_btn" class="binary_left_btn_el round button_1">
+                <div id="round_img" class="round">
+                    <img src="round.png" class="psuedo_img"></img>
+                </div>
+                <div class="pos button_text_left">
+                    <p class="binary_left_text_el">Two</p>
+                </div>
+            </button>
+        </div>
+        <div id=round_option_cont>
+            <button id="round_btn" class="binary_right_btn_el round button_1">
+                <div id="round_img" class="round">
+                    <img src="round.png" class="psuedo_img"></img>
+                </div>
+                <div class="pos button_text_left">
+                    <p class="binary_right_text_el">One</p>
+                </div>
+            </button>
+        </div>
+    </div>
+    <img src="ops-panel-horz.png"></img>
+</div>
+<!--This begins all the rml for a range slider-->
+<div id="slider_template" class="btn_panel_horz">
+    <div id="horz_panel_text" class="ops_left_header">
+        <span class="slider_title_el">Slider Title</span>: <span class="slider_value_el header_text">1.0</span>
+    </div>
+    <div id=horz_panel_wrapper>
+        <div id=range_cont>
+            <input class="slider_range_el" type="range" min="0" max="1" step="0.01"></input>
+            <img src="ops-panel-horz.png" class="psuedo_img"></img>
+        </div>
+    </div>
+    <img src="ops-panel-horz.png"></img>
+</div>
+<!--This begins all the rml for a title header-->
+<div id="header_template" class="title_panel_horz">
+    <div id="horz_panel_text" class="ops_center_header">
+        <span class="header_title_el">Header Title</span>
+    </div>
+</div>
+
+</body>

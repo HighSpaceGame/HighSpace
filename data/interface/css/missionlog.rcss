@@ -1,0 +1,564 @@
+body
+{
+	background-decorator: image;
+	background-image: bg.png;
+	z-index: bottom;
+	z-index: -1;
+}
+
+.main_bg
+{
+	background-decorator: image;
+	background-image: bg-cockpit.png;
+}
+
+.below p
+{
+	padding-top:8%;
+}
+
+div#gametime
+{
+	position:absolute;
+	top: 4%;
+	left: 5%;
+}
+
+div#missionlog_title
+{
+	text-align: center;
+}
+
+div#missionlog_subtitle
+{
+	text-align: center;
+}
+
+div#missionlog_header
+{
+	text-align: center;
+	margin: 5%;
+}
+
+div#missionlog_list
+{
+	text-align: left;
+	width: 100%;
+	margin-top: 5%;
+}
+
+div#list_subjects_ul
+{
+	float: left;
+	width: 25%;
+}
+div#list_descriptions_ul
+{
+	float: left;
+	width: 50%;
+}
+
+div#list_times_ul
+{
+	float: left;
+	width: 10%;
+}
+
+div#list_messages_ul
+{
+	float: left;
+	width: 80%;
+}
+
+div#missionlog_wrapper
+{
+	margin: auto;
+	width: 80%;
+	height: auto;
+	position: relative;
+}
+
+div#log_text_wrapper
+{
+	position: absolute;
+	top: 7%;
+	width: 78%;
+	height: 81%;
+	margin-left: 7%;
+	overflow: scroll;
+}
+
+div#missionlog_content
+{
+	margin-top: 2%;
+	width: 100%;
+	height: auto;
+}
+
+div#missionlog_content img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Buttons*/
+
+div#buttons_wrapper
+{
+	position: absolute;
+	bottom: 0;
+	width: 33%;
+	height: 10%;
+}
+
+div#objectives_cont
+{
+	width: 19%;
+	height: auto;
+	float: left;
+	margin-left: 13%;
+}
+
+.objectives
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#objectives_img
+{
+	background-decorator: image;
+	background-image: computer.png;
+}
+
+button#objectives_btn:hover #objectives_img
+{
+	background-decorator: image;
+	background-image: computer-h.png;
+}
+
+button#objectives_btn:active #objectives_img
+{
+	background-decorator: image;
+	background-image: computer-o.png;
+}
+
+button#objectives_btn:checked #objectives_img
+{
+	background-decorator: image;
+	background-image: computer-o.png;
+}
+
+div#messages_cont
+{
+	width: 20%;
+	height: auto;
+	float: left;
+	margin-left: 10%;
+}
+
+.messages
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#messages_img
+{
+	background-decorator: image;
+	background-image: dish.png;
+}
+
+button#messages_btn:hover #messages_img
+{
+	background-decorator: image;
+	background-image: dish-h.png;
+}
+
+button#messages_btn:active #messages_img
+{
+	background-decorator: image;
+	background-image: dish-o.png;
+}
+
+button#messages_btn:checked #messages_img
+{
+	background-decorator: image;
+	background-image: dish-o.png;
+}
+
+div#events_cont
+{
+	width: 17%;
+	height: auto;
+	float: left;
+	margin-left: 10%;
+}
+
+.events
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#events_img
+{
+	background-decorator: image;
+	background-image: ship.png;
+}
+
+button#events_btn:hover #events_img
+{
+	background-decorator: image;
+	background-image: ship-pos-h.png;
+}
+
+button#events_btn:active #events_img
+{
+	background-decorator: image;
+	background-image: ship-pos-o.png;
+}
+
+button#events_btn:checked #events_img
+{
+	background-decorator: image;
+	background-image: ship-pos-o.png;
+}
+
+div#briefing_goals
+{
+	width: 78%;
+	height: auto;
+	position: absolute;
+	top: 10%;
+	margin-left: 7%;
+
+}
+
+/*hide bonus goals by default*/
+#bonus_goals
+{
+
+}
+
+#primary_goal_list
+{
+	margin-left: 10%;
+	height: auto;
+}
+
+#secondary_goal_list
+{
+	margin-left: 10%;
+}
+
+#bonus_goal_list
+{
+	margin-left: 10%;
+}
+
+#goal_wrapper
+{
+	display: block;
+}
+
+#primary_goals_header
+{
+	width: 94%;
+	margin-bottom: 3%;
+	overflow: hidden;
+}
+
+#secondary_goals_header
+{
+	width: 94%;
+	margin-top: 5%;
+	margin-bottom: 3%;
+}
+
+#bonus_goals_header
+{
+	width: 94%;
+	margin-top: 5%;
+	margin-bottom: 3%;
+}
+
+#primary_goal_text
+{
+	width: 17%;
+	float: left;
+}
+
+#secondary_goal_text
+{
+	width: 19%;
+	float: left;
+}
+
+#bonus_goal_text
+{
+	width: 16%;
+	float: left;
+}
+
+.goal
+{
+	margin: 1%;
+}
+
+.goalsdot
+{
+	width: 2%;
+	height: 2.2%;
+	float: left;
+	margin-right: 3.5%;
+}
+
+.goalsdot_key
+{
+	width: 12%;
+	height: 2.2%;
+	float: left;
+	margin-right: 3.5%;
+}
+
+.leftline
+{
+	width: 15%;
+	height: auto;
+	float: left;
+	margin-right: 1%;
+	margin-top: 1.5%;
+}
+
+.rightline
+{
+	height: auto;
+	float: left;
+	margin-right: 1%;
+	margin-top: 1.5%;
+	overflow: hidden;
+}
+
+.primary_rightline
+{
+	width: 61%;
+}
+
+.secondary_rightline
+{
+	width: 59%;
+}
+
+.bonus_rightline
+{
+	width: 62%;
+}
+
+#goalsdot_img_failed
+{
+	background-decorator: image;
+	background-image: goal-failed.png;
+}
+
+#goalsdot_img_complete
+{
+	background-decorator: image;
+	background-image: goal-complete.png;
+}
+
+#goalsdot_img_incomplete
+{
+	background-decorator: image;
+	background-image: goal-incomplete.png;
+}
+
+#goalsline_img
+{
+	background-decorator: image;
+	background-image: scroll-bar-line-horz.png;
+	height: 0.4%;
+	overflow: hidden;
+}
+
+/*hide by default*/
+#goal_key
+{
+	width: 78%;
+	height: auto;
+	position: absolute;
+	bottom: 13%;
+	margin-left: 27.5%;
+}
+
+#goal_complete
+{
+	float: left;
+	width: 15%;
+}
+
+#goal_incomplete
+{
+	float: left;
+	width: 15%;
+}
+
+#goal_failed
+{
+	float: left;
+	width: 15%;
+}
+
+/*Bottom Panel Elements*/
+
+div#bottom_panel_wrapper
+{
+	width: 15%;
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div#bottom_panel_b
+{
+	width: 66%;
+	height: auto;
+	position: relative;
+	float: right;
+	margin-top: 15px;
+}
+
+div#bottom_panel_b img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*Accept Button*/
+
+div#b_panel_wrapper
+{
+	position: absolute;
+	bottom: 0;
+}
+
+div#accept_cont
+{
+	width: 100%;
+	height: auto;
+
+}
+
+.accept
+{
+	display: block;
+	width: 100%;
+	height: auto;
+
+}
+
+#accept_img
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+
+#accept_btn
+{
+	click-sound: (error)15,(success)7;
+}
+
+button#accept_btn:hover #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-h.png;
+}
+
+button#accept_btn:active #accept_img
+{
+	background-decorator: image;
+	background-image: select-neg-o.png;
+}
+
+/*Scroll Buttons*/
+
+#log_text_wrapper scrollbarvertical
+{
+	scrollchange-sound: 9;
+	width: 7%;
+	position: absolute;
+	left: -8.5%;
+	z-index: 5;
+}
+
+#log_text_wrapper scrollbarvertical slidertrack
+{
+	display:none;
+}
+
+#log_text_wrapper scrollbarvertical sliderbar
+{
+	display:none;
+}
+
+#log_text_wrapper scrollbarvertical sliderbar:hover
+{
+	display:none;
+}
+
+#log_text_wrapper scrollbarvertical sliderbar:active
+{
+	display:none;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowdec
+{
+	width: 100%;
+	height: 16%;
+	margin-top: 9%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-up.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowinc
+{
+	width: 100%;
+	height: 16%;
+	margin-bottom: 6%;
+	mouseover-sound: 17;
+	click-sound: 0;
+	icon-decorator: image;
+	icon-image: arrow-dbl-down.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowdec:hover
+{
+	icon-image: arrow-dbl-up-h.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowinc:hover
+{
+	icon-image: arrow-dbl-down-h.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowdec:active
+{
+	icon-image: arrow-dbl-up-o.png;
+}
+
+#log_text_wrapper scrollbarvertical sliderarrowinc:active
+{
+	icon-image: arrow-dbl-down-o.png;
+}
