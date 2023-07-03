@@ -168,4 +168,23 @@ function utils.table.sum(tbl)
     end, 0)
 end
 
+--- Computes the sum of the specified table
+--- @generic T
+--- @param tbl T[]
+--- @return T[]
+function utils.table.copy(tbl)
+    local orig_type = type(tbl)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, tbl, nil do
+            copy[orig_key] = utils.table.copy(orig_value)
+        end
+        setmetatable(copy, utils.table.copy(getmetatable(orig)))
+    else -- number, string, boolean, etc
+        copy = tbl
+    end
+    return copy
+end
+
 return utils

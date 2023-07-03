@@ -82,20 +82,22 @@ function SystemMapController:mouseMove(event, _, _)
     --ba.println("mouseMove: " .. inspect({mouseX, mouseY}))
 end
 
+--[[
 function SystemMapController:global_keydown(_, event)
     if event.parameters.key_identifier == rocket.key_identifier.ESCAPE or event.parameters.key_identifier == rocket.key_identifier.PAUSE then
         event:StopPropagation()
-
-        gr.setCamera()
-        ba.postGameEvent(ba.GameEvents["GS_EVENT_PREVIOUS_STATE"])
     end
 end
+]]--
 
+-- This hook is only necessary because of the direct draw calls (i.e. drawMap) we use in this view. Views that can be
+-- implemented in libRocket only don't need an onFrame hook
 engine.addHook("On Frame", function()
-    GameState.processEncounters()
-    SystemMapDrawing.drawMap(mouseX, mouseY, GameState.ships, drawMap.tex)
+    if ba.getCurrentGameState().Name == "GS_STATE_BRIEFING" then
+        SystemMapDrawing.drawMap(mouseX, mouseY, GameState.ships, drawMap.tex)
+    end
 end, {}, function()
-    return (not GameState.missionLoaded)
+    return false
 end)
 
 return SystemMapController

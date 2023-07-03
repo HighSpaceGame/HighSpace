@@ -1,6 +1,6 @@
 body
 {
-	font-family: BankGothic Md BT;
+	font-family: BankGothic Lt BT;
 	font-weight: normal;
 	font-style: normal;
 	/*font-size: 1em;*/

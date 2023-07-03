@@ -1,0 +1,176 @@
+#content
+{
+	position: relative;
+}
+
+#button_container
+{
+	float: left;
+	width: 7%;
+	height: auto;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin-bottom: 2%;
+	margin-right: 1%;
+	z-index: 4;
+}
+
+#button_container p
+{
+	width: 500%;
+}
+
+.button_text_dialog
+{
+	text-align: right;
+}
+
+.button_text_dialog p
+{
+	display: block;
+	margin-left: -540%;
+	margin-top: -35%;
+	position: absolute;
+}
+
+.button_positive div
+{
+	background-decorator: image;
+	background-image: select.png;
+}
+
+.button_positive:hover div
+{
+	background-decorator: image;
+	background-image: select-pos-h.png;
+}
+
+.button_positive:active div
+{
+	background-decorator: image;
+	background-image: select-pos-o.png;
+}
+
+.button_negative div
+{
+	background-decorator: image;
+	background-image: decline.png;
+}
+
+.button_negative:hover div
+{
+	background-decorator: image;
+	background-image: decline-h.png;
+}
+
+.button_negative:active div
+{
+	background-decorator: image;
+	background-image: decline-o.png;
+}
+
+.button_neutral div
+{
+	background-decorator: image;
+	background-image: bullet-l.png;
+}
+
+.button_neutral:hover div
+{
+	background-decorator: image;
+	background-image: bullet-l-h.png;
+}
+
+.button_neutral:active div
+{
+	background-decorator: image;
+	background-image: bullet-l-o.png;
+}
+
+.button_positive:hover p
+{
+	color: #abbbab;
+}
+
+.button_positive:active p
+{
+	color: #c9e4c9;
+}
+
+.button_negative:hover p
+{
+	color: #946565;
+}
+
+.button_negative:active p
+{
+	color: #dd9393;
+}
+
+.button_neutral:hover p
+{
+	color: #abbbab;
+}
+
+.button_neutral:active p
+{
+	color: #c9e4c9;
+}
+
+div#content
+{
+	margin: auto;
+	margin-top: 15%;
+	width: 50%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+div#content img
+{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+div#title_wrapper
+{
+	position: absolute;
+	top: 0;
+	margin-top: 2%;
+	margin-left: 4%;
+	width: 89%;
+	z-index: 4;
+	font-size: 2em;
+}
+
+div#text_wrapper
+{
+	position: absolute;
+	top: 0;
+	margin-top: 10%;
+	margin-left: 1%;
+	padding: 1%;
+	margin-right: 5%;
+	color: white;
+	overflow: auto;
+	height: 52%;
+	font-size: 6em;
+}
+
+.win_text
+{
+	color: #00aa00;
+}
+
+.lose_text
+{
+	color: #aa0000;
+}
+
+p
+{
+	width: 100%;
+}

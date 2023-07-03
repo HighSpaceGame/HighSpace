@@ -91,6 +91,10 @@ local function show_dialog(context, properties, finish_func, reject, abortCBTabl
     else
         dialog_doc:GetElementById("dialog_body"):SetClass("p1-5", true)
     end
+
+    if properties.text_class then
+        dialog_doc:GetElementById("text_container"):SetClass(properties.text_class, true)
+    end
 	
 	if properties.input_choice then
 		local input_el = dialog_doc:CreateElement("input")
@@ -185,6 +189,14 @@ function factory_mt:text(text)
     return self
 end
 
+function factory_mt:textClass(text_class)
+    self.text_class = ""
+    if text_class ~= nil then
+        self.text_class = text_class
+    end
+    return self
+end
+
 function factory_mt:button(type, text, value, keypress)
     if value == nil then
         value = #self.buttons + 1
@@ -228,9 +240,10 @@ function module.new()
         buttons      = {},
         title_string = "",
         text_string  = "",
+        text_class = "",
 		input_choice = false,
 		escape_value = nil,
-		style_value = 1
+		style_value = 1,
     }
     setmetatable(factory, factory_mt)
     return factory

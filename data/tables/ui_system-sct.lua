@@ -1,3 +1,4 @@
+local game_state = require("game_state")
 local utils = require("utils")
 
 local updateCategory = engine.createTracingCategory("UpdateRocket", false)
@@ -267,6 +268,10 @@ RocketUiSystem:init()
 
 engine.addHook("On State Start", function()
     RocketUiSystem:stateStart()
+
+	-- The "On State Start" hook doesn't seem to work in the game_state script... maybe because of the "override" callback?
+	-- So we call it here manually
+	game_state.stateChanged()
 end, {}, function()
     return hv.NewState ~= nil and hv.NewState.Name ~= "GS_STATE_GAME_PLAY" and RocketUiSystem:hasOverrideForState(getRocketUiHandle(hv.NewState))
 end)
