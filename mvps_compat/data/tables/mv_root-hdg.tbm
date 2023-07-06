@@ -1,0 +1,331 @@
+$Max directives: 8   
+$Max escort ships: 9  
+$Scale Gauges: No 
+
+#Gauge Config
+ $Base: (1024, 768)
+ $Force Scaling Above: (1920, 1080)
+ $Min: (1600, 900)
+ $Gauges:
+  +Messages:
+ Origin: (0.0, 0.0)
+ Offset: (8, 5)
+ Font: 0
+ Max Lines: 5
+ Line Height: 17
+  +Training Messages:
+ Origin: (0.5, 0.5)
+ Offset: (-133, -215)
+ Font: 0
+  +Support:
+ Origin: (0.5, 0.5)
+ Offset: (-87, 150)
+ Font: 0
+ Filename: 2_support1
+ Header Offsets: (5,3)
+ Text Y-offset: 20
+ Dock Status X-offset: 15
+ Dock Time X-offset: 110
+  +Damage:
+ Origin: (0.5, 0.0)
+ Offset: (-119, 150)
+ Font: 0
+ Top Background Filename: 2_damage1
+ Entry Background Filename: 2_damage2
+ Bottom Background Filename: 2_damage3
+ Header Offsets: (5,3) 
+ Hull Integrity Offsets: (15,25) 
+ Hull Integrity Value X-offset: 220 
+ Top Background Height: 40 
+ Subsystem Entry Height: 16 
+ Subsystem List Start Offsets: (20,45)
+ Subsystem Entry Value X-offset: 220 
+ Bottom Background Offset: 0 
+  +Wingman Status:
+ Origin: (1.0, 0.0)
+ Offset: (-156, 230)
+ Font: 0
+ Left Background Filename: 2_wingman1
+ Entry Background Filename: 2_wingman2
+ Right Background Filename: 2_wingman3
+ Dot Filename: 2_wingman4
+ Header Offsets: (5,3) 
+ Left Background Width: 114
+ Entry Width: 57
+ Single Wing Offsets: (31,20) 
+ Multiple Wing Start Offsets: (62,20) 
+ Wing Name Offsets: (35, 50)
+ Dot Offsets: (29,5) (19,20) (39,20) (29,35) (12,35) (46,35)
+  +Auto Speed:
+ Origin: (1.0, 1.0)
+ Offset: (-115, -100)
+ Font: 0
+ Filename: 2_toggleX
+ Auto Offsets: (25,3)
+ Speed Offsets: (20,18)
+  +Auto Target:
+ Origin: (1.0, 1.0)
+ Offset: (-115, -150)
+ Font: 0
+ Filename: 2_toggleX
+ Auto Offsets: (25,3)
+ Target Offsets: (17,18)
+  +Countermeasures:
+    Origin: (1.0, 1.0)
+    Offset: (-120, -195)
+ Font: 0
+    Filename: 2_countermeasure1
+    Text Offsets: (60,8)
+ Value Offsets: (20,8)
+   ;+Talking Head:
+ ;Origin: (0.5, 0.2)
+ ;Offset: (-500, -15)
+ ;Filename: 2_head1
+ ;Header Offsets: (6, 3)
+ ;Animation Offsets: (3,16)
+ ;Animation Background Size: (250,188)
+ ;Animation Size:  (250,188)
+  +Talking Head:
+    Origin: (0.0, 0.0)
+    Offset: (20, 100)
+ Font: 0
+    Filename: 2_head1
+    Header Offsets: (6, 3)
+    Animation Offsets: (3,16)
+    Animation Size: (250,187)
+  +Directives:
+ Origin: (0.0, 0.5)
+ Offset: (20, -75)
+ Font: 0
+ Top Background Filename: 2_directives1
+ Entry Background Filename: 2_directives2
+ Bottom Background Filename: 2_directives3
+ Header Offsets: (5,4)
+ Top Background Height: 20
+ List Start Offsets: (7,23)
+ Entry Height: 15
+ Max Line Width: 245
+  +Weapons:
+ Origin: (1.0, 1.0)
+ Offset: (-265, -320)
+ Font: 0
+ Primary List Top Background Filename: 2_weapons1_b
+  Alt Ballistic Filename: 2_weapons1_b
+ Primary List Middle Background Filename: 2_weapons2_b
+  Alt Ballistic Filename: 2_weapons2_b
+ Primary List Bottom Background Filename: 2_weapons2_b
+  Alt Ballistic Filename: 2_weapons2_b
+ Secondary List Top Background Filename: 2_weapons3_b
+  Alt Ballistic Filename: 2_weapons3_b
+ Secondary List Entry Background Filename: 2_weapons2_b
+  Alt Ballistic Filename: 2_weapons2_b
+ Secondary List Bottom Background Filename: 2_weapons5_b
+  Alt Ballistic Filename: 2_weapons5_b
+ Header Offsets: (17,3)
+  Alt Ballistic Offsets: (17,3)
+ Top Primary Background X-offset: 12
+  Alt Ballistic X-offset: 12
+ Text X-offset: 12
+  Alt Ballistic X-offset: 12
+ Top Primary Frame Height: 33
+ Top Secondary Frame Height: 12 
+ Primary List Start Y-offset: 20
+ Secondary List Start Y-offset: 6 
+ Primary Weapon Ammo X-offset: 235
+ Primary Weapon Link X-offset: 33
+ Primary Weapon Name X-offset: 42
+ Secondary Weapon Ammo X-offset: 235 
+ Secondary Weapon Linked X-offset: 25
+ Secondary Weapon Name X-offset: 42
+ Secondary Weapon Reload X-offset: -10 
+ Primary Weapon Entry Height: 19
+ Secondary Weapon Entry Height: 19 
+  +Objective Notify:
+ Origin: (0.5, 0.5)
+ Offset: (-119, -200)
+ Font: 0
+ Filename: 2_objectives1
+ Objective Text Y-offset: 5
+ Objective Value Y-offset: 17
+ Subspace Text Y-offset: 5
+ Subspace Value Y-offset: 17
+ Red Alert Text Y-offset: 5
+ Red Alert Value Y-offset: 17
+  +Squad Message:
+    Origin: (1.0, 0.0)
+    Offset: (-275, 15)
+ Font: 0
+ Top Background Filename: 2_message1
+ Entry Background Filename: 2_message2
+ Bottom Background Filename: 2_message3
+ Header Offsets: (5,3)
+ List Start Offsets: (10,25)
+ Top Background Height: 20
+ Entry Height: 17
+ Command X-offset: 20
+ Page Up Offsets: (200,25)
+ Page Down Offsets: (200,195)
+  +Lag:
+    Origin: (0.5, 0.5)
+    Offset: (115, 145)
+ Font: 0
+    Filename: 2_netlag1
+  +Mini Target Shields:
+ Origin: (0.5, 0.5)
+ Offset: (-25, 86)
+ Font: 0
+ Filename: 2_targhit1
+ 3 Digit Hull Offsets: (12,13)
+ 2 Digit Hull Offsets: (15,13)
+ 1 Digit Hull Offsets: (20,13)
+  +Player Shields:
+    Scale Gauge: YES
+    Origin: (0.5, 1.0)
+    Offset: (175, -98)
+  +Target Shields:
+    Scale Gauge: YES
+    Origin: (0.5, 1.0)
+    Offset: (-275, -98)
+  +Escort View:
+ Origin: (1.0, 0.5)
+ Offset: (-259, -54)
+ Font: 0
+ Top Background Filename: 2_escort1
+ Entry Background Filename: 2_escort2
+ Bottom Background Filename: 2_escort3
+ Entry Height: 19
+ Header Text: Monitoring
+ Header Offsets: (7,5)
+ List Start Offsets: (0,21)
+ Hull X-offset: 200
+ Name X-offset: 10
+ Status X-offset: -15
+ Ship Name Max Width: 185
+  +Mission Time:
+ Origin: (1.0, 1.0)
+ Offset: (-100, -57)
+ Font: 0
+ Filename: 2_time1
+ Text Offsets: (15,8)
+ Value Offsets: (43,23)
+  +Target Monitor:
+ Origin: (0.0, 1.0)
+ Offset: (20, -275)
+ Font: 0
+ Monitor Filename: 2_targetview1
+ Integrity Bar Filename: 2_targetview2x
+ Viewport Offsets: (4,67)
+ Viewport Size: (208,179)
+ Integrity Bar Offsets: (211,83)
+ Integrity Bar Foreground Clip Height: 154
+ Status Offsets: (180,88)
+ Name Offsets: (14,-5)
+ Class Offsets: (14,10)
+ Distance Offsets: (14,29)
+ Speed Offsets: (120,29)
+ Hull Offsets: (210,69)
+ Cargo Contents Offsets: (14,50)
+ Cargo Scan Start Offsets: (4,67)
+ Cargo Scan Size: (208,179)
+ Subsystem Name Offsets: (15,245)
+ Subsystem Integrity Offsets: (200,245)
+ Disabled Status Offsets: (75,100)
+  +Extra Target Data:
+ Origin: (0.0, 1.0)
+ Offset: (20, -327)
+ Font: 0
+ Filename: 2_targetview3
+ Bracket Offsets: (0,0)
+ Dock Offsets: (15,25)
+ Dock Max Width: 300
+ Order Offsets: (15,-5)
+ Order Max Width: 300
+ Time Offsets: (15,10)
+  +Radar:
+    Origin: (0.5, 1.0)
+    Offset: (-157 -262)
+ Font: 0
+    Filename: 2_radarx
+ Radar Center Offsets: (154,128)
+ Radar Size: (288,240)
+ Infinity Distance Offsets: (276,225)
+ Long Distance Offsets: (272,225)
+ Short Distance Offsets: (278,225)
+  +Afterburner Energy:
+ Origin: (0.5, 0.5)
+ Offset: (-273, 40)
+ Font: 0
+  +Weapon Energy:
+ Origin: (0.5, 0.5)
+ Offset: (189, 40)
+ Font: 0
+  +Text Warnings:
+   Origin: (0.5, 0.5)
+   Offset: (0, -95)
+   Font: 0
+  +Center Reticle:
+   Origin: (0.5, 0.5)
+   Offset: (-19, -14)
+  +Throttle:
+   Origin: (0.5, 0.5)
+   Offset: (-201, -115)
+   Font: 0
+  +Threat Indicator:
+   Origin: (0.5, 0.5)
+   Offset: (97, -115)
+  +Lead Indicator:
+  +Lock Indicator:
+  +Multiplayer Messages:
+   Origin: (0.0, 0.5)
+   Offset: (8, -144)
+   Font: 0
+  +Voice Status:
+   Origin: (0.0, 0.5)
+   Offset: (8, -129)
+   Font: 0
+  +Ping:
+   Origin: (1.0, 0.0)
+   Offset: (-128, 5)
+   Font: 0
+  +Supernova:
+   Origin: (0.5, 0.5)
+   Offset: (-342, -214)
+   Font: 0
+  +Offscreen Indicator:
+  +Target Brackets:
+  +Orientation Tee:
+   Origin: (0.5, 0.5)
+   Offset: (0, 3)
+   Radius: 215
+  +Hostile Triangle:
+   Origin: (0.5, 0.5)
+   Offset: (0, 3)
+   Radius: 200
+  +Target Triangle:
+   Origin: (0.5, 0.5)
+   Offset: (0, 3)
+   Radius: 200
+  +Missile Triangles:
+   Origin: (0.5, 0.5)
+   Offset: (0, 3)
+   Radius: 200
+  +Kills:
+ Origin: (1.0, 1.0)
+ Offset: (-253, -195)
+ Font: 0
+ Filename: 2_kills1
+ Text Offsets: (15,8)
+ Value Offsets: (115,8)
+  +Fixed Messages:
+  +ETS Retail:
+ Origin: (1.0, 1.0)
+ Offset: (-225, -160)
+ Font: 0
+ Filename: 2_energy1
+ Foreground Clip Height: 66
+ Letter Offsets: (5,70)
+ Top Offsets: (0,0)
+ Bottom Offsets: (0,80)
+ Gauge Offset: 25
+ $End Gauges
+#End

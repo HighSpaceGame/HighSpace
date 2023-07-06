@@ -19,7 +19,14 @@ Hopefully the mod will be detected and can run through Knossos. If not:
 
 ```
 cd <FS2 Installation Directory>/FS2
-../bin/<FS2 executable> -mod highhpace-0.0.1
+../bin/<FS2 executable> -mod highhpace-0.0.1/core
+```
+
+Or to run together with MVPS:
+
+```
+cd <FS2 Installation Directory>/FS2
+../bin/<FS2 executable> -mod highspace-0.0.1/core,highspace-0.0.1/mvps_compat,MVPS-4.6.8
 ```
 
 should do the trick

@@ -19,7 +19,8 @@
     "last_update": null,
     "cmdline": "",
     "mod_flag": [
-        "highhpace"
+        "highhpace",
+        "MVPS"
     ],
     "dev_mode": true,
     "custom_build": null,
@@ -35,7 +36,26 @@
                 }
             ],
             "environment": null,
-            "folder": ".",
+            "folder": "core",
+            "is_vp": false,
+            "files": [],
+            "filelist": [],
+            "executables": [],
+            "check_notes": ""
+        },
+        {
+            "name": "MVPS Compatibility",
+            "notes": "",
+            "status": "optional",
+            "dependencies": [
+                {
+                    "id": "MVPS",
+                    "version": null,
+                    "packages": []
+                }
+            ],
+            "environment": null,
+            "folder": "mvps_compat",
             "is_vp": false,
             "files": [],
             "filelist": [],
