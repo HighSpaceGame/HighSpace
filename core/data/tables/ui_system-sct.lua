@@ -1,4 +1,5 @@
 local game_state = require("game_state")
+local inspect = require("inspect")
 local utils = require("utils")
 
 local updateCategory = engine.createTracingCategory("UpdateRocket", false)
@@ -6,6 +7,7 @@ local renderCategory = engine.createTracingCategory("RenderRocket", true)
 
 RocketUiSystem = {
     replacements = {},
+	skip_ui = {["GS_STATE_GAME_PLAY"] = true},
 	substate = "none",
 	cutscene = "none",
 	debriefInit = false,
@@ -81,13 +83,12 @@ function RocketUiSystem:stateStart()
 
 	if state.Name ~= "GS_STATE_GAME_PLAY" then
 		ui.enableInput(self.context)
+		io.setCursorHidden(false)
 	end
-
-	io.setCursorHidden(false)
 end
 
 function RocketUiSystem:stateFrame()
-    if not self:hasOverrideForCurrentState() then
+    if not self:showUIForCurrentState() then
         return
     end
 
@@ -165,6 +166,10 @@ end
 
 function RocketUiSystem:hasOverrideForCurrentState()
     return self:hasOverrideForState(getRocketUiHandle(ba.getCurrentGameState()))
+end
+
+function RocketUiSystem:showUIForCurrentState()
+	return self:hasOverrideForState(getRocketUiHandle(ba.getCurrentGameState())) and not self.skip_ui[ba.getCurrentGameState().Name]
 end
 
 function RocketUiSystem:dialogStart()

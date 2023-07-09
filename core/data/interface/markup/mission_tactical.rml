@@ -1,0 +1,16 @@
+<rml>
+	<head>
+		<title>XSTR("System Map", -1)</title>
+		<link type="text/rcss" href="common.rcss"/>
+		<link type="text/rcss" href="default.rcss"/>
+		<link type="text/rcss" href="fontsizes.rcss"/>
+		<link type="text/rcss" href="mission_tactical.rcss"/>
+		<script>
+			controller = require("mission_tactical")()
+		</script>
+	</head>
+	<body onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)">
+		<div id="tactical-mission-ui" class="window">
+		</div>
+	</body>
+</rml>

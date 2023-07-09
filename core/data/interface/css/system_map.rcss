@@ -12,17 +12,6 @@ div#strat-map-window
 	width: 50%;
 	height: 50%;
 	padding: 24px;
-
-	background-decorator: tiled-box;
-	background-top-left-image: window.png 0px 0px 36px 36px;
-	background-left-image: window.png stretch 0px 36px 36px 378px;
-	background-bottom-left-image: window.png 0px 378px 36px 414px;
-	background-top-image: window.png stretch 36px 0px 378px 36px;
-	background-top-right-image: window.png 378px 0px 414px 36px;
-	background-right-image: window.png stretch 378px 36px 414px 378px;
-	background-bottom-right-image: window.png 378px 378px 414px 414px;
-	background-bottom-image: window.png stretch 36px 378px 378px 414px;
-	background-center-image: window.png stretch 36px 36px 378px 378px;
 }
 
 div#strat-map

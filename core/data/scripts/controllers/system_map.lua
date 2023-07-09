@@ -3,9 +3,6 @@ local GameState                          = require('game_state')
 local SystemMapDrawing                   = require('system_map_drawing')
 local SystemMapController              = class()
 
-SystemMapController.MODE_PLAYER_SELECT = 1
-SystemMapController.MODE_BARRACKS      = 2
-
 local drawMap = nil
 
 --Option to render briefing map to "texture" or directly to "screen"

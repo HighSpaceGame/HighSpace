@@ -1,6 +1,7 @@
 local dialogs                            = require('dialogs')
 local inspect                            = require('inspect')
-local utils                            = require('utils')
+local utils                              = require('utils')
+local MissionTacticalGameController      = require('game_missiontact')
 
 local game_state = {}
 
@@ -38,6 +39,9 @@ game_state.ships = {}
 
 game_state.missionLoaded = false;
 game_state.selected_ship = nil;
+game_state.tactical_view = false;
+
+game_state.MissionTactical = MissionTacticalGameController()
 
 function game_state.isOverShip(ship, x, y)
     local dist = ba.createVector(ship.Position.x - x, ship.Position.y - y)
@@ -196,6 +200,15 @@ engine.addHook("On Mission About To End", function()
             ba.println("Setting ship health: " .. inspect({ mn_ship.Name, mn_ship.HitpointsLeft, mn_ship.HitpointsMax, mn_ship.HitpointsLeft / mn_ship.HitpointsMax }))
             g_ship.Health = mn_ship.HitpointsLeft / mn_ship.HitpointsMax
         end
+    end
+end, {}, function()
+    return false
+end)
+
+engine.addHook("On Key Pressed", function()
+    ba.println("Key pressed: " .. hv.Key)
+    if ba.getCurrentGameState().Name == "GS_STATE_GAME_PLAY" and hv.Key == "Enter" then
+        game_state.MissionTactical:toggleMode()
     end
 end, {}, function()
     return false

@@ -1,0 +1,15 @@
+body
+{
+	z-index: bottom;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+}
+
+div#tactical-mission-ui
+{
+	margin: auto 0 auto auto;
+	width: 25%;
+	height: 75%;
+	padding: 24px;
+}
