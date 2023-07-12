@@ -6,7 +6,7 @@ body
 	height: 100%;
 }
 
-div#strat-map-window
+div#system-map-window
 {
 	margin: auto;
 	width: 50%;
@@ -14,7 +14,7 @@ div#strat-map-window
 	padding: 24px;
 }
 
-div#strat-map
+div#system-map
 {
 	width: 100%;
 	height: 100%;

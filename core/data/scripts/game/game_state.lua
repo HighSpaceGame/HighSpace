@@ -1,7 +1,7 @@
 local dialogs                            = require('dialogs')
 local inspect                            = require('inspect')
 local utils                              = require('utils')
-local MissionTacticalGameController      = require('game_missiontact')
+local MissionTacticalGameController      = require('game_mission_tact')
 
 local game_state = {}
 

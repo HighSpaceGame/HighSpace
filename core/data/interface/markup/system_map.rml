@@ -6,13 +6,13 @@
 		<link type="text/rcss" href="fontsizes.rcss"/>
 		<link type="text/rcss" href="system_map.rcss"/>
 		<script>
-			controller = require("system_map")()
+			controller = require("ui_system_map")()
 		</script>
 	</head>
 	<body onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)">
-		<div id="strat-map-window" class="window" >
-			<div id="strat-map" onmousemove="controller:mouseMove(event, document, element)"
-				 onmousedown="controller:mouseDown(event, document, element)" onmouseup="controller:mouseUp(event, document, element)"
+		<div id="system-map-window" class="window" >
+			<div id="system-map" onmousemove="controller:mouseMove(event, document, element)"
+				 onmousedown="controller:mouseDown(event, document, element)"
 				 onmousescroll="controller:wheel(event, document, element)"></div>
 		</div>
 	</body>

@@ -6,7 +6,7 @@
 		<link type="text/rcss" href="fontsizes.rcss"/>
 		<link type="text/rcss" href="mission_tactical.rcss"/>
 		<script>
-			controller = require("mission_tactical")()
+			controller = require("ui_mission_tact")()
 		</script>
 	</head>
 	<body onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)">

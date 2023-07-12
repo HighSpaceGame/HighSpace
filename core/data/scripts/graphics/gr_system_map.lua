@@ -1,4 +1,4 @@
-local system_map_drawing = {}
+local gr_system_map = {}
 
 local icon_map = {
     ["Terran"] = {
@@ -50,13 +50,13 @@ local getIconName = function(ship)
     return nil
 end
 
-system_map_drawing.camera = nil
-system_map_drawing.cam_x = 0.0
-system_map_drawing.cam_y = 0.0
-system_map_drawing.cam_angle = 0.0
-system_map_drawing.cam_dist = 50
+gr_system_map.camera = nil
+gr_system_map.cam_x = 0.0
+gr_system_map.cam_y = 0.0
+gr_system_map.cam_angle = 0.0
+gr_system_map.cam_dist = 50
 
-function system_map_drawing.drawIcon(ship)
+function gr_system_map.drawIcon(ship)
     local iconName = getIconName(ship)
     if iconName then
         gr.drawImageCentered(iconName.Texture, ship.Position.x, ship.Position.y, iconName.Width, iconName.Height, 0, 0, 1, 1, 1, true)
@@ -64,7 +64,7 @@ function system_map_drawing.drawIcon(ship)
     end
 end
 
-function system_map_drawing.drawMap(mouseX, mouseY, ships, drawTarget)
+function gr_system_map.drawMap(mouseX, mouseY, ships, drawTarget)
     gr.setTarget(drawTarget)
 
     gr.clearScreen(10, 10, 10, 255)
@@ -82,10 +82,10 @@ function system_map_drawing.drawMap(mouseX, mouseY, ships, drawTarget)
             gr.setColor(curr_ship.Team:getColor())
         end
 
-        system_map_drawing.drawIcon(curr_ship)
+        gr_system_map.drawIcon(curr_ship)
     end
 
     gr.setTarget()
 end
 
-return system_map_drawing
+return gr_system_map
