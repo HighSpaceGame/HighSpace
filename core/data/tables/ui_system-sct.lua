@@ -1,4 +1,5 @@
 local game_state = require("game_state")
+local game_mission_tact = require("game_mission_tact")
 local inspect = require("inspect")
 local utils = require("utils")
 

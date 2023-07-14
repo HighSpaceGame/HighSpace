@@ -1,11 +1,11 @@
+local class                              = require("class")
 local dialogs                            = require('dialogs')
 local inspect                            = require('inspect')
 local utils                              = require('utils')
-local MissionTacticalGameController      = require('game_mission_tact')
 
-local game_state = {}
+GameState = class()
 
-game_state.new_game_ships = {
+GameState.new_game_ships = {
     ['Trinity'] = {
         ['Species'] = 'Terran',
         ['Type'] = 'Cruiser',
@@ -35,49 +35,46 @@ game_state.new_game_ships = {
     },
 }
 
-game_state.ships = {}
+GameState.ships = {}
 
-game_state.missionLoaded = false;
-game_state.selected_ship = nil;
-game_state.tactical_view = false;
+GameState.missionLoaded = false;
+GameState.selected_ship = nil;
 
-game_state.MissionTactical = MissionTacticalGameController()
-
-function game_state.isOverShip(ship, x, y)
+function GameState.isOverShip(ship, x, y)
     local dist = ba.createVector(ship.Position.x - x, ship.Position.y - y)
     return dist:getMagnitude() < 40;
 end
 
-function game_state.selectShip(mouseX, mouseY)
-    if game_state.selected_ship ~= nil then
-        game_state.ships[game_state.selected_ship].IsSelected = false
-        game_state.selected_ship = nil
+function GameState.selectShip(mouseX, mouseY)
+    if GameState.selected_ship ~= nil then
+        GameState.ships[GameState.selected_ship].IsSelected = false
+        GameState.selected_ship = nil
     end
 
-    for shipName, ship in pairs(game_state.ships) do
-        if game_state.isOverShip(ship, mouseX, mouseY) then
-            game_state.selected_ship = shipName
-            game_state.ships[shipName].IsSelected = true
+    for shipName, ship in pairs(GameState.ships) do
+        if GameState.isOverShip(ship, mouseX, mouseY) then
+            GameState.selected_ship = shipName
+            GameState.ships[shipName].IsSelected = true
             ba.println("Selected ship: " .. ship.Name)
             return
         end
     end
 end
 
-function game_state.moveShip(mouseX, mouseY)
-    if game_state.selected_ship ~= nil then
-        local ship = game_state.ships[game_state.selected_ship]
+function GameState.moveShip(mouseX, mouseY)
+    if GameState.selected_ship ~= nil then
+        local ship = GameState.ships[GameState.selected_ship]
         if ship.Team.Name == 'Friendly' then
             ship.Position.x = mouseX
             ship.Position.y = mouseY
         end
 
-        game_state.ships[game_state.selected_ship].IsSelected = false
-        game_state.selected_ship = nil
+        GameState.ships[GameState.selected_ship].IsSelected = false
+        GameState.selected_ship = nil
     end
 end
 
-function game_state:initMissionShip(ship)
+function GameState:initMissionShip(ship)
     local center = ba.createVector(0,0,6000)
     ship.MissionShipInstance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center:randomInSphere(1000, true, false), ship.Team)
     ship.MissionShipInstance:giveOrder(ORDER_ATTACK_ANY)
@@ -89,28 +86,28 @@ function game_state:initMissionShip(ship)
     end
 end
 
-function game_state.processEncounters()
-    if game_state.missionLoaded and ba.getCurrentGameState().Name == 'GS_STATE_BRIEFING' then
+function GameState.processEncounters()
+    if GameState.missionLoaded and ba.getCurrentGameState().Name == 'GS_STATE_BRIEFING' then
         ba.println("Quick-starting game")
         ba.postGameEvent(ba.GameEvents["GS_EVENT_START_GAME_QUICK"])
     end
 
-    for _, ship1 in pairs(game_state.ships) do
+    for _, ship1 in pairs(GameState.ships) do
         if ship1.Team.Name == 'Friendly' then
             --ba.println("Ship1: " .. inspect({ship1.Name}))
-            for _, ship2 in pairs(game_state.ships) do
+            for _, ship2 in pairs(GameState.ships) do
                 --ba.println("Ship2: " .. inspect({ship2.Name}))
                 if ship1.Name ~= ship2.Name and ship2.Team.Name ~= 'Friendly' then
-                    if not game_state.missionLoaded and game_state.isOverShip(ship2, ship1.Position.x, ship1.Position.y) then
+                    if not GameState.missionLoaded and GameState.isOverShip(ship2, ship1.Position.x, ship1.Position.y) then
                         ba.println("Loading mission" .. inspect(ba.getCurrentGameState()))
-                        game_state.missionLoaded = mn.loadMission("BeamsFree.fs2")
-                        ba.println("Mission loaded: " .. inspect({ game_state.missionLoaded, ba.getCurrentGameState() }))
+                        GameState.missionLoaded = mn.loadMission("BeamsFree.fs2")
+                        ba.println("Mission loaded: " .. inspect({ GameState.missionLoaded, ba.getCurrentGameState() }))
 
-                        if game_state.missionLoaded then
-                            game_state:initMissionShip(ship1)
-                            game_state:initMissionShip(ship2)
+                        if GameState.missionLoaded then
+                            GameState:initMissionShip(ship1)
+                            GameState:initMissionShip(ship2)
 
-                            ba.println("Ships Created: " .. inspect(game_state.ships))
+                            ba.println("Ships Created: " .. inspect(GameState.ships))
                         end
                     end
                 end
@@ -121,7 +118,7 @@ end
 
 local showingDialog = false
 
-function game_state.showDialog(title, text, textClass)
+function GameState.showDialog(title, text, textClass)
     local test_dialog = dialogs.new()
     test_dialog:title(title)
     test_dialog:text(text)
@@ -134,7 +131,7 @@ function game_state.showDialog(title, text, textClass)
     end)
 end
 
-function game_state.checkGameOver()
+function GameState.checkGameOver()
     if showingDialog then
         return
     end
@@ -143,30 +140,30 @@ function game_state.checkGameOver()
         ["Friendly"] = 0,
         ["Hostile"] = 0,
     }
-    for _, ship in pairs(game_state.ships) do
+    for _, ship in pairs(GameState.ships) do
         ship_count[ship.Team.Name] = ship_count[ship.Team.Name]+1
     end
 
     if ship_count["Friendly"] <= 0 then
-        game_state.showDialog(ba.XSTR("Game Over", -1), ba.XSTR("You LOSE!", -1), "lose_text")
+        GameState.showDialog(ba.XSTR("Game Over", -1), ba.XSTR("You LOSE!", -1), "lose_text")
     elseif ship_count["Hostile"] <= 0 then
-        game_state.showDialog(ba.XSTR("Game Over", -1), ba.XSTR("You WIN!", -1), "win_text")
+        GameState.showDialog(ba.XSTR("Game Over", -1), ba.XSTR("You WIN!", -1), "win_text")
     end
 end
 
-function game_state.stateChanged()
+function GameState.stateChanged()
     local state = hv.NewState or ba.getCurrentGameState()
     ba.println("Starting State: " .. inspect({state.Name, hv.OldState.Name}))
 
     if state.Name == "GS_STATE_BRIEFING" then
-        game_state.checkGameOver()
+        GameState.checkGameOver()
     elseif state.Name == "GS_STATE_START_GAME" and hv.OldState.Name == "GS_STATE_MAIN_MENU" then
         ba.println("Setting up new game")
-        game_state.ships = utils.table.copy(game_state.new_game_ships)
-        ba.println("Template table: " .. inspect(game_state.new_game_ships))
-        ba.println("Game state table: " .. inspect(game_state.ships))
+        GameState.ships = utils.table.copy(GameState.new_game_ships)
+        ba.println("Template table: " .. inspect(GameState.new_game_ships))
+        ba.println("Game state table: " .. inspect(GameState.ships))
     elseif state.Name == "GS_STATE_DEBRIEF" then
-        game_state.missionLoaded = false
+        GameState.missionLoaded = false
         ba.println("Mission over")
         ba.println("Switching STATES: GS_EVENT_CMD_BRIEF")
         ba.postGameEvent(ba.GameEvents["GS_EVENT_CMD_BRIEF"])
@@ -175,8 +172,8 @@ end
 
 engine.addHook("On Ship Death Started", function()
     ba.println("Ship Died: " .. inspect({ hv.Ship, hv.Killer, hv.Hitpos }))
-    if game_state.ships[hv.Ship.Name] then
-        game_state.ships[hv.Ship.Name] = nil
+    if GameState.ships[hv.Ship.Name] then
+        GameState.ships[hv.Ship.Name] = nil
     end
 end, {}, function()
     return false
@@ -184,8 +181,8 @@ end)
 
 engine.addHook("On Ship Depart", function()
     ba.println("Ship Departed: " .. inspect({ hv.Ship, hv.JumpNode, hv.Method }))
-    if game_state.ships[hv.Ship.Name] then
-        game_state.ships[hv.Ship.Name].Health = hv.Ship.HitpointsLeft / hv.Ship.HitpointsMax
+    if GameState.ships[hv.Ship.Name] then
+        GameState.ships[hv.Ship.Name].Health = hv.Ship.HitpointsLeft / hv.Ship.HitpointsMax
     end
 end, {}, function()
     return false
@@ -195,7 +192,7 @@ engine.addHook("On Mission About To End", function()
     ba.println("Mission About To End")
     for si = 1, #mn.Ships do
         local mn_ship = mn.Ships[si]
-        local g_ship = game_state.ships[mn_ship.Name]
+        local g_ship = GameState.ships[mn_ship.Name]
         if g_ship then
             ba.println("Setting ship health: " .. inspect({ mn_ship.Name, mn_ship.HitpointsLeft, mn_ship.HitpointsMax, mn_ship.HitpointsLeft / mn_ship.HitpointsMax }))
             g_ship.Health = mn_ship.HitpointsLeft / mn_ship.HitpointsMax
@@ -208,7 +205,7 @@ end)
 engine.addHook("On Key Pressed", function()
     ba.println("Key pressed: " .. hv.Key)
     if ba.getCurrentGameState().Name == "GS_STATE_GAME_PLAY" and hv.Key == "Enter" then
-        game_state.MissionTactical:toggleMode()
+        GameMissionTactical:toggleMode()
     end
 end, {}, function()
     return false
@@ -216,10 +213,10 @@ end)
 
 engine.addHook("On Frame", function()
     if ba.getCurrentGameState().Name == "GS_STATE_BRIEFING" then
-        game_state.processEncounters()
+        GameState.processEncounters()
     end
 end, {}, function()
     return false
 end)
 
-return game_state
+return GameState

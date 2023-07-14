@@ -1,17 +1,18 @@
 local class                                      = require("class")
 local inspect                                    = require('inspect')
 
-local MissionTacticalGameController              = class()
+GameMissionTactical = class()
 
-MissionTacticalGameController.ShowTacticalView = false
-MissionTacticalGameController.TacticalCamera = nil
+GameMissionTactical.ShowTacticalView = false
+GameMissionTactical.TacticalCamera = nil
+GameMissionTactical.SelectedShips = {}
 
-function MissionTacticalGameController:init()
+function GameMissionTactical:init()
     --RocketUiSystem.skip_ui["GS_STATE_GAME_PLAY"] = true
     --ba.println("Skipping state set: " .. inspect(RocketUiSystem.skip_ui))
 end
 
-function MissionTacticalGameController:switchCamera()
+function GameMissionTactical:switchCamera()
     if self.ShowTacticalView then
         ba.println("camera: " .. inspect(self.TacticalCamera))
         if not self.TacticalCamera or not self.TacticalCamera:isValid() then
@@ -28,7 +29,7 @@ function MissionTacticalGameController:switchCamera()
     end
 end
 
-function MissionTacticalGameController:toggleMode()
+function GameMissionTactical:toggleMode()
     self.ShowTacticalView = not self.ShowTacticalView
 
     self:switchCamera()
@@ -42,5 +43,16 @@ function MissionTacticalGameController:toggleMode()
     end
 end
 
+function GameMissionTactical:selectShips(selFrom, selTo)
+    self.SelectedShips = {}
+    for ship_name, ship in pairs(GameState.ships) do
+        if ship.MissionShipInstance then
+            local x, y = ship.MissionShipInstance.Position:getScreenCoords()
+            if x > selFrom.x and y > selFrom.y and x < selTo.x and y < selTo.y then
+                self.SelectedShips[ship_name] = ship
+            end
+        end
+    end
+end
 
-return MissionTacticalGameController
+return GameMissionTactical

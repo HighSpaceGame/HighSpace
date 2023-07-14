@@ -3,16 +3,27 @@ local inspect                            = require('inspect')
 local GameState                          = require('game_state')
 local GrSystemMap                        = require('gr_system_map')
 local UIController                       = require('ui_controller')
-local SystemMapController                = class(UIController)
+local SystemMapController                = class(UIController)()
 
 local draw_map = nil
 
-function SystemMapController:init()
+function SystemMapController:initialize(document)
+    self.document  = document
+
     ba.println("SystemMapController:init()")
 
     draw_map = {
         tex = nil,
     }
+
+    local system_map = self.document:GetElementById("system-map")
+    draw_map.tex = gr.createTexture(system_map.offset_width, system_map.offset_height)
+    draw_map.url = ui.linkTexture(draw_map.tex)
+    draw_map.draw = true
+
+    local aniEl = self.document:CreateElement("img")
+    aniEl:SetAttribute("src", draw_map.url)
+    system_map:ReplaceChild(aniEl, system_map.first_child)
 
     -- This hook is only necessary because of the direct draw calls (i.e. drawMap) we use in this view. Views that can be
     -- implemented in libRocket only don't need an onFrame hook
@@ -23,19 +34,6 @@ function SystemMapController:init()
     end, {}, function()
         return false
     end)
-end
-
-function SystemMapController:initialize(document)
-    self.document  = document
-
-    local system_map = self.document:GetElementById("system-map")
-    draw_map.tex = gr.createTexture(system_map.offset_width, system_map.offset_height)
-    draw_map.url = ui.linkTexture(draw_map.tex)
-    draw_map.draw = true
-
-    local aniEl = self.document:CreateElement("img")
-    aniEl:SetAttribute("src", draw_map.url)
-    system_map:ReplaceChild(aniEl, system_map.first_child)
 end
 
 function SystemMapController:wheel(event, _, _)

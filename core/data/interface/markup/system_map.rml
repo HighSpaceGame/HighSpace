@@ -6,7 +6,7 @@
 		<link type="text/rcss" href="fontsizes.rcss"/>
 		<link type="text/rcss" href="system_map.rcss"/>
 		<script>
-			controller = require("ui_system_map")()
+			controller = require("ui_system_map")
 		</script>
 	</head>
 	<body onload="controller:initialize(document)" onkeydown="controller:global_keydown(element, event)">
