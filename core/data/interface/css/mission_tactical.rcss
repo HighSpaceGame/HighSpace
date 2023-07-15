@@ -13,3 +13,38 @@ div#tactical-mission-ui
 	height: 75%;
 	padding: 24px;
 }
+
+.selected-ship-container
+{
+	margin: auto;
+	width: 100%;
+	padding: 24px;
+}
+
+.selected-ship
+{
+	width: 50%;
+	float:left;
+}
+
+.selected-ship-target
+{
+	width: 50%;
+	float:right;
+}
+
+.ship-icon
+{
+	margin: auto;
+	width: 100%;
+	height: 100px;
+	padding: 24px;
+	color: #00aa00;
+}
+
+.ship-info
+{
+	margin: auto;
+	width: 100%;
+	display: block;
+}

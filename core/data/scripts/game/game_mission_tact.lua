@@ -3,7 +3,7 @@ local inspect                                    = require('inspect')
 
 GameMissionTactical = class()
 
-GameMissionTactical.ShowTacticalView = false
+GameMissionTactical.TacticalMode = false
 GameMissionTactical.TacticalCamera = nil
 GameMissionTactical.SelectedShips = {}
 
@@ -13,7 +13,7 @@ function GameMissionTactical:init()
 end
 
 function GameMissionTactical:switchCamera()
-    if self.ShowTacticalView then
+    if self.TacticalMode then
         ba.println("camera: " .. inspect(self.TacticalCamera))
         if not self.TacticalCamera or not self.TacticalCamera:isValid() then
             self.TacticalCamera = gr.createCamera("TactMapCamera", ba.createVector(0, 3000, 6000), ba.createOrientationFromVectors(ba.createVector(0, -1, 0)))
@@ -29,14 +29,18 @@ function GameMissionTactical:switchCamera()
     end
 end
 
+function GameMissionTactical:showTacticalView()
+    return (self.TacticalMode and ba.getCurrentGameState().Name == "GS_STATE_GAME_PLAY")
+end
+
 function GameMissionTactical:toggleMode()
-    self.ShowTacticalView = not self.ShowTacticalView
+    self.TacticalMode = not self.TacticalMode
 
     self:switchCamera()
-    RocketUiSystem.skip_ui["GS_STATE_GAME_PLAY"] = not self.ShowTacticalView
-    hu.HUDDrawn = not self.ShowTacticalView
-    io.setCursorHidden(not self.ShowTacticalView)
-    if self.ShowTacticalView then
+    RocketUiSystem.skip_ui["GS_STATE_GAME_PLAY"] = not self.TacticalMode
+    hu.HUDDrawn = not self.TacticalMode
+    io.setCursorHidden(not self.TacticalMode)
+    if self.TacticalMode then
         ui.enableInput(RocketUiSystem.context)
     else
         ui.disableInput()

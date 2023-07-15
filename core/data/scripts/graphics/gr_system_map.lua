@@ -1,66 +1,12 @@
+local gr_common = require('gr_common')
+
 local gr_system_map = {}
 
-local icon_map = {
-    ["Terran"] = {
-        ["Fighter"] = {["Texture"] = gr.loadTexture("iconT-fighter", true, true),},
-        ["Bomber"] = {["Texture"] = gr.loadTexture("icont-bomber", true, true),},
-        ["Cruiser"] = {["Texture"] = gr.loadTexture("icont-cruiser", true, true),},
-        ["Corvette"] = {["Texture"] = gr.loadTexture("iconT-vette", true, true),},
-        ["Capital"] = {["Texture"] = gr.loadTexture("icont-cap", true, true),},
-        ["Super Cap"] = {["Texture"] = gr.loadTexture("icont-super", true, true),},
-        ["Transport"] = {["Texture"] = gr.loadTexture("icont-transport", true, true),},
-    },
-    ["Vasudan"] = {
-        ["Fighter"] = {["Texture"] = gr.loadTexture("iconV-fighter", true, true),},
-        ["Bomber"] = {["Texture"] = gr.loadTexture("iconv-bomber", true, true),},
-        ["Cruiser"] = {["Texture"] = gr.loadTexture("iconv-cruiser", true, true),},
-        ["Corvette"] = {["Texture"] = gr.loadTexture("iconV-vette", true, true),},
-        ["Capital"] = {["Texture"] = gr.loadTexture("iconv-cap", true, true),},
-        ["Transport"] = {["Texture"] = gr.loadTexture("iconv-transport", true, true),},
-    },
-    ["Shivan"] = {
-        ["Fighter"] = {["Texture"] = gr.loadTexture("iconS-fighter", true, true),},
-        ["Bomber"] = {["Texture"] = gr.loadTexture("icons-bomber", true, true),},
-        ["Cruiser"] = {["Texture"] = gr.loadTexture("icons-cruiser", true, true),},
-        ["Corvette"] = {["Texture"] = gr.loadTexture("iconS-vette", true, true),},
-        ["Capital"] = {["Texture"] = gr.loadTexture("icons-cap", true, true),},
-        ["Super Cap"] = {["Texture"] = gr.loadTexture("icons-super", true, true),},
-        ["Transport"] = {["Texture"] = gr.loadTexture("icons-transport", true, true),},
-    },
-}
-
-local team_selected_colors = {
-    ["Friendly"] = {["r"] = 0, ["g"] = 255, ["b"] = 255},
-    ["Hostile"] = {["r"] = 255, ["g"] = 255, ["b"] = 0},
-}
-
-for species, shipTypes in pairs(icon_map) do
-    for type, texInfo in pairs(shipTypes) do
-        icon_map[species][type].Height = texInfo.Texture:getHeight()
-        icon_map[species][type].Width = texInfo.Texture:getWidth()
-    end
-end
-
-local getIconName = function(ship)
-    if icon_map[ship.Species] and icon_map[ship.Species][ship.Type] then
-        return icon_map[ship.Species][ship.Type]
-    end
-
-    ba.println("ICON NOT FOUND: " .. ship.Species .. " " .. ship.Type)
-    return nil
-end
-
-gr_system_map.camera = nil
-gr_system_map.cam_x = 0.0
-gr_system_map.cam_y = 0.0
-gr_system_map.cam_angle = 0.0
-gr_system_map.cam_dist = 50
-
 function gr_system_map.drawIcon(ship)
-    local iconName = getIconName(ship)
-    if iconName then
-        gr.drawImageCentered(iconName.Texture, ship.Position.x, ship.Position.y, iconName.Width, iconName.Height, 0, 0, 1, 1, 1, true)
-        gr.drawImageCentered(iconName.Texture, ship.Position.x, ship.Position.y, iconName.Width, iconName.Height, 0, 0, 1, 1, 1, true)
+    local icon = gr_common.getIconForShip(ship)
+    if icon then
+        gr.drawImageCentered(icon.Texture, ship.Position.x, ship.Position.y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
+        gr.drawImageCentered(icon.Texture, ship.Position.x, ship.Position.y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
     end
 end
 
@@ -72,7 +18,7 @@ function gr_system_map.drawMap(mouseX, mouseY, ships, drawTarget)
 
     for _, curr_ship in pairs(ships) do
         if curr_ship.IsSelected then
-            local selectedColor = team_selected_colors[curr_ship.Team.Name]
+            local selectedColor = gr_common.team_selected_colors[curr_ship.Team.Name]
             gr.setColor(selectedColor.r, selectedColor.g, selectedColor.b)
 
             if curr_ship.Team.Name == 'Friendly' then

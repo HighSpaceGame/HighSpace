@@ -12,7 +12,6 @@ UIController.mouse = {
         [0] = false,
         [1] = false,
         [2] = false,
-
     }
 }
 

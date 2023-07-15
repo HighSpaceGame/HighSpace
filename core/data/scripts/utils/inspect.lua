@@ -377,7 +377,7 @@ end
 
 setmetatable(inspect, {
     __call = function(_, root, options)
-        return inspect.dump(root)
+        return inspect.inspect(root)
         --return inspect.inspect(root, options)
     end,
 })

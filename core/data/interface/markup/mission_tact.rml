@@ -1,6 +1,6 @@
 <rml>
 	<head>
-		<title>XSTR("System Map", -1)</title>
+		<title>XSTR("Tactical View", -1)</title>
 		<link type="text/rcss" href="common.rcss"/>
 		<link type="text/rcss" href="default.rcss"/>
 		<link type="text/rcss" href="fontsizes.rcss"/>
@@ -16,6 +16,24 @@
 		  onmouseup="controller:mouseUp(event, document, element)"
 	>
 		<div id="tactical-mission-ui" class="window">
+			<div id="selected-ships">
+				<div class="selected-ship-container hidden">
+					<div class="selected-ship">
+						<span class="ship-info">XSTR("Selected Ship:", -1)</span>
+						<img class="ship-icon" />
+						<span class="ship-info">Ship Name</span>
+						<span class="ship-info">Ship Class</span>
+						<span class="ship-info">Ship Health</span>
+					</div>
+					<div class="selected-ship-target">
+						<span class="ship-info">XSTR("Selected Ship's Target:", -1)</span>
+						<img class="ship-icon" />
+						<span class="ship-info">Ship Name</span>
+						<span class="ship-info">Ship Class</span>
+						<span class="ship-info">Ship Health</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </rml>

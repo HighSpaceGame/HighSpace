@@ -5,7 +5,7 @@ local utils                              = require('utils')
 
 GameState = class()
 
-GameState.new_game_ships = {
+local new_game_ships = {
     ['Trinity'] = {
         ['Species'] = 'Terran',
         ['Type'] = 'Cruiser',
@@ -159,8 +159,8 @@ function GameState.stateChanged()
         GameState.checkGameOver()
     elseif state.Name == "GS_STATE_START_GAME" and hv.OldState.Name == "GS_STATE_MAIN_MENU" then
         ba.println("Setting up new game")
-        GameState.ships = utils.table.copy(GameState.new_game_ships)
-        ba.println("Template table: " .. inspect(GameState.new_game_ships))
+        GameState.ships = utils.table.copy(new_game_ships)
+        ba.println("Template table: " .. inspect(new_game_ships))
         ba.println("Game state table: " .. inspect(GameState.ships))
     elseif state.Name == "GS_STATE_DEBRIEF" then
         GameState.missionLoaded = false
