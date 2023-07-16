@@ -76,8 +76,15 @@ end
 
 function GameState:initMissionShip(ship)
     local center = ba.createVector(0,0,6000)
-    ship.MissionShipInstance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center:randomInSphere(1000, true, false), ship.Team)
-    ship.MissionShipInstance:giveOrder(ORDER_ATTACK_ANY)
+
+    if ship.Team.Name == "Friendly" then
+        center = ba.createVector(-1000,0,6000)
+    else
+        center = ba.createVector(1000,0,6000)
+    end
+    ship.MissionShipInstance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center, ship.Team)
+    --ship.MissionShipInstance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center:randomInSphere(1000, true, false), ship.Team)
+    --ship.MissionShipInstance:giveOrder(ORDER_ATTACK_ANY)
 
     if ship.Health == nil then
         ship.Health = 1.0

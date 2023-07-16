@@ -1,5 +1,6 @@
 local class                                      = require("class")
-local inspect                                    = require('inspect')
+local inspect                                    = require("inspect")
+local Utils                                      = require("utils")
 
 GameMissionTactical = class()
 
@@ -52,9 +53,49 @@ function GameMissionTactical:selectShips(selFrom, selTo)
     for ship_name, ship in pairs(GameState.ships) do
         if ship.MissionShipInstance then
             local x, y = ship.MissionShipInstance.Position:getScreenCoords()
-            if x > selFrom.x and y > selFrom.y and x < selTo.x and y < selTo.y then
+            if Utils.math.isInsideBox({["x"] = x, ["y"] = y}, selFrom, selTo) then
                 self.SelectedShips[ship_name] = ship
+                ba.println("Selecting: " .. inspect({ ship.Name, tostring(ship.MissionShipInstance.Target), ship.MissionShipInstance.Target:getBreedName(), ship.MissionShipInstance.Target:isValid() }))
             end
+        end
+    end
+end
+
+function GameMissionTactical:giveRightClickCommand(targetCursor)
+    local order = nil
+    local target = nil
+    for _, ship in pairs(GameState.ships) do
+        if ship.MissionShipInstance then
+            local x1, y1, x2, y2 = gr.drawTargetingBrackets(ship.MissionShipInstance, false)
+            if Utils.math.isInsideBox(targetCursor, {["x"] = x1, ["y"] = y1}, {["x"] = x2, ["y"] = y2}) then
+                target = ship
+                break
+            end
+        end
+    end
+
+    if target then
+        if target.Team.Name == "Friendly" then
+            order = ORDER_GUARD
+        elseif target.Team.Name == "Hostile" then
+            order = ORDER_ATTACK
+        end
+
+        target = target.MissionShipInstance
+        ba.println("Giving Order: " .. inspect({ order, target.Name }))
+    else
+        local vec = gr.getVectorFromCoords(targetCursor.x, targetCursor.y, 0, true) - GameMissionTactical.TacticalCamera.Position
+        local vec_size = 1.0 / math.abs(vec.y) * math.abs(GameMissionTactical.TacticalCamera.Position.y)
+        vec = GameMissionTactical.TacticalCamera.Position + vec * vec_size
+        target = mn.createWaypoint(vec)
+        order = ORDER_WAYPOINTS_ONCE
+        ba.println("Giving Move Order: " .. inspect({ target, target:getList().Name, vec.x, vec.y, vec.z }))
+    end
+
+    for _, ship in pairs(self.SelectedShips) do
+        if target and ship.MissionShipInstance and ship.MissionShipInstance ~= target then
+            ship.MissionShipInstance:clearOrders()
+            ship.MissionShipInstance:giveOrder(order, target)
         end
     end
 end

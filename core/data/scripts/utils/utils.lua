@@ -1,6 +1,7 @@
 local utils = {}
 
 utils.table = {}
+utils.math = {}
 
 function utils.strip_extension(name)
     return string.gsub(name, "%..+$", "")
@@ -185,6 +186,10 @@ function utils.table.copy(tbl)
         copy = tbl
     end
     return copy
+end
+
+function utils.math.isInsideBox(point, boxStart, boxEnd)
+    return (point.x > boxStart.x and point.y > boxStart.y and point.x < boxEnd.x and point.y < boxEnd.y)
 end
 
 return utils

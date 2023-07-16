@@ -35,6 +35,7 @@ local update_selection_info = function()
         if ship.MissionShipInstance.Target and ship.MissionShipInstance.Target:isValid() then
             local target_ship = GameState.ships[ship.MissionShipInstance.Target.Name]
             set_ship_info(selected_ships_container.last_child.first_child, target_ship)
+            selected_ships_container.last_child:SetClass("hidden", false)
         else
             selected_ships_container.last_child:SetClass("hidden", true)
         end
@@ -57,6 +58,8 @@ function MissionTacticalController:mouseDown(event, document, element)
 
     if event.parameters.button == UIController.MOUSE_BUTTON_LEFT then
         self.selectionFrom = { ["x"] = self.mouse.x, ["y"] = self.mouse.y }
+    elseif event.parameters.button == UIController.MOUSE_BUTTON_RIGHT then
+        GameMissionTactical:giveRightClickCommand({ ["x"] = self.mouse.x, ["y"] = self.mouse.y })
     end
 end
 
