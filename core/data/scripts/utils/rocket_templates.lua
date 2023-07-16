@@ -1,4 +1,4 @@
-local module = {}
+local Module = {}
 
 local function process_template_if(if_el, parameters)
     if parameters == nil or type(parameters) ~= "table" then
@@ -82,7 +82,7 @@ local function process_template_directives(element, parameters)
     end
 end
 
-function module.instantiate_template(document, template_id, element_id, template_classes, parameters)
+function Module.instantiateTemplate(document, template_id, element_id, template_classes, parameters)
     parameters      = parameters or {}
     local template  = document:GetElementById(template_id)
 
@@ -106,4 +106,4 @@ function module.instantiate_template(document, template_id, element_id, template
     return actual_el, unpack(template_els, 1, #template_classes)
 end
 
-return module
+return Module

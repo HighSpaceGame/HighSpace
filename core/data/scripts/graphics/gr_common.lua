@@ -1,6 +1,6 @@
-local gr_common = {}
+local GrCommon = {}
 
-gr_common.icon_map = {
+GrCommon.IconMap = {
     ["Terran"] = {
         ["Fighter"] = {["Texture"] = gr.loadTexture("iconT-fighter", true, true),},
         ["Bomber"] = {["Texture"] = gr.loadTexture("icont-bomber", true, true),},
@@ -29,26 +29,26 @@ gr_common.icon_map = {
     },
 }
 
-for species, shipTypes in pairs(gr_common.icon_map) do
+for species, shipTypes in pairs(GrCommon.IconMap) do
     for type, texInfo in pairs(shipTypes) do
-        gr_common.icon_map[species][type].Height = texInfo.Texture:getHeight()
-        gr_common.icon_map[species][type].Width  = texInfo.Texture:getWidth()
-        gr_common.icon_map[species][type].Url    = ui.linkTexture(gr_common.icon_map[species][type].Texture)
+        GrCommon.IconMap[species][type].Height = texInfo.Texture:getHeight()
+        GrCommon.IconMap[species][type].Width  = texInfo.Texture:getWidth()
+        GrCommon.IconMap[species][type].Url    = ui.linkTexture(GrCommon.IconMap[species][type].Texture)
     end
 end
 
-gr_common.team_selected_colors = {
-    ["Friendly"] = {["r"] = 0, ["g"] = 255, ["b"] = 255},
-    ["Hostile"] = {["r"] = 255, ["g"] = 255, ["b"] = 0},
+GrCommon.TeamSelectedColors = {
+    ["Friendly"] = {["R"] = 0, ["G"] = 255, ["B"] = 255},
+    ["Hostile"] = {["R"] = 255, ["G"] = 255, ["B"] = 0},
 }
 
-function gr_common.getIconForShip(ship)
-    if gr_common.icon_map[ship.Species] and gr_common.icon_map[ship.Species][ship.Type] then
-        return gr_common.icon_map[ship.Species][ship.Type]
+function GrCommon.getIconForShip(ship)
+    if GrCommon.IconMap[ship.Species] and GrCommon.IconMap[ship.Species][ship.Type] then
+        return GrCommon.IconMap[ship.Species][ship.Type]
     end
 
     ba.println("ICON NOT FOUND: " .. ship.Species .. " " .. ship.Type)
     return nil
 end
 
-return gr_common
+return GrCommon

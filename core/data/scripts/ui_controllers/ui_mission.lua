@@ -1,12 +1,12 @@
-local class                              = require("class")
-local inspect                            = require('inspect')
+local Class                              = require("class")
+local Inspect                            = require('inspect')
 local UIController                       = require('ui_controller')
 local GrCommon                           = require('gr_common')
-local GrMissionTact                      = require('gr_mission_tact')
+local GrMission                          = require('gr_mission')
 
-local MissionTacticalController          = class(UIController)()
+local MissionTacticalUIController = Class(UIController)()
 
-MissionTacticalController.selectionFrom = nil
+MissionTacticalUIController.SelectionFrom = nil
 
 local set_ship_info = function(elem, ship)
     if elem and ship then
@@ -24,16 +24,16 @@ local set_ship_info = function(elem, ship)
 end
 
 local update_selection_info = function()
-    local selected_ships_container = MissionTacticalController.document:GetElementById("selected-ships").first_child
+    local selected_ships_container = MissionTacticalUIController.Document:GetElementById("selected-ships").first_child
     selected_ships_container:SetClass("hidden", true)
 
-    for _, ship in pairs(GameMissionTactical.SelectedShips) do
+    for _, ship in pairs(GameMission.SelectedShips) do
         selected_ships_container:SetClass("hidden", false)
 
         set_ship_info(selected_ships_container.first_child.first_child, ship)
 
         if ship.MissionShipInstance.Target and ship.MissionShipInstance.Target:isValid() then
-            local target_ship = GameState.ships[ship.MissionShipInstance.Target.Name]
+            local target_ship = GameState.Ships[ship.MissionShipInstance.Target.Name]
             set_ship_info(selected_ships_container.last_child.first_child, target_ship)
             selected_ships_container.last_child:SetClass("hidden", false)
         else
@@ -44,55 +44,55 @@ local update_selection_info = function()
     end
 end
 
-function MissionTacticalController:initialize(document)
-    self.document  = document
+function MissionTacticalUIController:initialize(document)
+    self.Document = document
 end
 
-function MissionTacticalController:wheel(event, _, _)
+function MissionTacticalUIController:wheel(event, _, _)
     --placeholder
     --SystemMapDrawing.cam_dist = SystemMapDrawing.cam_dist * (1+event.parameters.wheel_delta * 0.1)
 end
 
-function MissionTacticalController:mouseDown(event, document, element)
+function MissionTacticalUIController:mouseDown(event, document, element)
     self:storeMouseDown(event, document, element)
 
     if event.parameters.button == UIController.MOUSE_BUTTON_LEFT then
-        self.selectionFrom = { ["x"] = self.mouse.x, ["y"] = self.mouse.y }
+        self.SelectionFrom = { ["X"] = self.Mouse.X, ["Y"] = self.Mouse.Y }
     elseif event.parameters.button == UIController.MOUSE_BUTTON_RIGHT then
-        GameMissionTactical:giveRightClickCommand({ ["x"] = self.mouse.x, ["y"] = self.mouse.y })
+        GameMission:giveRightClickCommand({ ["X"] = self.Mouse.X, ["Y"] = self.Mouse.Y })
     end
 end
 
-function MissionTacticalController:mouseUp(event, document, element)
+function MissionTacticalUIController:mouseUp(event, document, element)
     self:storeMouseUp(event, document, element)
 
     if event.parameters.button == UIController.MOUSE_BUTTON_LEFT then
-        GameMissionTactical:selectShips(self.selectionFrom, { ["x"] = self.mouse.x, ["y"] = self.mouse.y })
+        GameMission:selectShips(self.SelectionFrom, { ["X"] = self.Mouse.X, ["Y"] = self.Mouse.Y })
 
-        self.selectionFrom = nil
+        self.SelectionFrom = nil
     end
 end
 
-function MissionTacticalController:mouseMove(event, document, element)
+function MissionTacticalUIController:mouseMove(event, document, element)
     self:storeMouseMove(event, document, element)
 end
 
-function MissionTacticalController:global_keydown(_, event)
+function MissionTacticalUIController:keyDown(_, event)
     if event.parameters.key_identifier == rocket.key_identifier.RETURN then
         event:StopPropagation()
 
-        GameMissionTactical:toggleMode()
+        GameMission:toggleMode()
     end
 end
 
 engine.addHook("On Frame", function()
-    if GameMissionTactical:showTacticalView() then
-        GrMissionTact.drawSelectionBox(MissionTacticalController.selectionFrom, MissionTacticalController.mouse)
-        GrMissionTact.drawSelectionBrackets()
+    if GameMission:showTacticalView() then
+        GrMission.drawSelectionBox(MissionTacticalUIController.SelectionFrom, MissionTacticalUIController.Mouse)
+        GrMission.drawSelectionBrackets()
         update_selection_info()
     end
 end, {}, function()
     return false
 end)
 
-return MissionTacticalController
+return MissionTacticalUIController

@@ -1,13 +1,13 @@
-local utils = {}
+local Utils = {}
 
-utils.table = {}
-utils.math = {}
+Utils.Table = {}
+Utils.Math = {}
 
-function utils.strip_extension(name)
+function Utils.stripExtension(name)
     return string.gsub(name, "%..+$", "")
 end
 
-function utils.split(inputstr, sep)
+function Utils.split(inputstr, sep)
     if sep == nil then
         sep = "%s"
     end
@@ -18,7 +18,7 @@ function utils.split(inputstr, sep)
     return t
 end
 
-function utils.loadConfig(filename)
+function Utils.loadConfig(filename)
   -- Load the config file.
   local file = cf.openFile(filename, 'r', 'data/config')
   local config = require('dkjson').decode(file:read('*a'))
@@ -29,7 +29,7 @@ function utils.loadConfig(filename)
   return config
 end
 
-function utils.xstr(message)
+function Utils.xstr(message)
   if type(message) == 'string' then
     ba.print('SCPUI: Got string with missing XSTR index: ' .. message .. "\n")
     return message
@@ -43,7 +43,7 @@ end
 ---@param patterns string[]
 ---@param startIdx number
 ---
-function utils.find_first_either(str, patterns, startIdx)
+function Utils.findFirstEither(str, patterns, startIdx)
     local firstResult = nil
     for i, v in ipairs(patterns) do
         local values = { str:find(v, startIdx) }
@@ -67,7 +67,7 @@ end
 ---
 --- @param inputStr string
 --- @return string
-function utils.rml_escape(inputStr)
+function Utils.rmlEscape(inputStr)
     return inputStr:gsub('[<>&"]', function(char)
         if char == "<" then
             return "&lt;"
@@ -87,7 +87,7 @@ function utils.rml_escape(inputStr)
     end)
 end
 
-function utils.table.ifind(tbl, val, compare)
+function Utils.Table.ifind(tbl, val, compare)
     for i, v in ipairs(tbl) do
         if compare ~= nil then
             if compare(v, val) then
@@ -103,7 +103,7 @@ function utils.table.ifind(tbl, val, compare)
     return -1
 end
 
-function utils.table.find(tbl, val, compare)
+function Utils.Table.find(tbl, val, compare)
     for i, v in pairs(tbl) do
         if compare ~= nil then
             if compare(v, val) then
@@ -119,12 +119,12 @@ function utils.table.find(tbl, val, compare)
     return nil
 end
 
-function utils.table.contains(tbl, val, compare)
-    return utils.table.find(tbl, val, compare) ~= nil
+function Utils.Table.contains(tbl, val, compare)
+    return Utils.Table.find(tbl, val, compare) ~= nil
 end
 
-function utils.table.iremove_el(tbl, val, compare)
-    local i = utils.table.ifind(tbl, val, compare)
+function Utils.Table.iremoveEl(tbl, val, compare)
+    local i = Utils.Table.ifind(tbl, val, compare)
     if i >= 1 then
         table.remove(tbl, i)
     end
@@ -137,7 +137,7 @@ end
 --- @param tbl T[]
 --- @param map_fun fun(el:T):V
 --- @return V[]
-function utils.table.map(tbl, map_fun)
+function Utils.Table.map(tbl, map_fun)
     local out = {}
     for i, v in ipairs(tbl) do
         out[i] = map_fun(v)
@@ -152,7 +152,7 @@ end
 --- @param reduceFn fun(accumulator: V, el: T):V
 --- @param initial V Initial value to use
 --- @return V The final value after all elements have been looked at
-function utils.table.reduce(tbl, reduceFn, initial)
+function Utils.Table.reduce(tbl, reduceFn, initial)
     local acc = initial
     for _, v in ipairs(tbl) do
         acc = reduceFn(acc, v)
@@ -163,8 +163,8 @@ end
 --- Computes the sum of the specified table
 --- @param tbl number[]
 --- @return number
-function utils.table.sum(tbl)
-    return utils.table.reduce(tbl, function(sum, el)
+function Utils.Table.sum(tbl)
+    return Utils.Table.reduce(tbl, function(sum, el)
         return sum + el
     end, 0)
 end
@@ -173,23 +173,23 @@ end
 --- @generic T
 --- @param tbl T[]
 --- @return T[]
-function utils.table.copy(tbl)
+function Utils.Table.copy(tbl)
     local orig_type = type(tbl)
     local copy
     if orig_type == 'table' then
         copy = {}
         for orig_key, orig_value in next, tbl, nil do
-            copy[orig_key] = utils.table.copy(orig_value)
+            copy[orig_key] = Utils.Table.copy(orig_value)
         end
-        setmetatable(copy, utils.table.copy(getmetatable(orig)))
+        setmetatable(copy, Utils.Table.copy(getmetatable(orig)))
     else -- number, string, boolean, etc
         copy = tbl
     end
     return copy
 end
 
-function utils.math.isInsideBox(point, boxStart, boxEnd)
-    return (point.x > boxStart.x and point.y > boxStart.y and point.x < boxEnd.x and point.y < boxEnd.y)
+function Utils.Math.isInsideBox(point, box_start, box_end)
+    return (point.X > box_start.X and point.Y > box_start.Y and point.X < box_end.X and point.Y < box_end.Y)
 end
 
-return utils
+return Utils

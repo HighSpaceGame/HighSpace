@@ -18,8 +18,8 @@ function gr_system_map.drawMap(mouseX, mouseY, ships, drawTarget)
 
     for _, curr_ship in pairs(ships) do
         if curr_ship.IsSelected then
-            local selectedColor = gr_common.team_selected_colors[curr_ship.Team.Name]
-            gr.setColor(selectedColor.r, selectedColor.g, selectedColor.b)
+            local selected_color = gr_common.TeamSelectedColors[curr_ship.Team.Name]
+            gr.setColor(selected_color.R, selected_color.G, selected_color.B)
 
             if curr_ship.Team.Name == 'Friendly' then
                 gr.drawLine(curr_ship.Position.x, curr_ship.Position.y, mouseX, mouseY)

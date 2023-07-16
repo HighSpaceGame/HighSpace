@@ -1,0 +1,9 @@
+#Conditional Hooks
+$Application: FS2_Open
+$On Game Init:
+[
+
+-- Apparently we need a tbm file, even when all the logic is actually handled in ui_system-sct.lua
+
+]
+#End

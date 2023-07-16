@@ -1,7 +1,7 @@
 
 local M = {}
 
-function M.wait_for(seconds)
+function M.waitFor(seconds)
     return async.run(function()
         local start = time.getCurrentTime();
         while (time.getCurrentTime() - start):getSeconds() < seconds do

@@ -6,14 +6,14 @@
 		<link type="text/rcss" href="fontsizes.rcss"/>
 		<link type="text/rcss" href="mission_tactical.rcss"/>
 		<script>
-			controller = require("ui_mission_tact")
+			Controller = require("ui_mission")
 		</script>
 	</head>
-	<body onload="controller:initialize(document)"
-		  onkeydown="controller:global_keydown(element, event)"
-		  onmousemove="controller:mouseMove(event, document, element)"
-		  onmousedown="controller:mouseDown(event, document, element)"
-		  onmouseup="controller:mouseUp(event, document, element)"
+	<body onload="Controller:initialize(document)"
+		  onkeydown="Controller:keyDown(element, event)"
+		  onmousemove="Controller:mouseMove(event, document, element)"
+		  onmousedown="Controller:mouseDown(event, document, element)"
+		  onmouseup="Controller:mouseUp(event, document, element)"
 	>
 		<div id="tactical-mission-ui" class="window">
 			<div id="selected-ships">

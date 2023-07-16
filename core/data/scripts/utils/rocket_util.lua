@@ -1,9 +1,9 @@
-local utils = require("utils")
-local tblUtil = utils.table;
+local Utils = require("utils")
+local TblUtil = Utils.Table;
 
 local M = {}
 
-function M.remove_children(element)
+function M.removeChildren(element)
     while element:HasChildNodes() do
         element:RemoveChild(element.first_child)
     end
@@ -59,7 +59,7 @@ local function add_line_elements(document, paragraph, line, defaultColorTag, col
             else
                 -- We need to know if our word was terminated by white space or an explicit break so we store the whitespace
                 -- in a group and check that later
-                local rangeEndStart, rangeEndEnd, whitespace = utils.find_first_either(line, { "(%s)", "%$|" }, searchIndex)
+                local rangeEndStart, rangeEndEnd, whitespace = Utils.findFirstEither(line, { "(%s)", "%$|" }, searchIndex)
 
                 local coloredText
                 if whitespace then
@@ -91,9 +91,9 @@ local function add_line_elements(document, paragraph, line, defaultColorTag, col
 end
 
 ---@param brief_text string
-function M.set_briefing_text(parent, brief_text, recommendation)
+function M.setBriefingText(parent, brief_text, recommendation)
     -- First, clear all the children of this element
-    M.remove_children(parent)
+    M.removeChildren(parent)
 
     local document = parent.owner_document
 
@@ -107,7 +107,7 @@ function M.set_briefing_text(parent, brief_text, recommendation)
         rml_mode = true
     end
 
-    local lines = utils.split(brief_text, "\n\n")
+    local lines = Utils.split(brief_text, "\n\n")
     local first = true
     ---@param line string
     for _, line in ipairs(lines) do
@@ -138,11 +138,11 @@ function M.set_briefing_text(parent, brief_text, recommendation)
 
     -- Try to estimate the amount of lines this will get. The value 130 is chosen based on the original width of the
     -- text window in retail FS2
-    local paragraphLines = tblUtil.map(lines, function(line)
+    local paragraphLines = TblUtil.map(lines, function(line)
         return #line / 130
     end)
 
-    return tblUtil.sum(paragraphLines) + #lines
+    return TblUtil.sum(paragraphLines) + #lines
 end
 
 return M

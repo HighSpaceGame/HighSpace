@@ -1,26 +1,26 @@
-local templates              = require("rocket_templates")
+local Templates = require("rocket_templates")
 
-local module                = {}
+local Dialogs = {}
 
 -- The type of a dialog
-module.TYPE_SIMPLE          = 1
+Dialogs.TYPE_SIMPLE          = 1
 
 -- The various button
-module.BUTTON_TYPE_POSITIVE = 1
-module.BUTTON_TYPE_NEGATIVE = 2
-module.BUTTON_TYPE_NEUTRAL  = 3
+Dialogs.BUTTON_TYPE_POSITIVE = 1
+Dialogs.BUTTON_TYPE_NEGATIVE = 2
+Dialogs.BUTTON_TYPE_NEUTRAL  = 3
 
-module.BUTTON_MAPPING       = {
-    [module.BUTTON_TYPE_POSITIVE] = "button_positive",
-    [module.BUTTON_TYPE_NEGATIVE] = "button_negative",
-	[module.BUTTON_TYPE_NEUTRAL] = "button_neutral"
+Dialogs.BUTTON_MAPPING       = {
+    [Dialogs.BUTTON_TYPE_POSITIVE] = "button_positive",
+    [Dialogs.BUTTON_TYPE_NEGATIVE] = "button_negative",
+	[Dialogs.BUTTON_TYPE_NEUTRAL] = "button_neutral"
 }
 
 local function initialize_buttons(document, properties, finish_func)
     local button_container = document:GetElementById("button_container")
 
     for _, v in ipairs(properties.buttons) do
-        local actual_el, text_el, image_container, image_el = templates.instantiate_template(document, "button_template",
+        local actual_el, text_el, image_container, image_el = Templates.instantiateTemplate(document, "button_template",
                                                                                             nil, {
                                                                                                 "button_text_id",
                                                                                                 "button_image_container",
@@ -29,7 +29,7 @@ local function initialize_buttons(document, properties, finish_func)
         button_container:AppendChild(actual_el)
 
         actual_el.id = "" -- Reset the ID so that there are no duplicate IDs
-        actual_el:SetClass(module.BUTTON_MAPPING[v.type], true)
+        actual_el:SetClass(Dialogs.BUTTON_MAPPING[v.type], true)
 		
 		local str = v.text
 		
@@ -75,7 +75,7 @@ local function initialize_buttons(document, properties, finish_func)
     end
 end
 
-local function show_dialog(context, properties, finish_func, reject, abortCBTable)
+local function show_dialog(context, properties, finish_func, reject, abort_cb_table)
     local dialog_doc = nil
 	
 	if properties.style_value == 2 then
@@ -86,11 +86,13 @@ local function show_dialog(context, properties, finish_func, reject, abortCBTabl
 
     dialog_doc:GetElementById("title_container").inner_rml = properties.title_string
     dialog_doc:GetElementById("text_container").inner_rml  = properties.text_string
-    if modOptionValues.Font_Multiplier then
+    --[[if modOptionValues.Font_Multiplier then
         dialog_doc:GetElementById("dialog_body"):SetClass(("p1-" .. modOptionValues.Font_Multiplier), true)
     else
         dialog_doc:GetElementById("dialog_body"):SetClass("p1-5", true)
-    end
+    end]]--
+
+    dialog_doc:GetElementById("dialog_body"):SetClass("p1-5", true)
 
     if properties.text_class then
         dialog_doc:GetElementById("text_container"):SetClass(properties.text_class, true)
@@ -152,8 +154,8 @@ local function show_dialog(context, properties, finish_func, reject, abortCBTabl
 		end
 	end)
     
-    if abortCBTable ~= nil then
-        abortCBTable.Abort = function()
+    if abort_cb_table ~= nil then
+        abort_cb_table.Abort = function()
             dialog_doc:Close()
             reject()
         end
@@ -234,9 +236,9 @@ end
 
 --- Creates a new dialog factory
 --- @return DialogFactory A factory for creating dialogs
-function module.new()
+function Dialogs.new()
     local factory = {
-        type_val     = module.TYPE_SIMPLE,
+        type_val     = Dialogs.TYPE_SIMPLE,
         buttons      = {},
         title_string = "",
         text_string  = "",
@@ -249,4 +251,4 @@ function module.new()
     return factory
 end
 
-return module
+return Dialogs
