@@ -19,6 +19,7 @@ RocketUiSystem = {
 	Replacements = {},
 	SkipUi = { ["GS_STATE_GAME_PLAY"] = true},
 	Substate = "none",
+	Controller = nil,
 }
 
 --RUN AWAY IT'S FRED!
@@ -93,6 +94,10 @@ function RocketUiSystem:stateFrame()
         return
     end
 
+	if self.Controller then
+		self.Controller:frame()
+	end
+
     -- Add some tracing scopes here to see how long this stuff takes
     updateCategory:trace(function()
         self.Context:Update()
@@ -115,6 +120,7 @@ function RocketUiSystem:stateEnd()
 
     def.document:Close()
     def.document = nil
+	self.Controller = nil
 
     ui.disableInput()
 	
@@ -277,7 +283,11 @@ end)
 engine.addHook("On Frame", function()
     RocketUiSystem:stateFrame()
 end, {}, function()
-	return ba.getCurrentGameState().Name ~= "GS_STATE_GAME_PLAY" and RocketUiSystem:hasOverrideForCurrentState()
+	if RocketUiSystem.Controller then
+		return RocketUiSystem.Controller:frameOverride()
+	end
+
+	return false
 end)
 
 engine.addHook("On State End", function()

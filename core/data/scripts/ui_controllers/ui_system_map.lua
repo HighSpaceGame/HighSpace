@@ -8,6 +8,7 @@ local draw_map = nil
 
 function SystemMapUIController:initialize(document)
     self.Document = document
+    RocketUiSystem.Controller = self
 
     ba.println("SystemMapController:init()")
 
@@ -50,14 +51,12 @@ function SystemMapUIController:keyDown(_, event)
     end
 end
 
--- This hook is only necessary because of the direct draw calls (i.e. drawMap) we use in this view. Views that can be
--- implemented in libRocket only don't need an onFrame hook
-engine.addHook("On Frame", function()
+function SystemMapUIController:frame()
     if ba.getCurrentGameState().Name == "GS_STATE_BRIEFING" then
         GrSystemMap.drawMap(SystemMapUIController.Mouse.X, SystemMapUIController.Mouse.Y, GameState.Ships, draw_map.Tex)
+
+        GameSystemMap.processEncounters()
     end
-end, {}, function()
-    return false
-end)
+end
 
 return SystemMapUIController

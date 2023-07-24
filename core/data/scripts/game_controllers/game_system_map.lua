@@ -71,12 +71,4 @@ function GameSystemMap.processEncounters()
     end
 end
 
-engine.addHook("On Frame", function()
-    if ba.getCurrentGameState().Name == "GS_STATE_BRIEFING" then
-        GameSystemMap.processEncounters()
-    end
-end, {}, function()
-    return false
-end)
-
 return GameSystemMap

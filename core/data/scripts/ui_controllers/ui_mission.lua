@@ -46,6 +46,7 @@ end
 
 function MissionUIController:initialize(document)
     self.Document = document
+    RocketUiSystem.Controller = self
 end
 
 function MissionUIController:mouseDown(event, document, element)
@@ -127,7 +128,7 @@ function MissionUIController:mouseMove(event, document, element)
     self:storeMouseMove(event, document, element)
 end
 
-engine.addHook("On Frame", function()
+function MissionUIController:frame()
     if GameMission:showTacticalView() then
         GameMission.TacticalCamera:update()
 
@@ -135,8 +136,10 @@ engine.addHook("On Frame", function()
         GrMission.drawSelectionBrackets()
         update_selection_info()
     end
-end, {}, function()
+end
+
+function MissionUIController:frameOverride()
     return false
-end)
+end
 
 return MissionUIController

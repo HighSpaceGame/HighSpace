@@ -18,6 +18,14 @@ UIController.Mouse = {
 
 UIController.Keys = {}
 
+function UIController:frame()
+
+end
+
+function UIController:frameOverride()
+    return true
+end
+
 --- Stores the mouse button state after a button was pressed
 --- @generic Ev
 --- @generic El
