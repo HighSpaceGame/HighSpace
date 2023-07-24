@@ -2,9 +2,10 @@ local Class         = require("class")
 local Inspect       = require('inspect')
 local UIController  = Class()
 
-UIController.MOUSE_BUTTON_LEFT   = 0
-UIController.MOUSE_BUTTON_RIGHT  = 1
-UIController.MOUSE_BUTTON_MIDDLE = 2
+UI_CONST = {}
+UI_CONST.MOUSE_BUTTON_LEFT   = 0
+UI_CONST.MOUSE_BUTTON_RIGHT  = 1
+UI_CONST.MOUSE_BUTTON_MIDDLE = 2
 
 UIController.Mouse = {
     ["X"] = 0.0, ["Y"] = 0.0,
@@ -14,6 +15,8 @@ UIController.Mouse = {
         [2] = false,
     }
 }
+
+UIController.Keys = {}
 
 --- Stores the mouse button state after a button was pressed
 --- @generic Ev
@@ -51,6 +54,30 @@ function UIController:storeMouseMove(event, _, element)
     self.Mouse.Y = event.parameters.mouse_y - element.offset_top
 
     --ba.println("mouseMove: " .. inspect(self.Mouse))
+end
+
+--- Stores the key state after a key was pressed
+--- @generic Ev
+--- @generic El
+--- @generic D
+--- @param event Ev[] the onkeydown event
+--- @param element El[] the element firing the event
+--- @param document D[] the document firing the event
+function UIController:storeKeyDown(event, _, _)
+    UIController.Keys[event.parameters.key_identifier] = true
+    ba.println("keyDown: " .. Inspect({ event.parameters.key_identifier }))
+end
+
+--- Stores the key state after a key was released
+--- @generic Ev
+--- @generic El
+--- @generic D
+--- @param event Ev[] the onkeydown event
+--- @param element El[] the element firing the event
+--- @param document D[] the document firing the event
+function UIController:storeKeyUp(event, _, _)
+    UIController.Keys[event.parameters.key_identifier] = false
+    ba.println("keyUp: " .. event.parameters.key_identifier)
 end
 
 return UIController

@@ -5,8 +5,36 @@ local Utils     = require("utils")
 GameMission = Class()
 
 GameMission.TacticalMode = false
-GameMission.TacticalCamera = nil
 GameMission.SelectedShips = {}
+GameMission.TacticalCamera = {
+    ["Movement"]  = ba.createVector(0, 0, 0),
+    -- we should be able to manipulate the Camera matrix directly, but somewhere along the way, it's getting value-copied
+    ["Orientation"] = ba.createOrientationFromVectors(ba.createVector(0, -1, 0)),
+    ["Target"] = ba.createVector(0, 0, 6000),
+    ["Zoom"] = 3000,
+    ["Instance"] = nil,
+}
+
+function GameMission.TacticalCamera:rotateBy(pitch, heading)
+    self.Orientation.p = self.Orientation.p + pitch
+    self.Orientation.h = self.Orientation.h + heading
+end
+
+function GameMission.TacticalCamera:setMovement(camera_movement)
+    self.Movement = camera_movement * self.Zoom / 100
+    --ba.println("moveCamera: " .. Inspect({ ["X"] = x, ["Y"] = y}))
+end
+
+function GameMission.TacticalCamera:zoom(zoom)
+    ba.println("TacticalCamera:zoom: " .. Inspect({ zoom }))
+    self.Zoom = self.Zoom * zoom
+end
+
+function GameMission.TacticalCamera:update()
+    self.Target = self.Target + self.Movement
+    self.Instance.Orientation = self.Orientation
+    self.Instance.Position = self.Target - self.Instance.Orientation:getFvec() * self.Zoom
+end
 
 function GameMission:init()
     --RocketUiSystem.skip_ui["GS_STATE_GAME_PLAY"] = true
@@ -16,15 +44,13 @@ end
 function GameMission:switchCamera()
     if self.TacticalMode then
         ba.println("camera: " .. Inspect(self.TacticalCamera))
-        if not self.TacticalCamera or not self.TacticalCamera:isValid() then
-            self.TacticalCamera = gr.createCamera("TactMapCamera", ba.createVector(0, 3000, 6000), ba.createOrientationFromVectors(ba.createVector(0, -1, 0)))
+        if not self.TacticalCamera.Instance or not self.TacticalCamera.Instance:isValid() then
+            self.TacticalCamera.Instance = gr.createCamera("TactMapCamera", ba.createVector(0, 3000, 6000), ba.createOrientationFromVectors(ba.createVector(0, -1, 0)))
         end
 
-        self.TacticalCamera.Position = ba.createVector(0, 3000, 6000)
-        self.TacticalCamera.Orientation = ba.createOrientationFromVectors(ba.createVector(0, -1, 0))
-        --self.TacticalCamera.Position = ba.createVector(cam_x, cam_dist*math.cos(cam_angle), cam_dist*math.sin(cam_angle) + cam_y)
-        --self.TacticalCamera.Orientation = ba.createOrientationFromVectors(ba.createVector(0, -cam_dist*math.cos(cam_angle), -cam_dist*math.sin(cam_angle)))
-        gr.setCamera(self.TacticalCamera)
+        self.TacticalCamera.Instance.Position = ba.createVector(0, 3000, 6000)
+        self.TacticalCamera.Instance.Orientation = ba.createOrientationFromVectors(ba.createVector(0, -1, 0))
+        gr.setCamera(self.TacticalCamera.Instance)
     else
         gr.setCamera()
     end
@@ -84,9 +110,9 @@ function GameMission:giveRightClickCommand(targetCursor)
         target = target.MissionShipInstance
         ba.println("Giving Order: " .. Inspect({ order, target.Name }))
     else
-        local vec = gr.getVectorFromCoords(targetCursor.X, targetCursor.Y, 0, true) - GameMission.TacticalCamera.Position
-        local vec_size = 1.0 / math.abs(vec.y) * math.abs(GameMission.TacticalCamera.Position.y)
-        vec = GameMission.TacticalCamera.Position + vec * vec_size
+        local vec = gr.getVectorFromCoords(targetCursor.X, targetCursor.Y, 0, true) - GameMission.TacticalCamera.Instance.Position
+        local vec_size = 1.0 / math.abs(vec.y) * math.abs(GameMission.TacticalCamera.Instance.Position.y)
+        vec = GameMission.TacticalCamera.Instance.Position + vec * vec_size
         target = mn.createWaypoint(vec)
         order = ORDER_WAYPOINTS_ONCE
         ba.println("Giving Move Order: " .. Inspect({ target, target:getList().Name, vec.x, vec.y, vec.z }))

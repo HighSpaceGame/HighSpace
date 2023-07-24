@@ -31,10 +31,10 @@ function SystemMapUIController:wheel(event, _, _)
 end
 
 function SystemMapUIController:mouseDown(event, _, _)
-    if event.parameters.button == self.MOUSE_BUTTON_LEFT then
+    if event.parameters.button == UI_CONST.MOUSE_BUTTON_LEFT then
         ba.println("selecting ship: " .. Inspect(self.Mouse))
         GameSystemMap.selectShip(self.Mouse.X, self.Mouse.Y)
-    elseif event.parameters.button == self.MOUSE_BUTTON_RIGHT then
+    elseif event.parameters.button == UI_CONST.MOUSE_BUTTON_RIGHT then
         GameSystemMap.moveShip(self.Mouse.X, self.Mouse.Y)
     end
 end

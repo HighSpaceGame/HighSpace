@@ -11,9 +11,11 @@
 	</head>
 	<body onload="Controller:initialize(document)"
 		  onkeydown="Controller:keyDown(element, event)"
+		  onkeyup="Controller:keyUp(element, event)"
 		  onmousemove="Controller:mouseMove(event, document, element)"
 		  onmousedown="Controller:mouseDown(event, document, element)"
 		  onmouseup="Controller:mouseUp(event, document, element)"
+		  onmousescroll="Controller:wheel(event, document, element)"
 	>
 		<div id="tactical-mission-ui" class="window">
 			<div id="selected-ships">
