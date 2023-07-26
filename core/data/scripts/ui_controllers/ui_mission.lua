@@ -130,7 +130,12 @@ end
 
 function MissionUIController:frame()
     if GameMission:showTacticalView() then
+        GrMission.drawGrid()
         GameMission.TacticalCamera:update()
+
+        -- Uncomment when the light_reset() bug in mn.renderFrame() is fixed
+        --mn.simulateFrame()
+        --mn.renderFrame()
 
         GrMission.drawSelectionBox(MissionUIController.SelectionFrom, MissionUIController.Mouse)
         GrMission.drawSelectionBrackets()
@@ -139,7 +144,7 @@ function MissionUIController:frame()
 end
 
 function MissionUIController:frameOverride()
-    return false
+    return false --GameMission:showTacticalView() -- Uncomment when the light_reset() bug in mn.renderFrame() is fixed
 end
 
 return MissionUIController

@@ -21,7 +21,10 @@ function GameMission.TacticalCamera:rotateBy(pitch, heading)
 end
 
 function GameMission.TacticalCamera:setMovement(camera_movement)
-    self.Movement = camera_movement * self.Zoom / 100
+    local cam_mov_right = GameMission.TacticalCamera.Orientation:unrotateVector(ba.createVector(1, 0 ,0))
+    local cam_mov_front = cam_mov_right:getCrossProduct(ba.createVector(0, 1 ,0)) * camera_movement.z
+
+    self.Movement = (cam_mov_right * camera_movement.x + cam_mov_front) * self.Zoom / 100
     --ba.println("moveCamera: " .. Inspect({ ["X"] = x, ["Y"] = y}))
 end
 
