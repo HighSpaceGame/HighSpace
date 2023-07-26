@@ -85,6 +85,7 @@ function GameState:initMissionShip(ship)
     ship.MissionShipInstance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center, ship.Team)
     --ship.MissionShipInstance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center:randomInSphere(1000, true, false), ship.Team)
     --ship.MissionShipInstance:giveOrder(ORDER_ATTACK_ANY)
+    GameMission.Ships[ship.Name] = ship
 
     if ship.Health == nil then
         ship.Health = 1.0

@@ -133,6 +133,7 @@ engine.addHook("On Ship Death Started", function()
     ba.println("Ship Died: " .. Inspect({ hv.Ship, hv.Killer, hv.Hitpos }))
     if GameState.Ships[hv.Ship.Name] then
         GameState.Ships[hv.Ship.Name] = nil
+        GameMission.Ships[hv.Ship.Name] = nil
     end
 end, {}, function()
     return false
