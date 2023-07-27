@@ -82,15 +82,15 @@ function GameState:initMissionShip(ship)
     else
         center = ba.createVector(1000,0,6000)
     end
-    ship.MissionShipInstance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center, ship.Team)
-    --ship.MissionShipInstance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center:randomInSphere(1000, true, false), ship.Team)
-    --ship.MissionShipInstance:giveOrder(ORDER_ATTACK_ANY)
+    ship.Instance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center, ship.Team)
+    --ship.Instance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center:randomInSphere(1000, true, false), ship.Team)
+    --ship.Instance:giveOrder(ORDER_ATTACK_ANY)
     GameMission.Ships[ship.Name] = ship
 
     if ship.Health == nil then
         ship.Health = 1.0
     else
-        ship.MissionShipInstance.HitpointsLeft = ship.MissionShipInstance.HitpointsMax * ship.Health
+        ship.Instance.HitpointsLeft = ship.Instance.HitpointsMax * ship.Health
     end
 end
 

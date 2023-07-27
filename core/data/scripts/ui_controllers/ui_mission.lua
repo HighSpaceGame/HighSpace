@@ -19,7 +19,7 @@ local set_ship_info = function(elem, ship)
         elem = elem.next_sibling
         elem.inner_rml = string.format("Class: %s", ship.Class)
         elem = elem.next_sibling
-        elem.inner_rml = string.format("Health: %d%%", ship.MissionShipInstance.HitpointsLeft / ship.MissionShipInstance.HitpointsMax * 100)
+        elem.inner_rml = string.format("Health: %d%%", ship.Instance.HitpointsLeft / ship.Instance.HitpointsMax * 100)
     end
 end
 
@@ -32,8 +32,8 @@ local update_selection_info = function()
 
         set_ship_info(selected_ships_container.first_child.first_child, ship)
 
-        if ship.MissionShipInstance.Target and ship.MissionShipInstance.Target:isValid() then
-            local target_ship = GameState.Ships[ship.MissionShipInstance.Target.Name]
+        if ship.Instance.Target and ship.Instance.Target:isValid() then
+            local target_ship = GameState.Ships[ship.Instance.Target.Name]
             set_ship_info(selected_ships_container.last_child.first_child, target_ship)
             selected_ships_container.last_child:SetClass("hidden", false)
         else

@@ -13,7 +13,7 @@ end
 function GrMissionTact.drawSelectionBrackets()
     for _, ship in pairs(GameMission.SelectedShips) do
         gr.setColor(ship.Team:getColor())
-        gr.drawTargetingBrackets(ship.MissionShipInstance)
+        gr.drawTargetingBrackets(ship.Instance)
     end
 end
 
@@ -33,19 +33,20 @@ end
 
 function GrMissionTact.drawIconsIfShipsTooSmall()
     for _, ship in pairs(GameMission.Ships) do
-        local x1, y1, x2, y2 = gr.drawTargetingBrackets(ship.MissionShipInstance, false, 0)
+        local x1, y1, x2, y2 = gr.drawTargetingBrackets(ship.Instance, false, 0)
+        if x1 ~= nil and y1 ~= nil and x2 ~= nil and y2 ~= nil then
         local min_size = math.max(x2-x1, y2-y1)
-        if min_size < 40 then
-            local r, g, b = ship.Team:getColor()
-            local alpha = 255 * (1 - min_size/40.0)
-            gr.setColor(r, g, b, alpha)
-            local icon = GrCommon.getIconForShip(ship)
-            if icon then
-                local x, y = ship.MissionShipInstance.Position:getScreenCoords()
-                gr.drawImageCentered(icon.Texture, x, y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
-                gr.drawImageCentered(icon.Texture, x, y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
+            if min_size < 40 then
+                local r, g, b = ship.Team:getColor()
+                local alpha = 255 * (1 - min_size/40.0)
+                gr.setColor(r, g, b, alpha)
+                local icon = GrCommon.getIconForShip(ship)
+                if icon then
+                    local x, y = ship.Instance.Position:getScreenCoords()
+                    gr.drawImageCentered(icon.Texture, x, y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
+                    gr.drawImageCentered(icon.Texture, x, y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
+                end
             end
-
         end
     end
 end
