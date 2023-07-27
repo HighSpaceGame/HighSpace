@@ -4,7 +4,7 @@
 		<link type="text/rcss" href="common.rcss"/>
 		<link type="text/rcss" href="default.rcss"/>
 		<link type="text/rcss" href="fontsizes.rcss"/>
-		<link type="text/rcss" href="mission_tactical.rcss"/>
+		<link type="text/rcss" href="mission.rcss"/>
 		<script>
 			Controller = require("ui_mission")
 		</script>
@@ -35,6 +35,14 @@
 						<span class="ship-info">Ship Health</span>
 					</div>
 				</div>
+			</div>
+			<div class="info-text">
+				<hr />
+				<h1>Controls:</h1>
+				<p><b>Camera movement:</b> W, A, S, D</p>
+				<p><b>Camera rotation:</b> CTRL + Mouse Move</p>
+				<p><b>Select ships:</b> Left click (+drag)</p>
+				<p><b>Give order:</b> Right click</p>
 			</div>
 		</div>
 	</body>
