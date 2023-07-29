@@ -140,6 +140,7 @@ function MissionUIController:frame()
         GrMission.drawSelectionBox(MissionUIController.SelectionFrom, MissionUIController.Mouse)
         GrMission.drawSelectionBrackets()
         GrMission.drawIconsIfShipsTooSmall()
+        GrMission.drawWaypointsAndTargets()
         update_selection_info()
     end
 end

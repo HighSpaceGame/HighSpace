@@ -125,6 +125,7 @@ function GameMission:giveRightClickCommand(targetCursor)
         if target and ship.Instance and ship.Instance ~= target and ship.Instance.Team.Name == "Friendly" then
             ship.Instance:clearOrders()
             ship.Instance:giveOrder(order, target)
+            ship.Order = {["Type"] = order, ["Target"] = target}
         end
     end
 end
@@ -157,6 +158,16 @@ engine.addHook("On Mission About To End", function()
             ba.println("Setting ship health: " .. Inspect({ mn_ship.Name, mn_ship.HitpointsLeft, mn_ship.HitpointsMax, mn_ship.HitpointsLeft / mn_ship.HitpointsMax }))
             g_ship.Health = mn_ship.HitpointsLeft / mn_ship.HitpointsMax
         end
+    end
+end, {}, function()
+    return false
+end)
+
+engine.addHook("On Waypoints Done", function()
+    ba.println("On Waypoints Done: " .. hv.Ship.Name)
+    local g_ship = GameState.Ships[hv.Ship.Name]
+    if g_ship then
+        g_ship.Order = nil
     end
 end, {}, function()
     return false

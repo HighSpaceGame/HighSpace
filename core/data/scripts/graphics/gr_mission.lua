@@ -51,4 +51,28 @@ function GrMissionTact.drawIconsIfShipsTooSmall()
     end
 end
 
+function GrMissionTact.drawWaypointsAndTargets()
+    for _, ship in pairs(GameMission.SelectedShips) do
+        if ship.Order and ship.Order.Type == ORDER_WAYPOINTS_ONCE then
+            gr.setColor(0, 255, 0)
+
+            local x, y = ship.Order.Target.Position:getScreenCoords()
+            gr.drawImageCentered(GrCommon.WaypointIcon.Texture, x, y, GrCommon.WaypointIcon.Width, GrCommon.WaypointIcon.Height, 0, 0, 1, 1, 1, true)
+        end
+
+        if ship.Instance.Target and ship.Instance.Target:isValid() and GameState.Ships[ship.Instance.Target.Name] then
+            local target_ship = GameState.Ships[ship.Instance.Target.Name]
+
+            if target_ship.Instance.Team ~= ship.Instance.Team then
+                gr.setColor(255, 0, 0)
+            else
+                gr.setColor(0, 255, 0)
+            end
+
+            local x, y = target_ship.Instance.Position:getScreenCoords()
+            gr.drawImageCentered(GrCommon.TargetIcon.Texture, x, y, GrCommon.TargetIcon.Width, GrCommon.TargetIcon.Height, 0, 0, 1, 1, 1, true)
+        end
+    end
+end
+
 return GrMissionTact
