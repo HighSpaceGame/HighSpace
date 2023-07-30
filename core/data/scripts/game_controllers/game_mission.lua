@@ -1,11 +1,12 @@
 local Class     = require("class")
 local Inspect   = require("inspect")
+local ShipList  = require('ship_list')
 local Utils     = require("utils")
 
 GameMission = Class()
 
 GameMission.TacticalMode = false
-GameMission.Ships = {} -- a seperate list to avoid iterating over ships from outside the mission scope
+GameMission.Ships = ShipList() -- a seperate list to avoid iterating over ships from outside the mission scope
 GameMission.SelectedShips = {}
 GameMission.TacticalCamera = {
     ["Movement"]  = ba.createVector(0, 0, 0),
@@ -80,29 +81,29 @@ end
 
 function GameMission:selectShips(selFrom, selTo)
     self.SelectedShips = {}
-    for ship_name, ship in pairs(GameMission.Ships) do
+    self.Ships:forEach(function(ship)
         if ship.Mission.Instance then
             local x, y = ship.Mission.Instance.Position:getScreenCoords()
             if Utils.Math.isInsideBox({ ["X"] = x, ["Y"] = y}, selFrom, selTo) then
-                self.SelectedShips[ship_name] = ship
+                self.SelectedShips[ship.Name] = ship
                 ba.println("Selecting: " .. Inspect({ ship.Name, tostring(ship.Mission.Instance.Target), ship.Mission.Instance.Target:getBreedName(), ship.Mission.Instance.Target:isValid() }))
             end
         end
-    end
+    end)
 end
 
 function GameMission:giveRightClickCommand(targetCursor)
     local order = nil
     local target = nil
-    for _, ship in pairs(GameMission.Ships) do
+    self.Ships:forEach(function(ship)
         if ship.Mission.Instance then
             local x1, y1, x2, y2 = gr.drawTargetingBrackets(ship.Mission.Instance, false)
             if Utils.Math.isInsideBox(targetCursor, { ["X"] = x1, ["Y"] = y1}, { ["X"] = x2, ["Y"] = y2}) then
                 target = ship
-                break
+                return false
             end
         end
-    end
+    end)
 
     if target then
         if target.Team.Name == "Friendly" then
@@ -133,10 +134,8 @@ end
 
 engine.addHook("On Ship Death Started", function()
     ba.println("Ship Died: " .. Inspect({ hv.Ship, hv.Killer, hv.Hitpos }))
-    if GameState.Ships[hv.Ship.Name] then
-        GameState.Ships[hv.Ship.Name] = nil
-        GameMission.Ships[hv.Ship.Name] = nil
-    end
+    GameState.Ships:remove(hv.Ship.Name)
+    GameMission.Ships:remove(hv.Ship.Name)
 end, {}, function()
     return false
 end)

@@ -59,7 +59,7 @@ function GameSystemMap.processEncounters()
                         ba.println("Mission loaded: " .. Inspect({ GameState.MissionLoaded, ba.getCurrentGameState() }))
 
                         if GameState.MissionLoaded then
-                            GameMission.Ships = {}
+                            GameMission.Ships:clear()
                             GameState:initMissionShip(ship1)
                             GameState:initMissionShip(ship2)
 

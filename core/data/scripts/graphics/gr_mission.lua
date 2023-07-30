@@ -32,7 +32,7 @@ function GrMissionTact.drawGrid()
 end
 
 function GrMissionTact.drawIconsIfShipsTooSmall()
-    for _, ship in pairs(GameMission.Ships) do
+    GameMission.Ships:forEach(function(ship)
         local x1, y1, x2, y2 = gr.drawTargetingBrackets(ship.Mission.Instance, false, 0)
         if x1 ~= nil and y1 ~= nil and x2 ~= nil and y2 ~= nil then
         local min_size = math.max(x2-x1, y2-y1)
@@ -48,7 +48,7 @@ function GrMissionTact.drawIconsIfShipsTooSmall()
                 end
             end
         end
-    end
+    end)
 end
 
 function GrMissionTact.drawWaypointsAndTargets()
@@ -61,7 +61,7 @@ function GrMissionTact.drawWaypointsAndTargets()
         end
 
         local target_ship_instance = ship.Mission.Instance.Target
-        if target_ship_instance and target_ship_instance:isValid() and GameMission.Ships[target_ship_instance.Name] then
+        if target_ship_instance and target_ship_instance:isValid() and GameMission.Ships:get(target_ship_instance.Name) then
             if target_ship_instance.Team ~= ship.Mission.Instance.Team then
                 gr.setColor(255, 0, 0)
             else

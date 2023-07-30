@@ -33,7 +33,7 @@ local update_selection_info = function()
         set_ship_info(selected_ships_container.first_child.first_child, ship)
 
         if ship.Mission.Instance.Target and ship.Mission.Instance.Target:isValid() then
-            local target_ship = GameMission.Ships[ship.Mission.Instance.Target.Name]
+            local target_ship = GameMission.Ships:get(ship.Mission.Instance.Target.Name)
             set_ship_info(selected_ships_container.last_child.first_child, target_ship)
             selected_ships_container.last_child:SetClass("hidden", false)
         else
