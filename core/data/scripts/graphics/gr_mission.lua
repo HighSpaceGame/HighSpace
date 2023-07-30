@@ -13,7 +13,7 @@ end
 function GrMissionTact.drawSelectionBrackets()
     for _, ship in pairs(GameMission.SelectedShips) do
         gr.setColor(ship.Team:getColor())
-        gr.drawTargetingBrackets(ship.Instance)
+        gr.drawTargetingBrackets(ship.Mission.Instance)
     end
 end
 
@@ -33,7 +33,7 @@ end
 
 function GrMissionTact.drawIconsIfShipsTooSmall()
     for _, ship in pairs(GameMission.Ships) do
-        local x1, y1, x2, y2 = gr.drawTargetingBrackets(ship.Instance, false, 0)
+        local x1, y1, x2, y2 = gr.drawTargetingBrackets(ship.Mission.Instance, false, 0)
         if x1 ~= nil and y1 ~= nil and x2 ~= nil and y2 ~= nil then
         local min_size = math.max(x2-x1, y2-y1)
             if min_size < 40 then
@@ -42,7 +42,7 @@ function GrMissionTact.drawIconsIfShipsTooSmall()
                 gr.setColor(r, g, b, alpha)
                 local icon = GrCommon.getIconForShip(ship)
                 if icon then
-                    local x, y = ship.Instance.Position:getScreenCoords()
+                    local x, y = ship.Mission.Instance.Position:getScreenCoords()
                     gr.drawImageCentered(icon.Texture, x, y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
                     gr.drawImageCentered(icon.Texture, x, y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
                 end
@@ -60,16 +60,15 @@ function GrMissionTact.drawWaypointsAndTargets()
             gr.drawImageCentered(GrCommon.WaypointIcon.Texture, x, y, GrCommon.WaypointIcon.Width, GrCommon.WaypointIcon.Height, 0, 0, 1, 1, 1, true)
         end
 
-        if ship.Instance.Target and ship.Instance.Target:isValid() and GameState.Ships[ship.Instance.Target.Name] then
-            local target_ship = GameState.Ships[ship.Instance.Target.Name]
-
-            if target_ship.Instance.Team ~= ship.Instance.Team then
+        local target_ship_instance = ship.Mission.Instance.Target
+        if target_ship_instance and target_ship_instance:isValid() and GameMission.Ships[target_ship_instance.Name] then
+            if target_ship_instance.Team ~= ship.Mission.Instance.Team then
                 gr.setColor(255, 0, 0)
             else
                 gr.setColor(0, 255, 0)
             end
 
-            local x, y = target_ship.Instance.Position:getScreenCoords()
+            local x, y = target_ship_instance.Position:getScreenCoords()
             gr.drawImageCentered(GrCommon.TargetIcon.Texture, x, y, GrCommon.TargetIcon.Width, GrCommon.TargetIcon.Height, 0, 0, 1, 1, 1, true)
         end
     end

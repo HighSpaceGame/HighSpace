@@ -8,35 +8,35 @@ GameSystemMap = Class()
 GameSystemMap.SelectedShip = nil;
 
 function GameSystemMap.isOverShip(ship, x, y)
-    local dist = ba.createVector(ship.Position.x - x, ship.Position.y - y)
+    local dist = ba.createVector(ship.System.Position.x - x, ship.System.Position.y - y)
     return dist:getMagnitude() < 40;
 end
 
 function GameSystemMap.selectShip(mouseX, mouseY)
     if GameSystemMap.SelectedShip ~= nil then
-        GameState.Ships[GameSystemMap.SelectedShip].IsSelected = false
+        GameState.Ships:get(GameSystemMap.SelectedShip).IsSelected = false
         GameSystemMap.SelectedShip = nil
     end
 
-    for shipName, ship in pairs(GameState.Ships) do
+    GameState.Ships:forEach(function(ship)
         if GameSystemMap.isOverShip(ship, mouseX, mouseY) then
-            GameSystemMap.SelectedShip = shipName
-            GameState.Ships[shipName].IsSelected = true
+            GameSystemMap.SelectedShip = ship.Name
+            ship.IsSelected = true
             ba.println("Selected ship: " .. ship.Name)
             return
         end
-    end
+    end)
 end
 
 function GameSystemMap.moveShip(mouseX, mouseY)
     if GameSystemMap.SelectedShip ~= nil then
-        local ship = GameState.Ships[GameSystemMap.SelectedShip]
+        local ship = GameState.Ships:get(GameSystemMap.SelectedShip)
         if ship.Team.Name == 'Friendly' then
-            ship.Position.x = mouseX
-            ship.Position.y = mouseY
+            ship.System.Position.x = mouseX
+            ship.System.Position.y = mouseY
         end
 
-        GameState.Ships[GameSystemMap.SelectedShip].IsSelected = false
+        ship.IsSelected = false
         GameSystemMap.SelectedShip = nil
     end
 end
@@ -47,13 +47,13 @@ function GameSystemMap.processEncounters()
         ba.postGameEvent(ba.GameEvents["GS_EVENT_START_GAME_QUICK"])
     end
 
-    for _, ship1 in pairs(GameState.Ships) do
+    GameState.Ships:forEach(function(ship1)
         if ship1.Team.Name == 'Friendly' then
             --ba.println("Ship1: " .. inspect({ship1.Name}))
-            for _, ship2 in pairs(GameState.Ships) do
+            GameState.Ships:forEach(function(ship2)
                 --ba.println("Ship2: " .. inspect({ship2.Name}))
                 if ship1.Name ~= ship2.Name and ship2.Team.Name ~= 'Friendly' then
-                    if not GameState.MissionLoaded and GameSystemMap.isOverShip(ship2, ship1.Position.x, ship1.Position.y) then
+                    if not GameState.MissionLoaded and GameSystemMap.isOverShip(ship2, ship1.System.Position.x, ship1.System.Position.y) then
                         ba.println("Loading mission" .. Inspect(ba.getCurrentGameState()))
                         GameState.MissionLoaded = mn.loadMission("BeamsFree.fs2")
                         ba.println("Mission loaded: " .. Inspect({ GameState.MissionLoaded, ba.getCurrentGameState() }))
@@ -67,9 +67,9 @@ function GameSystemMap.processEncounters()
                         end
                     end
                 end
-            end
+            end)
         end
-    end
+    end)
 end
 
 return GameSystemMap

@@ -19,7 +19,7 @@ local set_ship_info = function(elem, ship)
         elem = elem.next_sibling
         elem.inner_rml = string.format("Class: %s", ship.Class)
         elem = elem.next_sibling
-        elem.inner_rml = string.format("Health: %d%%", ship.Instance.HitpointsLeft / ship.Instance.HitpointsMax * 100)
+        elem.inner_rml = string.format("Health: %d%%", ship.Mission.Instance.HitpointsLeft / ship.Mission.Instance.HitpointsMax * 100)
     end
 end
 
@@ -32,8 +32,8 @@ local update_selection_info = function()
 
         set_ship_info(selected_ships_container.first_child.first_child, ship)
 
-        if ship.Instance.Target and ship.Instance.Target:isValid() then
-            local target_ship = GameState.Ships[ship.Instance.Target.Name]
+        if ship.Mission.Instance.Target and ship.Mission.Instance.Target:isValid() then
+            local target_ship = GameMission.Ships[ship.Mission.Instance.Target.Name]
             set_ship_info(selected_ships_container.last_child.first_child, target_ship)
             selected_ships_container.last_child:SetClass("hidden", false)
         else
@@ -134,8 +134,8 @@ function MissionUIController:frame()
         GameMission.TacticalCamera:update()
 
         -- Uncomment when the light_reset() bug in mn.renderFrame() is fixed
-        --mn.simulateFrame()
-        --mn.renderFrame()
+        mn.simulateFrame()
+        mn.renderFrame()
 
         GrMission.drawSelectionBox(MissionUIController.SelectionFrom, MissionUIController.Mouse)
         GrMission.drawSelectionBrackets()
@@ -146,7 +146,7 @@ function MissionUIController:frame()
 end
 
 function MissionUIController:frameOverride()
-    return false --GameMission:showTacticalView() -- Uncomment when the light_reset() bug in mn.renderFrame() is fixed
+    return GameMission:showTacticalView() -- Uncomment when the light_reset() bug in mn.renderFrame() is fixed
 end
 
 return MissionUIController

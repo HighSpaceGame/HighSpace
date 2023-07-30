@@ -1,6 +1,8 @@
 local Class     = require("class")
 local Dialogs   = require('dialogs')
 local Inspect   = require('inspect')
+local Ship      = require('ship')
+local ShipList  = require('ship_list')
 local Utils     = require('utils')
 
 GameState = Class()
@@ -10,32 +12,29 @@ local new_game_ships = {
         ['Species'] = 'Terran',
         ['Type'] = 'Cruiser',
         ['Class'] = 'GTC Aeolus',
-        ['Position'] = {['x'] = 200, ['y'] = 200},
         ['Team'] = mn.Teams['Friendly'],
         ['Name'] = 'Trinity',
-        ['IsSelected'] = false,
+        ['System'] = {['Position'] = ba.createVector(200, 200, 0),}
     },
     ['Abraxis'] = {
         ['Species'] = 'Shivan',
         ['Type'] = 'Corvette',
         ['Class'] = 'SCv Moloch',
-        ['Position'] = {['x'] = 100, ['y'] = 100},
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Abraxis',
-        ['IsSelected'] = false,
+        ['System'] = {['Position'] = ba.createVector(100, 100, 0),}
     },
     ['Alhazred'] = {
         ['Species'] = 'Shivan',
         ['Type'] = 'Cruiser',
         ['Class'] = 'SC Cain',
-        ['Position'] = {['x'] = 300, ['y'] = 100},
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Alhazred',
-        ['IsSelected'] = false,
+        ['System'] = {['Position'] = ba.createVector(300, 100, 0),}
     },
 }
 
-GameState.Ships = {}
+GameState.Ships = ShipList()
 
 GameState.MissionLoaded = false;
 
@@ -63,9 +62,9 @@ function GameState.checkGameOver()
         ["Friendly"] = 0,
         ["Hostile"] = 0,
     }
-    for _, ship in pairs(GameState.Ships) do
+    GameState.Ships:forEach(function(ship)
         ship_count[ship.Team.Name] = ship_count[ship.Team.Name]+1
-    end
+    end)
 
     if ship_count["Friendly"] <= 0 then
         GameState.showDialog(ba.XSTR("Game Over", -1), ba.XSTR("You LOSE!", -1), "lose_text")
@@ -82,16 +81,27 @@ function GameState:initMissionShip(ship)
     else
         center = ba.createVector(1000,0,6000)
     end
-    ship.Instance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center, ship.Team)
-    --ship.Instance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center:randomInSphere(1000, true, false), ship.Team)
-    --ship.Instance:giveOrder(ORDER_ATTACK_ANY)
+    ship.Mission.Instance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center, ship.Team)
+    --ship.Mission.Instance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center:randomInSphere(1000, true, false), ship.Team)
+    --ship.Mission.Instance:giveOrder(ORDER_ATTACK_ANY)
     GameMission.Ships[ship.Name] = ship
 
     if ship.Health == nil then
         ship.Health = 1.0
     else
-        ship.Instance.HitpointsLeft = ship.Instance.HitpointsMax * ship.Health
+        ship.Mission.Instance.HitpointsLeft = ship.Mission.Instance.HitpointsMax * ship.Health
     end
+end
+
+function GameState.startNewGame()
+    ba.println("Setting up new game")
+
+    for _, ship_props in pairs(new_game_ships) do
+        GameState.Ships:add(Ship(ship_props))
+    end
+
+    ba.println("Template table: " .. Inspect(new_game_ships))
+    ba.println("Game state table: " .. Inspect(GameState.Ships))
 end
 
 --Called from ui_system-sct.lua
@@ -102,10 +112,7 @@ function GameState.stateChanged()
     if state.Name == "GS_STATE_BRIEFING" then
         GameState.checkGameOver()
     elseif state.Name == "GS_STATE_START_GAME" and hv.OldState.Name == "GS_STATE_MAIN_MENU" then
-        ba.println("Setting up new game")
-        GameState.Ships = Utils.Table.copy(new_game_ships)
-        ba.println("Template table: " .. Inspect(new_game_ships))
-        ba.println("Game state table: " .. Inspect(GameState.Ships))
+        GameState.startNewGame()
     elseif state.Name == "GS_STATE_DEBRIEF" then
         GameState.MissionLoaded = false
         ba.println("Mission over")

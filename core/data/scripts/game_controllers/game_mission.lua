@@ -5,6 +5,7 @@ local Utils     = require("utils")
 GameMission = Class()
 
 GameMission.TacticalMode = false
+GameMission.Ships = {} -- a seperate list to avoid iterating over ships from outside the mission scope
 GameMission.SelectedShips = {}
 GameMission.TacticalCamera = {
     ["Movement"]  = ba.createVector(0, 0, 0),
@@ -79,12 +80,12 @@ end
 
 function GameMission:selectShips(selFrom, selTo)
     self.SelectedShips = {}
-    for ship_name, ship in pairs(GameState.Ships) do
-        if ship.Instance then
-            local x, y = ship.Instance.Position:getScreenCoords()
+    for ship_name, ship in pairs(GameMission.Ships) do
+        if ship.Mission.Instance then
+            local x, y = ship.Mission.Instance.Position:getScreenCoords()
             if Utils.Math.isInsideBox({ ["X"] = x, ["Y"] = y}, selFrom, selTo) then
                 self.SelectedShips[ship_name] = ship
-                ba.println("Selecting: " .. Inspect({ ship.Name, tostring(ship.Instance.Target), ship.Instance.Target:getBreedName(), ship.Instance.Target:isValid() }))
+                ba.println("Selecting: " .. Inspect({ ship.Name, tostring(ship.Mission.Instance.Target), ship.Mission.Instance.Target:getBreedName(), ship.Mission.Instance.Target:isValid() }))
             end
         end
     end
@@ -94,8 +95,8 @@ function GameMission:giveRightClickCommand(targetCursor)
     local order = nil
     local target = nil
     for _, ship in pairs(GameMission.Ships) do
-        if ship.Instance then
-            local x1, y1, x2, y2 = gr.drawTargetingBrackets(ship.Instance, false)
+        if ship.Mission.Instance then
+            local x1, y1, x2, y2 = gr.drawTargetingBrackets(ship.Mission.Instance, false)
             if Utils.Math.isInsideBox(targetCursor, { ["X"] = x1, ["Y"] = y1}, { ["X"] = x2, ["Y"] = y2}) then
                 target = ship
                 break
@@ -110,7 +111,7 @@ function GameMission:giveRightClickCommand(targetCursor)
             order = ORDER_ATTACK
         end
 
-        target = target.Instance
+        target = target.Mission.Instance
         ba.println("Giving Order: " .. Inspect({ order, target.Name }))
     else
         local vec = gr.getVectorFromCoords(targetCursor.X, targetCursor.Y, 0, true) - GameMission.TacticalCamera.Instance.Position
@@ -122,9 +123,9 @@ function GameMission:giveRightClickCommand(targetCursor)
     end
 
     for _, ship in pairs(self.SelectedShips) do
-        if target and ship.Instance and ship.Instance ~= target and ship.Instance.Team.Name == "Friendly" then
-            ship.Instance:clearOrders()
-            ship.Instance:giveOrder(order, target)
+        if target and ship.Mission.Instance and ship.Mission.Instance ~= target and ship.Mission.Instance.Team.Name == "Friendly" then
+            ship.Mission.Instance:clearOrders()
+            ship.Mission.Instance:giveOrder(order, target)
             ship.Order = {["Type"] = order, ["Target"] = target}
         end
     end
