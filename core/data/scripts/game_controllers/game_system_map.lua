@@ -44,6 +44,9 @@ end
 function GameSystemMap.processEncounters()
     if GameState.MissionLoaded and ba.getCurrentGameState().Name == 'GS_STATE_BRIEFING' then
         ba.println("Quick-starting game")
+        ui.ShipWepSelect.initSelect()
+        ui.ShipWepSelect.resetSelect()
+        ui.Briefing.commitToMission()
         ba.postGameEvent(ba.GameEvents["GS_EVENT_START_GAME_QUICK"])
     end
 

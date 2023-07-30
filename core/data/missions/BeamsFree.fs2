@@ -4,7 +4,7 @@ $Version: 0.10
 $Name:  XSTR("Beams Free", -1)
 $Author: Arjin
 $Created: 08/23/22 at 09:48:04
-$Modified: 06/25/23 at 19:13:49
+$Modified: 07/30/23 at 15:41:33
 $Notes:
 This is a FRED2_OPEN created mission.
 $End Notes:
@@ -67,14 +67,14 @@ $Ship Choices: (
 )
 
 +Weaponry Pool: (
-	"Subach HL-7"	17
-	"Subach HL-D"	16
+	"Subach HL-7"	16
+	"Subach HL-D"	17
 	"Mekhu HL-7"	16
 	"Mekhu HL-7D"	16
-	"Akheton SDG"	16
+	"Akheton SDG"	17
 	"Morning Star"	16
 	"MorningStar D"	16
-	"Prometheus R"	17
+	"Prometheus R"	16
 	"Prometheus S"	16
 	"Prometheus D"	16
 	"Maxim"	16
@@ -85,13 +85,13 @@ $Ship Choices: (
 	"Lamprey"	16
 	"Rockeye"	500
 	"Rockeye D"	500
-	"Tempest"	500
+	"Tempest"	660
 	"Tempest D"	500
 	"Hornet"	500
 	"Hornet D"	500
 	"Tornado"	500
 	"Tornado D"	500
-	"Harpoon"	516
+	"Harpoon"	500
 	"Harpoon D"	500
 	"Trebuchet"	500
 	"TAG-A"	500
@@ -109,7 +109,7 @@ $Ship Choices: (
 #Objects		;! 1 total
 
 $Name: Alpha 1		;! Object #0
-$Class: GTF Ulysses
+$Class: GTF Myrmidon
 $Team: Friendly
 $Location: 0.000000, 0.000000, 0.000000
 $Orientation:
@@ -120,6 +120,8 @@ $Cargo 1:  XSTR("Nothing", -1)
 +Initial Velocity: 33
 +Initial Hull: 100
 +Subsystem: Pilot
++Primary Banks: ( "Subach HL-7" "Akheton SDG" )
++Secondary Banks: ( "Tempest" "Tempest" "Tempest")
 $Arrival Location: Hyperspace
 $Arrival Cue: ( false ) 
 $Departure Location: Hyperspace
