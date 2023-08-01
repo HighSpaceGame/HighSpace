@@ -1,3 +1,6 @@
+local Ship          = require('ship')
+local ShipGroup     = require('ship_group')
+
 local GrCommon = {}
 
 local loadTexture = function(filename, link)
@@ -50,7 +53,14 @@ GrCommon.TeamSelectedColors = {
 }
 
 function GrCommon.getIconForShip(ship)
-    if GrCommon.IconMap[ship.Species] and GrCommon.IconMap[ship.Species][ship.Type] then
+    if ship:is_a(ShipGroup) then
+        local top_ship = ship:getTopShip()
+        if top_ship then
+            return GrCommon.getIconForShip(ship:getTopShip())
+        end
+
+        return nil
+    elseif GrCommon.IconMap[ship.Species] and GrCommon.IconMap[ship.Species][ship.Type] then
         return GrCommon.IconMap[ship.Species][ship.Type]
     end
 

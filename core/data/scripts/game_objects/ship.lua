@@ -10,7 +10,10 @@ function Ship:init(properties)
     self.Type = Utils.Game.getMandatoryProperty(properties, 'Type')
     self.Class = Utils.Game.getMandatoryProperty(properties, 'Class')
     self.Team = Utils.Game.getMandatoryProperty(properties, 'Team')
-    self.Name = Utils.Game.getMandatoryProperty(properties, 'Name')
+end
+
+function Ship:clone()
+    return Ship(self)
 end
 
 return Ship

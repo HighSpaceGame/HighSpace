@@ -1,37 +1,84 @@
-local Class     = require("class")
-local Dialogs   = require('dialogs')
-local Inspect   = require('inspect')
-local Ship      = require('ship')
-local ShipList  = require('ship_list')
-local Utils     = require('utils')
+local Class      = require("class")
+local Dialogs    = require('dialogs')
+local Inspect    = require('inspect')
+local Ship       = require('ship')
+local ShipGroup  = require('ship_group')
+local ShipList   = require('ship_list')
+local Utils      = require('utils')
+local Wing       = require('wing')
 
 GameState = Class()
 
 local new_game_ships = {
-    ['Trinity'] = {
-        ['Species'] = 'Terran',
-        ['Type'] = 'Cruiser',
-        ['Class'] = 'GTC Aeolus',
+    ['Trinity Battle Group'] = ShipGroup({
+        ['Name'] = 'Trinity Battle Group',
         ['Team'] = mn.Teams['Friendly'],
-        ['Name'] = 'Trinity',
-        ['System'] = {['Position'] = ba.createVector(200, 200, 0),}
-    },
-    ['Abraxis'] = {
+        ['System'] = {['Position'] = ba.createVector(200, 200, 0),},
+        ['Ships'] = {
+            ['Trinity'] = Ship({
+                ['Species'] = 'Terran',
+                ['Type'] = 'Cruiser',
+                ['Class'] = 'GTC Aeolus',
+                ['Team'] = mn.Teams['Friendly'],
+                ['Name'] = 'Trinity',
+                ['System'] = {['Position'] = ba.createVector(200, 200, 0),},
+            }),
+            ['Alpha'] = Wing({
+                ['Name'] = 'Alpha',
+                ['Team'] = mn.Teams['Friendly'],
+                ['Ships'] = {
+                    ['Alpha 1'] = Ship({
+                        ['Species'] = 'Terran',
+                        ['Type'] = 'Fighter',
+                        ['Class'] = 'GTF Myrmidon',
+                        ['Team'] = mn.Teams['Friendly'],
+                        ['Name'] = 'Alpha 1',
+                        ['System'] = {['Position'] = ba.createVector(200, 200, 0),},
+                    }),
+                    ['Alpha 2'] = Ship({
+                        ['Species'] = 'Terran',
+                        ['Type'] = 'Fighter',
+                        ['Class'] = 'GTF Myrmidon',
+                        ['Team'] = mn.Teams['Friendly'],
+                        ['Name'] = 'Alpha 2',
+                        ['System'] = {['Position'] = ba.createVector(200, 200, 0),},
+                    }),
+                    ['Alpha 3'] = Ship({
+                        ['Species'] = 'Terran',
+                        ['Type'] = 'Fighter',
+                        ['Class'] = 'GTF Myrmidon',
+                        ['Team'] = mn.Teams['Friendly'],
+                        ['Name'] = 'Alpha 3',
+                        ['System'] = {['Position'] = ba.createVector(200, 200, 0),},
+                    }),
+                    ['Alpha 4'] = Ship({
+                        ['Species'] = 'Terran',
+                        ['Type'] = 'Fighter',
+                        ['Class'] = 'GTF Myrmidon',
+                        ['Team'] = mn.Teams['Friendly'],
+                        ['Name'] = 'Alpha 4',
+                        ['System'] = {['Position'] = ba.createVector(200, 200, 0),},
+                    }),
+                }
+            }),
+        }
+    }),
+    ['Abraxis'] = Ship({
         ['Species'] = 'Shivan',
         ['Type'] = 'Corvette',
         ['Class'] = 'SCv Moloch',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Abraxis',
         ['System'] = {['Position'] = ba.createVector(100, 100, 0),}
-    },
-    ['Alhazred'] = {
+    }),
+    ['Alhazred'] = Ship({
         ['Species'] = 'Shivan',
         ['Type'] = 'Cruiser',
         ['Class'] = 'SC Cain',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Alhazred',
         ['System'] = {['Position'] = ba.createVector(300, 100, 0),}
-    },
+    }),
 }
 
 GameState.Ships = ShipList()
@@ -81,24 +128,39 @@ function GameState:initMissionShip(ship)
     else
         center = ba.createVector(1000,0,6000)
     end
-    ship.Mission.Instance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center, ship.Team)
-    --ship.Mission.Instance = mn.createShip(ship.Name, tb.ShipClasses[ship.Class], nil, center:randomInSphere(1000, true, false), ship.Team)
-    --ship.Mission.Instance:giveOrder(ORDER_ATTACK_ANY)
-    ba.println("GameMission.Ships: " .. Inspect(GameMission.Ships))
-    GameMission.Ships:add(ship)
 
-    if ship.Health == nil then
-        ship.Health = 1.0
-    else
-        ship.Mission.Instance.HitpointsLeft = ship.Mission.Instance.HitpointsMax * ship.Health
+    local mission_ship = {}
+    function mission_ship:init(curr_ship)
+        ba.println("mission_ship:init: " .. Inspect(curr_ship.Name))
+        if curr_ship:is_a(ShipGroup) then
+            curr_ship:forEach(function(group_ship)
+                self:init(group_ship)
+                center.x = center.x + 100
+            end)
+        elseif curr_ship:is_a(Ship) then
+            curr_ship.Mission.Instance = mn.createShip(curr_ship.Name, tb.ShipClasses[curr_ship.Class], nil, center, curr_ship.Team)
+            --curr_ship.Mission.Instance = mn.createShip(curr_ship.Name, tb.ShipClasses[curr_ship.Class], nil, center:randomInSphere(1000, true, false), curr_ship.Team)
+            --curr_ship.Mission.Instance:giveOrder(ORDER_ATTACK_ANY)
+            ba.println("GameMission.Ships: " .. Inspect(GameMission.Ships))
+            GameMission.Ships:add(curr_ship)
+
+            if curr_ship.Health == nil then
+                curr_ship.Health = 1.0
+            else
+                curr_ship.Mission.Instance.HitpointsLeft = curr_ship.Mission.Instance.HitpointsMax * curr_ship.Health
+            end
+        end
     end
+
+    mission_ship:init(ship)
 end
 
 function GameState.startNewGame()
     ba.println("Setting up new game")
 
     for _, ship_props in pairs(new_game_ships) do
-        GameState.Ships:add(Ship(ship_props))
+        ba.println("Adding: " .. Inspect(ship_props))
+        GameState.Ships:add(ship_props:clone())
     end
 
     ba.println("Template table: " .. Inspect(new_game_ships))
