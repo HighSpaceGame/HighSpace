@@ -24,4 +24,8 @@ function GameObject:clone()
     return GameObject(self)
 end
 
+function GameObject:getMapDisplayName()
+    return self.Name
+end
+
 return GameObject

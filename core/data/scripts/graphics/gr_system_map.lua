@@ -7,6 +7,14 @@ function gr_system_map.drawIcon(ship)
     if icon then
         gr.drawImageCentered(icon.Texture, ship.System.Position.x, ship.System.Position.y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
         gr.drawImageCentered(icon.Texture, ship.System.Position.x, ship.System.Position.y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
+
+        gr.CurrentFont = gr.Fonts["font01"]
+        local text_width = gr.getStringWidth(ship:getMapDisplayName())
+        gr.drawString(
+                ship:getMapDisplayName(),
+                ship.System.Position.x - text_width/2,
+                ship.System.Position.y - icon.Height/2 - gr.CurrentFont.Height - 12
+        )
     end
 end
 

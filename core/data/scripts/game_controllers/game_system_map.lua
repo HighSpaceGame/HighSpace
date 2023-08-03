@@ -63,8 +63,8 @@ function GameSystemMap.processEncounters()
 
                         if GameState.MissionLoaded then
                             GameMission.Ships:clear()
-                            GameState:initMissionShip(ship1)
-                            GameState:initMissionShip(ship2)
+                            GameMission:initMissionShip(ship1)
+                            GameMission:initMissionShip(ship2)
 
                             ba.println("Ships Created: " .. Inspect(GameState.Ships))
                         end

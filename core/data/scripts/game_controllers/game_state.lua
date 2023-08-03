@@ -120,41 +120,6 @@ function GameState.checkGameOver()
     end
 end
 
-function GameState:initMissionShip(ship)
-    local center = ba.createVector(0,0,6000)
-
-    if ship.Team.Name == "Friendly" then
-        center = ba.createVector(-1000,0,6000)
-    else
-        center = ba.createVector(1000,0,6000)
-    end
-
-    local mission_ship = {}
-    function mission_ship:init(curr_ship)
-        ba.println("mission_ship:init: " .. Inspect(curr_ship.Name))
-        if curr_ship:is_a(ShipGroup) then
-            curr_ship:forEach(function(group_ship)
-                self:init(group_ship)
-                center.x = center.x + 100
-            end)
-        elseif curr_ship:is_a(Ship) then
-            curr_ship.Mission.Instance = mn.createShip(curr_ship.Name, tb.ShipClasses[curr_ship.Class], nil, center, curr_ship.Team)
-            --curr_ship.Mission.Instance = mn.createShip(curr_ship.Name, tb.ShipClasses[curr_ship.Class], nil, center:randomInSphere(1000, true, false), curr_ship.Team)
-            --curr_ship.Mission.Instance:giveOrder(ORDER_ATTACK_ANY)
-            ba.println("GameMission.Ships: " .. Inspect(GameMission.Ships))
-            GameMission.Ships:add(curr_ship)
-
-            if curr_ship.Health == nil then
-                curr_ship.Health = 1.0
-            else
-                curr_ship.Mission.Instance.HitpointsLeft = curr_ship.Mission.Instance.HitpointsMax * curr_ship.Health
-            end
-        end
-    end
-
-    mission_ship:init(ship)
-end
-
 function GameState.startNewGame()
     ba.println("Setting up new game")
 

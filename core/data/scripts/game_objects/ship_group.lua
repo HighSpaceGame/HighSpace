@@ -39,4 +39,12 @@ function ShipGroup:forEach(callback)
     self.Ships:forEach(callback)
 end
 
+function ShipGroup:getMapDisplayName()
+    if self._top_ship then
+        return self.Ships:get(self._top_ship):getMapDisplayName() .. ' Battle Group'
+    end
+
+    return 'Battle Group'
+end
+
 return ShipGroup

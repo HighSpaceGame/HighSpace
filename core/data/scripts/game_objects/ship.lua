@@ -16,4 +16,37 @@ function Ship:clone()
     return Ship(self)
 end
 
+local class_name_map = {
+    ["Terran"] = {
+        ["Fighter"] = 'GTT',
+        ["Bomber"] = 'GTB',
+        ["Cruiser"] = 'GTC',
+        ["Corvette"] = 'GTCv',
+        ["Capital"] = 'GTD',
+        ["Super Cap"] = 'GTVA',
+        ["Transport"] = 'GTT',
+    },
+    ["Vasudan"] = {
+        ["Fighter"] = 'PVF',
+        ["Bomber"] = 'PVB',
+        ["Cruiser"] = 'PVC',
+        ["Corvette"] = 'PVCv',
+        ["Capital"] = 'PVD',
+        ["Transport"] = 'PVD',
+    },
+    ["Shivan"] = {
+        ["Fighter"] = 'SF',
+        ["Bomber"] = 'SB',
+        ["Cruiser"] = 'SC',
+        ["Corvette"] = 'SCv',
+        ["Capital"] = 'SD',
+        ["Super Cap"] = 'SJ',
+        ["Transport"] = 'ST',
+    },
+}
+
+function Ship:getMapDisplayName()
+    return class_name_map[self.Species][self.Type] .. ' ' .. self.Name
+end
+
 return Ship
