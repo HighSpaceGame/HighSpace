@@ -1,10 +1,11 @@
-local Class     = require("class")
-local Inspect   = require("inspect")
-local Ship       = require('ship')
-local ShipGroup  = require('ship_group')
-local ShipList   = require('ship_list')
-local Utils      = require('utils')
-local Wing       = require('wing')
+local Class         = require("class")
+local Inspect       = require("inspect")
+local MissionFile   = require('mission_file')
+local Ship          = require('ship')
+local ShipGroup     = require('ship_group')
+local ShipList      = require('ship_list')
+local Utils         = require('utils')
+local Wing          = require('wing')
 
 GameMission = Class()
 
@@ -49,29 +50,40 @@ function GameMission:init()
     --ba.println("Skipping state set: " .. inspect(RocketUiSystem.skip_ui))
 end
 
-function GameMission:initMissionShip(ship)
-    local center = ba.createVector(0,0,6000)
+function GameMission:setupMission(team1, team2)
+    ba.println("Loading mission" .. Inspect(ba.getCurrentGameState()))
+    MissionFile:createMissionFile("template.fs2", team1, team2)
+    GameState.MissionLoaded = mn.loadMission("encounter.fs2")
+    ba.println("Mission loaded: " .. Inspect({ GameState.MissionLoaded, ba.getCurrentGameState() }))
 
-    if ship.Team.Name == "Friendly" then
-        center = ba.createVector(-1000,0,0)
-    else
-        center = ba.createVector(1000,0,6000)
+    if GameState.MissionLoaded then
+        GameMission.Ships:clear()
+        GameMission:initMissionShip(team1)
+        GameMission:initMissionShip(team2)
+
+        ba.println("Ships Created: " .. Inspect(GameMission.Ships))
     end
+end
 
+function GameMission:initMissionShip(ship)
     local mission_ship = {}
     function mission_ship:init(curr_ship)
         ba.println("mission_ship:init: " .. Inspect(curr_ship.Name))
         if curr_ship:is_a(ShipGroup) then
             curr_ship:forEach(function(group_ship)
                 self:init(group_ship)
-                center.x = center.x + 100
             end)
         elseif curr_ship:is_a(Ship) then
+            curr_ship.Mission.Instance = mn.Ships[curr_ship.Name]
+            if not curr_ship.Mission.Instance:isValid() then
+                for si = 1, #mn.Ships do
+                    ba.println("Mission Ship: " .. Inspect({ mn.Ships[si].Name }))
+                end
+                ba.error("Could not find a valid ship instance in mission: " .. curr_ship.Name)
+            end
+
             if curr_ship.Team.Name == 'Hostile' then
-                curr_ship.Mission.Instance = mn.createShip(curr_ship.Name, tb.ShipClasses[curr_ship.Class], ba.createOrientationFromVectors(ba.createVector(0, 0, -1)), center, curr_ship.Team)
                 curr_ship.Mission.Instance:giveOrder(ORDER_ATTACK_SHIP_CLASS, nil, nil, 1, tb.ShipClasses['GTC Aeolus'])
-            else
-                curr_ship.Mission.Instance = mn.createShip(curr_ship.Name, tb.ShipClasses[curr_ship.Class], nil, center:randomInSphere(1000, true, false), curr_ship.Team)
             end
 
             ba.println("GameMission.Ships: " .. Inspect(GameMission.Ships))
@@ -115,8 +127,10 @@ function GameMission:toggleMode()
     hu.HUDDrawn = not self.TacticalMode
     io.setCursorHidden(not self.TacticalMode)
     if self.TacticalMode then
+        mn.runSEXP("(player-use-ai)")
         ui.enableInput(RocketUiSystem.Context)
     else
+        mn.runSEXP("(player-not-use-ai)")
         ui.disableInput()
     end
 end

@@ -57,17 +57,7 @@ function GameSystemMap.processEncounters()
                 --ba.println("Ship2: " .. inspect({ship2.Name}))
                 if ship1.Name ~= ship2.Name and ship2.Team.Name ~= 'Friendly' then
                     if not GameState.MissionLoaded and GameSystemMap.isOverShip(ship2, ship1.System.Position.x, ship1.System.Position.y) then
-                        ba.println("Loading mission" .. Inspect(ba.getCurrentGameState()))
-                        GameState.MissionLoaded = mn.loadMission("BeamsFree.fs2")
-                        ba.println("Mission loaded: " .. Inspect({ GameState.MissionLoaded, ba.getCurrentGameState() }))
-
-                        if GameState.MissionLoaded then
-                            GameMission.Ships:clear()
-                            GameMission:initMissionShip(ship1)
-                            GameMission:initMissionShip(ship2)
-
-                            ba.println("Ships Created: " .. Inspect(GameState.Ships))
-                        end
+                        GameMission:setupMission(ship1, ship2)
                     end
                 end
             end)

@@ -9,4 +9,8 @@ function Wing:init(properties)
 
 end
 
+function Wing:clone()
+    return Wing(self)
+end
+
 return Wing
