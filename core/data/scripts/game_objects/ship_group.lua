@@ -10,14 +10,17 @@ function ShipGroup:init(properties)
     self.Ships = ShipList()
 
     local list = Utils.Game.getMandatoryProperty(properties, 'Ships')
-    list = list.List or list
+    list = list._list or list
 
     for _, ship in pairs(list) do
-        ba.println("ShipGroup:init(): " .. Inspect(ship.Name))
-        self.Ships:add(ship:clone())
-        if ship.Class then
-            self._top_ship = ship.Name
+        local ship_clone = ship:clone()
+        if ship_clone.Class then
+            self._top_ship = ship_clone.Name
         end
+
+        ship_clone.ParentList = self.Ships
+        self.Ships:add(ship_clone)
+        ba.println("ShipGroup:init(): " .. Inspect(self.Ships:get(ship.Name)))
     end
 
     self.Team = Utils.Game.getMandatoryProperty(properties, 'Team')

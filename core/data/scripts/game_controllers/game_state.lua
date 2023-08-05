@@ -123,9 +123,11 @@ end
 function GameState.startNewGame()
     ba.println("Setting up new game")
 
-    for _, ship_props in pairs(new_game_ships) do
-        ba.println("Adding: " .. Inspect(ship_props))
-        GameState.Ships:add(ship_props:clone())
+    for _, ship in pairs(new_game_ships) do
+        ba.println("Adding: " .. Inspect(ship))
+        local new_ship = ship:clone()
+        new_ship.ParentList = GameState.Ships
+        GameState.Ships:add(new_ship)
     end
 
     ba.println("Template table: " .. Inspect(new_game_ships))

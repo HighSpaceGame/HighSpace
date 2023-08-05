@@ -107,16 +107,7 @@ $Ship Choices: (
 
 #Objects		;! 1 total
 
-#Events		;! 1 total
-
-$Formula: ( when 
-   ( key-pressed "Alt-J" ) 
-   ( do-nothing ) 
-)
-+Name: Warp Out
-+Repeat Count: 1
-+Interval: 1
-+Objective:  XSTR("Warp Out", -1)
+#Events		;! 0 total
 
 #Goals		;! 0 total
 

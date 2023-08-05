@@ -190,7 +190,8 @@ end
 
 engine.addHook("On Ship Death Started", function()
     ba.println("Ship Died: " .. Inspect({ hv.Ship, hv.Killer, hv.Hitpos }))
-    GameState.Ships:remove(hv.Ship.Name)
+    local ship = GameMission.Ships:get(hv.Ship.Name)
+    ship.ParentList:remove(hv.Ship.Name)
     GameMission.Ships:remove(hv.Ship.Name)
 end, {}, function()
     return false
@@ -198,8 +199,10 @@ end)
 
 engine.addHook("On Ship Depart", function()
     ba.println("Ship Departed: " .. Inspect({ hv.Ship, hv.JumpNode, hv.Method }))
-    if GameState.Ships[hv.Ship.Name] then
-        GameState.Ships[hv.Ship.Name].Health = hv.Ship.HitpointsLeft / hv.Ship.HitpointsMax
+    local ship = GameMission.Ships:get(hv.Ship.Name)
+    if ship then
+        ship.Health = hv.Ship.HitpointsLeft / hv.Ship.HitpointsMax
+        GameMission.Ships:remove(hv.Ship.Name)
     end
 end, {}, function()
     return false
@@ -209,7 +212,7 @@ engine.addHook("On Mission About To End", function()
     ba.println("Mission About To End")
     for si = 1, #mn.Ships do
         local mn_ship = mn.Ships[si]
-        local g_ship = GameState.Ships[mn_ship.Name]
+        local g_ship = GameMission.Ships:get(mn_ship.Name)
         if g_ship then
             ba.println("Setting ship health: " .. Inspect({ mn_ship.Name, mn_ship.HitpointsLeft, mn_ship.HitpointsMax, mn_ship.HitpointsLeft / mn_ship.HitpointsMax }))
             g_ship.Health = mn_ship.HitpointsLeft / mn_ship.HitpointsMax

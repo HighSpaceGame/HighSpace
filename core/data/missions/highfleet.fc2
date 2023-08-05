@@ -8,7 +8,7 @@ $Flags: 0
 +Starting Weapons: ( "Subach HL-7"  "Subach HL-D"  "Mekhu HL-7"  "Mekhu HL-7D"  "Akheton SDG"  "Morning Star"  "MorningStar D"  "Prometheus R"  "Prometheus S"  "Prometheus D"  "Maxim"  "Maxim D"  "UD-8 Kayser"  "UD-D Kayser"  "Circe"  "Lamprey"  "Rockeye"  "Rockeye D"  "Tempest"  "Tempest D"  "Hornet"  "Hornet D"  "Tornado"  "Tornado D"  "Harpoon"  "Harpoon D"  "Trebuchet"  "TAG-A"  "TAG-B"  "TAG-C" "Piranha"  "Stiletto II"  "Infyrno"  "Infyrno D"  "Cyclops"  "Cyclops#short"  "Helios"  "EMP Adv." )
 
 
-$Mission: Blank.fs2
+$Mission: blank.fs2
 +Flags: 0
 +Main Hall: 
 
