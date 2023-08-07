@@ -57,7 +57,9 @@ function GrMissionTact.drawWaypointsAndTargets()
             gr.setColor(0, 255, 0)
 
             local x, y = ship.Order.Target.Position:getScreenCoords()
-            gr.drawImageCentered(GrCommon.WaypointIcon.Texture, x, y, GrCommon.WaypointIcon.Width, GrCommon.WaypointIcon.Height, 0, 0, 1, 1, 1, true)
+            if x and y then
+                gr.drawImageCentered(GrCommon.WaypointIcon.Texture, x, y, GrCommon.WaypointIcon.Width, GrCommon.WaypointIcon.Height, 0, 0, 1, 1, 1, true)
+            end
         end
 
         local target_ship_instance = ship.Mission.Instance.Target
@@ -69,7 +71,9 @@ function GrMissionTact.drawWaypointsAndTargets()
             end
 
             local x, y = target_ship_instance.Position:getScreenCoords()
-            gr.drawImageCentered(GrCommon.TargetIcon.Texture, x, y, GrCommon.TargetIcon.Width, GrCommon.TargetIcon.Height, 0, 0, 1, 1, 1, true)
+            if x and y then
+                gr.drawImageCentered(GrCommon.TargetIcon.Texture, x, y, GrCommon.TargetIcon.Width, GrCommon.TargetIcon.Height, 0, 0, 1, 1, 1, true)
+            end
         end
     end
 end
