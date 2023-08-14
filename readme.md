@@ -12,7 +12,7 @@ The code is based off the [SCPUI Test Mod](https://fsnebula.org/mod/SCPUI) (see 
 
 ```
 cd <FS2 Installation Directory>/FS2
-git clone https://github.com/ArjinFerman/highhpace.git highhpace-0.0.1
+git clone https://github.com/HighSpaceGame/highhpace.git highhpace-0.0.1
 ```
 
 Hopefully the mod will be detected and can run through Knossos. If not:
