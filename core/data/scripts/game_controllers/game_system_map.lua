@@ -7,8 +7,43 @@ GameSystemMap = Class()
 
 GameSystemMap.SelectedShip = nil;
 
-function GameSystemMap.isOverShip(ship, x, y)
-    local dist = ba.createVector(ship.System.Position.x - x, ship.System.Position.y - y)
+GameSystemMap.Camera = {
+    ["Parent"]  = nil,
+    ["Movement"]  = ba.createVector(0, 0, 0),
+    ["Position"] = ba.createVector(0, 0, 0),
+    ["Zoom"] = 1,
+    ["ScreenOffset"] = {}
+}
+
+function GameSystemMap.Camera:init(width, height)
+    self.ScreenOffset = ba.createVector(width, height, 0) / 2
+end
+
+function GameSystemMap.Camera:getScreenCoords(position)
+    local screen_pos = (position - self.Position) / self.Zoom
+    screen_pos.y = -screen_pos.y
+
+    return screen_pos + self.ScreenOffset
+end
+
+function GameSystemMap.Camera:setMovement(camera_movement)
+    self.Movement = camera_movement * self.Zoom * 4
+    ba.println("GameSystemMap.Camera:setMovement: " .. Inspect({ ["X"] = camera_movement.x, ["Y"] = camera_movement.y}))
+end
+
+function GameSystemMap.Camera:zoom(zoom)
+    ba.println("GameSystemMap.Camera:zoom: " .. Inspect({ zoom }))
+    self.Zoom = self.Zoom * zoom
+end
+
+function GameSystemMap.Camera:update()
+    self.Position = self.Position + self.Movement
+end
+
+
+function GameSystemMap:isOverShip(ship, x, y)
+    local dist = self.Camera:getScreenCoords(ship.System.Position) - ba.createVector(x, y, 0)
+
     return dist:getMagnitude() < 40;
 end
 
@@ -19,7 +54,7 @@ function GameSystemMap.selectShip(mouseX, mouseY)
     end
 
     GameState.Ships:forEach(function(ship)
-        if GameSystemMap.isOverShip(ship, mouseX, mouseY) then
+        if GameSystemMap:isOverShip(ship, mouseX, mouseY) then
             GameSystemMap.SelectedShip = ship.Name
             ship.IsSelected = true
             ba.println("Selected ship: " .. ship.Name)
@@ -56,7 +91,7 @@ function GameSystemMap.processEncounters()
             GameState.Ships:forEach(function(ship2)
                 --ba.println("Ship2: " .. inspect({ship2.Name}))
                 if ship1.Name ~= ship2.Name and ship2.Team.Name ~= 'Friendly' then
-                    if not GameState.MissionLoaded and GameSystemMap.isOverShip(ship2, ship1.System.Position.x, ship1.System.Position.y) then
+                    if not GameState.MissionLoaded and GameSystemMap:isOverShip(ship2, ship1.System.Position.x, ship1.System.Position.y) then
                         GameMission:setupMission(ship1, ship2)
                     end
                 end

@@ -21,6 +21,7 @@ function SystemMapUIController:initialize(document)
     draw_map.Url = ui.linkTexture(draw_map.Tex)
     draw_map.Draw = true
 
+    GameSystemMap.Camera:init(system_map.offset_width, system_map.offset_height)
     local ani_el = self.Document:CreateElement("img")
     ani_el:SetAttribute("src", draw_map.Url)
     system_map:ReplaceChild(ani_el, system_map.first_child)
@@ -44,15 +45,51 @@ function SystemMapUIController:mouseMove(event, document, element)
     self:storeMouseMove(event, document, element)
 end
 
--- Placeholder for when we actually use keys
+local camera_move_keys = {
+    [rocket.key_identifier.W] = { ["y"] = 1.0 },
+    [rocket.key_identifier.S] = { ["y"] = -1.0 },
+    [rocket.key_identifier.A] = { ["x"] = -1.0 },
+    [rocket.key_identifier.D] = { ["x"] = 1.0 },
+}
+
+local camera_movement = ba.createVector(0, 0 ,0)
+
+
+function SystemMapUIController:wheel(event, _, _)
+    GameSystemMap.Camera:zoom(1+event.parameters.wheel_delta * 0.1)
+end
+
 function SystemMapUIController:keyDown(_, event)
-    if event.parameters.key_identifier == rocket.key_identifier.ESCAPE or event.parameters.key_identifier == rocket.key_identifier.PAUSE then
+    if camera_move_keys[event.parameters.key_identifier] then
         event:StopPropagation()
+
+        for coord, value in pairs(camera_move_keys[event.parameters.key_identifier]) do
+            camera_movement[coord] = value
+        end
+
+        GameSystemMap.Camera:setMovement(camera_movement)
     end
+
+    self:storeKeyDown(event)
+end
+
+function SystemMapUIController:keyUp(_, event)
+    if camera_move_keys[event.parameters.key_identifier] then
+        event:StopPropagation()
+
+        for coord, _ in pairs(camera_move_keys[event.parameters.key_identifier]) do
+            camera_movement[coord] = 0
+        end
+
+        GameSystemMap.Camera:setMovement(camera_movement)
+    end
+
+    self:storeKeyUp(event)
 end
 
 function SystemMapUIController:frame()
     if ba.getCurrentGameState().Name == "GS_STATE_BRIEFING" then
+        GameSystemMap.Camera:update()
         GrSystemMap.drawMap(SystemMapUIController.Mouse.X, SystemMapUIController.Mouse.Y, GameState.Ships, draw_map.Tex)
 
         GameSystemMap.processEncounters()

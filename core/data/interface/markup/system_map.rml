@@ -9,7 +9,9 @@
 			Controller = require("ui_system_map")
 		</script>
 	</head>
-	<body onload="Controller:initialize(document)" onkeydown="Controller:keyDown(element, event)">
+	<body onload="Controller:initialize(document)"
+		  onkeydown="Controller:keyDown(element, event)"
+		  onkeyup="Controller:keyUp(element, event)">
 		<div id="system-map-window" class="window" >
 			<div id="system-map" onmousemove="Controller:mouseMove(event, document, element)"
 				 onmousedown="Controller:mouseDown(event, document, element)"
