@@ -26,6 +26,14 @@ function GameSystemMap.Camera:getScreenCoords(position)
     return screen_pos + self.ScreenOffset
 end
 
+function GameSystemMap.Camera:getWorldCoords(screen_pos)
+    local world_pos = screen_pos - self.ScreenOffset
+    world_pos.y = -world_pos.y
+    world_pos = world_pos * self.Zoom + self.Position
+
+    return world_pos
+end
+
 function GameSystemMap.Camera:setMovement(camera_movement)
     self.Movement = camera_movement * self.Zoom * 4
     ba.println("GameSystemMap.Camera:setMovement: " .. Inspect({ ["X"] = camera_movement.x, ["Y"] = camera_movement.y}))
@@ -40,14 +48,19 @@ function GameSystemMap.Camera:update()
     self.Position = self.Position + self.Movement
 end
 
-
 function GameSystemMap:isOverShip(ship, x, y)
     local dist = self.Camera:getScreenCoords(ship.System.Position) - ba.createVector(x, y, 0)
 
     return dist:getMagnitude() < 40;
 end
 
-function GameSystemMap.selectShip(mouseX, mouseY)
+function GameSystemMap.isShipEncounter(ship1, ship2)
+    local dist = ship2.System.Position - ship1.System.Position
+
+    return dist:getMagnitude() < 40;
+end
+
+function GameSystemMap:selectShip(mouseX, mouseY)
     if GameSystemMap.SelectedShip ~= nil then
         GameState.Ships:get(GameSystemMap.SelectedShip).IsSelected = false
         GameSystemMap.SelectedShip = nil
@@ -63,16 +76,15 @@ function GameSystemMap.selectShip(mouseX, mouseY)
     end)
 end
 
-function GameSystemMap.moveShip(mouseX, mouseY)
-    if GameSystemMap.SelectedShip ~= nil then
+function GameSystemMap:moveShip(mouseX, mouseY)
+    if self.SelectedShip ~= nil then
         local ship = GameState.Ships:get(GameSystemMap.SelectedShip)
         if ship.Team.Name == 'Friendly' then
-            ship.System.Position.x = mouseX
-            ship.System.Position.y = mouseY
+            ship.System.Position = self.Camera:getWorldCoords(ba.createVector(mouseX, mouseY))
         end
 
         ship.IsSelected = false
-        GameSystemMap.SelectedShip = nil
+        self.SelectedShip = nil
     end
 end
 
@@ -91,7 +103,7 @@ function GameSystemMap.processEncounters()
             GameState.Ships:forEach(function(ship2)
                 --ba.println("Ship2: " .. inspect({ship2.Name}))
                 if ship1.Name ~= ship2.Name and ship2.Team.Name ~= 'Friendly' then
-                    if not GameState.MissionLoaded and GameSystemMap:isOverShip(ship2, ship1.System.Position.x, ship1.System.Position.y) then
+                    if not GameState.MissionLoaded and GameSystemMap.isShipEncounter(ship1, ship2) then
                         GameMission:setupMission(ship1, ship2)
                     end
                 end
