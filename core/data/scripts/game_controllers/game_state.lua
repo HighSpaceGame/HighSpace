@@ -123,6 +123,7 @@ end
 function GameState.startNewGame()
     ba.println("Setting up new game")
 
+    GameState.MissionLoaded = false
     for _, ship in pairs(new_game_ships) do
         ba.println("Adding: " .. Inspect(ship))
         local new_ship = ship:clone()
