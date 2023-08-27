@@ -9,7 +9,7 @@ function Wing:init(properties)
 
 end
 
-function Wing:clone()
+function Wing:copy()
     return Wing(self)
 end
 

@@ -2,6 +2,7 @@ local Class     = require("class")
 local Dialogs   = require('dialogs')
 local Inspect   = require('inspect')
 local Utils     = require('utils')
+local Vector     = require('vector')
 
 GameSystemMap = Class()
 
@@ -9,8 +10,8 @@ GameSystemMap.SelectedShip = nil;
 
 GameSystemMap.Camera = {
     ["Parent"]  = nil,
-    ["Movement"]  = ba.createVector(0, 0, 0),
-    ["Position"] = ba.createVector(0, 0, 0),
+    ["Movement"]  = Vector(),
+    ["Position"] = Vector(),
     ["Zoom"] = 1,
     ["ScreenOffset"] = {}
 }

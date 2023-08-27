@@ -5,6 +5,7 @@ local Ship       = require('ship')
 local ShipGroup  = require('ship_group')
 local ShipList   = require('ship_list')
 local Utils      = require('utils')
+local Vector     = require('vector')
 local Wing       = require('wing')
 
 GameState = Class()
@@ -13,7 +14,7 @@ local new_game_ships = {
     ['Trinity Battle Group'] = ShipGroup({
         ['Name'] = 'Trinity Battle Group',
         ['Team'] = mn.Teams['Friendly'],
-        ['System'] = {['Position'] = ba.createVector(200, 200, 0),},
+        ['System'] = {['Position'] = Vector(200, 200, 0),},
         ['Ships'] = {
             ['Trinity'] = Ship({
                 ['Species'] = 'Terran',
@@ -21,7 +22,7 @@ local new_game_ships = {
                 ['Class'] = 'GTC Aeolus',
                 ['Team'] = mn.Teams['Friendly'],
                 ['Name'] = 'Trinity',
-                ['System'] = {['Position'] = ba.createVector(200, 200, 0),},
+                ['System'] = {['Position'] = Vector(200, 200, 0),},
             }),
             ['Alpha'] = Wing({
                 ['Name'] = 'Alpha',
@@ -33,7 +34,7 @@ local new_game_ships = {
                         ['Class'] = 'GTF Myrmidon',
                         ['Team'] = mn.Teams['Friendly'],
                         ['Name'] = 'Alpha 1',
-                        ['System'] = {['Position'] = ba.createVector(200, 200, 0),},
+                        ['System'] = {['Position'] = Vector(200, 200, 0),},
                     }),
                     ['Alpha 2'] = Ship({
                         ['Species'] = 'Terran',
@@ -41,7 +42,7 @@ local new_game_ships = {
                         ['Class'] = 'GTF Myrmidon',
                         ['Team'] = mn.Teams['Friendly'],
                         ['Name'] = 'Alpha 2',
-                        ['System'] = {['Position'] = ba.createVector(200, 200, 0),},
+                        ['System'] = {['Position'] = Vector(200, 200, 0),},
                     }),
                     ['Alpha 3'] = Ship({
                         ['Species'] = 'Terran',
@@ -49,7 +50,7 @@ local new_game_ships = {
                         ['Class'] = 'GTF Myrmidon',
                         ['Team'] = mn.Teams['Friendly'],
                         ['Name'] = 'Alpha 3',
-                        ['System'] = {['Position'] = ba.createVector(200, 200, 0),},
+                        ['System'] = {['Position'] = Vector(200, 200, 0),},
                     }),
                     ['Alpha 4'] = Ship({
                         ['Species'] = 'Terran',
@@ -57,7 +58,7 @@ local new_game_ships = {
                         ['Class'] = 'GTF Myrmidon',
                         ['Team'] = mn.Teams['Friendly'],
                         ['Name'] = 'Alpha 4',
-                        ['System'] = {['Position'] = ba.createVector(200, 200, 0),},
+                        ['System'] = {['Position'] = Vector(200, 200, 0),},
                     }),
                 }
             }),
@@ -69,7 +70,7 @@ local new_game_ships = {
         ['Class'] = 'SCv Moloch',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Abraxis',
-        ['System'] = {['Position'] = ba.createVector(100, 100, 0),}
+        ['System'] = {['Position'] = Vector(100, 100, 0),}
     }),
     ['Alhazred'] = Ship({
         ['Species'] = 'Shivan',
@@ -77,7 +78,7 @@ local new_game_ships = {
         ['Class'] = 'SC Cain',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Alhazred',
-        ['System'] = {['Position'] = ba.createVector(300, 100, 0),}
+        ['System'] = {['Position'] = Vector(300, 100, 0),}
     }),
 }
 
@@ -126,7 +127,7 @@ function GameState.startNewGame()
     GameState.MissionLoaded = false
     for _, ship in pairs(new_game_ships) do
         ba.println("Adding: " .. Inspect(ship))
-        local new_ship = ship:clone()
+        local new_ship = ship:copy()
         new_ship.ParentList = GameState.Ships
         GameState.Ships:add(new_ship)
     end

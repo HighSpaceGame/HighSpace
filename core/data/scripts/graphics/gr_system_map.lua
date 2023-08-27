@@ -1,39 +1,49 @@
-local gr_common = require('gr_common')
-
+local gr_common                          = require('gr_common')
 local Inspect                            = require('inspect')
+local Vector                             = require('vector')
+
 local gr_system_map = {}
 
-local drawTexture = function(texture, world_position, radius, text)
-    local screen_position = GameSystemMap.Camera:getScreenCoords(world_position)
+local drawTexture = function(texture, screen_position, screen_size, text)
     --ba.println("gr_system_map.drawTexture(texture, world_position): " .. Inspect({ screen_position.x, screen_position.y }))
-    gr.drawImageCentered(texture, screen_position.x, screen_position.y, radius*2, radius*2, 0, 0, 1, 1, 1, true)
+    gr.drawImageCentered(texture, screen_position.x, screen_position.y, screen_size, screen_size, 0, 0, 1, 1, 1, true)
 
     if text then
         local text_width = gr.getStringWidth(text)
         gr.drawString(
                 text,
                 screen_position.x - text_width/2,
-                screen_position.y - radius - gr.CurrentFont.Height - 12
+                screen_position.y - screen_size - gr.CurrentFont.Height - 12
         )
     end
 end
 
 function gr_system_map.drawSystem(body, parent)
-    gr.setColor(255, 255, 255, 255)
-    gr.CurrentFont = gr.Fonts["font01"]
-
     --ba.println("gr_system_map.drawSystem(system): " .. Inspect(system.Stars))
-    local world_position = ba.createVector(0, 0, 0)
+    local world_position = Vector()
 
     if parent then
         world_position.x = 1
         world_position = world_position * body.SemiMajorAxis * 149597870700.0
-        world_position = ba.createOrientation(0, math.rad(body.MeanAnomalyEpoch), 0):rotateVector(world_position) + parent.WorldPosition
+        world_position = world_position:rotate(0, math.rad(body.MeanAnomalyEpoch), 0) + parent.WorldPosition
     end
 
     body.WorldPosition = world_position
 
-    drawTexture(body.Texture, world_position, body.Radius / GameSystemMap.Camera.Zoom, body.Name)
+    local screen_size = body.Radius / GameSystemMap.Camera.Zoom * 2
+    local screen_position = GameSystemMap.Camera:getScreenCoords(world_position)
+    local alpha_factor = 1.0
+
+    if parent then
+        local screen_position_diff = GameSystemMap.Camera:getScreenCoords(parent.WorldPosition) - screen_position
+        alpha_factor = math.min(screen_position_diff:getMagnitude() / 30, 1.0)
+        alpha_factor = 1.0 - (1.0 - alpha_factor)*2
+    end
+
+    gr.setColor(255, 255, 255, math.max(255 * math.min(screen_size, 10) / 10, 128) * alpha_factor)
+    gr.CurrentFont = gr.Fonts["font01"]
+    screen_size = math.max(screen_size, 10)
+    drawTexture(body.Texture, screen_position, screen_size, body.Name)
 
     if not body.Satellites then
         return

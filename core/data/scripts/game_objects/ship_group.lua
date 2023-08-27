@@ -13,7 +13,7 @@ function ShipGroup:init(properties)
     list = list._list or list
 
     for _, ship in pairs(list) do
-        local ship_clone = ship:clone()
+        local ship_clone = ship:copy()
         if ship_clone.Class then
             self._top_ship = ship_clone.Name
         end
@@ -26,7 +26,7 @@ function ShipGroup:init(properties)
     self.Team = Utils.Game.getMandatoryProperty(properties, 'Team')
 end
 
-function ShipGroup:clone()
+function ShipGroup:copy()
     return ShipGroup(self)
 end
 

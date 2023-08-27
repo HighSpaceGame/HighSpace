@@ -2,6 +2,8 @@ local Class                              = require("class")
 local Inspect                            = require('inspect')
 local GrSystemMap                        = require('gr_system_map')
 local UIController                       = require('ui_controller')
+local Vector                             = require('vector')
+
 local SystemMapUIController = Class(UIController)()
 
 local draw_map = nil
@@ -47,8 +49,7 @@ local camera_move_keys = {
     [rocket.key_identifier.D] = { ["x"] = 1.0 },
 }
 
-local camera_movement = ba.createVector(0, 0 ,0)
-
+local camera_movement = Vector()
 
 function SystemMapUIController:wheel(event, _, _)
     GameSystemMap.Camera:zoom(1+event.parameters.wheel_delta * 0.1)
