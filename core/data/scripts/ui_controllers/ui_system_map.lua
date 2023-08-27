@@ -27,11 +27,6 @@ function SystemMapUIController:initialize(document)
     system_map:ReplaceChild(ani_el, system_map.first_child)
 end
 
-function SystemMapUIController:wheel(event, _, _)
-    --placeholder
-    --GrSystemMap.cam_dist = GrSystemMap.cam_dist * (1+event.parameters.wheel_delta * 0.1)
-end
-
 function SystemMapUIController:mouseDown(event, _, _)
     if event.parameters.button == UI_CONST.MOUSE_BUTTON_LEFT then
         ba.println("selecting ship: " .. Inspect(self.Mouse))
@@ -90,7 +85,7 @@ end
 function SystemMapUIController:frame()
     if ba.getCurrentGameState().Name == "GS_STATE_BRIEFING" then
         GameSystemMap.Camera:update()
-        GrSystemMap.drawMap(SystemMapUIController.Mouse.X, SystemMapUIController.Mouse.Y, GameState.Ships, draw_map.Tex)
+        GrSystemMap.drawMap(SystemMapUIController.Mouse.X, SystemMapUIController.Mouse.Y, GameState.Ships, GameSystemMap.System, draw_map.Tex)
 
         GameSystemMap.processEncounters()
     end

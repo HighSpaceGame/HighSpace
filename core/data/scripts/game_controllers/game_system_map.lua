@@ -15,6 +15,74 @@ GameSystemMap.Camera = {
     ["ScreenOffset"] = {}
 }
 
+GameSystemMap.System = {
+    ["Stars"] = {
+        ["1"] = {
+            ["Name"] = "Sol",
+            ["SemiMajorAxis"] = "0",
+            ["OrbitalPeriod"] = "0",
+            ["Mass"] = "1.9891e+30",
+            ["MeanAnomalyEpoch"] = "0",
+            ["Radius"] = "696342000",
+            ["Texture"] = gr.loadTexture("iconnode", true),
+            ["Satellites"] = {
+                ["1"] = {
+                    ["Name"] = "Jupiter",
+                    ["SemiMajorAxis"] = "5.204267",
+                    ["OrbitalPeriod"] = "4332.59",
+                    ["Radius"] = "71492000",
+                    ["Mass"] = "1.898e+27",
+                    ["MeanAnomalyEpoch"] = "20.05983908",
+                    ["Epoch"] = "2000-01-01T12:00:00",
+                    ["Texture"] = gr.loadTexture("iconplanet", true),
+                    ["Satellites"] = {
+                        ["1"] = {
+                            ["Name"] = "Io",
+                            ["SemiMajorAxis"] = "0.00281955885",
+                            ["OrbitalPeriod"] = "1.769138",
+                            ["Mass"] = "893.2e+20",
+                            ["MeanAnomalyEpoch"] = "342.021",
+                            ["Epoch"] = "2000-01-01T12:00:00",
+                            ["Radius"] = "1821600",
+                            ["Texture"] = gr.loadTexture("iconplanet", true),
+                        },
+                        ["2"] = {
+                            ["Name"] = "Europa",
+                            ["SemiMajorAxis"] = "0.00448602642",
+                            ["OrbitalPeriod"] = "3.551181",
+                            ["Mass"] = "480e+20",
+                            ["MeanAnomalyEpoch"] = "171.016",
+                            ["Epoch"] = "2000-01-01T12:00:00",
+                            ["Radius"] = "1821600",
+                            ["Texture"] = gr.loadTexture("iconplanet", true),
+                        },
+                        ["3"] = {
+                            ["Name"] = "Ganymede",
+                            ["SemiMajorAxis"] = "0.00715518206",
+                            ["OrbitalPeriod"] = "7.154553",
+                            ["Mass"] = "1481.9e+20",
+                            ["MeanAnomalyEpoch"] = "317.540",
+                            ["Epoch"] = "2000-01-01T12:00:00",
+                            ["Radius"] = "2631200",
+                            ["Texture"] = gr.loadTexture("iconplanet", true),
+                        },
+                        ["4"] = {
+                            ["Name"] = "Callisto",
+                            ["SemiMajorAxis"] = "0.0125850722",
+                            ["OrbitalPeriod"] = "16.689018",
+                            ["Mass"] = "1075.9e+20",
+                            ["MeanAnomalyEpoch"] = "181.408",
+                            ["Epoch"] = "2000-01-01T12:00:00",
+                            ["Radius"] = "2410300",
+                            ["Texture"] = gr.loadTexture("iconplanet", true),
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 function GameSystemMap.Camera:init(width, height)
     self.ScreenOffset = ba.createVector(width, height, 0) / 2
 end
@@ -40,8 +108,8 @@ function GameSystemMap.Camera:setMovement(camera_movement)
 end
 
 function GameSystemMap.Camera:zoom(zoom)
-    ba.println("GameSystemMap.Camera:zoom: " .. Inspect({ zoom }))
     self.Zoom = self.Zoom * zoom
+    ba.println("GameSystemMap.Camera:zoom: " .. Inspect({ self.Zoom }))
 end
 
 function GameSystemMap.Camera:update()
