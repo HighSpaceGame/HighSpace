@@ -52,7 +52,7 @@ local camera_move_keys = {
 local camera_movement = Vector()
 
 function SystemMapUIController:wheel(event, _, _)
-    GameSystemMap.Camera:zoom(1+event.parameters.wheel_delta * 0.1)
+    GameSystemMap.Camera:zoom(event.parameters.wheel_delta)
 end
 
 function SystemMapUIController:keyDown(_, event)

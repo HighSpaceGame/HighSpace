@@ -8,14 +8,6 @@ GameSystemMap = Class()
 
 GameSystemMap.SelectedShip = nil;
 
-GameSystemMap.Camera = {
-    ["Parent"]  = nil,
-    ["Movement"]  = Vector(),
-    ["Position"] = Vector(),
-    ["Zoom"] = 1,
-    ["ScreenOffset"] = {}
-}
-
 GameSystemMap.System = {
     ["Stars"] = {
         ["1"] = {
@@ -84,6 +76,20 @@ GameSystemMap.System = {
     }
 }
 
+GameSystemMap.Camera = {
+    ["Parent"]  = nil,
+    ["Movement"]  = Vector(),
+    ["Position"] = Vector(),
+    ["Zoom"] = 1000.0,
+    ["StartZoom"] = 1000.0,
+    ["TargetZoom"] = 1000.0,
+    ["ZoomSpeed"] = 0.10,
+    ["ZoomExp"] = 1,
+    ["TargetZoomTime"] = os.clock(),
+    ["LastZoomDirection"] = 0,
+    ["ScreenOffset"] = {}
+}
+
 function GameSystemMap.Camera:init(width, height)
     self.ScreenOffset = ba.createVector(width, height, 0) / 2
 end
@@ -108,13 +114,29 @@ function GameSystemMap.Camera:setMovement(camera_movement)
     ba.println("GameSystemMap.Camera:setMovement: " .. Inspect({ ["X"] = camera_movement.x, ["Y"] = camera_movement.y}))
 end
 
-function GameSystemMap.Camera:zoom(zoom)
-    self.Zoom = self.Zoom * zoom
-    ba.println("GameSystemMap.Camera:zoom: " .. Inspect({ self.Zoom }))
+function GameSystemMap.Camera:zoom(direction)
+    local current_time = os.clock()
+    self.TargetZoom = self.Zoom
+
+    if self.LastZoomDirection == direction or current_time > self.TargetZoomTime then
+        self.ZoomExp = math.max(self.ZoomExp + direction*0.5, 0)
+        self.TargetZoomTime = current_time + self.ZoomSpeed
+        self.TargetZoom = 1000.0 * math.exp(self.ZoomExp)
+    end
+
+    self.StartZoom = self.Zoom
+    self.LastZoomDirection = direction
+
+    ba.println("Zoom: " .. Inspect({current_time, self.TargetZoomTime, self.TargetZoom, self.ZoomExp}))
 end
 
 function GameSystemMap.Camera:update()
     self.Position = self.Position + self.Movement
+
+    --a parabolic zoom progression seems to look more smooth than a linear one
+    local zoom_progress = 1.0 - math.pow(math.min((os.clock()-self.TargetZoomTime) / self.ZoomSpeed, 0.0), 2.0)
+    --ba.println("GameSystemMap.Camera:zoomUpdate: " .. Inspect({ os.date(), self.Zoom, self.TargetZoom, os.clock(), self.TargetZoomTime, zoom_progress }))
+    self.Zoom = Utils.Math.lerp(self.StartZoom, self.TargetZoom, zoom_progress)
 end
 
 function GameSystemMap:isOverShip(ship, x, y)

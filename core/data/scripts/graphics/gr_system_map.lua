@@ -1,5 +1,6 @@
 local gr_common                          = require('gr_common')
 local Inspect                            = require('inspect')
+local Utils                              = require('utils')
 local Vector                             = require('vector')
 
 local gr_system_map = {}
@@ -32,15 +33,27 @@ function gr_system_map.drawSystem(body, parent)
 
     local screen_size = body.Radius / GameSystemMap.Camera.Zoom * 2
     local screen_position = GameSystemMap.Camera:getScreenCoords(world_position)
-    local alpha_factor = 1.0
+    local alpha = 255
 
     if parent then
-        local screen_position_diff = GameSystemMap.Camera:getScreenCoords(parent.WorldPosition) - screen_position
-        alpha_factor = math.min(screen_position_diff:getMagnitude() / 30, 1.0)
-        alpha_factor = 1.0 - (1.0 - alpha_factor)*2
+        local parent_screen_position = GameSystemMap.Camera:getScreenCoords(parent.WorldPosition)
+        local screen_position_diff = (parent_screen_position - screen_position):getMagnitude()
+        alpha = math.min(screen_position_diff / 30, 1.0)
+        alpha = 1.0 - (1.0 - alpha)*2
+        alpha = math.max(255 * math.min(screen_size, 10) / 10, 128) * alpha
+
+        if screen_position_diff < 20000 then
+            if screen_position_diff < 4 then
+                return
+            end
+
+            local orbit_alpha = Utils.Math.lerp(128, 0, math.max((screen_position_diff - 10000) / 10000, 0.0))
+            gr.setColor(255, 255, 255, orbit_alpha)
+            gr.drawCircle(screen_position_diff, parent_screen_position.x, parent_screen_position.y, false)
+        end
     end
 
-    gr.setColor(255, 255, 255, math.max(255 * math.min(screen_size, 10) / 10, 128) * alpha_factor)
+    gr.setColor(255, 255, 255, alpha)
     gr.CurrentFont = gr.Fonts["font01"]
     screen_size = math.max(screen_size, 10)
     drawTexture(body.Texture, screen_position, screen_size, body.Name)

@@ -193,6 +193,10 @@ function Utils.Math.isInsideBox(point, box_start, box_end)
     return (point.X > box_start.X and point.Y > box_start.Y and point.X < box_end.X and point.Y < box_end.Y)
 end
 
+function Utils.Math.lerp(a, b, f)
+    return a + f * (b - a)
+end
+
 function Utils.Game.getMandatoryProperty(properties, prop_name)
     if not properties[prop_name] then ba.error("Ship:init - " .. prop_name .. " is required") end
     return properties[prop_name]
