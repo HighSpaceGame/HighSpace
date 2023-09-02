@@ -91,7 +91,9 @@ function gr_system_map.drawMap(mouseX, mouseY, ships, system, drawTarget)
     gr.clearScreen(10, 10, 10, 255)
     gr.setColor(30, 30, 30, 255)
 
-    gr_system_map.drawSystem(system.Stars["1"])
+    for _, star in pairs(system.Stars) do
+        gr_system_map.drawSystem(star)
+    end
 
     ships:forEach(function(curr_ship)
         if curr_ship.IsSelected then

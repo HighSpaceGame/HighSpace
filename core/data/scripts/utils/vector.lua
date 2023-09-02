@@ -38,6 +38,12 @@ function Vector:toFS2Vector()
     return ba.createVector(self.x, self.y, self.z)
 end
 
+function Vector:fromFS2Vector(vector)
+    self.x = vector.x
+    self.y = vector.y
+    self.z = vector.z
+end
+
 function Vector:getSqrMagnitude()
     return (self.x*self.x + self.y*self.y + self.z*self.z)
 end

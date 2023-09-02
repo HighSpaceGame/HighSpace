@@ -14,7 +14,7 @@ local new_game_ships = {
     ['Trinity Battle Group'] = ShipGroup({
         ['Name'] = 'Trinity Battle Group',
         ['Team'] = mn.Teams['Friendly'],
-        ['System'] = {['Position'] = Vector(200, 200, 0),},
+        ['System'] = {['Position'] = Vector(732316619172.03, -250742595861.88, 0),},
         ['Ships'] = {
             ['Trinity'] = Ship({
                 ['Species'] = 'Terran',
@@ -22,7 +22,7 @@ local new_game_ships = {
                 ['Class'] = 'GTC Aeolus',
                 ['Team'] = mn.Teams['Friendly'],
                 ['Name'] = 'Trinity',
-                ['System'] = {['Position'] = Vector(200, 200, 0),},
+                ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0),},
             }),
             ['Alpha'] = Wing({
                 ['Name'] = 'Alpha',
@@ -34,7 +34,7 @@ local new_game_ships = {
                         ['Class'] = 'GTF Myrmidon',
                         ['Team'] = mn.Teams['Friendly'],
                         ['Name'] = 'Alpha 1',
-                        ['System'] = {['Position'] = Vector(200, 200, 0),},
+                        ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0),},
                     }),
                     ['Alpha 2'] = Ship({
                         ['Species'] = 'Terran',
@@ -42,7 +42,7 @@ local new_game_ships = {
                         ['Class'] = 'GTF Myrmidon',
                         ['Team'] = mn.Teams['Friendly'],
                         ['Name'] = 'Alpha 2',
-                        ['System'] = {['Position'] = Vector(200, 200, 0),},
+                        ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0),},
                     }),
                     ['Alpha 3'] = Ship({
                         ['Species'] = 'Terran',
@@ -50,7 +50,7 @@ local new_game_ships = {
                         ['Class'] = 'GTF Myrmidon',
                         ['Team'] = mn.Teams['Friendly'],
                         ['Name'] = 'Alpha 3',
-                        ['System'] = {['Position'] = Vector(200, 200, 0),},
+                        ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0),},
                     }),
                     ['Alpha 4'] = Ship({
                         ['Species'] = 'Terran',
@@ -58,7 +58,7 @@ local new_game_ships = {
                         ['Class'] = 'GTF Myrmidon',
                         ['Team'] = mn.Teams['Friendly'],
                         ['Name'] = 'Alpha 4',
-                        ['System'] = {['Position'] = Vector(200, 200, 0),},
+                        ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0),},
                     }),
                 }
             }),
@@ -70,7 +70,7 @@ local new_game_ships = {
         ['Class'] = 'SCv Moloch',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Abraxis',
-        ['System'] = {['Position'] = Vector(100, 100, 0),}
+        ['System'] = {['Position'] = Vector(730316619172.03, -251842595861.88, 0),}
     }),
     ['Alhazred'] = Ship({
         ['Species'] = 'Shivan',
@@ -78,7 +78,7 @@ local new_game_ships = {
         ['Class'] = 'SC Cain',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Alhazred',
-        ['System'] = {['Position'] = Vector(300, 100, 0),}
+        ['System'] = {['Position'] = Vector(730316619172.03, -250042595861.88, 0),}
     }),
 }
 

@@ -1,6 +1,7 @@
 local Class     = require("class")
 local Dialogs   = require('dialogs')
 local Inspect   = require('inspect')
+local SystemFile    = require('system_file')
 local Utils     = require('utils')
 local Vector     = require('vector')
 
@@ -8,83 +9,17 @@ GameSystemMap = Class()
 
 GameSystemMap.SelectedShip = nil;
 
-GameSystemMap.System = {
-    ["Stars"] = {
-        ["1"] = {
-            ["Name"] = "Sol",
-            ["SemiMajorAxis"] = "0",
-            ["OrbitalPeriod"] = "0",
-            ["Mass"] = "1.9891e+30",
-            ["MeanAnomalyEpoch"] = "0",
-            ["Radius"] = "696342000",
-            ["Texture"] = gr.loadTexture("iconnode", true),
-            ["Satellites"] = {
-                ["1"] = {
-                    ["Name"] = "Jupiter",
-                    ["SemiMajorAxis"] = "5.204267",
-                    ["OrbitalPeriod"] = "4332.59",
-                    ["Radius"] = "71492000",
-                    ["Mass"] = "1.898e+27",
-                    ["MeanAnomalyEpoch"] = "20.05983908",
-                    ["Epoch"] = "2000-01-01T12:00:00",
-                    ["Texture"] = gr.loadTexture("iconplanet", true),
-                    ["Satellites"] = {
-                        ["1"] = {
-                            ["Name"] = "Io",
-                            ["SemiMajorAxis"] = "0.00281955885",
-                            ["OrbitalPeriod"] = "1.769138",
-                            ["Mass"] = "893.2e+20",
-                            ["MeanAnomalyEpoch"] = "342.021",
-                            ["Epoch"] = "2000-01-01T12:00:00",
-                            ["Radius"] = "1821600",
-                            ["Texture"] = gr.loadTexture("iconplanet", true),
-                        },
-                        ["2"] = {
-                            ["Name"] = "Europa",
-                            ["SemiMajorAxis"] = "0.00448602642",
-                            ["OrbitalPeriod"] = "3.551181",
-                            ["Mass"] = "480e+20",
-                            ["MeanAnomalyEpoch"] = "171.016",
-                            ["Epoch"] = "2000-01-01T12:00:00",
-                            ["Radius"] = "1821600",
-                            ["Texture"] = gr.loadTexture("iconplanet", true),
-                        },
-                        ["3"] = {
-                            ["Name"] = "Ganymede",
-                            ["SemiMajorAxis"] = "0.00715518206",
-                            ["OrbitalPeriod"] = "7.154553",
-                            ["Mass"] = "1481.9e+20",
-                            ["MeanAnomalyEpoch"] = "317.540",
-                            ["Epoch"] = "2000-01-01T12:00:00",
-                            ["Radius"] = "2631200",
-                            ["Texture"] = gr.loadTexture("iconplanet", true),
-                        },
-                        ["4"] = {
-                            ["Name"] = "Callisto",
-                            ["SemiMajorAxis"] = "0.0125850722",
-                            ["OrbitalPeriod"] = "16.689018",
-                            ["Mass"] = "1075.9e+20",
-                            ["MeanAnomalyEpoch"] = "181.408",
-                            ["Epoch"] = "2000-01-01T12:00:00",
-                            ["Radius"] = "2410300",
-                            ["Texture"] = gr.loadTexture("iconplanet", true),
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+GameSystemMap.System = SystemFile:loadSystem('sol.json.cfg')
 
 GameSystemMap.Camera = {
     ["Parent"]  = nil,
     ["Movement"]  = Vector(),
-    ["Position"] = Vector(),
-    ["Zoom"] = 1000.0,
-    ["StartZoom"] = 1000.0,
-    ["TargetZoom"] = 1000.0,
+    ["Position"] = Vector(731316619172.03, -250842595861.88, 0),
+    ["Zoom"] = 1.0,
+    ["StartZoom"] = 1.0,
+    ["TargetZoom"] = 1.0,
     ["ZoomSpeed"] = 0.10,
-    ["ZoomExp"] = 1,
+    ["ZoomExp"] = 9,
     ["TargetZoomTime"] = os.clock(),
     ["LastZoomDirection"] = 0,
     ["ScreenOffset"] = {}
@@ -92,6 +27,9 @@ GameSystemMap.Camera = {
 
 function GameSystemMap.Camera:init(width, height)
     self.ScreenOffset = ba.createVector(width, height, 0) / 2
+    self.Zoom = 1000.0 * math.exp(self.ZoomExp)
+    self.StartZoom = self.Zoom
+    self.TargetZoom = self.Zoom
 end
 
 function GameSystemMap.Camera:getScreenCoords(position)
@@ -102,7 +40,8 @@ function GameSystemMap.Camera:getScreenCoords(position)
 end
 
 function GameSystemMap.Camera:getWorldCoords(screen_pos)
-    local world_pos = screen_pos - self.ScreenOffset
+    local world_pos = Vector()
+    world_pos:fromFS2Vector(screen_pos - self.ScreenOffset)
     world_pos.y = -world_pos.y
     world_pos = world_pos * self.Zoom + self.Position
 
@@ -140,7 +79,7 @@ function GameSystemMap.Camera:update()
 end
 
 function GameSystemMap:isOverShip(ship, x, y)
-    local dist = self.Camera:getScreenCoords(ship.System.Position) - ba.createVector(x, y, 0)
+    local dist = self.Camera:getScreenCoords(ship.System.Position) - Vector(x, y, 0)
 
     return dist:getMagnitude() < 40;
 end
@@ -148,7 +87,21 @@ end
 function GameSystemMap.isShipEncounter(ship1, ship2)
     local dist = ship2.System.Position - ship1.System.Position
 
-    return dist:getMagnitude() < 40;
+    return dist:getMagnitude() < 100000;
+end
+
+function GameSystemMap:shipUnderScreenCoords(mouseX, mouseY)
+    local found_ship
+
+    GameState.Ships:forEach(function(ship)
+        if GameSystemMap:isOverShip(ship, mouseX, mouseY) then
+            found_ship = ship
+            ba.println("Found ship under coords: " .. Inspect({ ship.Name, mouseX, mouseY }))
+            return
+        end
+    end)
+
+    return found_ship
 end
 
 function GameSystemMap:selectShip(mouseX, mouseY)
@@ -157,21 +110,25 @@ function GameSystemMap:selectShip(mouseX, mouseY)
         GameSystemMap.SelectedShip = nil
     end
 
-    GameState.Ships:forEach(function(ship)
-        if GameSystemMap:isOverShip(ship, mouseX, mouseY) then
-            GameSystemMap.SelectedShip = ship.Name
-            ship.IsSelected = true
-            ba.println("Selected ship: " .. ship.Name)
-            return
-        end
-    end)
+    local ship = self:shipUnderScreenCoords(mouseX, mouseY)
+    if ship then
+        GameSystemMap.SelectedShip = ship.Name
+        ship.IsSelected = true
+        ba.println("Selected ship: " .. ship.Name)
+    end
 end
 
 function GameSystemMap:moveShip(mouseX, mouseY)
     if self.SelectedShip ~= nil then
         local ship = GameState.Ships:get(GameSystemMap.SelectedShip)
         if ship.Team.Name == 'Friendly' then
-            ship.System.Position = self.Camera:getWorldCoords(ba.createVector(mouseX, mouseY))
+            local target_ship = self:shipUnderScreenCoords(mouseX, mouseY)
+
+            if target_ship then
+                ship.System.Position = target_ship.System.Position:copy()
+            else
+                ship.System.Position = self.Camera:getWorldCoords(ba.createVector(mouseX, mouseY))
+            end
         end
 
         ship.IsSelected = false
