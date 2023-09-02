@@ -52,6 +52,24 @@ function Vector:getMagnitude()
     return math.sqrt(self:getSqrMagnitude())
 end
 
+function Vector:floor()
+    self.x = math.floor(self.x)
+    self.y = math.floor(self.y)
+    self.z = math.floor(self.z)
+
+    return self
+end
+
+function Vector:normalize()
+    local length = self:getMagnitude()
+
+    self.x = self.x / length
+    self.y = self.y / length
+    self.z = self.z / length
+
+    return self
+end
+
 --- Rotates a vector around the specified angles
 --- Note: right now this is only used for the System Map so we only rotate around the Z-Axis (bank angle)
 --- One day we might want to do proper matrix rotation
@@ -63,8 +81,7 @@ function Vector:rotate(p, b, h)
     local sinb = math.sin(-b)
     local cosb = math.cos(-b)
 
-    self.x = self.x*cosb - self.y*sinb
-    self.y = self.x*sinb + self.y*cosb
+    self.x, self.y = self.x*cosb - self.y*sinb, self.x*sinb + self.y*cosb
 
     --ba.println("Vector:rotate(p, b, h) - " .. Inspect({b, sinb, cosb, self.x, self.y}))
 

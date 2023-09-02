@@ -86,7 +86,7 @@ end
 function SystemMapUIController:frame()
     if ba.getCurrentGameState().Name == "GS_STATE_BRIEFING" then
         GameSystemMap.Camera:update()
-        GrSystemMap.drawMap(SystemMapUIController.Mouse.X, SystemMapUIController.Mouse.Y, GameState.Ships, GameSystemMap.System, draw_map.Tex)
+        GrSystemMap.drawMap(Vector(SystemMapUIController.Mouse.X, SystemMapUIController.Mouse.Y), GameState.Ships, GameSystemMap.System, draw_map.Tex)
 
         GameSystemMap.processEncounters()
     end

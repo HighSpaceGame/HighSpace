@@ -14,7 +14,7 @@ GameSystemMap.System = SystemFile:loadSystem('sol.json.cfg')
 GameSystemMap.Camera = {
     ["Parent"]  = nil,
     ["Movement"]  = Vector(),
-    ["Position"] = Vector(731316619172.03, -250842595861.88, 0),
+    ["Position"] = Vector(731316619172.03, -266842595861.88, 0),
     ["Zoom"] = 1.0,
     ["StartZoom"] = 1.0,
     ["TargetZoom"] = 1.0,
@@ -26,7 +26,7 @@ GameSystemMap.Camera = {
 }
 
 function GameSystemMap.Camera:init(width, height)
-    self.ScreenOffset = ba.createVector(width, height, 0) / 2
+    self.ScreenOffset = Vector(width, height) / 2
     self.Zoom = 1000.0 * math.exp(self.ZoomExp)
     self.StartZoom = self.Zoom
     self.TargetZoom = self.Zoom
@@ -39,9 +39,12 @@ function GameSystemMap.Camera:getScreenCoords(position)
     return screen_pos + self.ScreenOffset
 end
 
+function GameSystemMap.Camera:isOnScreen(position)
+    return (position.x > 0 and position.y > 0 and position.x < self.ScreenOffset.x*2 and position.y < self.ScreenOffset.y*2)
+end
+
 function GameSystemMap.Camera:getWorldCoords(screen_pos)
-    local world_pos = Vector()
-    world_pos:fromFS2Vector(screen_pos - self.ScreenOffset)
+    local world_pos = screen_pos - self.ScreenOffset
     world_pos.y = -world_pos.y
     world_pos = world_pos * self.Zoom + self.Position
 
@@ -58,7 +61,7 @@ function GameSystemMap.Camera:zoom(direction)
     self.TargetZoom = self.Zoom
 
     if self.LastZoomDirection == direction or current_time > self.TargetZoomTime then
-        self.ZoomExp = math.max(self.ZoomExp + direction*0.5, 0)
+        self.ZoomExp = math.min(math.max(self.ZoomExp + direction*0.5, 0), 21.0)
         self.TargetZoomTime = current_time + self.ZoomSpeed
         self.TargetZoom = 1000.0 * math.exp(self.ZoomExp)
     end
@@ -127,7 +130,7 @@ function GameSystemMap:moveShip(mouseX, mouseY)
             if target_ship then
                 ship.System.Position = target_ship.System.Position:copy()
             else
-                ship.System.Position = self.Camera:getWorldCoords(ba.createVector(mouseX, mouseY))
+                ship.System.Position = self.Camera:getWorldCoords(Vector(mouseX, mouseY))
             end
         end
 

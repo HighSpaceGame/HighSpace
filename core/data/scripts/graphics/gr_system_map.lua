@@ -5,16 +5,16 @@ local Vector                             = require('vector')
 
 local gr_system_map = {}
 
-local drawTexture = function(texture, screen_position, screen_size, text)
+local drawTexture = function(texture, text, screen_position, width, height)
     --ba.println("gr_system_map.drawTexture(texture, world_position): " .. Inspect({ screen_position.x, screen_position.y }))
-    gr.drawImageCentered(texture, screen_position.x, screen_position.y, screen_size, screen_size, 0, 0, 1, 1, 1, true)
+    gr.drawImageCentered(texture, screen_position.x, screen_position.y, width, height, 0, 0, 1, 1, 1, true)
 
     if text then
         local text_width = gr.getStringWidth(text)
         gr.drawString(
                 text,
                 screen_position.x - text_width/2,
-                screen_position.y - screen_size - gr.CurrentFont.Height - 12
+                screen_position.y - height - gr.CurrentFont.Height - 12
         )
     end
 end
@@ -56,7 +56,7 @@ function gr_system_map.drawSystem(body, parent)
     gr.setColor(255, 255, 255, alpha)
     gr.CurrentFont = gr.Fonts["font01"]
     screen_size = math.max(screen_size, 10)
-    drawTexture(body.Texture, screen_position, screen_size, body.Name)
+    drawTexture(body.Texture, body.Name, screen_position, screen_size, screen_size)
 
     if not body.Satellites then
         return
@@ -67,25 +67,92 @@ function gr_system_map.drawSystem(body, parent)
     end
 end
 
-function gr_system_map.drawShip(ship)
-    local icon = gr_common.getIconForShip(ship)
-    if icon then
-        local screen_position = GameSystemMap.Camera:getScreenCoords(ship.System.Position)
-        --ba.println("gr_system_map.drawShip: " .. Inspect({ship.System.Position.y, screen_position.x, screen_position.y}))
-        gr.drawImageCentered(icon.Texture, screen_position.x, screen_position.y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
-        gr.drawImageCentered(icon.Texture, screen_position.x, screen_position.y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
+local ships_screen_map = {
+    ["Sectors"] = {},
+}
 
-        gr.CurrentFont = gr.Fonts["font01"]
-        local text_width = gr.getStringWidth(ship:getMapDisplayName())
-        gr.drawString(
-                ship:getMapDisplayName(),
-                screen_position.x - text_width/2,
-                screen_position.y - icon.Height/2 - gr.CurrentFont.Height - 12
-        )
+function ships_screen_map:addShip(ship)
+    local screen_position = GameSystemMap.Camera:getScreenCoords(ship.System.Position)
+
+    if not GameSystemMap.Camera:isOnScreen(screen_position) then
+        return
     end
+
+    local screen_sector = GameSystemMap.Camera.ScreenOffset / 5
+    local min_dist = math.min(screen_sector.x, screen_sector.y)
+    screen_sector.x, screen_sector.y = screen_position.x / min_dist + 1.5, screen_position.y / min_dist + 1.5
+    screen_sector:floor()
+    --ba.println("ships_screen_map:addToCurrentFrame: " .. Inspect({screen_sector}))
+
+    local x, y = screen_sector.x, screen_sector.y
+    for dx = screen_sector.x-1, screen_sector.x+1 do
+        for dy = screen_sector.y-1, screen_sector.y+1 do
+            local sector = dx > 0 and dy > 0 and self.Sectors[dx] and self.Sectors[dx][dy] or nil
+            if sector then
+                local dist = (screen_position - sector.AvgScreenPosition):getMagnitude()
+                if dist < min_dist then
+                    min_dist = dist
+                    x, y = dx, dy
+                end
+            end
+        end
+    end
+
+    --ba.println("gr_system_map.addToCurrentFrame: " .. Inspect({ship.Name, x, y, x, y}))
+
+    self.Sectors[x] = self.Sectors[x] and self.Sectors[x] or {}
+    self.Sectors[x][y] = self.Sectors[x][y] and self.Sectors[x][y] or {["Ships"] = {}}
+    local sector = self.Sectors[x][y]
+
+    table.insert(sector["Ships"], ship)
+    local avg_pos = Vector(0,0)
+    for _, iship in ipairs(sector["Ships"]) do
+        avg_pos = avg_pos + iship.System.Position
+    end
+
+    sector["AvgScreenPosition"] = GameSystemMap.Camera:getScreenCoords(avg_pos / #sector["Ships"])
 end
 
-function gr_system_map.drawMap(mouseX, mouseY, ships, system, drawTarget)
+function ships_screen_map:draw()
+    for _, x_frame in pairs(self.Sectors) do
+        for _, xy_frame in pairs(x_frame) do
+            local rel_screen_position = Vector(0, -15)
+            for ship_idx, ship in ipairs(xy_frame.Ships) do
+                local icon = gr_common.getIconForShip(ship)
+                if icon then
+                    local icon_width, icon_height = icon.Width, icon.Height
+                    local text = ship:getMapDisplayName()
+                    local screen_position = xy_frame.AvgScreenPosition
+
+                    if #xy_frame.Ships > 1 then
+                        text =  #xy_frame.Ships .. " ships"
+                        if ship_idx > 1 then
+                            text = ""
+                            rel_screen_position:rotate(0, math.rad(360 / #xy_frame.Ships), 0)
+                        end
+
+                        icon_width, icon_height = icon.Width/4, icon.Height/4
+                        screen_position = screen_position + rel_screen_position
+                    end
+
+                    --ba.println("ships_screen_map:draw ship: " .. Inspect({rel_screen_position, screen_position}))
+                    gr.setColor(ship.Team:getColor())
+                    if ship.IsSelected then
+                        local selected_color = gr_common.TeamSelectedColors[ship.Team.Name]
+                        gr.setColor(selected_color.R, selected_color.G, selected_color.B)
+                    end
+
+                    --ba.println("ships_screen_map:draw: " .. Inspect({ship.Name, GameSystemMap.Camera.ScreenOffset.x, GameSystemMap.Camera.ScreenOffset.y, screen_position.x, screen_position.y, screen_sector.x, screen_sector.y}))
+                    drawTexture(icon.Texture, text, screen_position, icon_width, icon_height)
+                end
+            end
+        end
+    end
+
+    self.Sectors = {}
+end
+
+function gr_system_map.drawMap(mousePos, ships, system, drawTarget)
     gr.setTarget(drawTarget)
 
     gr.clearScreen(10, 10, 10, 255)
@@ -96,21 +163,24 @@ function gr_system_map.drawMap(mouseX, mouseY, ships, system, drawTarget)
     end
 
     ships:forEach(function(curr_ship)
-        if curr_ship.IsSelected then
+        ships_screen_map:addShip(curr_ship)
+
+        if curr_ship.IsSelected and curr_ship.Team.Name == 'Friendly' then
             local screen_position = GameSystemMap.Camera:getScreenCoords(curr_ship.System.Position)
-            local selected_color = gr_common.TeamSelectedColors[curr_ship.Team.Name]
-            gr.setColor(selected_color.R, selected_color.G, selected_color.B)
+            local color = gr_common.TeamSelectedColors[curr_ship.Team.Name]
 
-            if curr_ship.Team.Name == 'Friendly' then
-                gr.drawLine(screen_position.x, screen_position.y, mouseX, mouseY)
+            if not GameSystemMap.Camera:isOnScreen(screen_position) then
+                screen_position = screen_position - mousePos
+                screen_position = screen_position:normalize() * 2000
+                screen_position = screen_position + mousePos
             end
-        else
-            gr.setColor(curr_ship.Team:getColor())
-        end
 
-        gr_system_map.drawShip(curr_ship)
+            gr.setColor(color.R, color.G, color.B)
+            gr.drawLine(screen_position.x, screen_position.y, mousePos.x, mousePos.y)
+        end
     end)
 
+    ships_screen_map:draw(mouseX, mouseY)
     gr.setTarget()
 end
 

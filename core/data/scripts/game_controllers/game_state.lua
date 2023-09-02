@@ -14,7 +14,7 @@ local new_game_ships = {
     ['Trinity Battle Group'] = ShipGroup({
         ['Name'] = 'Trinity Battle Group',
         ['Team'] = mn.Teams['Friendly'],
-        ['System'] = {['Position'] = Vector(732316619172.03, -250742595861.88, 0),},
+        ['System'] = {['Position'] = Vector(732316619172.03, -266742595861.88, 0),},
         ['Ships'] = {
             ['Trinity'] = Ship({
                 ['Species'] = 'Terran',
@@ -70,7 +70,7 @@ local new_game_ships = {
         ['Class'] = 'SCv Moloch',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Abraxis',
-        ['System'] = {['Position'] = Vector(730316619172.03, -251842595861.88, 0),}
+        ['System'] = {['Position'] = Vector(730316619172.03, -267842595861.88, 0),}
     }),
     ['Alhazred'] = Ship({
         ['Species'] = 'Shivan',
@@ -78,7 +78,7 @@ local new_game_ships = {
         ['Class'] = 'SC Cain',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Alhazred',
-        ['System'] = {['Position'] = Vector(730316619172.03, -250042595861.88, 0),}
+        ['System'] = {['Position'] = Vector(730316619172.03, -266042595861.88, 0),}
     }),
 }
 
