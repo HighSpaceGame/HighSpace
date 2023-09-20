@@ -32,9 +32,9 @@ end
 function SystemMapUIController:mouseDown(event, _, _)
     if event.parameters.button == UI_CONST.MOUSE_BUTTON_LEFT then
         ba.println("selecting ship: " .. Inspect(self.Mouse))
-        GameSystemMap:selectShip(self.Mouse.X, self.Mouse.Y)
+        GameSystemMap:selectShip(self.Mouse.Cursor)
     elseif event.parameters.button == UI_CONST.MOUSE_BUTTON_RIGHT then
-        GameSystemMap:moveShip(self.Mouse.X, self.Mouse.Y)
+        GameSystemMap:moveShip(self.Mouse.Cursor)
     end
 end
 
@@ -85,8 +85,8 @@ end
 
 function SystemMapUIController:frame()
     if ba.getCurrentGameState().Name == "GS_STATE_BRIEFING" then
-        GameSystemMap.Camera:update()
-        GrSystemMap.drawMap(Vector(SystemMapUIController.Mouse.X, SystemMapUIController.Mouse.Y), GameState.Ships, GameSystemMap.System, draw_map.Tex)
+        GameSystemMap:update()
+        GrSystemMap.drawMap(self.Mouse.Cursor:copy(), draw_map.Tex)
 
         GameSystemMap.processEncounters()
     end

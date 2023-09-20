@@ -53,9 +53,9 @@ function MissionUIController:mouseDown(event, document, element)
     self:storeMouseDown(event, document, element)
 
     if event.parameters.button == UI_CONST.MOUSE_BUTTON_LEFT then
-        self.SelectionFrom = { ["X"] = self.Mouse.X, ["Y"] = self.Mouse.Y }
+        self.SelectionFrom = self.Mouse.Cursor:copy()
     elseif event.parameters.button == UI_CONST.MOUSE_BUTTON_RIGHT then
-        GameMission:giveRightClickCommand({ ["X"] = self.Mouse.X, ["Y"] = self.Mouse.Y })
+        GameMission:giveRightClickCommand(self.Mouse.Cursor:copy())
     end
 end
 
@@ -63,7 +63,7 @@ function MissionUIController:mouseUp(event, document, element)
     self:storeMouseUp(event, document, element)
 
     if event.parameters.button == UI_CONST.MOUSE_BUTTON_LEFT then
-        GameMission:selectShips(self.SelectionFrom, { ["X"] = self.Mouse.X, ["Y"] = self.Mouse.Y })
+        GameMission:selectShips(self.SelectionFrom, self.Mouse.Cursor:copy())
 
         self.SelectionFrom = nil
     end
@@ -119,9 +119,9 @@ end
 
 function MissionUIController:mouseMove(event, document, element)
     --ba.println("MissionUIController:mouseMove: " .. Inspect({ ["ctrl"] = event.parameters.ctrl_key, ["m"] = self.Mouse}))
-    if event.parameters.ctrl_key > 0 and self.Mouse.X > 0 and self.Mouse.Y then
-        local pitch = (event.parameters.mouse_y - self.Mouse.Y) / 500.0
-        local heading = (event.parameters.mouse_x - self.Mouse.X) / 500.0
+    if event.parameters.ctrl_key > 0 and self.Mouse.Cursor.x > 0 and self.Mouse.Cursor.y then
+        local pitch = (event.parameters.mouse_y - self.Mouse.Cursor.y) / 500.0
+        local heading = (event.parameters.mouse_x - self.Mouse.Cursor.x) / 500.0
         GameMission.TacticalCamera:rotateBy(pitch, heading)
     end
 
@@ -137,7 +137,7 @@ function MissionUIController:frame()
         mn.simulateFrame()
         mn.renderFrame()
 
-        GrMission.drawSelectionBox(MissionUIController.SelectionFrom, MissionUIController.Mouse)
+        GrMission.drawSelectionBox(self.SelectionFrom, self.Mouse)
         GrMission.drawSelectionBrackets()
         GrMission.drawIconsIfShipsTooSmall()
         GrMission.drawWaypointsAndTargets()

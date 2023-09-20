@@ -31,7 +31,7 @@ function GameMission.TacticalCamera:setMovement(camera_movement)
     local cam_mov_front = cam_mov_right:getCrossProduct(ba.createVector(0, 1 ,0)) * camera_movement.z
 
     self.Movement = (cam_mov_right * camera_movement.x + cam_mov_front) * self.Zoom / 100
-    --ba.println("moveCamera: " .. Inspect({ ["X"] = x, ["Y"] = y}))
+    --ba.println("moveCamera: " .. Inspect({ ["x"] = x, ["y"] = y}))
 end
 
 function GameMission.TacticalCamera:zoom(zoom)
@@ -140,7 +140,7 @@ function GameMission:selectShips(selFrom, selTo)
     self.Ships:forEach(function(ship)
         if ship.Mission.Instance then
             local x, y = ship.Mission.Instance.Position:getScreenCoords()
-            if Utils.Math.isInsideBox({ ["X"] = x, ["Y"] = y}, selFrom, selTo) then
+            if Utils.Math.isInsideBox({ ["x"] = x, ["y"] = y}, selFrom, selTo) then
                 self.SelectedShips[ship.Name] = ship
                 ba.println("Selecting: " .. Inspect({ ship.Name, tostring(ship.Mission.Instance.Target), ship.Mission.Instance.Target:getBreedName(), ship.Mission.Instance.Target:isValid() }))
             end
@@ -154,7 +154,7 @@ function GameMission:giveRightClickCommand(targetCursor)
     self.Ships:forEach(function(ship)
         if ship.Mission.Instance then
             local x1, y1, x2, y2 = gr.drawTargetingBrackets(ship.Mission.Instance, false)
-            if Utils.Math.isInsideBox(targetCursor, { ["X"] = x1, ["Y"] = y1}, { ["X"] = x2, ["Y"] = y2}) then
+            if Utils.Math.isInsideBox(targetCursor, { ["x"] = x1, ["y"] = y1}, { ["x"] = x2, ["y"] = y2}) then
                 target = ship
                 return false
             end
@@ -171,7 +171,7 @@ function GameMission:giveRightClickCommand(targetCursor)
         target = target.Mission.Instance
         ba.println("Giving Order: " .. Inspect({ order, target.Name }))
     else
-        local vec = gr.getVectorFromCoords(targetCursor.X, targetCursor.Y, 0, true) - GameMission.TacticalCamera.Instance.Position
+        local vec = gr.getVectorFromCoords(targetCursor.x, targetCursor.y, 0, true) - GameMission.TacticalCamera.Instance.Position
         local vec_size = 1.0 / math.abs(vec.y) * math.abs(GameMission.TacticalCamera.Instance.Position.y)
         vec = GameMission.TacticalCamera.Instance.Position + vec * vec_size
         target = mn.createWaypoint(vec)

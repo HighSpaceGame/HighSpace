@@ -190,7 +190,7 @@ function Utils.Table.copy(tbl)
 end
 
 function Utils.Math.isInsideBox(point, box_start, box_end)
-    return (point.X > box_start.X and point.Y > box_start.Y and point.X < box_end.X and point.Y < box_end.Y)
+    return (point.x > box_start.x and point.y > box_start.y and point.x < box_end.x and point.y < box_end.y)
 end
 
 function Utils.Math.lerp(a, b, f)

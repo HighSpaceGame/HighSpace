@@ -6,7 +6,7 @@ local GrMissionTact = {}
 function GrMissionTact.drawSelectionBox(from, mouseState)
     if mouseState.Buttons[UI_CONST.MOUSE_BUTTON_LEFT] and from then
         gr.setColor(0, 255, 0, 255)
-        gr.drawRectangle(from.X, from.Y, mouseState.X, mouseState.Y, false)
+        gr.drawRectangle(from.x, from.y, mouseState.Cursor.x, mouseState.Cursor.y, false)
     end
 end
 
