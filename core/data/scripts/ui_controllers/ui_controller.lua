@@ -1,5 +1,7 @@
 local Class         = require("class")
 local Inspect       = require('inspect')
+local Vector        = require('vector')
+
 local UIController  = Class()
 
 UI_CONST = {}
@@ -8,7 +10,7 @@ UI_CONST.MOUSE_BUTTON_RIGHT  = 1
 UI_CONST.MOUSE_BUTTON_MIDDLE = 2
 
 UIController.Mouse = {
-    ["X"] = 0.0, ["Y"] = 0.0,
+    ["Cursor"] = Vector(),
     ["Buttons"] = {
         [0] = false,
         [1] = false,
@@ -58,8 +60,8 @@ end
 --- @param element El[] the element firing the event
 --- @param document D[] the document firing the event
 function UIController:storeMouseMove(event, _, element)
-    self.Mouse.X = event.parameters.mouse_x - element.offset_left
-    self.Mouse.Y = event.parameters.mouse_y - element.offset_top
+    self.Mouse.Cursor.x = event.parameters.mouse_x - element.offset_left
+    self.Mouse.Cursor.y = event.parameters.mouse_y - element.offset_top
 
     --ba.println("mouseMove: " .. inspect(self.Mouse))
 end

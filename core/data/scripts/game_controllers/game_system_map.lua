@@ -1,9 +1,10 @@
-local Class     = require("class")
-local Dialogs   = require('dialogs')
-local Inspect   = require('inspect')
-local SystemFile    = require('system_file')
-local Utils     = require('utils')
-local Vector     = require('vector')
+local Class           = require("class")
+local Dialogs         = require('dialogs')
+local Inspect         = require('inspect')
+local KDTree          = require('kdtree')
+local SystemFile      = require('system_file')
+local Utils           = require('utils')
+local Vector          = require('vector')
 
 GameSystemMap = Class()
 
@@ -39,8 +40,9 @@ function GameSystemMap.Camera:getScreenCoords(position)
     return screen_pos + self.ScreenOffset
 end
 
-function GameSystemMap.Camera:isOnScreen(position)
-    return (position.x > 0 and position.y > 0 and position.x < self.ScreenOffset.x*2 and position.y < self.ScreenOffset.y*2)
+function GameSystemMap.Camera:isOnScreen(position, margin)
+    margin = margin or 0
+    return (position.x + margin > 0 and position.y + margin > 0 and position.x - margin < self.ScreenOffset.x*2 and position.y - margin < self.ScreenOffset.y*2)
 end
 
 function GameSystemMap.Camera:getWorldCoords(screen_pos)
@@ -53,7 +55,7 @@ end
 
 function GameSystemMap.Camera:setMovement(camera_movement)
     self.Movement = camera_movement * self.Zoom * 4
-    ba.println("GameSystemMap.Camera:setMovement: " .. Inspect({ ["X"] = camera_movement.x, ["Y"] = camera_movement.y}))
+    ba.println("GameSystemMap.Camera:setMovement: " .. Inspect({ ["x"] = camera_movement.x, ["y"] = camera_movement.y}))
 end
 
 function GameSystemMap.Camera:zoom(direction)
@@ -81,10 +83,38 @@ function GameSystemMap.Camera:update()
     self.Zoom = Utils.Math.lerp(self.StartZoom, self.TargetZoom, zoom_progress)
 end
 
-function GameSystemMap:isOverShip(ship, x, y)
-    local dist = self.Camera:getScreenCoords(ship.System.Position) - Vector(x, y, 0)
+GameSystemMap.ObjectKDTree = KDTree()
 
-    return dist:getMagnitude() < 40;
+local add_system_object_to_tree
+add_system_object_to_tree = function(body, parent)
+    local world_position = Vector()
+
+    if parent then
+        world_position.x = 1
+        world_position = world_position * body.SemiMajorAxis * 149597870700.0
+        world_position = world_position:rotate(0, math.rad(body.MeanAnomalyEpoch), 0) + parent.WorldPosition
+    end
+
+    body.WorldPosition = world_position
+
+    GameSystemMap.ObjectKDTree:addObject(world_position, body)
+
+    if not body.Satellites then
+        return
+    end
+
+    for _, satellite in pairs(body.Satellites) do
+        add_system_object_to_tree(satellite, body)
+    end
+end
+
+function GameSystemMap:update()
+    GameSystemMap.Camera:update()
+    self.ObjectKDTree:initFrame()
+
+    GameState.Ships:forEach(function(curr_ship)
+        self.ObjectKDTree:addObject(curr_ship.System.Position, curr_ship)
+    end)
 end
 
 function GameSystemMap.isShipEncounter(ship1, ship2)
@@ -93,48 +123,34 @@ function GameSystemMap.isShipEncounter(ship1, ship2)
     return dist:getMagnitude() < 100000;
 end
 
-function GameSystemMap:shipUnderScreenCoords(mouseX, mouseY)
-    local found_ship
-
-    GameState.Ships:forEach(function(ship)
-        if GameSystemMap:isOverShip(ship, mouseX, mouseY) then
-            found_ship = ship
-            ba.println("Found ship under coords: " .. Inspect({ ship.Name, mouseX, mouseY }))
-            return
-        end
-    end)
-
-    return found_ship
-end
-
-function GameSystemMap:selectShip(mouseX, mouseY)
-    if GameSystemMap.SelectedShip ~= nil then
-        GameState.Ships:get(GameSystemMap.SelectedShip).IsSelected = false
-        GameSystemMap.SelectedShip = nil
-    end
-
-    local ship = self:shipUnderScreenCoords(mouseX, mouseY)
-    if ship then
-        GameSystemMap.SelectedShip = ship.Name
-        ship.IsSelected = true
-        ba.println("Selected ship: " .. ship.Name)
-    end
-end
-
-function GameSystemMap:moveShip(mouseX, mouseY)
+function GameSystemMap:selectShip(mouse)
     if self.SelectedShip ~= nil then
-        local ship = GameState.Ships:get(GameSystemMap.SelectedShip)
-        if ship.Team.Name == 'Friendly' then
-            local target_ship = self:shipUnderScreenCoords(mouseX, mouseY)
+        self.SelectedShip.IsSelected = false
+        self.SelectedShip = nil
+    end
 
-            if target_ship then
-                ship.System.Position = target_ship.System.Position:copy()
+    local world_pos = self.Camera:getWorldCoords(mouse)
+    local nearest = self.ObjectKDTree:findNearest(world_pos, math.pow(40 * self.Camera.Zoom, 2))
+    if nearest then
+        self.SelectedShip = nearest[1]
+        self.SelectedShip.IsSelected = true
+        ba.println("Selected ship: " .. self.SelectedShip.Name)
+    end
+end
+
+function GameSystemMap:moveShip(mouse)
+    if self.SelectedShip ~= nil then
+        if self.SelectedShip.Team.Name == 'Friendly' then
+            local world_pos = self.Camera:getWorldCoords(mouse)
+            local nearest = self.ObjectKDTree:findNearest(world_pos, math.pow(40 * self.Camera.Zoom, 2))
+            if nearest then
+                self.SelectedShip.System.Position = nearest[1].System.Position:copy()
             else
-                ship.System.Position = self.Camera:getWorldCoords(Vector(mouseX, mouseY))
+                self.SelectedShip.System.Position = world_pos
             end
         end
 
-        ship.IsSelected = false
+        self.SelectedShip.IsSelected = false
         self.SelectedShip = nil
     end
 end

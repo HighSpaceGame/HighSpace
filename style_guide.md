@@ -17,6 +17,6 @@ libRocket and the Freespace API have conflicting (and sometimes self-contradicto
 
 - Use `snake_case` for local variables (including local functions) and function parameters, and file names
 - Use `camelCase` for functions and methods
-- Use `PascalCase` for modules, class names, public member variables, and global variables
+- Use `PascalCase` for modules, class names, public member variables (**with the exception of coordinates like:** `x`, `y`, `z`), and global variables
 - Use `_lower_snake_case` (with leading underscore) for "private" member variables
 - Use `UPPER_SNAKE_CASE` for constants and enums
