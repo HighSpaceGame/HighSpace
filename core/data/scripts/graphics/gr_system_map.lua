@@ -21,22 +21,12 @@ end
 
 function gr_system_map.drawSystem(body, parent)
     --ba.println("gr_system_map.drawSystem(system): " .. Inspect(system.Stars))
-    local world_position = Vector()
-
-    if parent then
-        world_position.x = 1
-        world_position = world_position * body.SemiMajorAxis * 149597870700.0
-        world_position = world_position:rotate(0, math.rad(body.MeanAnomalyEpoch), 0) + parent.WorldPosition
-    end
-
-    body.WorldPosition = world_position
-
     local screen_size = body.Radius / GameSystemMap.Camera.Zoom * 2
-    local screen_position = GameSystemMap.Camera:getScreenCoords(body.WorldPosition)
+    local screen_position = GameSystemMap.Camera:getScreenCoords(body.System.Position)
     local alpha = 255
 
     if parent then
-        local parent_screen_position = GameSystemMap.Camera:getScreenCoords(parent.WorldPosition)
+        local parent_screen_position = GameSystemMap.Camera:getScreenCoords(parent.System.Position)
         local screen_position_diff = (parent_screen_position - screen_position):getMagnitude()
         alpha = math.min(screen_position_diff / 30, 1.0)
         alpha = 1.0 - (1.0 - alpha)*2
@@ -57,7 +47,7 @@ function gr_system_map.drawSystem(body, parent)
         gr.setColor(255, 255, 255, alpha)
         gr.CurrentFont = gr.Fonts["font01"]
         screen_size = math.max(screen_size, 10)
-        drawTexture(body.Texture, body.Name, screen_position, screen_size, screen_size)
+        drawTexture(body.Icon, body.Name, screen_position, screen_size, screen_size)
     end
 
     if not body.Satellites then

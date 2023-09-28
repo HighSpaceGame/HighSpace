@@ -70,7 +70,7 @@ local new_game_ships = {
         ['Class'] = 'SCv Moloch',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Abraxis',
-        ['System'] = {['Position'] = Vector(730316619172.03, -267842595861.88, 0),}
+        ['System'] = {['Position'] = Vector(731316619172.03, -267842595861.88, 0),}
     }),
     ['Alhazred'] = Ship({
         ['Species'] = 'Shivan',
