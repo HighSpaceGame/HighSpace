@@ -189,6 +189,8 @@ function Utils.Table.copy(tbl)
     return copy
 end
 
+Utils.Math.AU = 149597870700.0
+
 function Utils.Math.isInsideBox(point, box_start, box_end)
     return (point.x > box_start.x and point.y > box_start.y and point.x < box_end.x and point.y < box_end.y)
 end

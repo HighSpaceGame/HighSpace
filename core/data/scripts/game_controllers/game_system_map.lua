@@ -12,6 +12,8 @@ GameSystemMap.SelectedShip = nil;
 
 GameSystemMap.System = SystemFile:loadSystem('sol.json.cfg')
 
+ba.println("loadSystem: " .. Inspect({ GameSystemMap.System }))
+
 GameSystemMap.Camera = {
     ["Parent"]  = nil,
     ["Movement"]  = Vector(),
@@ -110,6 +112,7 @@ end
 
 function GameSystemMap:update()
     GameSystemMap.Camera:update()
+    self.System:update()
     self.ObjectKDTree:initFrame()
 
     GameState.Ships:forEach(function(curr_ship)
