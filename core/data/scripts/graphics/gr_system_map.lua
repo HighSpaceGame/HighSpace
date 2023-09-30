@@ -80,7 +80,7 @@ function gr_system_map:drawCluster(cluster)
                 screen_position = screen_position + rel_screen_position
             end
 
-            ba.println("ships_screen_map:drawCluster: " .. Inspect({rel_screen_position, screen_position}))
+            --ba.println("ships_screen_map:drawCluster: " .. Inspect({rel_screen_position, screen_position}))
             gr.setColor(object.Team:getColor())
             if object.IsSelected then
                 local selected_color = gr_common.TeamSelectedColors[object.Team.Name]
