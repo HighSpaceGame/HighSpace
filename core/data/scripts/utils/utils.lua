@@ -1,8 +1,9 @@
 local Utils = {}
 
-Utils.Table = {}
-Utils.Math = {}
+Utils.DateTime = {}
 Utils.Game = {}
+Utils.Math = {}
+Utils.Table = {}
 
 function Utils.stripExtension(name)
     return string.gsub(name, "%..+$", "")
@@ -189,7 +190,20 @@ function Utils.Table.copy(tbl)
     return copy
 end
 
+function Utils.DateTime.parse(datetime_string)
+    local inYear, inMonth, inDay, inHour, inMinute, inSecond, inZone =
+    string.match(datetime_string, '^(%d%d%d%d)-(%d%d)-(%d%d)T(%d%d):(%d%d):(%d%d)(.-)$')
+
+    return os.time({year=inYear, month=inMonth, day=inDay, hour=inHour, min=inMinute, sec=inSecond, isdst=false})
+end
+
+function Utils.Game.getMandatoryProperty(properties, prop_name)
+    if not properties[prop_name] then ba.error("Ship:init - " .. prop_name .. " is required") end
+    return properties[prop_name]
+end
+
 Utils.Math.AU = 149597870700.0
+Utils.Math.PITwo = 6.283185307
 
 function Utils.Math.isInsideBox(point, box_start, box_end)
     return (point.x > box_start.x and point.y > box_start.y and point.x < box_end.x and point.y < box_end.y)
@@ -199,9 +213,5 @@ function Utils.Math.lerp(a, b, f)
     return a + f * (b - a)
 end
 
-function Utils.Game.getMandatoryProperty(properties, prop_name)
-    if not properties[prop_name] then ba.error("Ship:init - " .. prop_name .. " is required") end
-    return properties[prop_name]
-end
 
 return Utils
