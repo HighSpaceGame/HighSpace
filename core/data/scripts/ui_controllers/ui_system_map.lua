@@ -7,6 +7,8 @@ local Vector                             = require('vector')
 local SystemMapUIController = Class(UIController)()
 
 local draw_map = nil
+local last_time_button
+local current_time_display
 
 function SystemMapUIController:initialize(document)
     self.Document = document
@@ -17,6 +19,9 @@ function SystemMapUIController:initialize(document)
     draw_map = {
         Tex = nil,
     }
+
+    last_time_button = self.Document:GetElementById("system-time-pause")
+    current_time_display = self.Document:GetElementById("system-current-time")
 
     local system_map = self.Document:GetElementById("system-map")
     draw_map.Tex = gr.createTexture(system_map.offset_width, system_map.offset_height)
@@ -83,9 +88,24 @@ function SystemMapUIController:keyUp(_, event)
     self:storeKeyUp(event)
 end
 
+function SystemMapUIController:setTimeSpeed(speed, event, element)
+    event:StopPropagation()
+
+    if last_time_button then
+        last_time_button:SetClass("active", false)
+    end
+
+    element:SetClass("active", true)
+    last_time_button = element
+
+    GameSystemMap.TimeSpeed = speed
+end
+
 function SystemMapUIController:frame()
     if ba.getCurrentGameState().Name == "GS_STATE_BRIEFING" then
         GameSystemMap:update()
+
+        current_time_display.inner_rml = os.date('!%Y-%m-%d %H:%M:%S', GameSystemMap.CurrentTime)
         GrSystemMap.drawMap(self.Mouse.Cursor:copy(), draw_map.Tex)
 
         GameSystemMap.processEncounters()

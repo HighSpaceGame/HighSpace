@@ -12,6 +12,9 @@ GameSystemMap.SelectedShip = nil;
 
 GameSystemMap.System = SystemFile:loadSystem('sol.json.cfg')
 
+GameSystemMap.CurrentTime = 0
+GameSystemMap.TimeSpeed = 0
+
 ba.println("loadSystem: " .. Inspect({ GameSystemMap.System }))
 
 GameSystemMap.Camera = {
@@ -21,9 +24,9 @@ GameSystemMap.Camera = {
     ["Zoom"] = 1.0,
     ["StartZoom"] = 1.0,
     ["TargetZoom"] = 1.0,
-    ["ZoomSpeed"] = 0.10,
+    ["ZoomSpeed"] = 1.0,
     ["ZoomExp"] = 9,
-    ["TargetZoomTime"] = os.clock(),
+    ["TargetZoomTime"] = time.getCurrentTime(),
     ["LastZoomDirection"] = 0,
     ["ScreenOffset"] = {}
 }
@@ -61,27 +64,27 @@ function GameSystemMap.Camera:setMovement(camera_movement)
 end
 
 function GameSystemMap.Camera:zoom(direction)
-    local current_time = os.clock()
+    local current_time = time.getCurrentTime()
     self.TargetZoom = self.Zoom
 
-    if self.LastZoomDirection == direction or current_time > self.TargetZoomTime then
+    if self.LastZoomDirection == direction or (current_time - self.TargetZoomTime):getSeconds() > self.ZoomSpeed then
         self.ZoomExp = math.min(math.max(self.ZoomExp + direction*0.5, 0), 21.0)
-        self.TargetZoomTime = current_time + self.ZoomSpeed
+        self.TargetZoomTime = current_time
         self.TargetZoom = 1000.0 * math.exp(self.ZoomExp)
     end
 
     self.StartZoom = self.Zoom
     self.LastZoomDirection = direction
 
-    ba.println("Zoom: " .. Inspect({current_time, self.TargetZoomTime, self.TargetZoom, self.ZoomExp}))
+    --ba.println("Zoom: " .. Inspect({(current_time - start_zoom):getSeconds(), (self.TargetZoomTime - start_zoom):getSeconds(), self.TargetZoom, self.ZoomExp}))
 end
 
 function GameSystemMap.Camera:update()
     self.Position = self.Position + self.Movement
 
     --a parabolic zoom progression seems to look more smooth than a linear one
-    local zoom_progress = 1.0 - math.pow(math.min((os.clock()-self.TargetZoomTime) / self.ZoomSpeed, 0.0), 2.0)
-    --ba.println("GameSystemMap.Camera:zoomUpdate: " .. Inspect({ os.date(), self.Zoom, self.TargetZoom, os.clock(), self.TargetZoomTime, zoom_progress }))
+    local zoom_progress = 1.0 - math.pow(math.min(((time.getCurrentTime()-self.TargetZoomTime):getSeconds() - self.ZoomSpeed) / self.ZoomSpeed, 0.0), 2.0)
+    --ba.println("GameSystemMap.Camera:zoomUpdate: " .. Inspect({ (time.getCurrentTime() - start_zoom):getSeconds(), self.Zoom, self.TargetZoom, (self.TargetZoomTime - start_zoom):getSeconds(), zoom_progress }))
     self.Zoom = Utils.Math.lerp(self.StartZoom, self.TargetZoom, zoom_progress)
 end
 
@@ -110,7 +113,12 @@ add_system_object_to_tree = function(body, parent)
     end
 end
 
+local last_update_time = time.getCurrentTime()
 function GameSystemMap:update()
+    --ba.println("update: " .. Inspect({ os.clock(), os.time(), (time.getCurrentTime() - start):getSeconds(), tonumber(time.getCurrentTime()) }))
+    self.CurrentTime = self.CurrentTime + (time.getCurrentTime() - last_update_time):getSeconds() * self.TimeSpeed
+    last_update_time = time.getCurrentTime()
+
     GameSystemMap.Camera:update()
     self.System:update()
     self.ObjectKDTree:initFrame()
