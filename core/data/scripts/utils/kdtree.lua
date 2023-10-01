@@ -69,11 +69,7 @@ function KDTree:addObject(position, object, last_frame_quadrant)
             self.Quadrants[idx] = KDTree(self, self.Level+1, idx)
         end
 
-        if last_frame_quadrant and (last_frame_quadrant.SplitPoint - self.SplitPoint):getSqrMagnitude() < 4 and last_frame_quadrant.Quadrants[idx] then
-            last_frame_quadrant = last_frame_quadrant.Quadrants[idx]
-        else
-            last_frame_quadrant = nil
-        end
+        last_frame_quadrant = last_frame_quadrant and last_frame_quadrant.Quadrants[idx] or nil
 
         self.Quadrants[idx]:addObject(position, object, last_frame_quadrant)
         --ba.println("KDTree:addObject: SplitPoint." .. Inspect({self.Level, object.Name, self.SplitPoint.x, self.SplitPoint.y, self.AvgPosition.x, self.AvgPosition.y}))
@@ -95,14 +91,14 @@ function KDTree:addObject(position, object, last_frame_quadrant)
         parent.NumChildObjects = parent.NumChildObjects + 1
         parent.AvgPosition = (parent.AvgPosition + position) / parent.NumChildObjects
         --ba.println("KDTree:addObject: parent.AvgPosition." .. Inspect({parent.Level, object.Name, position.x, position.y, parent.AvgPosition.x, parent.AvgPosition.y}))
-        parent = parent.parent
+        parent = parent.Parent
     end
 
     --ba.println("KDTree:addObject: SplitPoint." .. Inspect({self.Level, object.Name, self.SplitPoint.x, self.SplitPoint.y, self.AvgPosition.x, self.AvgPosition.y}))
     --ba.println("KDTree:addObject: AvgPosition." .. Inspect({self.Level, object.Name, position.x, position.y, self.AvgPosition.x, self.AvgPosition.y}))
 end
 
-local coord_on_onsite = function(coord_dist, max_distance_sqr, quadrant_condition)
+local function coord_on_inside(coord_dist, max_distance_sqr, quadrant_condition)
     if quadrant_condition then
         return (coord_dist * math.abs(coord_dist) - max_distance_sqr < 0)
     else
@@ -115,11 +111,11 @@ function KDTree:isInside(position, max_distance_sqr)
         return true
     end
 
-    return coord_on_onsite(position.x - self.Parent.SplitPoint.x, max_distance_sqr, self.Index / 2 < 1)
-       and coord_on_onsite(position.y - self.Parent.SplitPoint.y, max_distance_sqr, self.Index % 2 < 1)
+    return coord_on_inside(position.x - self.Parent.SplitPoint.x, max_distance_sqr, self.Index / 2 < 1)
+       and coord_on_inside(position.y - self.Parent.SplitPoint.y, max_distance_sqr, self.Index % 2 < 1)
 end
 
-function KDTree:findNearest(position, max_distance_sqr)
+function KDTree:findNearest(position, max_distance, filter_func, dist_squared)
     --[[
     ba.println("KDTree:findNearestObjects: " .. Inspect({
         self.Index, self.Level, self:isInside(position, max_distance_sqr),
@@ -130,33 +126,37 @@ function KDTree:findNearest(position, max_distance_sqr)
     }))
     ]]--
 
-    if not self:isInside(position, max_distance_sqr) then
+    if not dist_squared then
+        max_distance = max_distance * max_distance
+    end
+
+    if not self:isInside(position, max_distance) then
         return nil, nil
     end
 
     local q_result, q_dist_sqr = nil, (position - self.ObjPosition):getSqrMagnitude()
     local result
 
-    if not max_distance_sqr or q_dist_sqr < max_distance_sqr then
-        max_distance_sqr = q_dist_sqr
+    if (not max_distance or q_dist_sqr < max_distance) and (not filter_func or filter_func(self.Objects)) then
+        max_distance = q_dist_sqr
         result = self.Objects
     end
 
     for qidx, quadrant in pairs(self.Quadrants) do
-        q_result, q_dist_sqr = quadrant:findNearest(position, max_distance_sqr)
+        q_result, q_dist_sqr = quadrant:findNearest(position, max_distance, filter_func, true)
         ba.println("KDTree:findNearestObjects q: " .. Inspect({
-            self.Index, self.Level, qidx, max_distance_sqr, q_dist_sqr
+            self.Index, self.Level, qidx, max_distance, q_dist_sqr
         }))
-        if q_dist_sqr and q_dist_sqr < max_distance_sqr then
+        if (q_dist_sqr and q_dist_sqr < max_distance) and (not filter_func or filter_func(q_result)) then
             result = q_result
-            max_distance_sqr = q_dist_sqr
+            max_distance = q_dist_sqr
         end
     end
 
-    return result, max_distance_sqr
+    return result, max_distance
 end
 
-function KDTree:findObjectsWithin(position, radius_sqr, cluster_dist_sqr, found_objects)
+function KDTree:findObjectsWithin(position, radius, cluster_dist, filter_func, found_objects, dist_squared)
     --[[
     ba.println("KDTree:findNearestObjects: " .. Inspect({
         self.Index, self.Level, is_inside,
@@ -170,16 +170,21 @@ function KDTree:findObjectsWithin(position, radius_sqr, cluster_dist_sqr, found_
         found_objects = {}
     end
 
-    if not self:isInside(position, radius_sqr) then
+    if not dist_squared then
+        radius = radius * radius
+        cluster_dist = cluster_dist * cluster_dist
+    end
+
+    if not self:isInside(position, radius) then
         return found_objects
     end
 
-    --ba.println("KDTree:findObjectsWithin:." .. Inspect({self.Level, position.x, position.y, self.ObjPosition.x, self.ObjPosition.y, (position - self.ObjPosition):getSqrMagnitude(), radius_sqr}))
-    if (position - self.ObjPosition):getSqrMagnitude() < radius_sqr then
+    --ba.println("KDTree:findObjectsWithin:." .. Inspect({self.Level, position.x, position.y, self.ObjPosition.x, self.ObjPosition.y, (position - self.ObjPosition):getSqrMagnitude(), radius}))
+    if (position - self.ObjPosition):getSqrMagnitude() < radius then
         local added = false
-        if cluster_dist_sqr then
+        if cluster_dist then
             for _, cluster in ipairs(found_objects) do
-                if (self.ObjPosition - cluster.AvgPosition):getSqrMagnitude() < cluster_dist_sqr then
+                if (self.ObjPosition - cluster.AvgPosition):getSqrMagnitude() < cluster_dist and (not filter_func or filter_func(self.Objects)) then
                     cluster.AvgPosition = cluster.AvgPosition * #cluster.Objects
                     --ba.println("KDTree:addObject: parent.AvgPosition." .. Inspect({parent.Level, object.Name, position.x, position.y, parent.AvgPosition.x, parent.AvgPosition.y}))
                     table.insert(cluster.Objects, self.Objects[1])
@@ -190,14 +195,14 @@ function KDTree:findObjectsWithin(position, radius_sqr, cluster_dist_sqr, found_
             end
         end
 
-        if not added then
+        if not added and (not filter_func or filter_func(self.Objects)) then
             table.insert(found_objects, { ["Objects"] = { self.Objects[1] }, ["AvgPosition"] = self.ObjPosition })
         end
         --ba.println("KDTree:findObjectsWithin added object:" .. Inspect({self.Objects[1].Name}))
     end
 
     for _, quadrant in pairs(self.Quadrants) do
-        quadrant:findObjectsWithin(position, radius_sqr, cluster_dist_sqr, found_objects)
+        quadrant:findObjectsWithin(position, radius, cluster_dist, filter_func, found_objects, true)
     end
 
     return found_objects

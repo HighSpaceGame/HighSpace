@@ -26,6 +26,10 @@ function ShipGroup:init(properties)
     self.Team = Utils.Game.getMandatoryProperty(properties, 'Team')
 end
 
+function ShipGroup:getIcon()
+    return self._top_ship and self:getTopShip():getIcon() or nil
+end
+
 function ShipGroup:copy()
     return ShipGroup(self)
 end
