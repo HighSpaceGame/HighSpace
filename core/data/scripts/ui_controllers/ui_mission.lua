@@ -8,10 +8,10 @@ local MissionUIController = Class(UIController)()
 
 MissionUIController.SelectionFrom = nil
 
-local set_ship_info = function(elem, ship)
+local function set_ship_info(elem, ship)
     if elem and ship then
         elem = elem.next_sibling --skip static text
-        elem:SetAttribute("src", GrCommon.getIconForShip(ship).Url)
+        elem:SetAttribute("src", ship:getIcon().Url)
 
         elem = elem.next_sibling
         elem.inner_rml = ship.Name
@@ -23,7 +23,7 @@ local set_ship_info = function(elem, ship)
     end
 end
 
-local update_selection_info = function()
+local function update_selection_info()
     local selected_ships_container = MissionUIController.Document:GetElementById("selected-ships").first_child
     selected_ships_container:SetClass("hidden", true)
 

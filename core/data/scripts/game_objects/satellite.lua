@@ -1,5 +1,6 @@
 local Class          = require("class")
 local GameObject     = require("game_object")
+local GrCommon       = require("gr_common")
 local Inspect        = require('inspect')
 local Utils          = require('utils')
 local Vector         = require('vector')
@@ -15,7 +16,7 @@ function Satellite:init(properties, parent)
     self.Radius = Utils.Game.getMandatoryProperty(properties, 'Radius')
     self.Mass = Utils.Game.getMandatoryProperty(properties, 'Mass')
     self.Icon = Utils.Game.getMandatoryProperty(properties, 'Icon')
-    self.Icon = gr.loadTexture(self.Icon, true)
+    self.Icon = GrCommon.loadTexture(self.Icon, true)
 
     self.Parent = parent
     self.Satellites = {}
@@ -39,6 +40,10 @@ function Satellite:_updateMeanAnomaly()
     elseif self.MeanAnomaly < 0 then
         self.MeanAnomaly = self.MeanAnomaly + Utils.Math.PITwo
     end
+end
+
+function Satellite:getIcon()
+    return self.Icon
 end
 
 function Satellite:update()

@@ -40,12 +40,10 @@ function GrMissionTact.drawIconsIfShipsTooSmall()
                 local r, g, b = ship.Team:getColor()
                 local alpha = 255 * (1 - min_size/40.0)
                 gr.setColor(r, g, b, alpha)
-                local icon = GrCommon.getIconForShip(ship)
-                if icon then
-                    local x, y = ship.Mission.Instance.Position:getScreenCoords()
-                    gr.drawImageCentered(icon.Texture, x, y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
-                    gr.drawImageCentered(icon.Texture, x, y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
-                end
+                local icon = ship:getIcon()
+                local x, y = ship.Mission.Instance.Position:getScreenCoords()
+                gr.drawImageCentered(icon.Texture, x, y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
+                gr.drawImageCentered(icon.Texture, x, y, icon.Width, icon.Height, 0, 0, 1, 1, 1, true)
             end
         end
     end)

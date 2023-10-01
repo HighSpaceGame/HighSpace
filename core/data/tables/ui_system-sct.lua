@@ -7,7 +7,7 @@ local Utils				= require("utils")
 local updateCategory = engine.createTracingCategory("UpdateRocket", false)
 local renderCategory = engine.createTracingCategory("RenderRocket", true)
 
-local get_rocket_ui_handle = function(state)
+local function get_rocket_ui_handle(state)
 	if state.Name == "GS_STATE_SCRIPTING" then
 		return {Name = RocketUiSystem.Substate }
 	else

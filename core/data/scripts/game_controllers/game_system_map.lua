@@ -90,26 +90,15 @@ end
 
 GameSystemMap.ObjectKDTree = KDTree()
 
-local add_system_object_to_tree
-add_system_object_to_tree = function(body, parent)
-    local world_position = Vector()
-
-    if parent then
-        world_position.x = 1
-        world_position = world_position * body.SemiMajorAxis * 149597870700.0
-        world_position = world_position:rotate(0, math.rad(body.MeanAnomalyEpoch), 0) + parent.WorldPosition
-    end
-
-    body.WorldPosition = world_position
-
-    GameSystemMap.ObjectKDTree:addObject(world_position, body)
+local function add_system_object_to_tree(body)
+    GameSystemMap.ObjectKDTree:addObject(body.System.Position, body)
 
     if not body.Satellites then
         return
     end
 
     for _, satellite in pairs(body.Satellites) do
-        add_system_object_to_tree(satellite, body)
+        add_system_object_to_tree(satellite)
     end
 end
 
@@ -122,6 +111,10 @@ function GameSystemMap:update()
     GameSystemMap.Camera:update()
     self.System:update()
     self.ObjectKDTree:initFrame()
+
+    for _, star in pairs(self.System.Stars) do
+        add_system_object_to_tree(star)
+    end
 
     GameState.Ships:forEach(function(curr_ship)
         self.ObjectKDTree:addObject(curr_ship.System.Position, curr_ship)
@@ -141,7 +134,7 @@ function GameSystemMap:selectShip(mouse)
     end
 
     local world_pos = self.Camera:getWorldCoords(mouse)
-    local nearest = self.ObjectKDTree:findNearest(world_pos, math.pow(40 * self.Camera.Zoom, 2))
+    local nearest = self.ObjectKDTree:findNearest(world_pos, 40 * self.Camera.Zoom)
     if nearest then
         self.SelectedShip = nearest[1]
         self.SelectedShip.IsSelected = true
@@ -153,7 +146,7 @@ function GameSystemMap:moveShip(mouse)
     if self.SelectedShip ~= nil then
         if self.SelectedShip.Team.Name == 'Friendly' then
             local world_pos = self.Camera:getWorldCoords(mouse)
-            local nearest = self.ObjectKDTree:findNearest(world_pos, math.pow(40 * self.Camera.Zoom, 2))
+            local nearest = self.ObjectKDTree:findNearest(world_pos, 40 * self.Camera.Zoom)
             if nearest then
                 self.SelectedShip.System.Position = nearest[1].System.Position:copy()
             else
