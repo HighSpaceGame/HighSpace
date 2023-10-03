@@ -2,6 +2,8 @@ local Class           = require("class")
 local Dialogs         = require('dialogs')
 local Inspect         = require('inspect')
 local KDTree          = require('kdtree')
+local Ship            = require('ship')
+local ShipGroup       = require('ship_group')
 local SystemFile      = require('system_file')
 local Utils           = require('utils')
 local Vector          = require('vector')
@@ -21,6 +23,10 @@ GameSystemMap.Camera = {
     ["Parent"]  = nil,
     ["Movement"]  = Vector(),
     ["Position"] = Vector(731316619172.03, -266842595861.88, 0),
+    ["RelPosition"] = Vector(731316619172.03, -266842595861.88, 0),
+    ["TargetRelPosition"] = nil,
+    ["TargetMoveTime"] = time.getCurrentTime(),
+    ["TargetMoveSpeed"] = 3.0,
     ["Zoom"] = 1.0,
     ["StartZoom"] = 1.0,
     ["TargetZoom"] = 1.0,
@@ -36,6 +42,7 @@ function GameSystemMap.Camera:init(width, height)
     self.Zoom = 1000.0 * math.exp(self.ZoomExp)
     self.StartZoom = self.Zoom
     self.TargetZoom = self.Zoom
+    self.Parent = GameSystemMap.System.Stars[1]
 end
 
 function GameSystemMap.Camera:getScreenCoords(position)
@@ -80,7 +87,19 @@ function GameSystemMap.Camera:zoom(direction)
 end
 
 function GameSystemMap.Camera:update()
-    self.Position = self.Position + self.Movement
+    if self.Movement.x ~= 0 or self.Movement.y ~= 0 then
+        self.TargetRelPosition = nil
+    end
+
+    if self.TargetRelPosition then
+        local target_move_progress = 1.0 + math.min(((time.getCurrentTime()-self.TargetMoveTime):getSeconds() - self.TargetMoveSpeed) / self.TargetMoveSpeed, 0.0)
+        --ba.println("GameSystemMap.Camera:target_move_progress: " .. Inspect({ (time.getCurrentTime() - self.TargetMoveTime):getSeconds(), target_move_progress }))
+        self.RelPosition.x = Utils.Math.lerp(self.RelPosition.x, self.TargetRelPosition.x, target_move_progress)
+        self.RelPosition.y = Utils.Math.lerp(self.RelPosition.y, self.TargetRelPosition.y, target_move_progress)
+    end
+
+    self.RelPosition = self.RelPosition + self.Movement
+    self.Position = self.Parent.System.Position + self.RelPosition
 
     --a parabolic zoom progression seems to look more smooth than a linear one
     local zoom_progress = 1.0 - math.pow(math.min(((time.getCurrentTime()-self.TargetZoomTime):getSeconds() - self.ZoomSpeed) / self.ZoomSpeed, 0.0), 2.0)
@@ -108,8 +127,8 @@ function GameSystemMap:update()
     self.CurrentTime = self.CurrentTime + (time.getCurrentTime() - last_update_time):getSeconds() * self.TimeSpeed
     last_update_time = time.getCurrentTime()
 
-    GameSystemMap.Camera:update()
     self.System:update()
+    GameSystemMap.Camera:update()
     self.ObjectKDTree:initFrame()
 
     for _, star in pairs(self.System.Stars) do
@@ -127,18 +146,28 @@ function GameSystemMap.isShipEncounter(ship1, ship2)
     return dist:getMagnitude() < 100000;
 end
 
-function GameSystemMap:selectShip(mouse)
-    if self.SelectedShip ~= nil then
-        self.SelectedShip.IsSelected = false
-        self.SelectedShip = nil
-    end
-
+function GameSystemMap:onLeftClick(mouse)
     local world_pos = self.Camera:getWorldCoords(mouse)
     local nearest = self.ObjectKDTree:findNearest(world_pos, 40 * self.Camera.Zoom)
-    if nearest then
+    if not nearest or not nearest[1] then
+        return
+    end
+
+    if nearest[1]:is_a(Ship) or nearest[1]:is_a(ShipGroup) then
+        ba.println("selecting ship: " .. Inspect(self.Mouse))
+        if self.SelectedShip ~= nil then
+            self.SelectedShip.IsSelected = false
+            self.SelectedShip = nil
+        end
+
         self.SelectedShip = nearest[1]
         self.SelectedShip.IsSelected = true
         ba.println("Selected ship: " .. self.SelectedShip.Name)
+    else
+        self.Camera.Parent = nearest[1]
+        self.Camera.RelPosition = self.Camera.Position - nearest[1].System.Position
+        self.Camera.TargetRelPosition = Vector(0,0)
+        self.Camera.TargetMoveTime = time.getCurrentTime()
     end
 end
 
