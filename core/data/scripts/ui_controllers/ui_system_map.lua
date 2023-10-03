@@ -9,6 +9,7 @@ local SystemMapUIController = Class(UIController)()
 local draw_map = nil
 local last_time_button
 local current_time_display
+local system_map_offset = Vector(0,0)
 
 function SystemMapUIController:initialize(document)
     self.Document = document
@@ -32,6 +33,14 @@ function SystemMapUIController:initialize(document)
     local ani_el = self.Document:CreateElement("img")
     ani_el:SetAttribute("src", draw_map.Url)
     system_map:ReplaceChild(ani_el, system_map.first_child)
+
+    system_map_offset = Vector(0,0)
+    while system_map do
+        system_map_offset = system_map_offset + Vector(system_map.offset_left, system_map.offset_top)
+        system_map = system_map.offset_parent
+    end
+
+    ba.println("SystemMapUIController:initialize: " .. Inspect({ system_map_offset.x, system_map_offset.y }))
 end
 
 function SystemMapUIController:mouseDown(event, _, _)
@@ -43,7 +52,7 @@ function SystemMapUIController:mouseDown(event, _, _)
 end
 
 function SystemMapUIController:mouseMove(event, document, element)
-    self:storeMouseMove(event, document, element)
+    self:storeMouseMove(event, document, element, system_map_offset)
 end
 
 local camera_move_keys = {

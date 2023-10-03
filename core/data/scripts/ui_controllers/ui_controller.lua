@@ -36,7 +36,7 @@ end
 --- @param element El[] the element firing the event
 --- @param document D[] the document firing the event
 function UIController:storeMouseDown(event, _, _)
-    UIController.Mouse.Buttons[event.parameters.button] = true
+    self.Mouse.Buttons[event.parameters.button] = true
     ba.println("mouseDown: " .. event.parameters.button)
 end
 
@@ -48,7 +48,7 @@ end
 --- @param element El[] the element firing the event
 --- @param document D[] the document firing the event
 function UIController:storeMouseUp(event, _, _)
-    UIController.Mouse.Buttons[event.parameters.button] = false
+    self.Mouse.Buttons[event.parameters.button] = false
     ba.println("mouseUp: " .. event.parameters.button)
 end
 
@@ -59,9 +59,9 @@ end
 --- @param event Ev[] the onmousedown event
 --- @param element El[] the element firing the event
 --- @param document D[] the document firing the event
-function UIController:storeMouseMove(event, _, element)
-    self.Mouse.Cursor.x = event.parameters.mouse_x - element.offset_left
-    self.Mouse.Cursor.y = event.parameters.mouse_y - element.offset_top
+function UIController:storeMouseMove(event, _, _, offset)
+    self.Mouse.Cursor.x = event.parameters.mouse_x - offset.x
+    self.Mouse.Cursor.y = event.parameters.mouse_y - offset.y
 
     --ba.println("mouseMove: " .. inspect(self.Mouse))
 end
@@ -74,7 +74,7 @@ end
 --- @param element El[] the element firing the event
 --- @param document D[] the document firing the event
 function UIController:storeKeyDown(event, _, _)
-    UIController.Keys[event.parameters.key_identifier] = true
+    self.Keys[event.parameters.key_identifier] = true
     ba.println("keyDown: " .. Inspect({ event.parameters.key_identifier }))
 end
 
@@ -86,7 +86,7 @@ end
 --- @param element El[] the element firing the event
 --- @param document D[] the document firing the event
 function UIController:storeKeyUp(event, _, _)
-    UIController.Keys[event.parameters.key_identifier] = false
+    self.Keys[event.parameters.key_identifier] = false
     ba.println("keyUp: " .. event.parameters.key_identifier)
 end
 

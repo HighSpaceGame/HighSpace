@@ -12,18 +12,34 @@
 	<body onload="Controller:initialize(document)"
 		  onkeydown="Controller:keyDown(element, event)"
 		  onkeyup="Controller:keyUp(element, event)">
-		<div id="system-map-window" class="window" >
-			<div id="system-map" onmousemove="Controller:mouseMove(event, document, element)"
-				 onmousedown="Controller:mouseDown(event, document, element)"
-				 onmousescroll="Controller:wheel(event, document, element)"></div>
-		</div>
-		<div id="system-time-window" class="window" >
-			<span id="system-current-time" class="h2-10">2023-09-11 0800</span>
-			<div id="system-time-buttons" class="h2-1">
-				<div id="system-time-pause" class="time-button active" onmousedown="Controller:setTimeSpeed(0, event, element)">||</div>
-				<div id="system-time-normal" class="time-button" onmousedown="Controller:setTimeSpeed(1, event, element)">&gt;</div>
-				<div id="system-time-fast" class="time-button" onmousedown="Controller:setTimeSpeed(3600, event, element)">&gt;&gt;</div>
-				<div id="system-time-x-fast" class="time-button" onmousedown="Controller:setTimeSpeed(86400, event, element)">&gt;&gt;&gt;</div>
+		<div id="system-map-container">
+			<div id="left-column" class="sidebar"></div>
+			<div id="middle-column">
+				<div id="system-map-window" class="window" >
+					<div id="system-map" onmousemove="Controller:mouseMove(event, document, element)"
+						 onmousedown="Controller:mouseDown(event, document, element)"
+						 onmousescroll="Controller:wheel(event, document, element)"></div>
+				</div>
+				<div id="system-time-window" class="window" >
+					<span id="system-current-time" class="h2-10">2023-09-11 0800</span>
+					<div id="system-time-buttons" class="h2-1">
+						<div id="system-time-pause" class="time-button active" onmousedown="Controller:setTimeSpeed(0, event, element)">||</div>
+						<div id="system-time-normal" class="time-button" onmousedown="Controller:setTimeSpeed(1, event, element)">&gt;</div>
+						<div id="system-time-fast" class="time-button" onmousedown="Controller:setTimeSpeed(3600, event, element)">&gt;&gt;</div>
+						<div id="system-time-x-fast" class="time-button" onmousedown="Controller:setTimeSpeed(86400, event, element)">&gt;&gt;&gt;</div>
+					</div>
+				</div>
+			</div>
+			<div id="right-column" class="sidebar">
+				<div id="info-window" class="window">
+					<div id="info-text">
+						<h1>Controls:</h1>
+						<p><b>Camera movement:</b> W, A, S, D</p>
+						<p><b>Attach camera to planet:</b> Left click</p>
+						<p><b>Select ships:</b> Left click</p>
+						<p><b>Give order:</b> Right click</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>
