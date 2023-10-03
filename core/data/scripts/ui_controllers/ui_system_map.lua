@@ -36,8 +36,7 @@ end
 
 function SystemMapUIController:mouseDown(event, _, _)
     if event.parameters.button == UI_CONST.MOUSE_BUTTON_LEFT then
-        ba.println("selecting ship: " .. Inspect(self.Mouse))
-        GameSystemMap:selectShip(self.Mouse.Cursor)
+        GameSystemMap:onLeftClick(self.Mouse.Cursor)
     elseif event.parameters.button == UI_CONST.MOUSE_BUTTON_RIGHT then
         GameSystemMap:moveShip(self.Mouse.Cursor)
     end
