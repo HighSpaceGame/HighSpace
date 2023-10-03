@@ -6,10 +6,39 @@ body
 	height: 100%;
 }
 
+#system-map-container div
+{
+	float: left;
+}
+
+div#system-map-container
+{
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+}
+
+div.sidebar
+{
+	margin: 0;
+	width: 25%;
+	height: 100%;
+	padding: 0;
+}
+
+div#middle-column
+{
+	margin: 0;
+	width: 50%;
+	height: 100%;
+	padding: 0;
+}
+
 div#system-map-window
 {
 	margin: 12.5% auto 0 auto;
-	width: 50%;
+	width: 94%;
 	height: 50%;
 	padding: 24px;
 }
@@ -55,4 +84,22 @@ div#system-time-buttons
 .time-button.active
 {
 	background-color: #004400;
+}
+
+div#info-window
+{
+	height: 50%;
+	width: 100%;
+	margin: 12.5% auto 0 auto;
+	padding: 24px 0;
+}
+
+div#info-text
+{
+	padding: 32px;
+}
+
+div#info-text b
+{
+	color: white;
 }

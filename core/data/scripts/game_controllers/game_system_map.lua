@@ -149,12 +149,12 @@ end
 function GameSystemMap:onLeftClick(mouse)
     local world_pos = self.Camera:getWorldCoords(mouse)
     local nearest = self.ObjectKDTree:findNearest(world_pos, 40 * self.Camera.Zoom)
+    ba.println("GameSystemMap:onLeftClick: " .. Inspect({mouse.x, mouse.y, world_pos.x, world_pos.y, nearest and nearest[1] and nearest[1].Name }))
     if not nearest or not nearest[1] then
         return
     end
 
     if nearest[1]:is_a(Ship) or nearest[1]:is_a(ShipGroup) then
-        ba.println("selecting ship: " .. Inspect(self.Mouse))
         if self.SelectedShip ~= nil then
             self.SelectedShip.IsSelected = false
             self.SelectedShip = nil
@@ -165,6 +165,10 @@ function GameSystemMap:onLeftClick(mouse)
         ba.println("Selected ship: " .. self.SelectedShip.Name)
     else
         self.Camera.Parent = nearest[1]
+        while self.Camera.Parent.Parent and (self.Camera.Parent.System.Position - self.Camera.Parent.Parent.System.Position):getSqrMagnitude() < math.pow(40 * self.Camera.Zoom, 2) do
+            self.Camera.Parent = self.Camera.Parent.Parent
+        end
+
         self.Camera.RelPosition = self.Camera.Position - nearest[1].System.Position
         self.Camera.TargetRelPosition = Vector(0,0)
         self.Camera.TargetMoveTime = time.getCurrentTime()
