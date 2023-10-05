@@ -30,7 +30,7 @@ GameSystemMap.Camera = {
     ["Zoom"] = 1.0,
     ["StartZoom"] = 1.0,
     ["TargetZoom"] = 1.0,
-    ["ZoomSpeed"] = 1.0,
+    ["ZoomSpeed"] = 3.0,
     ["ZoomExp"] = 9,
     ["TargetZoomTime"] = time.getCurrentTime(),
     ["LastZoomDirection"] = 0,
@@ -92,7 +92,7 @@ function GameSystemMap.Camera:update()
     end
 
     if self.TargetRelPosition then
-        local target_move_progress = 1.0 + math.min(((time.getCurrentTime()-self.TargetMoveTime):getSeconds() - self.TargetMoveSpeed) / self.TargetMoveSpeed, 0.0)
+        local target_move_progress = math.min((time.getCurrentTime()-self.TargetMoveTime):getSeconds() / self.TargetMoveSpeed, 1.0)
         --ba.println("GameSystemMap.Camera:target_move_progress: " .. Inspect({ (time.getCurrentTime() - self.TargetMoveTime):getSeconds(), target_move_progress }))
         self.RelPosition.x = Utils.Math.lerp(self.RelPosition.x, self.TargetRelPosition.x, target_move_progress)
         self.RelPosition.y = Utils.Math.lerp(self.RelPosition.y, self.TargetRelPosition.y, target_move_progress)
@@ -102,9 +102,9 @@ function GameSystemMap.Camera:update()
     self.Position = self.Parent.System.Position + self.RelPosition
 
     --a parabolic zoom progression seems to look more smooth than a linear one
-    local zoom_progress = 1.0 - math.pow(math.min(((time.getCurrentTime()-self.TargetZoomTime):getSeconds() - self.ZoomSpeed) / self.ZoomSpeed, 0.0), 2.0)
-    --ba.println("GameSystemMap.Camera:zoomUpdate: " .. Inspect({ (time.getCurrentTime() - start_zoom):getSeconds(), self.Zoom, self.TargetZoom, (self.TargetZoomTime - start_zoom):getSeconds(), zoom_progress }))
-    self.Zoom = Utils.Math.lerp(self.StartZoom, self.TargetZoom, zoom_progress)
+    local zoom_progress = math.min((time.getCurrentTime()-self.TargetZoomTime):getSeconds() / self.ZoomSpeed, 1.0)
+    --ba.println("GameSystemMap.Camera:zoomUpdate: " .. Inspect({ (time.getCurrentTime() - self.TargetZoomTime):getSeconds(), self.Zoom, self.TargetZoom, zoom_progress }))
+    self.Zoom = Utils.Math.lerp(self.Zoom, self.TargetZoom, zoom_progress)
 end
 
 GameSystemMap.ObjectKDTree = KDTree()

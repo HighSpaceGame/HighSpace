@@ -24,6 +24,7 @@ function ShipGroup:init(properties)
     end
 
     self.Team = Utils.Game.getMandatoryProperty(properties, 'Team')
+    self.Category = 'Ship'
 end
 
 function ShipGroup:getIcon()
