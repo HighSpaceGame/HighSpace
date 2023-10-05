@@ -11,12 +11,20 @@ function Satellite:init(properties, parent)
     self.SemiMajorAxis = Utils.Game.getMandatoryProperty(properties, 'SemiMajorAxis')
     self.MeanAnomalyEpoch = math.rad(Utils.Game.getMandatoryProperty(properties, 'MeanAnomalyEpoch'))
     self.MeanAnomaly = 0
-    self.OrbitalPeriod = Utils.Game.getMandatoryProperty(properties, 'OrbitalPeriod') * 86400
-    self.Epoch = Utils.DateTime.parse(Utils.Game.getMandatoryProperty(properties, 'Epoch'))
+    self.OrbitalPeriod = Utils.Game.getMandatoryProperty(properties, 'OrbitalPeriod')
     self.Radius = Utils.Game.getMandatoryProperty(properties, 'Radius')
     self.Mass = Utils.Game.getMandatoryProperty(properties, 'Mass')
-    self.Icon = Utils.Game.getMandatoryProperty(properties, 'Icon')
-    self.Icon = GrCommon.loadTexture(self.Icon, true)
+    self.Category = 'Astral'
+
+    self.Epoch = Utils.Game.getMandatoryProperty(properties, 'Epoch')
+    if type(self.Epoch) == 'string' then
+        self.Epoch = Utils.DateTime.parse(self.Epoch)
+        self.OrbitalPeriod = self.OrbitalPeriod * 86400
+    end
+
+    if properties.Icon then
+        self.Icon = GrCommon.loadTexture(properties.Icon, true)
+    end
 
     self.Parent = parent
     self.Satellites = {}

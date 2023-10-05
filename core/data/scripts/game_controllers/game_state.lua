@@ -15,6 +15,12 @@ local new_game_ships = {
         ['Name'] = 'Trinity Battle Group',
         ['Team'] = mn.Teams['Friendly'],
         ['System'] = {['Position'] = Vector(732316619172.03, -266742595861.88, 0),},
+        ["SemiMajorAxis"] = 0.00056955529,
+        ["MeanAnomalyEpoch"] = 174.79394829,
+        ["OrbitalPeriod"] = 14.387098,
+        ["Epoch"] = "2000-01-01T12:00:00",
+        ["Radius"] = 100,
+        ["Mass"] = 10000,
         ['Ships'] = {
             ['Trinity'] = Ship({
                 ['Species'] = 'Terran',
@@ -23,10 +29,22 @@ local new_game_ships = {
                 ['Team'] = mn.Teams['Friendly'],
                 ['Name'] = 'Trinity',
                 ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0),},
+                ["SemiMajorAxis"] = 0.00056955529,
+                ["MeanAnomalyEpoch"] = 174.79394829,
+                ["OrbitalPeriod"] = 14.387098,
+                ["Epoch"] = "2000-01-01T12:00:00",
+                ["Radius"] = 100,
+                ["Mass"] = 10000,
             }),
             ['Alpha'] = Wing({
                 ['Name'] = 'Alpha',
                 ['Team'] = mn.Teams['Friendly'],
+                ["SemiMajorAxis"] = 0.00056955529,
+                ["MeanAnomalyEpoch"] = 174.79394829,
+                ["OrbitalPeriod"] = 14.387098,
+                ["Epoch"] = "2000-01-01T12:00:00",
+                ["Radius"] = 100,
+                ["Mass"] = 10000,
                 ['Ships'] = {
                     ['Alpha 1'] = Ship({
                         ['Species'] = 'Terran',
@@ -35,6 +53,12 @@ local new_game_ships = {
                         ['Team'] = mn.Teams['Friendly'],
                         ['Name'] = 'Alpha 1',
                         ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0),},
+                        ["SemiMajorAxis"] = 0.00056955529,
+                        ["MeanAnomalyEpoch"] = 174.79394829,
+                        ["OrbitalPeriod"] = 14.387098,
+                        ["Epoch"] = "2000-01-01T12:00:00",
+                        ["Radius"] = 100,
+                        ["Mass"] = 10000,
                     }),
                     ['Alpha 2'] = Ship({
                         ['Species'] = 'Terran',
@@ -43,6 +67,12 @@ local new_game_ships = {
                         ['Team'] = mn.Teams['Friendly'],
                         ['Name'] = 'Alpha 2',
                         ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0),},
+                        ["SemiMajorAxis"] = 0.00056955529,
+                        ["MeanAnomalyEpoch"] = 174.79394829,
+                        ["OrbitalPeriod"] = 14.387098,
+                        ["Epoch"] = "2000-01-01T12:00:00",
+                        ["Radius"] = 100,
+                        ["Mass"] = 10000,
                     }),
                     ['Alpha 3'] = Ship({
                         ['Species'] = 'Terran',
@@ -51,6 +81,12 @@ local new_game_ships = {
                         ['Team'] = mn.Teams['Friendly'],
                         ['Name'] = 'Alpha 3',
                         ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0),},
+                        ["SemiMajorAxis"] = 0.00056955529,
+                        ["MeanAnomalyEpoch"] = 174.79394829,
+                        ["OrbitalPeriod"] = 14.387098,
+                        ["Epoch"] = "2000-01-01T12:00:00",
+                        ["Radius"] = 100,
+                        ["Mass"] = 10000,
                     }),
                     ['Alpha 4'] = Ship({
                         ['Species'] = 'Terran',
@@ -59,6 +95,12 @@ local new_game_ships = {
                         ['Team'] = mn.Teams['Friendly'],
                         ['Name'] = 'Alpha 4',
                         ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0),},
+                        ["SemiMajorAxis"] = 0.00056955529,
+                        ["MeanAnomalyEpoch"] = 174.79394829,
+                        ["OrbitalPeriod"] = 14.387098,
+                        ["Epoch"] = "2000-01-01T12:00:00",
+                        ["Radius"] = 100,
+                        ["Mass"] = 10000,
                     }),
                 }
             }),
@@ -70,7 +112,13 @@ local new_game_ships = {
         ['Class'] = 'SCv Moloch',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Abraxis',
-        ['System'] = {['Position'] = Vector(731316619172.03, -267842595861.88, 0),}
+        ['System'] = {['Position'] = Vector(731316619172.03, -267842595861.88, 0),},
+        ["SemiMajorAxis"] = 0.00025955529,
+        ["MeanAnomalyEpoch"] = 174.79394829,
+        ["OrbitalPeriod"] = 0.087098,
+        ["Epoch"] = "2000-01-01T12:00:00",
+        ["Radius"] = 100,
+        ["Mass"] = 10000,
     }),
     ['Alhazred'] = Ship({
         ['Species'] = 'Shivan',
@@ -78,7 +126,13 @@ local new_game_ships = {
         ['Class'] = 'SC Cain',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Alhazred',
-        ['System'] = {['Position'] = Vector(730316619172.03, -266042595861.88, 0),}
+        ['System'] = {['Position'] = Vector(730316619172.03, -266042595861.88, 0),},
+        ["SemiMajorAxis"] = 0.00056955529,
+        ["MeanAnomalyEpoch"] = 174.79394829,
+        ["OrbitalPeriod"] = 0.587098,
+        ["Epoch"] = "2000-01-01T12:00:00",
+        ["Radius"] = 100,
+        ["Mass"] = 10000,
     }),
 }
 
@@ -131,6 +185,18 @@ function GameState.startNewGame()
         new_ship.ParentList = GameState.Ships
         GameState.Ships:add(new_ship)
     end
+
+    local orbiting_ship = GameState.Ships:get('Abraxis')
+    local planet = GameSystemMap.System.Stars[1].Satellites[6].Satellites[3]
+    ba.println("Adding ship to planet's orbit: " .. Inspect({ orbiting_ship.Name, planet.Name }))
+    table.insert(planet.Satellites, orbiting_ship)
+    orbiting_ship.Parent = planet
+
+    orbiting_ship = GameState.Ships:get('Alhazred')
+    planet = GameSystemMap.System.Stars[1].Satellites[6]
+    ba.println("Adding ship to planet's orbit: " .. Inspect({ orbiting_ship.Name, planet.Name }))
+    table.insert(planet.Satellites, orbiting_ship)
+    orbiting_ship.Parent = planet
 
     ba.println("Template table: " .. Inspect(new_game_ships))
     ba.println("Game state table: " .. Inspect(GameState.Ships))

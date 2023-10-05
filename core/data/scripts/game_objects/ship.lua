@@ -1,10 +1,10 @@
 local Class          = require("class")
-local GameObject     = require("game_object")
 local GrCommon       = require("gr_common")
 local Inspect        = require('inspect')
+local Satellite      = require('satellite')
 local Utils          = require('utils')
 
-local Ship = Class(GameObject)
+local Ship = Class(Satellite)
 
 local icon_map = {
     ["Terran"] = {
