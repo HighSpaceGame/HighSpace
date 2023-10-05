@@ -136,7 +136,9 @@ function GameSystemMap:update()
     end
 
     GameState.Ships:forEach(function(curr_ship)
-        self.ObjectKDTree:addObject(curr_ship.System.Position, curr_ship)
+        if curr_ship.Name ~= 'Abraxis' and curr_ship.Name ~= 'Alhazred' then
+            self.ObjectKDTree:addObject(curr_ship.System.Position, curr_ship)
+        end
     end)
 end
 
@@ -150,16 +152,17 @@ function GameSystemMap:onLeftClick(mouse)
     local world_pos = self.Camera:getWorldCoords(mouse)
     local nearest = self.ObjectKDTree:findNearest(world_pos, 40 * self.Camera.Zoom)
     ba.println("GameSystemMap:onLeftClick: " .. Inspect({mouse.x, mouse.y, world_pos.x, world_pos.y, nearest and nearest[1] and nearest[1].Name }))
+
+    if self.SelectedShip then
+        self.SelectedShip.IsSelected = false
+        self.SelectedShip = nil
+    end
+
     if not nearest or not nearest[1] then
         return
     end
 
     if nearest[1]:is_a(Ship) or nearest[1]:is_a(ShipGroup) then
-        if self.SelectedShip ~= nil then
-            self.SelectedShip.IsSelected = false
-            self.SelectedShip = nil
-        end
-
         self.SelectedShip = nearest[1]
         self.SelectedShip.IsSelected = true
         ba.println("Selected ship: " .. self.SelectedShip.Name)

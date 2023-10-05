@@ -1,10 +1,10 @@
 local Class          = require("class")
-local GameObject     = require("game_object")
 local Inspect        = require('inspect')
+local Satellite      = require('satellite')
 local ShipList       = require("ship_list")
 local Utils          = require('utils')
 
-local ShipGroup = Class(GameObject)
+local ShipGroup = Class(Satellite)
 
 function ShipGroup:init(properties)
     self.Ships = ShipList()
