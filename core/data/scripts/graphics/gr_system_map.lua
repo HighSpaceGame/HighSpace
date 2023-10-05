@@ -83,13 +83,16 @@ local function drawClusterShip(obj_idx, object, obj_count, screen_position, rel_
 end
 
 function gr_system_map:drawCluster(cluster)
-    local rel_screen_position = Vector(0, -15)
-    local screen_position = GameSystemMap.Camera:getScreenCoords(cluster.AvgPosition)
-    for obj_idx, object in ipairs(cluster.Objects) do
-        if object:is_a(ShipGroup) or object:is_a(Ship) then
-            drawClusterShip(obj_idx, object, #cluster.Objects, screen_position, rel_screen_position)
-        else
-            drawAstral(object)
+    for group_name, object_group in pairs(cluster.Groups) do
+        local rel_screen_position = Vector(0, -15)
+        local screen_position = GameSystemMap.Camera:getScreenCoords(object_group.AvgPosition)
+        for obj_idx, object in ipairs(object_group.Objects) do
+            if object:is_a(ShipGroup) or object:is_a(Ship) then
+                --ba.println("ships_screen_map:drawMap clusterShip: " .. Inspect({group_name, obj_idx, object.Name, screen_position.x, screen_position.y, cluster.AvgPosition.x, cluster.AvgPosition.y}))
+                drawClusterShip(obj_idx, object, #object_group.Objects, screen_position, rel_screen_position)
+            else
+                drawAstral(object)
+            end
         end
     end
 end
@@ -117,11 +120,13 @@ function gr_system_map.drawMap(mousePos, drawTarget)
     local screen_objects = GameSystemMap.ObjectKDTree:findObjectsWithin(
             GameSystemMap.Camera.Position,
             2000 * GameSystemMap.Camera.Zoom,
-            40 * GameSystemMap.Camera.Zoom
+            40 * GameSystemMap.Camera.Zoom,
+            nil,
+            'Category'
     )
 
-    for _, cluster in ipairs(screen_objects) do
-        --ba.println("ships_screen_map:drawMap cluster: " .. Inspect({cl_idx, #cluster.Objects, cluster.Objects[1].Name}))
+    for cidx, cluster in ipairs(screen_objects) do
+        --ba.println("ships_screen_map:drawMap cluster: " .. Inspect({cidx, #cluster.Objects.All, cluster.Objects.All[1].Name}))
         gr_system_map:drawCluster(cluster)
     end
 

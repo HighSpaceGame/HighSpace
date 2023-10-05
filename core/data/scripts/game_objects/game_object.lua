@@ -11,6 +11,7 @@ function GameObject:init(properties)
     self.Name = Utils.Game.getMandatoryProperty(properties, 'Name')
     ba.println("GameObject:init: " .. self.Name)
 
+    self.Category = 'GameObject'
     self.Mission = {}
     self.System = {
         ['IsSelected'] = false,

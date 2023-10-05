@@ -156,7 +156,28 @@ function KDTree:findNearest(position, max_distance, filter_func, dist_squared)
     return result, max_distance
 end
 
-function KDTree:findObjectsWithin(position, radius, cluster_dist, filter_func, found_objects, dist_squared)
+local function insertToCluster(cluster, object, obj_position, group_by)
+    local group_name = group_by and object[group_by] or "All"
+
+    if not cluster.Groups[group_name] then
+        cluster.Groups[group_name] = {['Objects'] = {}, ['AvgPosition'] = obj_position:copy()}
+    end
+
+    if not cluster.AvgPosition then
+        cluster.AvgPosition = obj_position:copy()
+    end
+
+    cluster.AvgPosition = cluster.AvgPosition * cluster.ObjectCount
+    cluster.Groups[group_name].AvgPosition = cluster.Groups[group_name].AvgPosition * #cluster.Groups[group_name].Objects
+
+    table.insert(cluster.Groups[group_name].Objects, object)
+    cluster.ObjectCount = cluster.ObjectCount + 1
+
+    cluster.AvgPosition = (cluster.AvgPosition + obj_position) / cluster.ObjectCount
+    cluster.Groups[group_name].AvgPosition = (cluster.Groups[group_name].AvgPosition + obj_position) / #cluster.Groups[group_name].Objects
+end
+
+function KDTree:findObjectsWithin(position, radius, cluster_dist, filter_func, group_by, found_objects, dist_squared)
     --[[
     ba.println("KDTree:findNearestObjects: " .. Inspect({
         self.Index, self.Level, is_inside,
@@ -181,14 +202,13 @@ function KDTree:findObjectsWithin(position, radius, cluster_dist, filter_func, f
 
     --ba.println("KDTree:findObjectsWithin:." .. Inspect({self.Level, position.x, position.y, self.ObjPosition.x, self.ObjPosition.y, (position - self.ObjPosition):getSqrMagnitude(), radius}))
     if (position - self.ObjPosition):getSqrMagnitude() < radius then
+        local group_name = group_by and self.Objects[1][group_by] or "All"
         local added = false
         if cluster_dist then
             for _, cluster in ipairs(found_objects) do
-                if (self.ObjPosition - cluster.AvgPosition):getSqrMagnitude() < cluster_dist and (not filter_func or filter_func(self.Objects)) then
-                    cluster.AvgPosition = cluster.AvgPosition * #cluster.Objects
+                if cluster.Groups[group_name] and (self.ObjPosition - cluster.Groups[group_name].AvgPosition):getSqrMagnitude() < cluster_dist and (not filter_func or filter_func(self.Objects)) then
                     --ba.println("KDTree:addObject: parent.AvgPosition." .. Inspect({parent.Level, object.Name, position.x, position.y, parent.AvgPosition.x, parent.AvgPosition.y}))
-                    table.insert(cluster.Objects, self.Objects[1])
-                    cluster.AvgPosition = (cluster.AvgPosition + self.ObjPosition) / #cluster.Objects
+                    insertToCluster(cluster, self.Objects[1], self.ObjPosition, group_by)
                     added = true
                     break
                 end
@@ -196,13 +216,15 @@ function KDTree:findObjectsWithin(position, radius, cluster_dist, filter_func, f
         end
 
         if not added and (not filter_func or filter_func(self.Objects)) then
-            table.insert(found_objects, { ["Objects"] = { self.Objects[1] }, ["AvgPosition"] = self.ObjPosition })
+            local cluster = { ["Groups"] = {}, ["ObjectCount"] = 0 }
+            insertToCluster(cluster, self.Objects[1], self.ObjPosition, group_by)
+            table.insert(found_objects, cluster)
         end
         --ba.println("KDTree:findObjectsWithin added object:" .. Inspect({self.Objects[1].Name}))
     end
 
     for _, quadrant in pairs(self.Quadrants) do
-        quadrant:findObjectsWithin(position, radius, cluster_dist, filter_func, found_objects, true)
+        quadrant:findObjectsWithin(position, radius, cluster_dist, filter_func, group_by, found_objects, true)
     end
 
     return found_objects

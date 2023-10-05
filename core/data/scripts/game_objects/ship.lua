@@ -69,6 +69,7 @@ function Ship:init(properties)
     self.Type = Utils.Game.getMandatoryProperty(properties, 'Type')
     self.Class = Utils.Game.getMandatoryProperty(properties, 'Class')
     self.Team = Utils.Game.getMandatoryProperty(properties, 'Team')
+    self.Category = 'Ship'
 end
 
 function Ship:getIcon()
