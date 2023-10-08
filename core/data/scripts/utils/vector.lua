@@ -88,4 +88,16 @@ function Vector:rotate(p, b, h)
     return self
 end
 
+function Vector.dot(lhs, rhs)
+    return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z
+end
+
+function Vector.angle(to, from)
+    if not from then
+        from = Vector(1, 0)
+    end
+
+    return math.atan2(to.x - from.x, to.y - from.y) * 2
+end
+
 return Vector

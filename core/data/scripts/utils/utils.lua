@@ -203,6 +203,7 @@ function Utils.Game.getMandatoryProperty(properties, prop_name)
 end
 
 Utils.Math.AU = 149597870700.0
+Utils.Math.GravConst = 6.67384e-11
 Utils.Math.PITwo = 6.283185307
 
 function Utils.Math.isInsideBox(point, box_start, box_end)
@@ -211,6 +212,10 @@ end
 
 function Utils.Math.lerp(a, b, f)
     return a + f * (b - a)
+end
+
+function Utils.Math.clamp(value, min, max)
+    return math.min(max, math.max(min, value))
 end
 
 

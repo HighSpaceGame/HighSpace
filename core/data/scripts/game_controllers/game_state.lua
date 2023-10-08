@@ -4,6 +4,8 @@ local Inspect    = require('inspect')
 local Ship       = require('ship')
 local ShipGroup  = require('ship_group')
 local ShipList   = require('ship_list')
+local StarSystem = require('star_system')
+local SystemFile = require('system_file')
 local Utils      = require('utils')
 local Vector     = require('vector')
 local Wing       = require('wing')
@@ -17,7 +19,7 @@ local new_game_ships = {
         ['System'] = {['Position'] = Vector(732316619172.03, -266742595861.88, 0),},
         ["SemiMajorAxis"] = 0.00056955529,
         ["MeanAnomalyEpoch"] = 174.79394829,
-        ["OrbitalPeriod"] = 14.387098,
+        ["OrbitalPeriod"] = 1.387098,
         ["Epoch"] = "2000-01-01T12:00:00",
         ["Radius"] = 100,
         ["Mass"] = 10000,
@@ -136,6 +138,10 @@ local new_game_ships = {
     }),
 }
 
+GameState.CurrentTime = 0
+GameState.TimeSpeed = 0
+
+GameState.System = {}
 GameState.Ships = ShipList()
 
 GameState.MissionLoaded = false;
@@ -178,6 +184,8 @@ end
 function GameState.startNewGame()
     ba.println("Setting up new game")
 
+    GameState.System = SystemFile:loadSystem('sol.json.cfg')
+
     GameState.MissionLoaded = false
     for _, ship in pairs(new_game_ships) do
         ba.println("Adding: " .. Inspect(ship))
@@ -186,17 +194,9 @@ function GameState.startNewGame()
         GameState.Ships:add(new_ship)
     end
 
-    local orbiting_ship = GameState.Ships:get('Abraxis')
-    local planet = GameSystemMap.System.Stars[1].Satellites[6].Satellites[3]
-    ba.println("Adding ship to planet's orbit: " .. Inspect({ orbiting_ship.Name, planet.Name }))
-    table.insert(planet.Satellites, orbiting_ship)
-    orbiting_ship.Parent = planet
-
-    orbiting_ship = GameState.Ships:get('Alhazred')
-    planet = GameSystemMap.System.Stars[1].Satellites[6]
-    ba.println("Adding ship to planet's orbit: " .. Inspect({ orbiting_ship.Name, planet.Name }))
-    table.insert(planet.Satellites, orbiting_ship)
-    orbiting_ship.Parent = planet
+    GameState.System:get("Tethys"):add(GameState.Ships:get("Abraxis"))
+    GameState.System:get("Saturn"):add(GameState.Ships:get("Alhazred"))
+    GameState.System:get("Sol"):add(GameState.Ships:get("Trinity Battle Group"))
 
     ba.println("Template table: " .. Inspect(new_game_ships))
     ba.println("Game state table: " .. Inspect(GameState.Ships))

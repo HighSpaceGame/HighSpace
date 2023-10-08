@@ -106,14 +106,14 @@ function SystemMapUIController:setTimeSpeed(speed, event, element)
     element:SetClass("active", true)
     last_time_button = element
 
-    GameSystemMap.TimeSpeed = speed
+    GameState.TimeSpeed = speed
 end
 
 function SystemMapUIController:frame()
     if ba.getCurrentGameState().Name == "GS_STATE_BRIEFING" then
         GameSystemMap:update()
 
-        current_time_display.inner_rml = os.date('!%Y-%m-%d %H:%M:%S', GameSystemMap.CurrentTime)
+        current_time_display.inner_rml = os.date('!%Y-%m-%d %H:%M:%S', GameState.CurrentTime)
         GrSystemMap.drawMap(self.Mouse.Cursor:copy(), draw_map.Tex)
 
         GameSystemMap.processEncounters()

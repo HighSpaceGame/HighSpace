@@ -9,12 +9,17 @@ local StarSystem = Class(GameObject)
 
 function StarSystem:init(properties, parent)
     self.Stars = {}
+    self._star_map = {}
 
     if properties.Stars then
         for _, star in pairs(properties.Stars) do
-            table.insert(self.Stars, Satellite(star))
+            table.insert(self.Stars, Satellite(star, nil, self))
         end
     end
+end
+
+function StarSystem:get(name)
+    return self._star_map[name]
 end
 
 function StarSystem:update()
