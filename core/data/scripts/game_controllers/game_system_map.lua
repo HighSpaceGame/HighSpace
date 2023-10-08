@@ -4,7 +4,6 @@ local Inspect         = require('inspect')
 local KDTree          = require('kdtree')
 local Ship            = require('ship')
 local ShipGroup       = require('ship_group')
-local SystemFile      = require('system_file')
 local Utils           = require('utils')
 local Vector          = require('vector')
 
@@ -12,18 +11,13 @@ GameSystemMap = Class()
 
 GameSystemMap.SelectedShip = nil;
 
-GameSystemMap.System = SystemFile:loadSystem('sol.json.cfg')
-
-GameSystemMap.CurrentTime = 0
-GameSystemMap.TimeSpeed = 0
-
-ba.println("loadSystem: " .. Inspect({ GameSystemMap.System }))
+ba.println("loadSystem: " .. Inspect({ GameState.System }))
 
 GameSystemMap.Camera = {
     ["Parent"]  = nil,
     ["Movement"]  = Vector(),
-    ["Position"] = Vector(731316619172.03, -266842595861.88, 0),
-    ["RelPosition"] = Vector(731316619172.03, -266842595861.88, 0),
+    ["Position"] = Vector(),
+    ["RelPosition"] = Vector(),
     ["TargetRelPosition"] = nil,
     ["TargetMoveTime"] = time.getCurrentTime(),
     ["TargetMoveSpeed"] = 3.0,
@@ -42,7 +36,7 @@ function GameSystemMap.Camera:init(width, height)
     self.Zoom = 1000.0 * math.exp(self.ZoomExp)
     self.StartZoom = self.Zoom
     self.TargetZoom = self.Zoom
-    self.Parent = GameSystemMap.System.Stars[1]
+    self.Parent = GameState.System:get("Sol")
 end
 
 function GameSystemMap.Camera:getScreenCoords(position)
@@ -124,22 +118,16 @@ end
 local last_update_time = time.getCurrentTime()
 function GameSystemMap:update()
     --ba.println("update: " .. Inspect({ os.clock(), os.time(), (time.getCurrentTime() - start):getSeconds(), tonumber(time.getCurrentTime()) }))
-    self.CurrentTime = self.CurrentTime + (time.getCurrentTime() - last_update_time):getSeconds() * self.TimeSpeed
+    GameState.CurrentTime = GameState.CurrentTime + (time.getCurrentTime() - last_update_time):getSeconds() * GameState.TimeSpeed
     last_update_time = time.getCurrentTime()
 
-    self.System:update()
+    GameState.System:update()
     GameSystemMap.Camera:update()
     self.ObjectKDTree:initFrame()
 
-    for _, star in pairs(self.System.Stars) do
+    for _, star in pairs(GameState.System.Stars) do
         add_system_object_to_tree(star)
     end
-
-    GameState.Ships:forEach(function(curr_ship)
-        if curr_ship.Name ~= 'Abraxis' and curr_ship.Name ~= 'Alhazred' then
-            self.ObjectKDTree:addObject(curr_ship.System.Position, curr_ship)
-        end
-    end)
 end
 
 function GameSystemMap.isShipEncounter(ship1, ship2)
@@ -147,6 +135,29 @@ function GameSystemMap.isShipEncounter(ship1, ship2)
 
     return dist:getMagnitude() < 100000;
 end
+
+local function leftClickAstralHandler(object)
+    GameSystemMap.Camera.Parent = object
+    while GameSystemMap.Camera.Parent.Parent and (GameSystemMap.Camera.Parent.System.Position - GameSystemMap.Camera.Parent.Parent.System.Position):getSqrMagnitude() < math.pow(40 * GameSystemMap.Camera.Zoom, 2) do
+        GameSystemMap.Camera.Parent = GameSystemMap.Camera.Parent.Parent
+    end
+
+    GameSystemMap.Camera.RelPosition = GameSystemMap.Camera.Position - object.System.Position
+    GameSystemMap.Camera.TargetRelPosition = Vector(0,0)
+    GameSystemMap.Camera.TargetMoveTime = time.getCurrentTime()
+end
+
+local function leftClickShipHandler(object)
+    GameSystemMap.SelectedShip = object
+    GameSystemMap.SelectedShip.IsSelected = true
+    ba.println("Selected ship: " .. GameSystemMap.SelectedShip.Name)
+end
+
+local leftClickHandler
+local leftClickHandlers = {
+    ["Astral"] = leftClickAstralHandler,
+    ["Ship"] = leftClickShipHandler,
+}
 
 function GameSystemMap:onLeftClick(mouse)
     local world_pos = self.Camera:getWorldCoords(mouse)
@@ -162,20 +173,8 @@ function GameSystemMap:onLeftClick(mouse)
         return
     end
 
-    if nearest[1]:is_a(Ship) or nearest[1]:is_a(ShipGroup) then
-        self.SelectedShip = nearest[1]
-        self.SelectedShip.IsSelected = true
-        ba.println("Selected ship: " .. self.SelectedShip.Name)
-    else
-        self.Camera.Parent = nearest[1]
-        while self.Camera.Parent.Parent and (self.Camera.Parent.System.Position - self.Camera.Parent.Parent.System.Position):getSqrMagnitude() < math.pow(40 * self.Camera.Zoom, 2) do
-            self.Camera.Parent = self.Camera.Parent.Parent
-        end
-
-        self.Camera.RelPosition = self.Camera.Position - nearest[1].System.Position
-        self.Camera.TargetRelPosition = Vector(0,0)
-        self.Camera.TargetMoveTime = time.getCurrentTime()
-    end
+    leftClickHandler = leftClickHandlers[nearest[1].Category] and leftClickHandlers[nearest[1].Category] or leftClickAstralHandler
+    leftClickHandler(nearest[1])
 end
 
 function GameSystemMap:moveShip(mouse)
@@ -188,6 +187,7 @@ function GameSystemMap:moveShip(mouse)
             else
                 self.SelectedShip.System.Position = world_pos
             end
+            self.SelectedShip:recalculateOrbit()
         end
 
         self.SelectedShip.IsSelected = false

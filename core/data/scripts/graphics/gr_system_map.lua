@@ -59,7 +59,7 @@ local function drawAstralHandler(_, object, _, _, _)
         gr.setColor(255, 255, 255, alpha)
         gr.CurrentFont = gr.Fonts["font01"]
         screen_size = math.max(screen_size, 10)
-        drawTexture(object.Icon.Texture, object.Name, screen_position, screen_size, screen_size)
+        drawTexture(object:getIcon().Texture, object.Name, screen_position, screen_size, screen_size)
     end
 end
 
@@ -98,7 +98,7 @@ end
 
 local drawHandler
 local drawHandlers = {
-    ["GameObject"] = drawAstralHandler,
+    ["Astral"] = drawAstralHandler,
     ["Ship"] = drawShipHandler,
 }
 
