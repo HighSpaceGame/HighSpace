@@ -126,7 +126,7 @@ function KDTree:findNearest(position, max_distance, filter_func, dist_squared)
     }))
     ]]--
 
-    if not dist_squared then
+    if max_distance and not dist_squared then
         max_distance = max_distance * max_distance
     end
 
@@ -193,7 +193,10 @@ function KDTree:findObjectsWithin(position, radius, cluster_dist, filter_func, g
 
     if not dist_squared then
         radius = radius * radius
-        cluster_dist = cluster_dist * cluster_dist
+
+        if cluster_dist then
+            cluster_dist = cluster_dist * cluster_dist
+        end
     end
 
     if not self:isInside(position, radius) then

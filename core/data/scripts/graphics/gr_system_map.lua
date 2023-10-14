@@ -104,6 +104,7 @@ local drawHandlers = {
 
 function gr_system_map:drawCluster(cluster)
     for group_name, object_group in pairs(cluster.Groups) do
+        table.sort(object_group.Objects, function (o1, o2) return o1.Name < o2.Name end )
         local rel_screen_position = Vector(0, -15)
         local screen_position = GameSystemMap.Camera:getScreenCoords(object_group.AvgPosition)
         for obj_idx, object in ipairs(object_group.Objects) do
