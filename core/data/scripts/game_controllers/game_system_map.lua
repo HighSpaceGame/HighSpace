@@ -181,12 +181,23 @@ function GameSystemMap:moveShip(mouse)
     if self.SelectedShip ~= nil then
         if self.SelectedShip.Team.Name == 'Friendly' then
             local world_pos = self.Camera:getWorldCoords(mouse)
-            local nearest = self.ObjectKDTree:findNearest(world_pos, 40 * self.Camera.Zoom)
+            local nearest = self.ObjectKDTree:findNearest(world_pos, 40 * self.Camera.Zoom,
+                    function(objects) return objects and objects[1].Category == 'Ship' end
+            )
             if nearest then
                 self.SelectedShip.System.Position = nearest[1].System.Position:copy()
             else
                 self.SelectedShip.System.Position = world_pos
             end
+
+            nearest = self.ObjectKDTree:findNearest(self.SelectedShip.System.Position, nil,
+                    function(objects) return objects and objects[1].Category == 'Astral' end
+            )
+
+            if nearest then
+                self.SelectedShip.Parent = nearest[1]
+            end
+
             self.SelectedShip:recalculateOrbit()
         end
 
