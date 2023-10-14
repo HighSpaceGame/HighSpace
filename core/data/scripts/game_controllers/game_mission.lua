@@ -5,6 +5,7 @@ local Ship          = require('ship')
 local ShipGroup     = require('ship_group')
 local ShipList      = require('ship_list')
 local Utils         = require('utils')
+local Vector        = require('vector')
 local Wing          = require('wing')
 
 GameMission = Class()
@@ -83,7 +84,7 @@ function GameMission:initMissionShip(ship)
             end
 
             if curr_ship.Team.Name == 'Hostile' then
-                curr_ship.Mission.Instance:giveOrder(ORDER_ATTACK_SHIP_CLASS, nil, nil, 1, tb.ShipClasses['GTC Aeolus'])
+                curr_ship.Mission.Instance:giveOrder(ORDER_ATTACK_SHIP_CLASS, nil, nil, 1, tb.ShipClasses['GMF Gunship'])
             end
 
             ba.println("GameMission.Ships: " .. Inspect(GameMission.Ships))
@@ -140,7 +141,7 @@ function GameMission:selectShips(selFrom, selTo)
     self.Ships:forEach(function(ship)
         if ship.Mission.Instance then
             local x, y = ship.Mission.Instance.Position:getScreenCoords()
-            if Utils.Math.isInsideBox({ ["x"] = x, ["y"] = y}, selFrom, selTo) then
+            if Utils.Math.isInsideBox(Vector(x, y), selFrom, selTo) then
                 self.SelectedShips[ship.Name] = ship
                 ba.println("Selecting: " .. Inspect({ ship.Name, tostring(ship.Mission.Instance.Target), ship.Mission.Instance.Target:getBreedName(), ship.Mission.Instance.Target:isValid() }))
             end

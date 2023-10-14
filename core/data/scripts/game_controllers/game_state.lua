@@ -19,7 +19,7 @@ local new_game_ships = {
             ['Trinity'] = Ship({
                 ['Species'] = 'Terran',
                 ['Type'] = 'Cruiser',
-                ['Class'] = 'GTC Aeolus',
+                ['Class'] = 'GMF Gunship',
                 ['Team'] = mn.Teams['Friendly'],
                 ['Name'] = 'Trinity',
                 ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0),},
@@ -65,17 +65,17 @@ local new_game_ships = {
         }
     }),
     ['Abraxis'] = Ship({
-        ['Species'] = 'Shivan',
+        ['Species'] = 'Terran',
         ['Type'] = 'Corvette',
-        ['Class'] = 'SCv Moloch',
+        ['Class'] = 'GMC Escort',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Abraxis',
         ['System'] = {['Position'] = Vector(731316619172.03, -267842595861.88, 0),}
     }),
     ['Alhazred'] = Ship({
-        ['Species'] = 'Shivan',
+        ['Species'] = 'Terran',
         ['Type'] = 'Cruiser',
-        ['Class'] = 'SC Cain',
+        ['Class'] = 'GMF Gunship',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Alhazred',
         ['System'] = {['Position'] = Vector(730316619172.03, -266042595861.88, 0),}

@@ -3506,28 +3506,6 @@ $Subsystem:                     turret03,2.0,1.0
 	$Default PBanks:				( "Standard Flak" )
 $Subsystem:                     turret04,2.0,1.0
 	$Default PBanks:				( "Terran Huge Turret" )
-$Subsystem:                     turret05,2.0,1.0
-	$Default PBanks:				( "Standard Flak" )
-$Subsystem:                     turret06,2.0,1.0
-	$Default PBanks:				( "Standard Flak" )
-$Subsystem:                     turret07,2.0,1.0
-	$Default PBanks:				( "AAAf" )
-$Subsystem:                     turret08,2.0,1.0
-	$Default PBanks:				( "Standard Flak" )
-$Subsystem:                     turret09,2.0,1.0
-	$Default PBanks:				( "AAAf" )
-$Subsystem:                     turret10,2.0,1.0
-	$Default PBanks:				( "Standard Flak" )
-$Subsystem:                     turret11,2.0,1.0
-	$Default PBanks:				( "SGreen" )
-$Subsystem:                     turret12,2.0,1.0
-	$Default PBanks:				( "SGreen" )
-$Subsystem:                     engine,			5,0.0
-	$Engine Wash:	Default100
-$Subsystem:                     communications,		5,0.0
-$Subsystem:                     sensors,			5,0.0
-$Subsystem:                     navigation,			5,0.0
-$Subsystem:                     weapons,			5,0.0
 
 
 
@@ -8891,6 +8869,177 @@ $Subsystem:                     weapons,                        10, 0
 
 ;=====>> TEST STUFF <<=======
 
+$Name:                          GMF Gunship
+$Short name:					TFrigate
+$Species:                       Terran
++Tech Description:
+XSTR("The lightest class of capital ship, generally intended for patrol and defense of large instillations. Cramped quarters and minimal fuel capacity generally limit their operational range.", 3057)
+$end_multi_text
+$POF file:                      frigate_gunship02.pof
+$Detail distance:				(0)
+$Show damage:					YES
+$Density:                       1
+$Damp:                          0.2
+$Rotdamp:                       2.0
+$Max Velocity:					0.0, 0.0, 30.0
+$Rotation time:					100.0, 100.0, 80.0
+$Rear Velocity:					0.0
+$Forward accel:					8.0
+$Forward decel:					4.0
+$Slide accel:					0.0
+$Slide decel:					0.0
+$Expl inner rad:				150.0
+$Expl outer rad:				750.0
+$Expl damage:					200.0
+$Expl blast:					11000.0
+$Expl Propagates:				YES						;; If set to Yes, then when the ship dies, the explosion propagates through it.
+$Shockwave Speed:				400.0					;; speed shockwave expands at, 0 means no shockwave
+$Shockwave Count:				2
+$Default PBanks:				()
+$Default SBanks:				()
+$SBank Capacity:				()
+$Shields:                       0
+$Power Output:					100.0
+$Max Oclk Speed:				40.0
+$Max Weapon Eng:				100.0
+$Hitpoints:                     38000
+$Flags:                         ( "cruiser"  )
+$AI Class:                      Captain
+$Afterburner:					NO
+$Countermeasures:				0
+$Scan time:                     2000
+$EngineSnd:						128						;; Engine sound of ship
+$Closeup_pos:					0.0, 0.0, -315
+$Closeup_zoom:					0.5
+$Score:							500
+$Subsystem:                     Turret01a,2.0,1.0
+	$Default PBanks:				( "Terran Huge Turret" )
+	$animation: triggered
+    $type: initial
+       +relative_angle:       90,180,0
+$Subsystem:                     Turret02a,2.0,1.0
+	$Default PBanks:				( "Terran Huge Turret" )
+	$animation: triggered
+    $type: initial
+       +relative_angle:       90,180,0
+$Subsystem:                     Turret03a,2.0,1.0
+	$Default PBanks:				( "Terran Huge Turret" )
+	$animation: triggered
+    $type: initial
+       +relative_angle:       90,0,0
+$Subsystem:                     Turret04a,2.0,1.0
+	$Default PBanks:				( "Terran Huge Turret" )
+	$animation: triggered
+    $type: initial
+       +relative_angle:       90,0,0
+
+$Name:                          GMD Pursuit
+$Short name:					TDestroyer
+$Species:                       Terran
++Tech Description:
+XSTR("The lightest class of capital ship, generally intended for patrol and defense of large instillations. Cramped quarters and minimal fuel capacity generally limit their operational range.", 3057)
+$end_multi_text
+$POF file:                      destroyer_framework01.pof
+$Detail distance:				(0)
+$Show damage:					YES
+$Density:                       1
+$Damp:                          0.2
+$Rotdamp:                       2.0
+$Max Velocity:					0.0, 0.0, 30.0
+$Rotation time:					100.0, 100.0, 80.0
+$Rear Velocity:					0.0
+$Forward accel:					8.0
+$Forward decel:					4.0
+$Slide accel:					0.0
+$Slide decel:					0.0
+$Expl inner rad:				150.0
+$Expl outer rad:				750.0
+$Expl damage:					200.0
+$Expl blast:					11000.0
+$Expl Propagates:				YES						;; If set to Yes, then when the ship dies, the explosion propagates through it.
+$Shockwave Speed:				400.0					;; speed shockwave expands at, 0 means no shockwave
+$Shockwave Count:				2
+$Default PBanks:				()
+$Default SBanks:				()
+$SBank Capacity:				()
+$Shields:                       0
+$Power Output:					100.0
+$Max Oclk Speed:				40.0
+$Max Weapon Eng:				100.0
+$Hitpoints:                     38000
+$Flags:                         ( "cruiser"  )
+$AI Class:                      Captain
+$Afterburner:					NO
+$Countermeasures:				0
+$Scan time:                     2000
+$EngineSnd:						128						;; Engine sound of ship
+$Closeup_pos:					0.0, 0.0, -315
+$Closeup_zoom:					0.5
+$Score:							500
+
+$Name:                          GMC Escort
+$Short name:					TCruiser
+$Species:                       Terran
++Tech Description:
+XSTR("The lightest class of capital ship, generally intended for patrol and defense of large instillations. Cramped quarters and minimal fuel capacity generally limit their operational range.", 3057)
+$end_multi_text
+$POF file:                      cruiser_escort_01.pof
+$Detail distance:				(0)
+$Show damage:					YES
+$Density:                       1
+$Damp:                          0.2
+$Rotdamp:                       2.0
+$Max Velocity:					0.0, 0.0, 30.0
+$Rotation time:					100.0, 100.0, 80.0
+$Rear Velocity:					0.0
+$Forward accel:					8.0
+$Forward decel:					4.0
+$Slide accel:					0.0
+$Slide decel:					0.0
+$Expl inner rad:				150.0
+$Expl outer rad:				750.0
+$Expl damage:					200.0
+$Expl blast:					11000.0
+$Expl Propagates:				YES						;; If set to Yes, then when the ship dies, the explosion propagates through it.
+$Shockwave Speed:				400.0					;; speed shockwave expands at, 0 means no shockwave
+$Shockwave Count:				2
+$Default PBanks:				()
+$Default SBanks:				()
+$SBank Capacity:				()
+$Shields:                       0
+$Power Output:					100.0
+$Max Oclk Speed:				40.0
+$Max Weapon Eng:				100.0
+$Hitpoints:                     38000
+$Flags:                         ( "cruiser"  )
+$AI Class:                      Captain
+$Afterburner:					NO
+$Countermeasures:				0
+$Scan time:                     2000
+$EngineSnd:						128						;; Engine sound of ship
+$Closeup_pos:					0.0, 0.0, -1000
+$Closeup_zoom:					0.5
+$Score:							500
+$Subsystem:                     Turret01a,2.0,1.0
+	$Default PBanks:				( "TerSlash" )
+	$animation: triggered
+    $type: initial
+       +relative_angle:       90,0,0
+$Subsystem:                     Turret02a,2.0,1.0
+	$Default PBanks:				( "TerSlash" )
+	$animation: triggered
+    $type: initial
+       +relative_angle:       90,0,0
+$Subsystem:                     Turret03a,2.0,1.0
+	$Default PBanks:				( "TerSlash" )
+	$animation: triggered
+    $type: initial
+       +relative_angle:       90,180,0
+$Subsystem:                     Turret04a,2.0,1.0
+	$Default PBanks:				( "TerSlash" )
+	$animation: triggered
+    $type: initial
+       +relative_angle:       90,180,0
 
 
 #End

@@ -3,6 +3,7 @@ local Inspect                            = require('inspect')
 local UIController                       = require('ui_controller')
 local GrCommon                           = require('gr_common')
 local GrMission                          = require('gr_mission')
+local Vector                             = require('vector')
 
 local MissionUIController = Class(UIController)()
 
@@ -125,7 +126,7 @@ function MissionUIController:mouseMove(event, document, element)
         GameMission.TacticalCamera:rotateBy(pitch, heading)
     end
 
-    self:storeMouseMove(event, document, element)
+    self:storeMouseMove(event, document, element, Vector())
 end
 
 function MissionUIController:frame()
