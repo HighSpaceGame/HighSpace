@@ -115,6 +115,16 @@ local function add_system_object_to_tree(body)
     end
 end
 
+local function updateShipOrbit(ship)
+    if ship.Parent.Parent then
+        if Utils.Math.hasEscapedFromOrbit(ship.SemiMajorAxis, ship.Parent.SemiMajorAxis, ship.Parent.Mass, ship.Parent.Parent.Mass) then
+            ship.Parent = ship.Parent.Parent
+            ship:recalculateOrbit()
+            updateShipOrbit(ship)
+        end
+    end
+end
+
 local last_update_time = time.getCurrentTime()
 function GameSystemMap:update()
     --ba.println("update: " .. Inspect({ os.clock(), os.time(), (time.getCurrentTime() - start):getSeconds(), tonumber(time.getCurrentTime()) }))
@@ -128,6 +138,15 @@ function GameSystemMap:update()
     for _, star in pairs(GameState.System.Stars) do
         add_system_object_to_tree(star)
     end
+
+    GameState.Ships:forEach(function(ship)
+        local nearest = self.ObjectKDTree:findNearest(ship.System.Position, ship.SemiMajorAxis,
+                function(objects) return objects and objects[1].Category == 'Astral' end
+        )
+        ship.Parent = nearest and nearest[1] or ship.Parent
+        ship:recalculateOrbit()
+        updateShipOrbit(ship, nearest)
+    end)
 end
 
 function GameSystemMap.isShipEncounter(ship1, ship2)
@@ -164,7 +183,7 @@ function GameSystemMap:onLeftClick(mouse)
     local nearest = self.ObjectKDTree:findNearest(world_pos, 40 * self.Camera.Zoom)
     ba.println("GameSystemMap:onLeftClick: " .. Inspect({mouse.x, mouse.y, world_pos.x, world_pos.y, nearest and nearest[1] and nearest[1].Name }))
 
-    if self.SelectedShip then
+    if self.SelectedShip and (not nearest or not nearest[1] or nearest[1].Category == "Ship") then
         self.SelectedShip.IsSelected = false
         self.SelectedShip = nil
     end

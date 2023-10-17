@@ -202,10 +202,6 @@ function Utils.Game.getMandatoryProperty(properties, prop_name)
     return properties[prop_name]
 end
 
-Utils.Math.AU = 149597870700.0
-Utils.Math.GravConst = 6.67384e-11
-Utils.Math.PITwo = 6.283185307
-
 function Utils.Math.isInsideBox(point, box_start, box_end)
     return (point.x > box_start.x and point.y > box_start.y and point.x < box_end.x and point.y < box_end.y)
 end
@@ -218,5 +214,29 @@ function Utils.Math.clamp(value, min, max)
     return math.min(max, math.max(min, value))
 end
 
+Utils.Math.AU = 149597870700.0
+Utils.Math.GravConst = 6.67384e-11
+Utils.Math.PITwo = math.pi*2
+
+function Utils.Math.orbitalPeriod(semiMajorAxis, mass)
+    return Utils.Math.PITwo * math.sqrt(math.pow(semiMajorAxis, 3) / (Utils.Math.GravConst * mass));
+end
+
+function Utils.Math.orbitalVelocity(semiMajorAxis, mass)
+    return Utils.Math.PITwo * semiMajorAxis / Utils.Math.orbitalPeriod(semiMajorAxis, mass)
+end
+
+function Utils.Math.escapeVelocity(semiMajorAxis, mass)
+    return math.sqrt(2 * Utils.Math.GravConst * mass / semiMajorAxis)
+end
+
+function Utils.Math.hasEscapedFromOrbit(semi_major_obj, semi_major_par, mass_par, mass_par_par)
+    local esc_velocity = Utils.Math.escapeVelocity(semi_major_obj, mass_par)
+    local orb_velocity = Utils.Math.orbitalVelocity(semi_major_par, mass_par_par)
+    orb_velocity = orb_velocity - Utils.Math.orbitalVelocity(semi_major_par + semi_major_obj, mass_par_par)
+    orb_velocity = orb_velocity + Utils.Math.orbitalVelocity(semi_major_obj, mass_par)
+
+    return ( orb_velocity > esc_velocity )
+end
 
 return Utils

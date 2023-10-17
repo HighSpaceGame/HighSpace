@@ -92,6 +92,10 @@ function Vector.dot(lhs, rhs)
     return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z
 end
 
+function Vector.cross(lhs, rhs)
+    return Vector(lhs.y*rhs.z - lhs.z*rhs.y, lhs.z*rhs.x - lhs.x*rhs.z, lhs.x*rhs.y - lhs.y*rhs.x)
+end
+
 function Vector.angle(to, from)
     if not from then
         from = Vector(1, 0)

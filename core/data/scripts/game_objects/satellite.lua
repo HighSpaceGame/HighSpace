@@ -44,7 +44,7 @@ function Satellite:init(properties, parent, star_system)
 end
 
 function Satellite:_updateMeanAnomaly()
-    if self.OrbitalPeriod <= 0 then
+    if not self.OrbitalPeriod or self.OrbitalPeriod <= 0 then
         self.MeanAnomaly = 0
         return
     end
@@ -68,9 +68,9 @@ function Satellite:recalculateOrbit()
     self.MeanAnomalyEpoch = Vector.angle(rel_position)
     self.MeanAnomaly = self.MeanAnomalyEpoch
     self.Epoch = GameState.CurrentTime
-    self.OrbitalPeriod = Utils.Math.PITwo * math.sqrt(math.pow(self.SemiMajorAxis, 3) / (Utils.Math.GravConst * self.Parent.Mass));
+    self.OrbitalPeriod = Utils.Math.orbitalPeriod(self.SemiMajorAxis, self.Parent.Mass)
 
-    ba.println("Satellite:_recalculateOrbit(): " .. Inspect({ self.Name, self.OrbitalPeriod, math.deg(self.MeanAnomaly), math.deg(math.atan2(0.89165917083566, 0.45270732605588)), rel_position.x, rel_position.y }))
+    --ba.println("Satellite:_recalculateOrbit(): " .. Inspect({ self.Name, self.OrbitalPeriod, math.deg(self.MeanAnomaly), math.deg(math.atan2(0.89165917083566, 0.45270732605588)), rel_position.x, rel_position.y }))
 end
 
 function Satellite:add(satellite)
