@@ -144,9 +144,9 @@ function KDTree:findNearest(position, max_distance, filter_func, dist_squared)
 
     for qidx, quadrant in pairs(self.Quadrants) do
         q_result, q_dist_sqr = quadrant:findNearest(position, max_distance, filter_func, true)
-        ba.println("KDTree:findNearestObjects q: " .. Inspect({
+        --[[ ba.println("KDTree:findNearestObjects q: " .. Inspect({
             self.Index, self.Level, qidx, max_distance, q_dist_sqr
-        }))
+        })) ]]--
         if (q_dist_sqr and q_dist_sqr < max_distance) and (not filter_func or filter_func(q_result)) then
             result = q_result
             max_distance = q_dist_sqr
