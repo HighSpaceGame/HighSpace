@@ -1,12 +1,13 @@
 local Class          = require("class")
 local Inspect        = require('inspect')
-local Satellite      = require('satellite')
+local Ship           = require("ship")
 local ShipList       = require("ship_list")
 local Utils          = require('utils')
 
-local ShipGroup = Class(Satellite)
+local ShipGroup = Class(Ship)
 
 function ShipGroup:init(properties)
+    ba.println("ShipGroup:init: " .. Inspect(properties.Name))
     self.Ships = ShipList()
 
     local list = Utils.Game.getMandatoryProperty(properties, 'Ships')
@@ -21,18 +22,6 @@ function ShipGroup:init(properties)
         ship_clone.ParentList = self.Ships
         self.Ships:add(ship_clone)
     end
-
-    self.Team = Utils.Game.getMandatoryProperty(properties, 'Team')
-    self.Category = 'Ship'
-
-    if properties.System then
-        self.System = self.System or {}
-
-        self.System.Destination = nil
-        self.System.Speed = Utils.Game.getMandatoryProperty(properties.System, 'Speed')
-        self.System.SubspaceSpeed = Utils.Game.getMandatoryProperty(properties.System, 'SubspaceSpeed')
-        self.System.UpdateTime = 0
-    end
 end
 
 function ShipGroup:getIcon()
@@ -41,29 +30,6 @@ end
 
 function ShipGroup:copy()
     return ShipGroup(self)
-end
-
-function ShipGroup:update()
-    if self.System.Destination then
-        local movement = (self.System.Destination - self.System.Position):normalize()
-        movement = movement * (GameState.CurrentTime - self.System.UpdateTime) * self.System.Speed
-        if movement:getSqrMagnitude() > (self.System.Destination - self.System.Position):getSqrMagnitude() then
-            movement = self.System.Destination - self.System.Position
-            self.System.Destination = nil
-        end
-
-        self.System.Position = self.System.Position + movement
-    else
-        self._base.update(self)
-    end
-
-    local nearest = GameSystemMap.ObjectKDTree:findNearest(self.System.Position, self.SemiMajorAxis,
-            function(objects) return objects[1] and objects[1].Category == 'Astral' end
-    )
-    self.Parent = nearest and nearest[1] or self.Parent
-    self:recalculateOrbit()
-    self:recalculateOrbitParent()
-    self.System.UpdateTime = GameState.CurrentTime
 end
 
 function ShipGroup:getTopShip()

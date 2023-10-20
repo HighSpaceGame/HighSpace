@@ -8,8 +8,8 @@ local GameObject = Class()
 local unknown_icon = gr.loadTexture('iconunknown', true)
 
 function GameObject:init(properties)
+    ba.println("GameObject:init: " .. properties.Name)
     self.Name = Utils.Game.getMandatoryProperty(properties, 'Name')
-    ba.println("GameObject:init: " .. self.Name)
 
     self.Category = 'GameObject'
     self.Mission = {}
