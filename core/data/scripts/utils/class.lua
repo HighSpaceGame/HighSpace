@@ -34,13 +34,16 @@ local function class(base, init)
         setmetatable(obj, class_tbl)
 
         local t = class_tbl
-        while (t) do
-            if t._base and t._base.init then
-                t._base.init(obj, ...)
+        local b_init
+        b_init = function(bt, ...)
+            if bt._base then
+                b_init(bt._base, ...)
+                if bt._base.init then
+                    bt._base.init(obj, ...)
+                end
             end
-
-            t = t._base
         end
+        b_init(t, ...)
 
         if class_tbl.init then
             class_tbl.init(obj, ...)

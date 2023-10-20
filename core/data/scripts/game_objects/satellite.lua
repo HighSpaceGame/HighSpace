@@ -8,6 +8,7 @@ local Vector         = require('vector')
 local Satellite = Class(GameObject)
 
 function Satellite:init(properties, parent, star_system)
+    ba.println("Satellite:init: " .. properties.Name)
     self.SemiMajorAxis = Utils.Game.getMandatoryProperty(properties, 'SemiMajorAxis')
     self.MeanAnomalyEpoch = math.rad(Utils.Game.getMandatoryProperty(properties, 'MeanAnomalyEpoch'))
     self.MeanAnomaly = 0

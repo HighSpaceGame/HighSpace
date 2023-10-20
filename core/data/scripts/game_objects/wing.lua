@@ -6,6 +6,7 @@ local Utils          = require('utils')
 local Wing = Class(ShipGroup)
 
 function Wing:init(properties)
+    ba.println("Wing:init: " .. Inspect(properties.Name))
 end
 
 function Wing:copy()
