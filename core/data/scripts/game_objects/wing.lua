@@ -6,7 +6,6 @@ local Utils          = require('utils')
 local Wing = Class(ShipGroup)
 
 function Wing:init(properties)
-
 end
 
 function Wing:copy()

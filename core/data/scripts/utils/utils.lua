@@ -198,7 +198,7 @@ function Utils.DateTime.parse(datetime_string)
 end
 
 function Utils.Game.getMandatoryProperty(properties, prop_name)
-    if not properties[prop_name] then ba.error("Ship:init - " .. prop_name .. " is required") end
+    if not properties[prop_name] then ba.error(prop_name .. " is required:" .. "\n\n" .. debug.traceback()) end
     return properties[prop_name]
 end
 

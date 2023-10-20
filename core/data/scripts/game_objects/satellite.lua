@@ -57,6 +57,16 @@ function Satellite:_updateMeanAnomaly()
     end
 end
 
+function Satellite:recalculateOrbitParent()
+    if self.Parent.Parent then
+        if Utils.Math.hasEscapedFromOrbit(self.SemiMajorAxis, self.Parent.SemiMajorAxis, self.Parent.Mass, self.Parent.Parent.Mass) then
+            self.Parent = self.Parent.Parent
+            self:recalculateOrbit()
+            self:recalculateOrbitParent()
+        end
+    end
+end
+
 function Satellite:recalculateOrbit()
     if not self.Parent or self.Parent.Mass <= 0.0 then
         return

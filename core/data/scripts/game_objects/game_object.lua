@@ -13,7 +13,7 @@ function GameObject:init(properties)
 
     self.Category = 'GameObject'
     self.Mission = {}
-    self.System = {
+    self.System = self.System or {
         ['IsSelected'] = false,
         ['Position'] = Vector(0,0,0),
     }
