@@ -70,6 +70,12 @@ function Ship:init(properties)
     self.Class = Utils.Game.getMandatoryProperty(properties, 'Class')
     self.Team = Utils.Game.getMandatoryProperty(properties, 'Team')
     self.Category = 'Ship'
+
+    if properties.System then
+        self.System.Destination = nil
+        self.System.Speed = Utils.Game.getMandatoryProperty(properties.System, 'Speed')
+        self.System.SubspaceSpeed = Utils.Game.getMandatoryProperty(properties.System, 'SubspaceSpeed')
+    end
 end
 
 function Ship:getIcon()

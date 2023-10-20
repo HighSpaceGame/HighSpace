@@ -94,6 +94,12 @@ local function drawShipHandler(obj_idx, object, obj_count, screen_position, rel_
 
     --ba.println("ships_screen_map:draw: " .. Inspect({ship.Name, GameSystemMap.Camera.ScreenOffset.x, GameSystemMap.Camera.ScreenOffset.y, screen_position.x, screen_position.y, screen_sector.x, screen_sector.y}))
     drawTexture(icon.Texture, text, screen_position, icon_width, icon_height)
+
+    if object.System.Destination then
+        local screen_position_dest = GameSystemMap.Camera:getScreenCoords(object.System.Destination)
+        gr.drawLine(screen_position.x, screen_position.y, screen_position_dest.x, screen_position_dest.y)
+        gr.drawCircle(5, screen_position_dest.x, screen_position_dest.y, true)
+    end
 end
 
 local drawHandler

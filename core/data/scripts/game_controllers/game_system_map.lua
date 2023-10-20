@@ -115,16 +115,6 @@ local function add_system_object_to_tree(body)
     end
 end
 
-local function updateShipOrbit(ship)
-    if ship.Parent.Parent then
-        if Utils.Math.hasEscapedFromOrbit(ship.SemiMajorAxis, ship.Parent.SemiMajorAxis, ship.Parent.Mass, ship.Parent.Parent.Mass) then
-            ship.Parent = ship.Parent.Parent
-            ship:recalculateOrbit()
-            updateShipOrbit(ship)
-        end
-    end
-end
-
 local last_update_time = time.getCurrentTime()
 function GameSystemMap:update()
     --ba.println("update: " .. Inspect({ os.clock(), os.time(), (time.getCurrentTime() - start):getSeconds(), tonumber(time.getCurrentTime()) }))
@@ -138,15 +128,6 @@ function GameSystemMap:update()
     for _, star in pairs(GameState.System.Stars) do
         add_system_object_to_tree(star)
     end
-
-    GameState.Ships:forEach(function(ship)
-        local nearest = self.ObjectKDTree:findNearest(ship.System.Position, ship.SemiMajorAxis,
-                function(objects) return objects and objects[1].Category == 'Astral' end
-        )
-        ship.Parent = nearest and nearest[1] or ship.Parent
-        ship:recalculateOrbit()
-        updateShipOrbit(ship, nearest)
-    end)
 end
 
 function GameSystemMap.isShipEncounter(ship1, ship2)
@@ -204,20 +185,10 @@ function GameSystemMap:moveShip(mouse)
                     function(objects) return objects and objects[1].Category == 'Ship' end
             )
             if nearest then
-                self.SelectedShip.System.Position = nearest[1].System.Position:copy()
+                self.SelectedShip.System.Destination = nearest[1].System.Position:copy()
             else
-                self.SelectedShip.System.Position = world_pos
+                self.SelectedShip.System.Destination = world_pos
             end
-
-            nearest = self.ObjectKDTree:findNearest(self.SelectedShip.System.Position, nil,
-                    function(objects) return objects and objects[1].Category == 'Astral' end
-            )
-
-            if nearest then
-                self.SelectedShip.Parent = nearest[1]
-            end
-
-            self.SelectedShip:recalculateOrbit()
         end
 
         self.SelectedShip.IsSelected = false
