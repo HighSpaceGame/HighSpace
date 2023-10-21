@@ -13,6 +13,21 @@ GameSystemMap.SelectedShip = nil;
 
 ba.println("loadSystem: " .. Inspect({ GameState.System }))
 
+GameSystemMap.ShipMoveDummy = Ship({
+    ['Species'] = 'Terran',
+    ['Type'] = 'Cruiser',
+    ['Class'] = 'GMF Gunship',
+    ['Team'] = mn.Teams['Friendly'],
+    ['Name'] = 'Ship Movement Dummy',
+    ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0), ['Speed'] = 1.0e+24, ['SubspaceSpeed'] = 1.0e+12,},
+    ["SemiMajorAxis"] = 0,
+    ["MeanAnomalyEpoch"] = 0,
+    ["OrbitalPeriod"] = 0,
+    ["Epoch"] = "2000-01-01T12:00:00",
+    ["Radius"] = 0,
+    ["Mass"] = 0,
+})
+
 GameSystemMap.Camera = {
     ["Parent"]  = nil,
     ["Movement"]  = Vector(),
@@ -177,17 +192,39 @@ function GameSystemMap:onLeftClick(mouse)
     leftClickHandler(nearest[1])
 end
 
-function GameSystemMap:moveShip(mouse)
+function GameSystemMap:updateShipMoveDummy(mouse)
+    local world_pos = self.Camera:getWorldCoords(mouse)
+    self.ShipMoveDummy.System.Position = world_pos
+    local nearest = self.ObjectKDTree:findNearest(world_pos, nil,
+            function(objects) return objects and objects[1].Category == 'Astral' end
+    )
+    if nearest then
+        self.ShipMoveDummy.Parent = nearest[1]
+        self.ShipMoveDummy:recalculateOrbit()
+        self.ShipMoveDummy:recalculateOrbitParent()
+    end
+end
+
+function GameSystemMap:moveShip(mouse, subspace)
     if self.SelectedShip ~= nil then
         if self.SelectedShip.Team.Name == 'Friendly' then
+            self.SelectedShip.System.IsInSubspace = subspace
+
             local world_pos = self.Camera:getWorldCoords(mouse)
             local nearest = self.ObjectKDTree:findNearest(world_pos, 40 * self.Camera.Zoom,
                     function(objects) return objects and objects[1].Category == 'Ship' end
             )
             if nearest then
-                self.SelectedShip.System.Destination = nearest[1].System.Position:copy()
+                self.SelectedShip.System.Destination = { ['Position'] = nearest[1].System.Position - nearest[1].Parent.System.Position }
+                self.SelectedShip.System.Destination.Parent = nearest[1].Parent
             else
-                self.SelectedShip.System.Destination = world_pos
+                self.SelectedShip.System.Destination = { ['Position'] = self.ShipMoveDummy.System.Position:copy() }
+                self.SelectedShip.System.Destination.Subspace = subspace
+
+                if self.ShipMoveDummy.Parent then
+                    self.SelectedShip.System.Destination.Parent = self.ShipMoveDummy.Parent
+                    self.SelectedShip.System.Destination.Position = self.ShipMoveDummy.System.Position - self.ShipMoveDummy.Parent.System.Position
+                end
             end
         end
 

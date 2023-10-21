@@ -13,6 +13,7 @@ local system_map_offset = Vector(0,0)
 
 function SystemMapUIController:initialize(document)
     self.Document = document
+    self.SubspaceMode = false
     RocketUiSystem.Controller = self
 
     ba.println("SystemMapController:init()")
@@ -47,12 +48,16 @@ function SystemMapUIController:mouseDown(event, _, _)
     if event.parameters.button == UI_CONST.MOUSE_BUTTON_LEFT then
         GameSystemMap:onLeftClick(self.Mouse.Cursor)
     elseif event.parameters.button == UI_CONST.MOUSE_BUTTON_RIGHT then
-        GameSystemMap:moveShip(self.Mouse.Cursor)
+        GameSystemMap:moveShip(self.Mouse.Cursor, self.SubspaceMode)
     end
 end
 
 function SystemMapUIController:mouseMove(event, document, element)
     self:storeMouseMove(event, document, element, system_map_offset)
+
+    if GameSystemMap.SelectedShip then
+        GameSystemMap:updateShipMoveDummy(self.Mouse.Cursor)
+    end
 end
 
 local camera_move_keys = {
@@ -79,6 +84,9 @@ function SystemMapUIController:keyDown(_, event)
         GameSystemMap.Camera:setMovement(camera_movement)
     end
 
+    if event.parameters.key_identifier == rocket.key_identifier.TAB then
+        self.SubspaceMode = not self.SubspaceMode
+    end
     self:storeKeyDown(event)
 end
 
@@ -114,7 +122,7 @@ function SystemMapUIController:frame()
         GameSystemMap:update()
 
         current_time_display.inner_rml = os.date('!%Y-%m-%d %H:%M:%S', GameState.CurrentTime)
-        GrSystemMap.drawMap(self.Mouse.Cursor:copy(), draw_map.Tex)
+        GrSystemMap.drawMap(self.Mouse.Cursor:copy(), self.SubspaceMode, draw_map.Tex)
 
         GameSystemMap.processEncounters()
     end

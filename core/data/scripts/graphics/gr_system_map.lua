@@ -96,9 +96,15 @@ local function drawShipHandler(obj_idx, object, obj_count, screen_position, rel_
     drawTexture(icon.Texture, text, screen_position, icon_width, icon_height)
 
     if object.System.Destination then
-        local screen_position_dest = GameSystemMap.Camera:getScreenCoords(object.System.Destination)
+        if object.System.Destination.Subspace then
+            gr.setLineWidth(4)
+            gr.setColor(r,128,255)
+        end
+
+        local screen_position_dest = GameSystemMap.Camera:getScreenCoords(object.System.Destination.Position + object.System.Destination.Parent.System.Position)
         gr.drawLine(screen_position.x, screen_position.y, screen_position_dest.x, screen_position_dest.y)
         gr.drawCircle(5, screen_position_dest.x, screen_position_dest.y, true)
+        gr.setLineWidth(1)
     end
 end
 
@@ -121,24 +127,33 @@ function gr_system_map:drawCluster(cluster)
     end
 end
 
-function gr_system_map.drawMap(mousePos, drawTarget)
+function gr_system_map.drawMap(mousePos, subspace, drawTarget)
     gr.setTarget(drawTarget)
 
     gr.clearScreen(10, 10, 10, 255)
     gr.setColor(30, 30, 30, 255)
 
     if GameSystemMap.SelectedShip and GameSystemMap.SelectedShip.Team.Name == 'Friendly' then
-        local screen_position = GameSystemMap.Camera:getScreenCoords(GameSystemMap.SelectedShip.System.Position)
         local r,g,b,a = gr_common.TeamSelectedColors[GameSystemMap.SelectedShip.Team.Name]()
+        g = subspace and 128 or 255
+        gr.setColor(r,g,b,a)
 
+        if GameSystemMap.ShipMoveDummy.Parent then
+            local dummy_orbit_pos = GameSystemMap.Camera:getScreenCoords(GameSystemMap.ShipMoveDummy.Parent.System.Position)
+            gr.drawCircle(GameSystemMap.ShipMoveDummy.SemiMajorAxis / GameSystemMap.Camera.Zoom, dummy_orbit_pos.x, dummy_orbit_pos.y, false)
+            gr.drawCircle(5, mousePos.x, mousePos.y, true)
+        end
+
+        local screen_position = GameSystemMap.Camera:getScreenCoords(GameSystemMap.SelectedShip.System.Position)
         if not GameSystemMap.Camera:isOnScreen(screen_position) then
             screen_position = screen_position - mousePos
             screen_position = screen_position:normalize() * 2000
             screen_position = screen_position + mousePos
         end
 
-        gr.setColor(r,g,b,a)
+        gr.setLineWidth(subspace and 4 or 1)
         gr.drawLine(screen_position.x, screen_position.y, mousePos.x, mousePos.y)
+        gr.setLineWidth(1)
     end
 
     local screen_objects = GameSystemMap.ObjectKDTree:findObjectsWithin(
