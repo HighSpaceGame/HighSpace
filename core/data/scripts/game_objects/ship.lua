@@ -3,6 +3,7 @@ local GrCommon       = require("gr_common")
 local Inspect        = require('inspect')
 local Satellite      = require('satellite')
 local Utils          = require('utils')
+local Vector         = require('vector')
 
 local Ship = Class(Satellite)
 
@@ -73,6 +74,7 @@ function Ship:init(properties)
     self.Category = 'Ship'
 
     if properties.System then
+        self.System.IsInSubspace = false
         self.System.Destination = nil
         self.System.Speed = Utils.Game.getMandatoryProperty(properties.System, 'Speed')
         self.System.SubspaceSpeed = Utils.Game.getMandatoryProperty(properties.System, 'SubspaceSpeed')
@@ -81,10 +83,18 @@ end
 
 function Ship:update()
     if self.System.Destination then
-        local movement = (self.System.Destination - self.System.Position):normalize()
-        movement = movement * (GameState.CurrentTime - self.System.UpdateTime) * self.System.Speed
-        if movement:getSqrMagnitude() > (self.System.Destination - self.System.Position):getSqrMagnitude() then
-            movement = self.System.Destination - self.System.Position
+        self.System.Position = Vector(1, 0)
+        self.System.Position = self.System.Position * self.SemiMajorAxis
+        self.System.Position:rotate(0, self.MeanAnomaly, 0)
+        self.System.Position = self.System.Position + self.Parent.System.Position
+
+        local dest_world_pos = self.System.Destination.Parent.System.Position + self.System.Destination.Position
+        local movement = (dest_world_pos - self.System.Position):normalize()
+        movement = movement * (GameState.CurrentTime - self.System.UpdateTime)
+        movement = movement * (self.System.IsInSubspace and self.System.SubspaceSpeed or self.System.Speed)
+
+        if movement:getSqrMagnitude() > (dest_world_pos - self.System.Position):getSqrMagnitude() then
+            movement = dest_world_pos - self.System.Position
             self.System.Destination = nil
         end
 
