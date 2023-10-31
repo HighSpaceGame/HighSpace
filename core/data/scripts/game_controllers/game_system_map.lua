@@ -130,14 +130,17 @@ local function add_system_object_to_tree(body)
     end
 end
 
-local last_update_time = time.getCurrentTime()
+local last_update_ts = time.getCurrentTime()
 function GameSystemMap:update()
     --ba.println("update: " .. Inspect({ os.clock(), os.time(), (time.getCurrentTime() - start):getSeconds(), tonumber(time.getCurrentTime()) }))
-    GameState.CurrentTime = GameState.CurrentTime + (time.getCurrentTime() - last_update_time):getSeconds() * GameState.TimeSpeed
-    last_update_time = time.getCurrentTime()
+    GameState.LastUpdateTime = GameState.CurrentTime
+    GameState.CurrentTime = GameState.CurrentTime + (time.getCurrentTime() - last_update_ts):getSeconds() * GameState.TimeSpeed
+    GameState.FrameTimeDiff = GameState.CurrentTime - GameState.LastUpdateTime
+    last_update_ts = time.getCurrentTime()
 
+    self:processEncounters()
     GameState.System:update()
-    GameSystemMap.Camera:update()
+    self.Camera:update()
     self.ObjectKDTree:initFrame()
 
     for _, star in pairs(GameState.System.Stars) do
@@ -233,7 +236,49 @@ function GameSystemMap:moveShip(mouse, subspace)
     end
 end
 
-function GameSystemMap.processEncounters()
+function GameSystemMap:checkCollision(ship, planet)
+    if (planet.System.Position - ship.System.Position):getSqrMagnitude() <= planet.Radius*planet.Radius then
+        -- We're assuming the colliding planet is the ship's parent, which should be the case, but that's the assumption I check if there's some freaky bug in the future
+        ship.SemiMajorAxis = planet.Radius + 10
+        ship.System.Destination = nil
+    end
+
+    if not ship.System.Destination then
+        return
+    end
+
+    local speed = ship:getCurrentSpeed()
+    local destination = ship.System.Destination.Parent.System.Position + ship.System.Destination.Position
+    local velocity = (destination - ship.System.Position)
+    local max_time = (velocity / speed):getMagnitude()
+    velocity = velocity / max_time
+
+    local a = speed*speed
+    local rel_position = ship.System.Position - planet.System.Position
+
+    local b = 2 * (velocity.x * rel_position.x + velocity.y * rel_position.y)
+    local c = rel_position:getSqrMagnitude() - planet.Radius*planet.Radius
+    local delta = b*b - 4*a*c
+
+    if delta >= 0 then
+        local t1 = (-b - math.sqrt(delta)) / (2*a)
+        local t2 = (-b + math.sqrt(delta)) / (2*a)
+        t1 = t1 >= 0 and t1 < GameState.FrameTimeDiff and t1 or nil
+        t2 = t2 >= 0 and t2 < GameState.FrameTimeDiff and t2 or nil
+
+        local res = t1 and t2 and math.min(t1, t2) or (t1 or t2)
+        if res and (velocity*res):getSqrMagnitude() > 0.000001 then
+            ba.println("Collisions found: " .. Inspect({planet.Name, res, ship.System.Position.x, ship.System.Position.y}))
+            ship.System.Position = ship.System.Position + velocity * res
+            ship:recalculateOrbit()
+            ship.SemiMajorAxis = ship.SemiMajorAxis + 10
+            ship.System.Destination = nil
+            ba.println("Collisions found: " .. Inspect({planet.Name, ship.System.Position.x, ship.System.Position.y}))
+        end
+    end
+end
+
+function GameSystemMap:processEncounters()
     if GameState.MissionLoaded and ba.getCurrentGameState().Name == 'GS_STATE_BRIEFING' then
         ba.println("Quick-starting game")
         ui.ShipWepSelect.initSelect()
@@ -243,16 +288,23 @@ function GameSystemMap.processEncounters()
     end
 
     GameState.Ships:forEach(function(ship1)
-        if ship1.Team.Name == 'Friendly' then
-            --ba.println("Ship1: " .. inspect({ship1.Name}))
-            GameState.Ships:forEach(function(ship2)
-                --ba.println("Ship2: " .. inspect({ship2.Name}))
-                if ship1.Name ~= ship2.Name and ship2.Team.Name ~= 'Friendly' then
-                    if not GameState.MissionLoaded and GameSystemMap.isShipEncounter(ship1, ship2) then
-                        GameMission:setupMission(ship1, ship2)
-                    end
+        if ship1.Name ~= "Trinity Battle Group" then
+            return
+        end
+
+        local near_objects = GameSystemMap.ObjectKDTree:findObjectsWithin(ship1.System.Position, ship1.Parent.Radius + ship1:getCurrentSpeed() * GameState.FrameTimeDiff)
+        --ba.println("Checking Collisions: " .. Inspect({ship1.Name, #near_objects, ship1.Parent.Radius + ship1:getCurrentSpeed() * GameState.FrameTimeDiff}))
+        for cidx, cluster in ipairs(near_objects) do
+            local object = cluster.Groups["All"].Objects[1]
+
+            if object.Category == "Ship" then
+                if not GameState.MissionLoaded and ship1.Team.Name == 'Friendly' and ship1.Name ~= object.Name and object.Team.Name ~= 'Friendly' and GameSystemMap.isShipEncounter(ship1, object) then
+                    GameMission:setupMission(ship1, object)
                 end
-            end)
+            elseif object.Category == "Astral" then
+                --ba.println("checkCollision: " .. Inspect({ship1.Name, object.Name, nil and "0 true" or "0 false"}))
+                self:checkCollision(ship1, object)
+            end
         end
     end)
 end

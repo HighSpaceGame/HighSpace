@@ -90,8 +90,8 @@ function Ship:update()
 
         local dest_world_pos = self.System.Destination.Parent.System.Position + self.System.Destination.Position
         local movement = (dest_world_pos - self.System.Position):normalize()
-        movement = movement * (GameState.CurrentTime - self.System.UpdateTime)
-        movement = movement * (self.System.IsInSubspace and self.System.SubspaceSpeed or self.System.Speed)
+        movement = movement * GameState.FrameTimeDiff
+        movement = movement * self:getCurrentSpeed()
 
         if movement:getSqrMagnitude() > (dest_world_pos - self.System.Position):getSqrMagnitude() then
             movement = dest_world_pos - self.System.Position
@@ -109,7 +109,10 @@ function Ship:update()
     self.Parent = nearest and nearest[1] or self.Parent
     self:recalculateOrbit()
     self:recalculateOrbitParent()
-    self.System.UpdateTime = GameState.CurrentTime
+end
+
+function Ship:getCurrentSpeed()
+    return (self.System.IsInSubspace and self.System.SubspaceSpeed or self.System.Speed)
 end
 
 function Ship:getIcon()

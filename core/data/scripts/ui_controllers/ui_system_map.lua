@@ -123,8 +123,6 @@ function SystemMapUIController:frame()
 
         current_time_display.inner_rml = os.date('!%Y-%m-%d %H:%M:%S', GameState.CurrentTime)
         GrSystemMap.drawMap(self.Mouse.Cursor:copy(), self.SubspaceMode, draw_map.Tex)
-
-        GameSystemMap.processEncounters()
     end
 end
 

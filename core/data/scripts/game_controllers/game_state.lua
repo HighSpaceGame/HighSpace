@@ -146,6 +146,8 @@ local new_game_ships = {
 }
 
 GameState.CurrentTime = 0
+GameState.LastUpdateTime = 0
+GameState.FrameTimeDiff = 0
 GameState.TimeSpeed = 0
 
 GameState.System = {}
