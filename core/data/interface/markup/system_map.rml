@@ -37,6 +37,7 @@
 						<p><b>Camera movement:</b> W, A, S, D</p>
 						<p><b>Attach camera to planet:</b> Left click</p>
 						<p><b>Select ships:</b> Left click</p>
+						<p><b>Toggle sub-space / conventional movement:</b> TAB</p>
 						<p><b>Give order:</b> Right click</p>
 					</div>
 				</div>
