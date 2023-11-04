@@ -190,10 +190,8 @@ function GameMission:giveRightClickCommand(targetCursor)
 end
 
 engine.addHook("On Ship Death Started", function()
-    ba.println("Ship Died: " .. Inspect({ hv.Ship, hv.Killer, hv.Hitpos }))
-    local ship = GameMission.Ships:get(hv.Ship.Name)
-    ship.ParentList:remove(hv.Ship.Name)
-    GameMission.Ships:remove(hv.Ship.Name)
+    ba.println("Ship Died: " .. Inspect({ hv.Ship.Name, hv.Killer, hv.Hitpos }))
+    GameState.removeShip(hv.Ship.Name)
 end, {}, function()
     return false
 end)

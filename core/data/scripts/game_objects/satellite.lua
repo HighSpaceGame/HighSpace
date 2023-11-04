@@ -39,7 +39,7 @@ function Satellite:init(properties, parent, star_system)
 
     if properties.Satellites then
         for _, satellite in pairs(properties.Satellites) do
-            table.insert(self.Satellites, Satellite(satellite, self, self.StarSystem))
+            self.Satellites[satellite.Name] = Satellite(satellite, self, self.StarSystem)
         end
     end
 end
@@ -59,7 +59,7 @@ function Satellite:_updateMeanAnomaly()
 end
 
 function Satellite:recalculateOrbitParent()
-    if self.Parent.Parent then
+    if self.Parent and self.Parent.Parent then
         if Utils.Math.hasEscapedFromOrbit(self.SemiMajorAxis, self.Parent.SemiMajorAxis, self.Parent.Mass, self.Parent.Parent.Mass) then
             self.Parent = self.Parent.Parent
             self:recalculateOrbit()
@@ -85,9 +85,15 @@ function Satellite:recalculateOrbit()
 end
 
 function Satellite:add(satellite)
-    table.insert(self.Satellites, satellite)
-    self.StarSystem._star_map[self.Name] = self
+    self.Satellites[satellite.Name] = satellite
+    self.StarSystem._star_map[satellite.Name] = satellite
     satellite.Parent = self
+end
+
+function Satellite:remove(satellite)
+    self.Satellites[satellite.Name] = nil
+    self.StarSystem._star_map[satellite.Name] = nil
+    satellite.Parent = nil
 end
 
 function Satellite:getIcon()
