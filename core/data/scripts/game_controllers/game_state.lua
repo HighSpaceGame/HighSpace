@@ -228,4 +228,15 @@ function GameState.stateChanged()
     end
 end
 
+function GameState.removeShip(ship)
+    if type(ship) == 'string' then
+        ship = GameState.Ships:get(ship)
+    end
+
+    ship.ParentList:remove(ship.Name) -- Remove ship from it's battle group or wing, if it is in one
+    GameMission.Ships:remove(ship.Name)  -- Remove from mission ships
+    GameState.Ships:remove(ship.Name) -- Remove from game ships
+    ship.Parent:remove(ship) -- Remove from system
+end
+
 return GameState

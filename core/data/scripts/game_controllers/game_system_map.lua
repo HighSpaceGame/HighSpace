@@ -47,11 +47,17 @@ GameSystemMap.Camera = {
 }
 
 function GameSystemMap.Camera:init(width, height)
+    ba.println("GameSystemMap.Camera:init: " .. Inspect({ width, height }))
+    if self.IsInitialized then
+        return
+    end
+
     self.ScreenOffset = Vector(width, height) / 2
     self.Zoom = 1000.0 * math.exp(self.ZoomExp)
     self.StartZoom = self.Zoom
     self.TargetZoom = self.Zoom
     self.Parent = GameState.System:get("Sol")
+    self.IsInitialized = true
 end
 
 function GameSystemMap.Camera:getScreenCoords(position)
@@ -138,14 +144,15 @@ function GameSystemMap:update()
     GameState.FrameTimeDiff = GameState.CurrentTime - GameState.LastUpdateTime
     last_update_ts = time.getCurrentTime()
 
-    self:processEncounters()
     GameState.System:update()
     self.Camera:update()
-    self.ObjectKDTree:initFrame()
 
+    self.ObjectKDTree:initFrame()
     for _, star in pairs(GameState.System.Stars) do
         add_system_object_to_tree(star)
     end
+
+    self:processEncounters()
 end
 
 function GameSystemMap.isShipEncounter(ship1, ship2)
@@ -281,6 +288,7 @@ end
 function GameSystemMap:processEncounters()
     if GameState.MissionLoaded and ba.getCurrentGameState().Name == 'GS_STATE_BRIEFING' then
         ba.println("Quick-starting game")
+        GameState.TimeSpeed = 0
         ui.ShipWepSelect.initSelect()
         ui.ShipWepSelect.resetSelect()
         ui.Briefing.commitToMission()
