@@ -126,7 +126,7 @@ function GameMission:toggleMode()
     self:switchCamera()
     RocketUiSystem.SkipUi["GS_STATE_GAME_PLAY"] = not self.TacticalMode
     hu.HUDDrawn = not self.TacticalMode
-    io.setCursorHidden(not self.TacticalMode)
+    iofs.setCursorHidden(not self.TacticalMode)
     if self.TacticalMode then
         mn.runSEXP("(player-use-ai)")
         ui.enableInput(RocketUiSystem.Context)

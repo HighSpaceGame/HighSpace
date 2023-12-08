@@ -85,7 +85,7 @@ function RocketUiSystem:stateStart()
 
 	if state.Name ~= "GS_STATE_GAME_PLAY" then
 		ui.enableInput(self.Context)
-		io.setCursorHidden(false)
+		iofs.setCursorHidden(false)
 	end
 end
 

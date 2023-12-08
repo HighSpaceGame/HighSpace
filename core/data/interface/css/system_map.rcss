@@ -21,8 +21,8 @@ div#system-map-container
 
 div.sidebar
 {
-	margin: 0;
-	width: 25%;
+	margin: 0 0 0 40px;
+	width: 20%;
 	height: 100%;
 	padding: 0;
 }
@@ -86,17 +86,53 @@ div#system-time-buttons
 	background-color: #004400;
 }
 
+#selected-ships
+{
+	width: 100%;
+	height: 80%;
+	display: block;
+}
+
+.selected-ship-container
+{
+	margin: auto;
+	width: 100%;
+	padding: 24px;
+}
+
+.selected-ship
+{
+	width: 33%;
+	float: left;
+}
+
+.ship-icon
+{
+	margin: auto;
+	width: 100%;
+	height: 100px;
+	padding: 24px;
+	color: #00aa00;
+}
+
+.ship-info
+{
+	margin: auto;
+	width: 100%;
+	display: block;
+}
+
 div#info-window
 {
 	height: 50%;
 	width: 100%;
 	margin: 12.5% auto 0 auto;
-	padding: 24px 0;
+	padding: 24px 32px;
 }
 
 div#info-text
 {
-	padding: 32px;
+	padding: 0;
 }
 
 div#info-text b

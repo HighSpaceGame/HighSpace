@@ -1,8 +1,12 @@
 local Class                              = require("class")
 local Inspect                            = require('inspect')
+local GrCommon                           = require('gr_common')
 local GrSystemMap                        = require('gr_system_map')
+local Ship                               = require('ship')
+local ShipGroup                          = require('ship_group')
 local UIController                       = require('ui_controller')
 local Vector                             = require('vector')
+local Wing                               = require('wing')
 
 local SystemMapUIController = Class(UIController)()
 
@@ -47,6 +51,7 @@ end
 function SystemMapUIController:mouseDown(event, _, _)
     if event.parameters.button == UI_CONST.MOUSE_BUTTON_LEFT then
         GameSystemMap:onLeftClick(self.Mouse.Cursor)
+        self:updateSelection()
     elseif event.parameters.button == UI_CONST.MOUSE_BUTTON_RIGHT then
         GameSystemMap:moveShip(self.Mouse.Cursor, self.SubspaceMode)
     end
@@ -115,6 +120,60 @@ function SystemMapUIController:setTimeSpeed(speed, event, element)
     last_time_button = element
 
     GameState.TimeSpeed = speed
+end
+
+local function add_ship_info(container, ship)
+    if container and ship then
+        local ship_info_elem = SystemMapUIController.Document:CreateElement("div")
+        ship_info_elem:SetClass("selected-ship", true)
+        container:AppendChild(ship_info_elem)
+        container = ship_info_elem
+
+        local icon
+        if ship:is_a(Wing) then
+            icon = GrCommon.loadTexture("icont-fightW", true)
+        elseif ship:is_a(Ship) then
+            icon = ship:getIcon()
+        end
+
+        if icon then
+            ship_info_elem = SystemMapUIController.Document:CreateElement("img")
+            ship_info_elem:SetClass("ship-icon", true)
+            ship_info_elem:SetAttribute("src", icon.Url)
+            container:AppendChild(ship_info_elem)
+        end
+
+        ship_info_elem = SystemMapUIController.Document:CreateElement("span")
+        ship_info_elem:SetClass("ship-info", true)
+        ship_info_elem.inner_rml = ship.Name
+        ship_info_elem.style.color = string.format("rgb(%d, %d, %d)", ship.Team:getColor())
+        container:AppendChild(ship_info_elem)
+
+        ship_info_elem = SystemMapUIController.Document:CreateElement("span")
+        ship_info_elem:SetClass("ship-info", true)
+        ship_info_elem.inner_rml = ship.Class
+        container:AppendChild(ship_info_elem)
+
+        ship_info_elem = SystemMapUIController.Document:CreateElement("span")
+        ship_info_elem:SetClass("ship-info", true)
+        ship_info_elem.inner_rml = string.format("Health: %d%%", ship.Health or 100)
+        container:AppendChild(ship_info_elem)
+    end
+end
+
+function SystemMapUIController:updateSelection()
+    local selected_ships_container = self.Document:GetElementById("selected-ships")
+    selected_ships_container.inner_rml = ""
+
+    if GameSystemMap.SelectedShip then
+        if GameSystemMap.SelectedShip:is_a(ShipGroup) then
+            GameSystemMap.SelectedShip:forEach(function(ship)
+                add_ship_info(selected_ships_container, ship)
+            end)
+        elseif GameSystemMap.SelectedShip:is_a(Ship) then
+            add_ship_info(selected_ships_container, GameSystemMap.SelectedShip)
+        end
+    end
 end
 
 function SystemMapUIController:frame()
