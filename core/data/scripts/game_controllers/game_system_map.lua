@@ -9,7 +9,8 @@ local Vector          = require('vector')
 
 GameSystemMap = Class()
 
-GameSystemMap.SelectedShip = nil;
+GameSystemMap.SelectedShip = nil
+GameSystemMap.SelectedGroupShips = {}
 
 ba.println("loadSystem: " .. Inspect({ GameState.System }))
 
@@ -174,7 +175,7 @@ end
 
 local function leftClickShipHandler(object)
     GameSystemMap.SelectedShip = object
-    GameSystemMap.SelectedShip.IsSelected = true
+    GameSystemMap.SelectedShip.System.IsSelected = true
     ba.println("Selected ship: " .. GameSystemMap.SelectedShip.Name)
 end
 
@@ -190,7 +191,7 @@ function GameSystemMap:onLeftClick(mouse)
     ba.println("GameSystemMap:onLeftClick: " .. Inspect({mouse.x, mouse.y, world_pos.x, world_pos.y, nearest and nearest[1] and nearest[1].Name }))
 
     if self.SelectedShip and (not nearest or not nearest[1] or nearest[1].Category == "Ship") then
-        self.SelectedShip.IsSelected = false
+        self.SelectedShip.System.IsSelected = false
         self.SelectedShip = nil
     end
 
@@ -200,6 +201,14 @@ function GameSystemMap:onLeftClick(mouse)
 
     leftClickHandler = leftClickHandlers[nearest[1].Category] and leftClickHandlers[nearest[1].Category] or leftClickAstralHandler
     leftClickHandler(nearest[1])
+end
+
+function GameSystemMap:toggleGroupSelection(ship)
+    if GameSystemMap.SelectedGroupShips[ship.Name] then
+        GameSystemMap.SelectedGroupShips[ship.Name] = nil
+    else
+        GameSystemMap.SelectedGroupShips[ship.Name] = 1
+    end
 end
 
 function GameSystemMap:updateShipMoveDummy(mouse)
@@ -238,7 +247,7 @@ function GameSystemMap:moveShip(mouse, subspace)
             end
         end
 
-        self.SelectedShip.IsSelected = false
+        self.SelectedShip.System.IsSelected = false
         self.SelectedShip = nil
     end
 end

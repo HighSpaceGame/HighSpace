@@ -20,6 +20,7 @@ function GameObject:init(properties)
 
     if properties.System then
         self.System.IsSelected = properties.System.IsSelected or self.System.IsSelected
+        self.System.IsSelected = properties.System.IsSelected or self.System.IsSelected
         self.System.Position = properties.System.Position:copy() or self.System.Position
     end
 end

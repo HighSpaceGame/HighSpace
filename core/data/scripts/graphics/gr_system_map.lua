@@ -82,7 +82,7 @@ local function drawShipHandler(obj_idx, object, obj_count, screen_position, rel_
 
     --ba.println("ships_screen_map:drawCluster: " .. Inspect({rel_screen_position, screen_position}))
     local r,g,b = object.Team:getColor()
-    if object.IsSelected then
+    if object.System.IsSelected then
         r,g,b = gr_common.TeamSelectedColors[object.Team.Name]()
     end
 

@@ -157,7 +157,18 @@ local function add_ship_info(container, ship)
         ship_info_elem = SystemMapUIController.Document:CreateElement("span")
         ship_info_elem:SetClass("ship-info", true)
         ship_info_elem.inner_rml = string.format("Health: %d%%", ship.Health or 100)
+
         container:AppendChild(ship_info_elem)
+
+        container:AddEventListener("click", function(_, _, _)
+            ba.println("click")
+            if GameSystemMap.SelectedGroupShips[ship.Name] then
+                --require("mobdebug").start()
+                ba.println("is selected")
+            end
+            GameSystemMap:toggleGroupSelection(ship)
+            container:SetClass('is-subselected', not not GameSystemMap.SelectedGroupShips[ship.Name])
+        end)
     end
 end
 
