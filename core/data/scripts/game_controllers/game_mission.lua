@@ -223,7 +223,7 @@ end)
 
 engine.addHook("On Waypoints Done", function()
     ba.println("On Waypoints Done: " .. hv.Ship.Name)
-    local g_ship = GameState.Ships[hv.Ship.Name]
+    local g_ship = GameMission.Ships:get(hv.Ship.Name)
     if g_ship then
         g_ship.Order = nil
     end

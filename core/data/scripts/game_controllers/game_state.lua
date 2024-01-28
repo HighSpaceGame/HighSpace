@@ -33,7 +33,7 @@ local new_game_ships = {
                 ['Class'] = 'GMF Gunship',
                 ['Team'] = mn.Teams['Friendly'],
                 ['Name'] = 'Trinity',
-                ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0), ['Speed'] = 1.0e+24, ['SubspaceSpeed'] = 1.0e+12,},
+                ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0), ['Speed'] = 1.0e+03, ['SubspaceSpeed'] = 1.0e+09,},
                 ["SemiMajorAxis"] = 0.00056955529,
                 ["MeanAnomalyEpoch"] = 174.79394829,
                 ["OrbitalPeriod"] = 14.387098,
@@ -53,7 +53,7 @@ local new_game_ships = {
                 ["Epoch"] = "2000-01-01T12:00:00",
                 ["Radius"] = 100,
                 ["Mass"] = 10000,
-                ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0), ['Speed'] = 10000, ['SubspaceSpeed'] = 100000000,},
+                ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0), ['Speed'] = 4.0e+03, ['SubspaceSpeed'] = 4.0e+09,},
                 ['Ships'] = {
                     ['Alpha 1'] = Ship({
                         ['Species'] = 'Terran',
@@ -151,7 +151,6 @@ GameState.FrameTimeDiff = 0
 GameState.TimeSpeed = 0
 
 GameState.System = {}
-GameState.Ships = ShipList()
 
 GameState.MissionLoaded = false;
 
@@ -179,9 +178,9 @@ function GameState.checkGameOver()
         ["Friendly"] = 0,
         ["Hostile"] = 0,
     }
-    GameState.Ships:forEach(function(ship)
+    GameState.System:forEach(function(ship)
         ship_count[ship.Team.Name] = ship_count[ship.Team.Name]+1
-    end)
+    end, "Ship")
 
     if ship_count["Friendly"] <= 0 then
         GameState.showDialog(ba.XSTR("Game Over", -1), ba.XSTR("You LOSE!", -1), "lose_text")
@@ -197,18 +196,18 @@ function GameState.startNewGame()
 
     GameState.MissionLoaded = false
     for _, ship in pairs(new_game_ships) do
-        ba.println("Adding: " .. Inspect(ship))
-        local new_ship = ship:copy()
-        new_ship.ParentList = GameState.Ships
-        GameState.Ships:add(new_ship)
+        ba.println("Adding: " .. Inspect(ship.Name))
+
+        if ship.Name == "Abraxis" then
+            GameState.System:get("Tethys"):add(ship:copy())
+        elseif ship.Name == "Alhazred" then
+            GameState.System:get("Tethys"):add(ship:copy())
+        else
+            GameState.System:get("Sol"):add(ship:copy())
+        end
     end
 
-    GameState.System:get("Tethys"):add(GameState.Ships:get("Abraxis"))
-    GameState.System:get("Saturn"):add(GameState.Ships:get("Alhazred"))
-    GameState.System:get("Sol"):add(GameState.Ships:get("Trinity Battle Group"))
-
     ba.println("Template table: " .. Inspect(new_game_ships))
-    ba.println("Game state table: " .. Inspect(GameState.Ships))
 end
 
 --Called from ui_system-sct.lua
@@ -230,13 +229,11 @@ end
 
 function GameState.removeShip(ship)
     if type(ship) == 'string' then
-        ship = GameState.Ships:get(ship)
+        ship = GameState.System:get(ship)
     end
 
-    ship.ParentList:remove(ship.Name) -- Remove ship from it's battle group or wing, if it is in one
     GameMission.Ships:remove(ship.Name)  -- Remove from mission ships
-    GameState.Ships:remove(ship.Name) -- Remove from game ships
-    ship.Parent:remove(ship) -- Remove from system
+    ship.Parent:remove(ship) -- Remove from system or group
 end
 
 return GameState

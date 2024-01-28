@@ -20,3 +20,7 @@ libRocket and the Freespace API have conflicting (and sometimes self-contradicto
 - Use `PascalCase` for modules, class names, public member variables (**with the exception of coordinates like:** `x`, `y`, `z`), and global variables
 - Use `_lower_snake_case` (with leading underscore) for "private" member variables
 - Use `UPPER_SNAKE_CASE` for constants and enums
+
+## Misc
+
+- Use double-quotes `"` for strings rather than single quotes `'`.

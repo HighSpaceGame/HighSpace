@@ -51,10 +51,11 @@ end
 function SystemMapUIController:mouseDown(event, _, _)
     if event.parameters.button == UI_CONST.MOUSE_BUTTON_LEFT then
         GameSystemMap:onLeftClick(self.Mouse.Cursor)
-        self:updateSelection()
     elseif event.parameters.button == UI_CONST.MOUSE_BUTTON_RIGHT then
         GameSystemMap:moveShip(self.Mouse.Cursor, self.SubspaceMode)
     end
+
+    self:updateSelection()
 end
 
 function SystemMapUIController:mouseMove(event, document, element)
@@ -162,12 +163,12 @@ local function add_ship_info(container, ship)
 
         container:AddEventListener("click", function(_, _, _)
             ba.println("click")
-            if GameSystemMap.SelectedGroupShips[ship.Name] then
+            if GameSystemMap.SelectedGroupShips:get(ship.Name) then
                 --require("mobdebug").start()
                 ba.println("is selected")
             end
             GameSystemMap:toggleGroupSelection(ship)
-            container:SetClass('is-subselected', not not GameSystemMap.SelectedGroupShips[ship.Name])
+            container:SetClass('is-subselected', not not GameSystemMap.SelectedGroupShips:get(ship.Name))
         end)
     end
 end
@@ -177,7 +178,9 @@ function SystemMapUIController:updateSelection()
     selected_ships_container.inner_rml = ""
 
     if GameSystemMap.SelectedShip then
-        if GameSystemMap.SelectedShip:is_a(ShipGroup) then
+        if GameSystemMap.SelectedShip:is_a(Wing) then
+            add_ship_info(selected_ships_container, GameSystemMap.SelectedShip)
+        elseif GameSystemMap.SelectedShip:is_a(ShipGroup) then
             GameSystemMap.SelectedShip:forEach(function(ship)
                 add_ship_info(selected_ships_container, ship)
             end)

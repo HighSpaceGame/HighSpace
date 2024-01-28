@@ -34,7 +34,7 @@ function Satellite:init(properties, parent, star_system)
 
     if star_system then
         self.StarSystem = star_system
-        self.StarSystem._star_map[self.Name] = self
+        self.StarSystem:add(self)
     end
 
     if properties.Satellites then
@@ -85,14 +85,18 @@ function Satellite:recalculateOrbit()
 end
 
 function Satellite:add(satellite)
+    if satellite.Parent then
+        satellite.Parent:remove(satellite)
+    end
+
     self.Satellites[satellite.Name] = satellite
-    self.StarSystem._star_map[satellite.Name] = satellite
+    self.StarSystem:add(satellite)
     satellite.Parent = self
 end
 
 function Satellite:remove(satellite)
     self.Satellites[satellite.Name] = nil
-    self.StarSystem._star_map[satellite.Name] = nil
+    self.StarSystem:remove(satellite)
     satellite.Parent = nil
 end
 

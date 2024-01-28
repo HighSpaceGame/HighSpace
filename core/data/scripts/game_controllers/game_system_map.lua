@@ -4,13 +4,15 @@ local Inspect         = require('inspect')
 local KDTree          = require('kdtree')
 local Ship            = require('ship')
 local ShipGroup       = require('ship_group')
+local ShipList        = require("ship_list")
 local Utils           = require('utils')
 local Vector          = require('vector')
+local Wing            = require('wing')
 
 GameSystemMap = Class()
 
 GameSystemMap.SelectedShip = nil
-GameSystemMap.SelectedGroupShips = {}
+GameSystemMap.SelectedGroupShips = ShipList()
 
 ba.println("loadSystem: " .. Inspect({ GameState.System }))
 
@@ -159,7 +161,7 @@ end
 function GameSystemMap.isShipEncounter(ship1, ship2)
     local dist = ship2.System.Position - ship1.System.Position
 
-    return dist:getMagnitude() < 100000;
+    return ship1.Name ~= ship2.Name and dist:getMagnitude() < 100000;
 end
 
 local function leftClickAstralHandler(object)
@@ -204,10 +206,10 @@ function GameSystemMap:onLeftClick(mouse)
 end
 
 function GameSystemMap:toggleGroupSelection(ship)
-    if GameSystemMap.SelectedGroupShips[ship.Name] then
-        GameSystemMap.SelectedGroupShips[ship.Name] = nil
+    if GameSystemMap.SelectedGroupShips:get(ship.Name) then
+        GameSystemMap.SelectedGroupShips:remove(ship.Name)
     else
-        GameSystemMap.SelectedGroupShips[ship.Name] = 1
+        GameSystemMap.SelectedGroupShips:add(ship)
     end
 end
 
@@ -224,8 +226,24 @@ function GameSystemMap:updateShipMoveDummy(mouse)
     end
 end
 
+function GameSystemMap:splitIfGroupSubselected()
+    if self.SelectedShip and self.SelectedShip:is_a(ShipGroup) then
+        local split_ships = self.SelectedShip:split(self.SelectedGroupShips)
+        if split_ships then
+            self.SelectedShip = split_ships
+            self.SelectedGroupShips:clear()
+        end
+    end
+end
+
+function GameSystemMap:mergeShips(ship1, ship2)
+    ba.println("Merging: " .. Inspect({ship1.Name, ship2.Name}))
+    return nil
+end
+
 function GameSystemMap:moveShip(mouse, subspace)
-    if self.SelectedShip ~= nil then
+    self:splitIfGroupSubselected()
+    if self.SelectedShip then
         if self.SelectedShip.Team.Name == 'Friendly' then
             self.SelectedShip.System.IsInSubspace = subspace
 
@@ -304,26 +322,32 @@ function GameSystemMap:processEncounters()
         ba.postGameEvent(ba.GameEvents["GS_EVENT_START_GAME_QUICK"])
     end
 
-    GameState.Ships:forEach(function(ship1)
-        if ship1.Name ~= "Trinity Battle Group" then
-            return
-        end
+    local mergedShips = {}
 
+    GameState.System:forEach(function(ship1)
         local near_objects = GameSystemMap.ObjectKDTree:findObjectsWithin(ship1.System.Position, ship1.Parent.Radius + ship1:getCurrentSpeed() * GameState.FrameTimeDiff)
         --ba.println("Checking Collisions: " .. Inspect({ship1.Name, #near_objects, ship1.Parent.Radius + ship1:getCurrentSpeed() * GameState.FrameTimeDiff}))
         for cidx, cluster in ipairs(near_objects) do
             local object = cluster.Groups["All"].Objects[1]
 
             if object.Category == "Ship" then
-                if not GameState.MissionLoaded and ship1.Team.Name == 'Friendly' and ship1.Name ~= object.Name and object.Team.Name ~= 'Friendly' and GameSystemMap.isShipEncounter(ship1, object) then
-                    GameMission:setupMission(ship1, object)
+                if GameSystemMap.isShipEncounter(ship1, object) then
+                    if ship1.Team.Name == object.Team.Name then
+                        if not mergedShips[ship1.Name] and not mergedShips[object.Name] then
+                            self:mergeShips(ship1, object)
+                            mergedShips[ship1.Name] = 1
+                            mergedShips[object.Name] = 1
+                        end
+                    elseif not GameState.MissionLoaded then
+                        GameMission:setupMission(ship1, object)
+                    end
                 end
             elseif object.Category == "Astral" then
                 --ba.println("checkCollision: " .. Inspect({ship1.Name, object.Name, nil and "0 true" or "0 false"}))
                 self:checkCollision(ship1, object)
             end
         end
-    end)
+    end, "Ship")
 end
 
 return GameSystemMap

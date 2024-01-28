@@ -38,7 +38,7 @@ local icon_map = {
 
 local class_name_map = {
     ["Terran"] = {
-        ["Fighter"] = 'GTT',
+        ["Fighter"] = 'GTF',
         ["Bomber"] = 'GTB',
         ["Cruiser"] = 'GTC',
         ["Corvette"] = 'GTCv',
