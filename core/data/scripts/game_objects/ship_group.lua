@@ -6,12 +6,16 @@ local Utils          = require('utils')
 
 local ShipGroup = Class(Ship)
 
+local group_no = 1
+
 function ShipGroup:init(properties)
     ba.println("ShipGroup:init: " .. Inspect(properties.Name))
     self.Ships = ShipList()
 
     self.Type = "Group"
     self.Class = "Group"
+    self.Name =  "Group " .. group_no
+    group_no = group_no + 1
 
     local list = properties.Ships or {}
     list = list._list or list
@@ -28,6 +32,7 @@ end
 function ShipGroup:copy()
     local result = ShipGroup(self)
 
+    result.Ships:clear()
     self:forEach(function(ship)
         result:add(ship:copy())
     end)
@@ -43,19 +48,26 @@ function ShipGroup:forEach(callback)
     self.Ships:forEach(callback)
 end
 
---TODO: move to somewhere global
-local type_hierarchy = {
-    ["Wing"] = 1,
-    ["Cruiser"] = 2,
-    ["Corvette"] = 3,
-}
-
 function ShipGroup:add(ship)
-    ship.Parent = self
-    self.Ships:add(ship)
-    if not self._top_ship or ((type_hierarchy[ship.Type] or 0) > (type_hierarchy[self._top_ship.Type] or 0)) then
+    if ship.Type == "Group" then
+        ship:forEach(function(sub_ship)
+            sub_ship.Parent:remove(sub_ship)
+            self:add(sub_ship)
+        end)
+    else
+        ship.Parent = self
+        self.Ships:add(ship)
+    end
+
+    if not self._top_ship or (Utils.Game.getShipScore(ship) > Utils.Game.getShipScore(self._top_ship)) then
         self._top_ship = ship
-        self.Name = self:getMapDisplayName()
+    end
+end
+
+function ShipGroup:remove(ship)
+    self.Ships:remove(ship)
+    if self._top_ship == ship then
+        _, self._top_ship = next(self.Ships._list)
     end
 end
 
@@ -70,7 +82,6 @@ function ShipGroup:split(ship_list)
             self:remove(ship.Name)
         end)
     else
-        require("mobdebug").start()
         _, split_ships = next(ship_list._list)
         self:remove(split_ships)
     end
@@ -80,10 +91,9 @@ function ShipGroup:split(ship_list)
     split_ships:recalculateOrbit()
 
     if self.Ships:count() == 1 then
-        local leftover = next(self.Ships._list)
-
+        local _, leftover = next(self.Ships._list)
         self.Parent:add(leftover)
-        leftover.System.Position = self.SelectedShip.System.Position:copy()
+        leftover.System.Position = self.System.Position:copy()
         leftover:recalculateOrbit()
         self:remove(leftover)
         self.Parent:remove(self)
@@ -92,20 +102,29 @@ function ShipGroup:split(ship_list)
     return split_ships
 end
 
-function ShipGroup:join(ships)
-    ship.Parent = self
-    self.Ships:add(ship)
-    if not self._top_ship or ((type_hierarchy[ship.Type] or 0) > (type_hierarchy[self._top_ship.Type] or 0)) then
-        self._top_ship = ship
-        self.Name = self:getMapDisplayName()
-    end
-end
+function ShipGroup.join(ship1, ship2)
+    local result
 
-function ShipGroup:remove(ship)
-    self.Ships:remove(ship)
-    if self._top_ship == ship then
-        self._top_ship = next(self.Ships._list)
+    if ship1.Type == "Group" then
+        result = ship1
+        ship2.Parent:remove(ship2)
+        result:add(ship2)
+    elseif ship2.Type == "Group" then
+        result = ship2
+        ship1.Parent:remove(ship1)
+        result:add(ship1)
+    else
+        local parent = ship1.Parent
+        result = ShipGroup(ship1)
+        ship1.Parent:remove(ship1)
+        ship2.Parent:remove(ship2)
+        result:add(ship1)
+        result:add(ship2)
+        parent:add(result)
+        result:recalculateOrbit()
     end
+
+    return result
 end
 
 function ShipGroup:getMapDisplayName()

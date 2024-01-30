@@ -202,6 +202,16 @@ function Utils.Game.getMandatoryProperty(properties, prop_name)
     return properties[prop_name]
 end
 
+local ship_type_scores = {
+    ["Wing"] = 1,
+    ["Cruiser"] = 2,
+    ["Corvette"] = 3,
+}
+
+function Utils.Game.getShipScore(ship)
+    return ship_type_scores[ship.Type]
+end
+
 function Utils.Math.isInsideBox(point, box_start, box_end)
     return (point.x > box_start.x and point.y > box_start.y and point.x < box_end.x and point.y < box_end.y)
 end

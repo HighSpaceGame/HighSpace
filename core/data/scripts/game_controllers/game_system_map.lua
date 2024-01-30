@@ -236,9 +236,16 @@ function GameSystemMap:splitIfGroupSubselected()
     end
 end
 
+local mergedShips = {}
 function GameSystemMap:mergeShips(ship1, ship2)
-    ba.println("Merging: " .. Inspect({ship1.Name, ship2.Name}))
-    return nil
+    if not mergedShips[ship1.Name] and not mergedShips[ship2.Name] then
+        ba.println("Merging: " .. Inspect({ship1.Name, ship2.Name}))
+
+        mergedShips[ship1.Name] = 1
+        mergedShips[ship2.Name] = 1
+
+        ShipGroup.join(ship1, ship2)
+    end
 end
 
 function GameSystemMap:moveShip(mouse, subspace)
@@ -322,8 +329,7 @@ function GameSystemMap:processEncounters()
         ba.postGameEvent(ba.GameEvents["GS_EVENT_START_GAME_QUICK"])
     end
 
-    local mergedShips = {}
-
+    mergedShips = {}
     GameState.System:forEach(function(ship1)
         local near_objects = GameSystemMap.ObjectKDTree:findObjectsWithin(ship1.System.Position, ship1.Parent.Radius + ship1:getCurrentSpeed() * GameState.FrameTimeDiff)
         --ba.println("Checking Collisions: " .. Inspect({ship1.Name, #near_objects, ship1.Parent.Radius + ship1:getCurrentSpeed() * GameState.FrameTimeDiff}))
@@ -333,11 +339,7 @@ function GameSystemMap:processEncounters()
             if object.Category == "Ship" then
                 if GameSystemMap.isShipEncounter(ship1, object) then
                     if ship1.Team.Name == object.Team.Name then
-                        if not mergedShips[ship1.Name] and not mergedShips[object.Name] then
-                            self:mergeShips(ship1, object)
-                            mergedShips[ship1.Name] = 1
-                            mergedShips[object.Name] = 1
-                        end
+                        self:mergeShips(ship1, object)
                     elseif not GameState.MissionLoaded then
                         GameMission:setupMission(ship1, object)
                     end

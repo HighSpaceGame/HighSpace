@@ -20,8 +20,10 @@ function ShipList:add(ship)
 end
 
 function ShipList:remove(ship)
-    self._list[ship.Name] = nil
-    self._count = self._count - 1
+    if self._list[ship.Name] then
+        self._list[ship.Name] = nil
+        self._count = self._count - 1
+    end
 end
 
 function ShipList:get(ship_name)

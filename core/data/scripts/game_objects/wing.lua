@@ -17,6 +17,7 @@ function Wing:init(properties)
 
     self.Type = "Wing"
     self.Class = "Wing"
+    self.Name = properties.Name
 end
 
 function Wing:copy()
