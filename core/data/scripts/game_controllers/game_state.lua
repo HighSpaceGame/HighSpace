@@ -19,7 +19,7 @@ local new_game_ships = {
         ['Species'] = 'Terran',
         ['Type'] = 'Group',
         ['Class'] = 'Group',
-        ['System'] = {['Position'] = Vector(732316619172.03, -266742595861.88, 0), ['Speed'] = 1.0e+03, ['SubspaceSpeed'] = 1.0e+09,},
+        ['System'] = {['Position'] = Vector(0, 0, 0), ['Speed'] = 1.0e+03, ['SubspaceSpeed'] = 1.0e+09,},
         ["SemiMajorAxis"] = 0.00056955529,
         ["MeanAnomalyEpoch"] = 174.79394829,
         ["OrbitalPeriod"] = 1.387098,
@@ -116,9 +116,9 @@ local new_game_ships = {
         }
     }),
     ['Abraxis'] = Ship({
-        ['Species'] = 'Terran',
-        ['Type'] = 'Corvette',
-        ['Class'] = 'GMC Escort',
+        ['Species'] = 'Shivan',
+        ['Type'] = 'Capital',
+        ['Class'] = 'SD Demon',
         ['Team'] = mn.Teams['Hostile'],
         ['Name'] = 'Abraxis',
         ['System'] = {['Position'] = Vector(731316619172.03, -267842595861.88, 0), ['Speed'] = 10000, ['SubspaceSpeed'] = 100000000,},
