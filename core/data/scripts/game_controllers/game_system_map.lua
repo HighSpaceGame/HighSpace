@@ -31,6 +31,16 @@ GameSystemMap.ShipMoveDummy = Ship({
     ["Mass"] = 0,
 })
 
+function GameSystemMap.ShipMoveDummy:recalculateOrbitParent()
+    if self.Parent and self.Parent.Parent then
+        if Utils.Math.hasEscapedFromOrbit(self.SemiMajorAxis, self.Parent.SemiMajorAxis, self.Parent.Mass, self.Parent.Parent.Mass) then
+            self.Parent = self.Parent.Parent
+            self:recalculateOrbit()
+            self:recalculateOrbitParent()
+        end
+    end
+end
+
 GameSystemMap.Camera = {
     ["Parent"]  = nil,
     ["Movement"]  = Vector(),
@@ -340,6 +350,7 @@ function GameSystemMap:processEncounters()
                 if GameSystemMap.isShipEncounter(ship1, object) then
                     if ship1.Team.Name == object.Team.Name then
                         self:mergeShips(ship1, object)
+                        return false
                     elseif not GameState.MissionLoaded then
                         GameMission:setupMission(ship1, object)
                     end

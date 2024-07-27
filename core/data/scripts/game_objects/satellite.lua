@@ -61,7 +61,10 @@ end
 function Satellite:recalculateOrbitParent()
     if self.Parent and self.Parent.Parent then
         if Utils.Math.hasEscapedFromOrbit(self.SemiMajorAxis, self.Parent.SemiMajorAxis, self.Parent.Mass, self.Parent.Parent.Mass) then
-            self.Parent = self.Parent.Parent
+            local prevParent = self.Parent
+            local newParent = self.Parent.Parent
+            prevParent:remove(self)
+            newParent:add(self)
             self:recalculateOrbit()
             self:recalculateOrbitParent()
         end

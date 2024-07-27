@@ -10,6 +10,7 @@ local StarSystem = Class(GameObject)
 function StarSystem:init(properties, parent)
     self.Stars = {}
     self._star_map = {["All"] = {}}
+    self._counts = {["All"] = 0}
 
     if properties.Stars then
         for _, star in pairs(properties.Stars) do
@@ -24,16 +25,28 @@ function StarSystem:get(name, category)
     return self._star_map[category][name]
 end
 
+function StarSystem:count(category)
+    category = category or 'All'
+
+    return self._counts[category] or 0
+end
+
 function StarSystem:add(satellite)
     self._star_map[satellite.Category] = self._star_map[satellite.Category] or {}
     self._star_map[satellite.Category][satellite.Name] = satellite
     self._star_map["All"][satellite.Name] = satellite
+
+    self._counts[satellite.Category] = (self._counts[satellite.Category] or 0) + 1
+    self._counts["All"] = self._counts["All"] + 1
 end
 
 function StarSystem:remove(satellite)
     satellite.StarSystem = nil
     self._star_map[satellite.Category][satellite.Name] = nil
     self._star_map["All"][satellite.Name] = nil
+
+    self._counts[satellite.Category] = (self._counts[satellite.Category] or 1) - 1
+    self._counts["All"] = self._counts["All"] - 1
 end
 
 function StarSystem:forEach(callback, category)

@@ -205,7 +205,9 @@ end
 local ship_type_scores = {
     ["Wing"] = 1,
     ["Cruiser"] = 2,
+    ["Transport"] = 2,
     ["Corvette"] = 3,
+    ["Capital"] = 4,
 }
 
 function Utils.Game.getShipScore(ship)

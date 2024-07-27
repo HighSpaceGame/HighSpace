@@ -1,5 +1,6 @@
 local Inspect			= require("inspect")
 local GameMissionTact	= require("game_mission")
+local GameMapGenerator	= require("game_map_generator")
 local GameState			= require("game_state")
 local GameSystemMap		= require("game_system_map")
 local Utils				= require("utils")

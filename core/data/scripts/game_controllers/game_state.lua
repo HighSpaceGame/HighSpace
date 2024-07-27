@@ -13,8 +13,8 @@ local Wing       = require('wing')
 GameState = Class()
 
 local new_game_ships = {
-    ['Trinity Battle Group'] = ShipGroup({
-        ['Name'] = 'Trinity Battle Group',
+    ['Taganrog Battle Group'] = ShipGroup({
+        ['Name'] = 'Taganrog Battle Group',
         ['Team'] = mn.Teams['Friendly'],
         ['Species'] = 'Terran',
         ['Type'] = 'Group',
@@ -27,12 +27,12 @@ local new_game_ships = {
         ["Radius"] = 100,
         ["Mass"] = 10000,
         ['Ships'] = {
-            ['Trinity'] = Ship({
+            ['Taganrog'] = Ship({
                 ['Species'] = 'Terran',
                 ['Type'] = 'Cruiser',
                 ['Class'] = 'GMF Gunship',
                 ['Team'] = mn.Teams['Friendly'],
-                ['Name'] = 'Trinity',
+                ['Name'] = 'Taganrog',
                 ['System'] = {['Position'] = Vector(0, 0, 0), ['Speed'] = 1.0e+03, ['SubspaceSpeed'] = 1.0e+09,},
                 ["SemiMajorAxis"] = 0.00056955529,
                 ["MeanAnomalyEpoch"] = 174.79394829,
@@ -330,7 +330,7 @@ function GameState.startNewGame()
         elseif ship.Name == "Alhazred" then
             GameState.System:get("Tethys"):add(ship:copy())
         else
-            GameState.System:get("Sol"):add(ship:copy())
+            GameMapGenerator.addShipToRandomOrbit(ship:copy(), GameState.System:get("Sol"))
         end
     end
 

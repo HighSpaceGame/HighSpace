@@ -49,7 +49,9 @@ function ShipGroup:forEach(callback)
 end
 
 function ShipGroup:add(ship)
+    local scoreShip = ship
     if ship.Type == "Group" then
+        scoreShip = ship._top_ship
         ship:forEach(function(sub_ship)
             sub_ship.Parent:remove(sub_ship)
             self:add(sub_ship)
@@ -59,7 +61,7 @@ function ShipGroup:add(ship)
         self.Ships:add(ship)
     end
 
-    if not self._top_ship or (Utils.Game.getShipScore(ship) > Utils.Game.getShipScore(self._top_ship)) then
+    if not self._top_ship or (Utils.Game.getShipScore(scoreShip) > Utils.Game.getShipScore(self._top_ship)) then
         self._top_ship = ship
     end
 end
