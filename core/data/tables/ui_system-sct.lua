@@ -8,6 +8,9 @@ local Utils				= require("utils")
 local updateCategory = engine.createTracingCategory("UpdateRocket", false)
 local renderCategory = engine.createTracingCategory("RenderRocket", true)
 
+local seed = os.time()
+ba.print("----- INITIALIZING RANDOM WITH SEED: " .. seed .. "\n")
+math.randomseed(seed)
 local function get_rocket_ui_handle(state)
 	if state.Name == "GS_STATE_SCRIPTING" then
 		return {Name = RocketUiSystem.Substate }

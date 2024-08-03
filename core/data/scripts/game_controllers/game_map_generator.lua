@@ -4,13 +4,10 @@ local Utils      = require('utils')
 
 GameMapGenerator = Class()
 
-math.randomseed(os.time())
+--math.randomseed(1) -- For debugging
 function GameMapGenerator.addShipToRandomOrbit(ship, parent)
-    local n = 0;
-    local c = GameState.System:count("Astral")
-    local s = math.random(1, c)
-    ba.println("addShipToRandomOrbit "  .. Inspect({c, s}))
     local target
+    local n, s = 0, math.random(0, GameState.System:count("Astral") - 1)
 
     GameState.System:forEach(function(sat)
         if n == s then
@@ -20,10 +17,11 @@ function GameMapGenerator.addShipToRandomOrbit(ship, parent)
         n = n + 1
     end, "Astral")
 
+    ship.MeanAnomalyEpoch = math.random() * 360
     if target.SemiMajorAxis > 0 then
-        ship.SemiMajorAxis = math.random() * target.SemiMajorAxis / 2
+        ship.SemiMajorAxis = Utils.Math.AU * 5 * math.random() + target.Radius * 2
     else
-        ship.SemiMajorAxis = Utils.Math.AU * 20
+        ship.SemiMajorAxis = Utils.Math.AU * 35 * math.random()
     end
     target:add(ship)
 end

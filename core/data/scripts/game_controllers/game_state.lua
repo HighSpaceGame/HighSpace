@@ -329,12 +329,16 @@ function GameState.startNewGame()
             GameState.System:get("Tethys"):add(ship:copy())
         elseif ship.Name == "Alhazred" then
             GameState.System:get("Tethys"):add(ship:copy())
+        elseif ship.Type == "Group" and ship:getTopShip().Name == "Taganrog" then
+            ship.SemiMajorAxis = Utils.Math.AU * 50
+            ship.MeanAnomalyEpoch = math.random() * 360
+            GameState.System:get("Sol"):add(ship:copy())
         else
             GameMapGenerator.addShipToRandomOrbit(ship:copy(), GameState.System:get("Sol"))
         end
     end
 
-    ba.println("Template table: " .. Inspect(new_game_ships))
+    --ba.println("Template table: " .. Inspect(new_game_ships))
 end
 
 --Called from ui_system-sct.lua

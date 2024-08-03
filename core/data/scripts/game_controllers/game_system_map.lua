@@ -66,10 +66,11 @@ function GameSystemMap.Camera:init(width, height)
     end
 
     self.ScreenOffset = Vector(width, height) / 2
+    self.ZoomExp = 17
     self.Zoom = 1000.0 * math.exp(self.ZoomExp)
     self.StartZoom = self.Zoom
     self.TargetZoom = self.Zoom
-    self.Parent = GameState.System:get("Sol")
+    self.Parent = GameState.System:get("Group 3")
     self.IsInitialized = true
 end
 
@@ -98,6 +99,14 @@ function GameSystemMap.Camera:setMovement(camera_movement)
     ba.println("GameSystemMap.Camera:setMovement: " .. Inspect({ ["x"] = camera_movement.x, ["y"] = camera_movement.y}))
 end
 
+function GameSystemMap.Camera:setTarget(object)
+    GameSystemMap.Camera.Parent = object
+
+    GameSystemMap.Camera.RelPosition = GameSystemMap.Camera.Position - object.System.Position
+    GameSystemMap.Camera.TargetRelPosition = Vector(0,0)
+    GameSystemMap.Camera.TargetMoveTime = time.getCurrentTime()
+end
+
 function GameSystemMap.Camera:zoom(direction)
     local current_time = time.getCurrentTime()
     self.TargetZoom = self.Zoom
@@ -111,7 +120,7 @@ function GameSystemMap.Camera:zoom(direction)
     self.StartZoom = self.Zoom
     self.LastZoomDirection = direction
 
-    --ba.println("Zoom: " .. Inspect({(current_time - start_zoom):getSeconds(), (self.TargetZoomTime - start_zoom):getSeconds(), self.TargetZoom, self.ZoomExp}))
+    ba.println("Zoom: " .. Inspect({self.StartZoom, self.TargetZoom, self.ZoomExp}))
 end
 
 function GameSystemMap.Camera:update()
@@ -180,12 +189,18 @@ local function leftClickAstralHandler(object)
         GameSystemMap.Camera.Parent = GameSystemMap.Camera.Parent.Parent
     end
 
-    GameSystemMap.Camera.RelPosition = GameSystemMap.Camera.Position - object.System.Position
-    GameSystemMap.Camera.TargetRelPosition = Vector(0,0)
-    GameSystemMap.Camera.TargetMoveTime = time.getCurrentTime()
+    GameSystemMap.Camera:setTarget(object)
 end
 
 local function leftClickShipHandler(object)
+    ba.println("leftClickShipHandler: " .. Inspect({GameSystemMap.SelectedShip and GameSystemMap.SelectedShip.Name or "Nil", object and object.Name or "Nil"}))
+    if GameSystemMap.SelectedShip then
+        GameSystemMap.SelectedShip.System.IsSelected = false
+        if GameSystemMap.SelectedShip == object then
+            GameSystemMap.Camera:setTarget(object)
+        end
+    end
+
     GameSystemMap.SelectedShip = object
     GameSystemMap.SelectedShip.System.IsSelected = true
     ba.println("Selected ship: " .. GameSystemMap.SelectedShip.Name)
@@ -202,7 +217,7 @@ function GameSystemMap:onLeftClick(mouse)
     local nearest = self.ObjectKDTree:findNearest(world_pos, 40 * self.Camera.Zoom)
     ba.println("GameSystemMap:onLeftClick: " .. Inspect({mouse.x, mouse.y, world_pos.x, world_pos.y, nearest and nearest[1] and nearest[1].Name }))
 
-    if self.SelectedShip and (not nearest or not nearest[1] or nearest[1].Category == "Ship") then
+    if self.SelectedShip and (not nearest or not nearest[1]) then
         self.SelectedShip.System.IsSelected = false
         self.SelectedShip = nil
     end
