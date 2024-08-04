@@ -70,7 +70,8 @@ function GameSystemMap.Camera:init(width, height)
     self.Zoom = 1000.0 * math.exp(self.ZoomExp)
     self.StartZoom = self.Zoom
     self.TargetZoom = self.Zoom
-    self.Parent = GameState.System:get("Group 3")
+    --TODO: Find grouped ship by name
+    self.Parent = GameState.System:get("Group 7")
     self.IsInitialized = true
 end
 

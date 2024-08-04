@@ -8,8 +8,8 @@ local Wing = Class(ShipGroup)
 
 local icon_map = {
     ["Terran"] = GrCommon.loadTexture("iconT-fightW", true),
-    ["Vasudan"] = GrCommon.loadTexture("iconV-fightW", true),
-    ["Shivan"] = GrCommon.loadTexture("iconS-fightW", true),
+    ["Vasudan"] = GrCommon.loadTexture("iconv-fightW", true),
+    ["Shivan"] = GrCommon.loadTexture("icons-fighterW", true),
 }
 
 function Wing:init(properties)
