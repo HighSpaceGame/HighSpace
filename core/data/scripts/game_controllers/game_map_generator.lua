@@ -5,11 +5,12 @@ local Utils      = require('utils')
 GameMapGenerator = Class()
 
 --math.randomseed(1) -- For debugging
-function GameMapGenerator.addShipToRandomOrbit(ship, parent)
+function GameMapGenerator.addShipToRandomOrbit(ship, system)
+    system = system or GameState.System
     local target
-    local n, s = 0, math.random(0, GameState.System:count("Astral") - 1)
+    local n, s = 0, math.random(0, system:count("Astral") - 1)
 
-    GameState.System:forEach(function(sat)
+    system:forEach(function(sat)
         if n == s then
             target = sat
             return false

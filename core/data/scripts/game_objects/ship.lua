@@ -73,6 +73,10 @@ function Ship:init(properties)
     self.Team = Utils.Game.getMandatoryProperty(properties, 'Team')
     self.Category = 'Ship'
 
+    if type(self.Team) == 'string' then
+        self.Team = mn.Teams[self.Team]
+    end
+
     if properties.System then
         self.System.IsInSubspace = false
         self.System.Destination = nil
