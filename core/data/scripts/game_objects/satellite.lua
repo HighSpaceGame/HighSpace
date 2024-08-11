@@ -109,6 +109,15 @@ end
 
 function Satellite:update()
     --ba.println("Satellite:update(): " .. Inspect({ self.Name }))
+    self:updatePosition()
+
+    for _, sat in pairs(self.Satellites) do
+        sat:update()
+    end
+end
+
+function Satellite:updatePosition()
+    --ba.println("Satellite:update(): " .. Inspect({ self.Name }))
     self:_updateMeanAnomaly()
     self.System.Position = Vector(1, 0)
     self.System.Position = self.System.Position * self.SemiMajorAxis
@@ -116,10 +125,6 @@ function Satellite:update()
 
     if self.Parent then
         self.System.Position = self.System.Position + self.Parent.System.Position
-    end
-
-    for _, sat in pairs(self.Satellites) do
-        sat:update()
     end
 end
 
