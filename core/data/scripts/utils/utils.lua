@@ -251,4 +251,73 @@ function Utils.Math.hasEscapedFromOrbit(semi_major_obj, semi_major_par, mass_par
     return ( orb_velocity > esc_velocity )
 end
 
+--- Returns a random number within the given range
+--- @param min number @The lowest number that can be generated
+--- @param max number @The highest number that can be generated
+--- @return number @A random number within the given range
+function Utils.Math.randomBetween(min, max)
+    return min + math.random()  * (max - min)
+end
+
+--- Randomly returns 1 or -1
+--- @return number @1 or -1
+function Utils.Math.randomSign()
+    return (math.random(2) % 2 == 0 and -1 or 1)
+end
+
+function Utils.Math.deviateFromAbs(value, min_abs, max_abs)
+    return Utils.Math.deviateFromPct(value, min_abs / value, max_abs / value)
+end
+
+function Utils.Math.deviateFromPct(value, min_pct, max_pct)
+    local deviation = Utils.Math.randomBetween(min_pct, max_pct) * Utils.Math.randomSign()
+
+    return value + value * deviation
+end
+
+--- Calculates the distance between two points given in polar coordinates
+--- @param r1 number @The distance polar coordinate of the first point
+--- @param a1 number @The angle polar coordinate of the first point
+--- @param r2 number @The distance polar coordinate of the second point
+--- @param a2 number @The angle polar coordinate of the second point
+--- @return number @The distance between two points
+function Utils.Math.polarDistance(r1, a1, r2, a2)
+    return math.sqrt(r1*r1 + r2*r2 - 2*r1*r2*math.cos(a2-a1))
+end
+
+--- Calculates the angle that will result in a provided distance, for 2 points in polar coordinates
+--- @param dist number @The desired distance if the first point uses the returned angle
+--- @param r1 number @The distance polar coordinate of the first point (with an unknown angle)
+--- @param r2 number @The distance polar coordinate of the second point
+--- @param a2 number @The angle polar coordinate of the second point
+--- @return number @The angle that will result in the provided distance
+function Utils.Math.angleForDistance(dist, r1, r2, a2)
+    -- dist = math.sqrt(r1*r1 + r2*r2 - 2*r1*r2*math.cos(a2-a1))
+    -- dist^2 = r1*r1 + r2*r2 - 2*r1*r2*math.cos(a2-a1)
+    -- 2*r1*r2*math.cos(a2-a1) = r1*r1 + r2*r2 - dist^2
+    -- math.cos(a2-a1) = (r1*r1 + r2*r2 - dist^2) / (2*r1*r2)
+    -- a2-a1 = math.acos((r1*r1 + r2*r2 - dist^2) / (2*r1*r2))
+    -- a1 = a2 - math.acos((r1*r1 + r2*r2 - dist^2) / (2*r1*r2))
+    local cosA = (r1*r1 + r2*r2 - dist^2) / (2*r1*r2)
+    if cosA > 1 or cosA < -1 then
+        ba.error("Utils.Math.angleForDistance: cosA outside of [-1; 1] bounds - " .. cosA)
+    end
+
+    return a2 - (math.acos(cosA) * Utils.Math.randomSign())
+end
+
+--- Calculates the angle that will result in a provided distance, for 2 points in polar coordinates
+--- @param min_dist number @The minimum desired distance if the first point uses the returned angle
+--- @param max_dist number @The maximum desired distance if the first point uses the returned angle
+--- @param r1 number @The distance polar coordinate of the first point (with an unknown angle)
+--- @param r2 number @The distance polar coordinate of the second point
+--- @param a2 number @The angle polar coordinate of the second point
+--- @return number @The angle that will result in the provided distance
+function Utils.Math.angleRangeForDistance(min_dist, max_dist, r1, r2, a2)
+    local min_a = Utils.Math.angleForDistance(min_dist, r1, r2, a2)
+    local max_a = Utils.Math.angleForDistance(max_dist, r1, r2, a2)
+
+    return Utils.Math.randomBetween(min_a, max_a)
+end
+
 return Utils
