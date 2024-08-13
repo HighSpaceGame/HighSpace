@@ -86,7 +86,7 @@ function Module.instantiateTemplate(document, template_id, element_id, template_
     parameters      = parameters or {}
     local template  = document:GetElementById(template_id)
 
-    local actual_el = template:copy()
+    local actual_el = template:Clone()
     actual_el.id    = element_id or "" -- Reset the ID so that there are no duplicate IDs
 
     -- Process special template directives
