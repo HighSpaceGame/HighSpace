@@ -367,8 +367,12 @@ function GameSystemMap:processEncounters()
                     if ship1.Team.Name == object.Team.Name then
                         self:mergeShips(ship1, object)
                         return false
-                    elseif not GameState.MissionLoaded then
-                        GameMission:setupMission(ship1, object)
+                    else
+                        if ship1.Team.Name == "Unknown" or object.Team.Name == "Unknown" then
+                            ba.error("Encounter with 'Unknown' team not handled yet.")
+                        elseif not GameState.MissionLoaded then
+                            GameMission:setupMission(ship1, object)
+                        end
                     end
                 end
             elseif object.Category == "Astral" then
