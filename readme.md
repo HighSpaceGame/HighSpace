@@ -4,7 +4,7 @@
 
 ### (name subject to change)
 
-This project aims to create a total conversion mod for Freespace 2, which will be a mashup between it and High Fleet.
+A project from [themotte.org](https://www.themotte.org/) that aims to create a total conversion mod for Freespace 2, which will be a mashup between it and High Fleet.
 
 The code is based off the [SCPUI Test Mod](https://fsnebula.org/mod/SCPUI) (see also the `SCPUI/0.6.0` (works), and `SCPUI/0.9.0` (seems broken) branches)
 
