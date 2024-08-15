@@ -1,13 +1,13 @@
 local Class           = require("class")
-local Dialogs         = require('dialogs')
-local Inspect         = require('inspect')
-local KDTree          = require('kdtree')
-local Ship            = require('ship')
-local ShipGroup       = require('ship_group')
+local Dialogs         = require("dialogs")
+local Inspect         = require("inspect")
+local KDTree          = require("kdtree")
+local Ship            = require("ship")
+local ShipGroup       = require("ship_group")
 local ShipList        = require("ship_list")
-local Utils           = require('utils')
-local Vector          = require('vector')
-local Wing            = require('wing')
+local Utils           = require("utils")
+local Vector          = require("vector")
+local Wing            = require("wing")
 
 GameSystemMap = Class()
 
@@ -17,12 +17,12 @@ GameSystemMap.SelectedGroupShips = ShipList()
 ba.println("loadSystem: " .. Inspect({ GameState.System }))
 
 GameSystemMap.ShipMoveDummy = Ship({
-    ['Species'] = 'Terran',
-    ['Type'] = 'Cruiser',
-    ['Class'] = 'GMF Gunship',
-    ['Team'] = mn.Teams['Friendly'],
-    ['Name'] = 'Ship Movement Dummy',
-    ['System'] = {['Position'] = Vector(731316619172.03, -250842595861.88, 0), ['Speed'] = 1.0e+24, ['SubspaceSpeed'] = 1.0e+12,},
+    ["Species"] = "Terran",
+    ["Type"] = "Cruiser",
+    ["Class"] = "GMF Gunship",
+    ["Team"] = mn.Teams["Friendly"],
+    ["Name"] = "Ship Movement Dummy",
+    ["System"] = {["Position"] = Vector(731316619172.03, -250842595861.88, 0), ["Speed"] = 1.0e+24, ["SubspaceSpeed"] = 1.0e+12,},
     ["SemiMajorAxis"] = 0,
     ["MeanAnomalyEpoch"] = 0,
     ["OrbitalPeriod"] = 0,
@@ -243,7 +243,7 @@ function GameSystemMap:updateShipMoveDummy(mouse)
     local world_pos = self.Camera:getWorldCoords(mouse)
     self.ShipMoveDummy.System.Position = world_pos
     local nearest = self.ObjectKDTree:findNearest(world_pos, nil,
-            function(objects) return objects and objects[1].Category == 'Astral' end
+            function(objects) return objects and objects[1].Category == "Astral" end
     )
     if nearest then
         self.ShipMoveDummy.Parent = nearest[1]
@@ -277,18 +277,18 @@ end
 function GameSystemMap:moveShip(mouse, subspace)
     self:splitIfGroupSubselected()
     if self.SelectedShip then
-        if self.SelectedShip.Team.Name == 'Friendly' then
+        if self.SelectedShip.Team.Name == "Friendly" then
             self.SelectedShip.System.IsInSubspace = subspace
 
             local world_pos = self.Camera:getWorldCoords(mouse)
             local nearest = self.ObjectKDTree:findNearest(world_pos, 40 * self.Camera.Zoom,
-                    function(objects) return objects and objects[1].Category == 'Ship' end
+                    function(objects) return objects and objects[1].Category == "Ship" end
             )
             if nearest then
-                self.SelectedShip.System.Destination = { ['Position'] = nearest[1].System.Position - nearest[1].Parent.System.Position }
+                self.SelectedShip.System.Destination = { ["Position"] = nearest[1].System.Position - nearest[1].Parent.System.Position }
                 self.SelectedShip.System.Destination.Parent = nearest[1].Parent
             else
-                self.SelectedShip.System.Destination = { ['Position'] = self.ShipMoveDummy.System.Position:copy() }
+                self.SelectedShip.System.Destination = { ["Position"] = self.ShipMoveDummy.System.Position:copy() }
                 self.SelectedShip.System.Destination.Subspace = subspace
 
                 if self.ShipMoveDummy.Parent then
@@ -305,7 +305,7 @@ end
 
 function GameSystemMap:checkCollision(ship, planet)
     if (planet.System.Position - ship.System.Position):getSqrMagnitude() <= planet.Radius*planet.Radius then
-        -- We're assuming the colliding planet is the ship's parent, which should be the case, but that's the assumption I check if there's some freaky bug in the future
+        -- We"re assuming the colliding planet is the ship"s parent, which should be the case, but that"s the assumption I check if there"s some freaky bug in the future
         ship.SemiMajorAxis = planet.Radius + 10
         ship.System.Destination = nil
     end
@@ -346,7 +346,7 @@ function GameSystemMap:checkCollision(ship, planet)
 end
 
 function GameSystemMap:processEncounters()
-    if GameState.MissionLoaded and ba.getCurrentGameState().Name == 'GS_STATE_BRIEFING' then
+    if GameState.MissionLoaded and ba.getCurrentGameState().Name == "GS_STATE_BRIEFING" then
         ba.println("Quick-starting game")
         GameState.TimeSpeed = 0
         ui.ShipWepSelect.initSelect()
@@ -359,7 +359,7 @@ function GameSystemMap:processEncounters()
     GameState.System:forEach(function(ship1)
         local near_objects = GameSystemMap.ObjectKDTree:findObjectsWithin(ship1.System.Position, ship1.Parent.Radius + ship1:getCurrentSpeed() * GameState.FrameTimeDiff)
         --ba.println("Checking Collisions: " .. Inspect({ship1.Name, #near_objects, ship1.Parent.Radius + ship1:getCurrentSpeed() * GameState.FrameTimeDiff}))
-        for cidx, cluster in ipairs(near_objects) do
+        for _, cluster in ipairs(near_objects) do
             local object = cluster.Groups["All"].Objects[1]
 
             if object.Category == "Ship" then
