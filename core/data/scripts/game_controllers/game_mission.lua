@@ -52,10 +52,10 @@ function GameMission:init()
 end
 
 function GameMission:setupMission(team1, team2)
-    ba.println("Loading mission" .. Inspect(ba.getCurrentGameState()))
+    ba.println("Loading mission")
     MissionFile:createMissionFile("template.fs2", team1, team2)
     GameState.MissionLoaded = mn.loadMission("encounter.fs2")
-    ba.println("Mission loaded: " .. Inspect({ GameState.MissionLoaded, ba.getCurrentGameState() }))
+    ba.println("Mission loaded")
 
     if GameState.MissionLoaded then
         GameMission.Ships:clear()
