@@ -369,7 +369,15 @@ function GameSystemMap:processEncounters()
                         return false
                     else
                         if ship1.Team.Name == "Unknown" or object.Team.Name == "Unknown" then
-                            ba.error("Encounter with 'Unknown' team not handled yet.")
+                            if ship1.Team.Name == "Friendly" or object.Team.Name == "Friendly" then
+                                -- One of those is redundant but we don't know which
+                                ship1.Team = mn.Teams["Friendly"]
+                                object.Team = mn.Teams["Friendly"]
+
+                                self:mergeShips(ship1, object)
+                            else
+                                ba.error("Encounter with 'Unknown' team not handled yet.")
+                            end
                         elseif not GameState.MissionLoaded then
                             GameMission:setupMission(ship1, object)
                         end
