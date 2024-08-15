@@ -25,12 +25,12 @@ function GameMapGenerator.addShipToRandomOrbit(ship, system)
     else
         ship.SemiMajorAxis = Utils.Math.AU * 35 * math.random()
     end
-    target:add(ship)
+    system:add(ship, target)
     ship:updatePosition()
     ship:recalculateOrbitParent()
 end
 
-function GameMapGenerator.chaseRandomShip(ship, chased_ships)
+function GameMapGenerator.chaseRandomShip(ship, chased_ships, system)
     local target
     local n, s = 0, math.random(0, #chased_ships - 1)
 
@@ -48,7 +48,7 @@ function GameMapGenerator.chaseRandomShip(ship, chased_ships)
             Utils.Math.AU * 0.01, Utils.Math.AU * 0.05,
             ship.SemiMajorAxis, target.SemiMajorAxis, target.MeanAnomalyEpoch
     )
-    target.Parent:add(ship)
+    system:add(ship, target.Parent)
     ship:updatePosition()
 end
 

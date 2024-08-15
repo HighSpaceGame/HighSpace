@@ -73,7 +73,7 @@ function SystemFile:loadShips(system, ships_data)
             if ship.Type == "Group" and ship:getTopShip().Name == "Taganrog" then
                 ship.SemiMajorAxis = Utils.Math.AU * 50
                 ship.MeanAnomalyEpoch = math.random() * 360
-                system:get("Sol"):add(ship)
+                system:add(ship, system:get("Sol"))
             else
                 GameMapGenerator.addShipToRandomOrbit(ship, system)
             end
@@ -89,7 +89,7 @@ function SystemFile:loadShips(system, ships_data)
             ba.println("Adding: " .. Inspect({ ship_data.Name }))
 
             local ship = ship_initializers[ship_data.Type](ship_data)
-            GameMapGenerator.chaseRandomShip(ship, neutrals)
+            GameMapGenerator.chaseRandomShip(ship, neutrals, system)
         end
     end
 end

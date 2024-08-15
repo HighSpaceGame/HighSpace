@@ -58,13 +58,23 @@ function Satellite:_updateMeanAnomaly()
     end
 end
 
+function Satellite:add(object)
+    if object.Parent then
+        object.Parent:remove(object)
+    end
+    self.Satellites[object.Name] = object
+    object.Parent = self
+end
+
+function Satellite:remove(object)
+    self.Satellites[object.Name] = nil
+    object.Parent = nil
+end
+
 function Satellite:recalculateOrbitParent()
     if self.Parent and self.Parent.Parent then
         if Utils.Math.hasEscapedFromOrbit(self.SemiMajorAxis, self.Parent.SemiMajorAxis, self.Parent.Mass, self.Parent.Parent.Mass) then
-            local prevParent = self.Parent
-            local newParent = self.Parent.Parent
-            prevParent:remove(self)
-            newParent:add(self)
+            self.Parent.Parent:add(self)
             self:recalculateOrbit()
             self:recalculateOrbitParent()
         end
@@ -85,22 +95,6 @@ function Satellite:recalculateOrbit()
     self.OrbitalPeriod = Utils.Math.orbitalPeriod(self.SemiMajorAxis, self.Parent.Mass)
 
     --ba.println("Satellite:_recalculateOrbit(): " .. Inspect({ self.Name, self.OrbitalPeriod, math.deg(self.MeanAnomaly), math.deg(math.atan2(0.89165917083566, 0.45270732605588)), rel_position.x, rel_position.y }))
-end
-
-function Satellite:add(satellite)
-    if satellite.Parent then
-        satellite.Parent:remove(satellite)
-    end
-
-    self.Satellites[satellite.Name] = satellite
-    self.StarSystem:add(satellite)
-    satellite.Parent = self
-end
-
-function Satellite:remove(satellite)
-    self.Satellites[satellite.Name] = nil
-    self.StarSystem:remove(satellite)
-    satellite.Parent = nil
 end
 
 function Satellite:getIcon()
