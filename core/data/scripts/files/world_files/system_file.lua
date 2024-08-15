@@ -34,8 +34,9 @@ function SystemFile:loadSystem(filename)
 end
 
 local ship_init_func = function(data) return Ship(data) end
+local ship_initializers
 
-local ship_initializers = {
+ship_initializers = {
     ["Ship"] = ship_init_func,
     ["Fighter"] = ship_init_func,
     ["Bomber"] = ship_init_func,
@@ -45,7 +46,7 @@ local ship_initializers = {
     ["Group"] = function(data)
         local ships = {}
         for _, ship_data in pairs(data.Ships) do
-            table.insert(ships, ship_init_func(ship_data))
+            table.insert(ships, ship_initializers[ship_data.Type](ship_data))
         end
 
         data.Ships = ships
@@ -54,7 +55,7 @@ local ship_initializers = {
     ["Wing"] = function(data)
         local ships = {}
         for _, ship_data in pairs(data.Ships) do
-            table.insert(ships, ship_init_func(ship_data))
+            table.insert(ships, ship_initializers[ship_data.Type](ship_data))
         end
 
         data.Ships = ships

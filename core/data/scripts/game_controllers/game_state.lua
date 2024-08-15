@@ -13,7 +13,7 @@ GameState.TimeSpeed = 0
 
 GameState.System = {}
 
-GameState.MissionLoaded = false;
+GameState.MissionLoaded = false
 
 local showing_dialog = false
 
