@@ -62,7 +62,7 @@ function GameMission:setupMission(team1, team2)
         GameMission:initMissionShip(team1)
         GameMission:initMissionShip(team2)
 
-        ba.println("Ships Created: " .. Inspect(GameMission.Ships))
+        ba.println("Ships Created: " .. Inspect(GameMission.Ships:count()))
     end
 end
 
@@ -87,7 +87,7 @@ function GameMission:initMissionShip(ship)
                 curr_ship.Mission.Instance:giveOrder(ORDER_ATTACK_SHIP_CLASS, nil, nil, 1, tb.ShipClasses['GMF Gunship'])
             end
 
-            ba.println("GameMission.Ships: " .. Inspect(GameMission.Ships))
+            ba.println("GameMission.Ships: " .. Inspect(GameMission.Ships:count()))
             GameMission.Ships:add(curr_ship)
 
             if curr_ship.Health == nil then
