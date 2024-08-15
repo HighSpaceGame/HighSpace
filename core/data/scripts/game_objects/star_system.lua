@@ -78,6 +78,9 @@ function StarSystem:remove(satellite)
 
     if satellite.Parent then
         satellite.Parent:remove(satellite)
+        if satellite.Parent and satellite.Parent:is_a(ShipGroup) and satellite.Parent.Ships:count() <= 0 then
+            self:remove(satellite.Parent)
+        end
     end
 
     self:_remove_from_category(satellite, satellite.Category)
