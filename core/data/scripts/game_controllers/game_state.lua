@@ -82,7 +82,7 @@ function GameState.removeShip(ship)
     end
 
     GameMission.Ships:remove(ship.Name)  -- Remove from mission ships
-    ship.Parent:remove(ship) -- Remove from system or group
+    GameState.System:remove(ship) -- Remove from system or group
 end
 
 return GameState
