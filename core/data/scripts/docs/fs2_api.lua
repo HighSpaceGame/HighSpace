@@ -1,0 +1,6277 @@
+-- Script Output - FSO v24.1.0 (FS2_Open Scripting)
+-- Lua Version: Lua 5.1.5
+
+--- Support library for asynchronous operations
+--- @class async
+--- An executor that executes operations at the end of rendering a frame.
+--- Value: The executor handle
+--- @field public OnFrameExecutor executor
+--- An executor that executes operations after all object simulation has been done but before rendering starts. This is the place to do physics manipulations.
+--- Value: The executor handle
+--- @field public OnSimulationExecutor executor
+--- Creates a promise that resolves when the resolve function of the callback is called or errors if the reject function is called. The function will be called on its own.
+--- Returns: The promise or nil on error
+--- @alias resolveFun fun(resolveVal:any):nil
+--- @alias rejectFun fun(errorVal:any):nil
+--- @alias promiseFun fun(resolve:resolveFun, reject:rejectFun):nil
+--- @field public promise fun(body:promiseFun):promise
+--- Creates a resolved promise with the values passed to this function.
+--- Returns: Resolved promise
+--- @field public resolved fun(...:any):promise
+--- Creates an errored promise with the values passed to this function.
+--- Returns: Errored promise
+--- @field public errored fun(...:any):promise
+--- Runs an asynchronous function. Inside this function you can use async.await to suspend the function until a promise resolves. Also allows to specify an executor on which the code of the coroutine should be executed. If captureContext is true then the game context (the game state) at the time of the call is captured and the coroutine is only run if that state is still active.
+--- Returns: A promise that resolves with the return value of the body when it reaches a return statement
+--- @alias runFun fun():any
+--- @field public run fun(body:runFun, optional_executeOn:executor, optional_captureContext:boolean | execution_context):promise
+--- Runs an asynchronous function in an OnFrameExecutor context and busy-waits for the coroutine to finish. Inside this function you can use async.await to suspend the function until a promise resolves. This is useful for cases where you need a scripting process to run over multiple frames, even when the engine is not in a stable game state (such as showing animations during game state switches, etc.).
+--- Returns: The result of the function body or nil if the function errored
+--- @alias awaitRunOnFrameFun fun():any
+--- @field public awaitRunOnFrame fun(body:awaitRunOnFrameFun, optional_allowMultiProcessing:boolean):any | nil
+--- Suspends an asynchronous coroutine until the passed promise resolves.
+--- Returns: The resolve value of the promise
+--- @field public await fun(arg_1:promise):any
+--- Returns a promise that will resolve on the next execution of the current executor. Effectively allows to asynchronously wait until the next frame.
+--- Returns: The promise
+--- @field public yield fun():promise
+--- Causes the currently running coroutine to fail with an error with the specified values.
+--- Returns: Does not return
+--- @field public error fun(...:any):nil
+--- Support library for creating execution contexts.
+--- @field public context context
+
+--- Support library for creating execution contexts.
+--- @class context
+--- Captures the current game state as an execution context
+--- Returns: The execution context or invalid handle on error
+--- @field public captureGameState fun():execution_context
+--- Creates an execution state by storing the passed function and calling that when the state is required.
+--- Returns: The execution context or invalid handle on error
+--- @alias createLuaStateFun fun():enumeration
+--- @field public createLuaState fun(arg_1:createLuaStateFun):execution_context
+--- Combines several execution contexts into a single one by only return a valid state if all contexts are valid.
+--- Returns: The execution context or invalid handle on error
+--- @field public combineContexts fun(...:execution_context):execution_context
+
+--- Sound/Music Library
+--- @class ad
+--- The current master voice volume. This property is read-only.
+--- Value: The volume in the range from 0 to 1
+--- @field public MasterVoiceVolume number
+--- The current master event music volume. This property is read-only.
+--- Value: The volume in the range from 0 to 1
+--- @field public MasterEventMusicVolume number
+--- The current master effects volume. This property is read-only.
+--- Value: The volume in the range from 0 to 1
+--- @field public MasterEffectsVolume number
+--- Return a sound entry matching the specified index or name. If you are using a number then the first valid index is 1
+--- Returns: soundentry or invalid handle on error
+--- @field public getSoundentry fun(arg_1:string | number):soundentry
+--- Loads the specified sound file
+--- Returns: A soundfile handle
+--- @field public loadSoundfile fun(filename:string):soundfile
+--- Plays the specified sound entry handle
+--- Returns: A handle to the playing sound
+--- @field public playSound fun(arg_1:soundentry):sound
+--- Plays the specified sound as a looping sound
+--- Returns: A handle to the playing sound or invalid handle if playback failed
+--- @field public playLoopingSound fun(arg_1:soundentry):sound
+--- Plays the specified sound entry handle. Source if by default 0, 0, 0 and listener is by default the current viewposition
+--- Returns: A handle to the playing sound
+--- @field public play3DSound fun(arg_1:soundentry, optional_source:vector, optional_listener:vector):sound3D
+--- Plays a sound from #Game Sounds in sounds.tbl. A priority of 0 indicates that the song must play; 1-3 will specify the maximum number of that sound that can be played
+--- Returns: True if sound was played, false if not (Replaced with a sound instance object in the future)
+--- @field public playGameSound fun(index:sound, optional_Panning:number, optional_Volume:number, optional_Priority:number, optional_VoiceMessage:boolean):boolean
+--- Plays a sound from #Interface Sounds in sounds.tbl
+--- Returns: True if sound was played, false if not
+--- @field public playInterfaceSound fun(index:sound):boolean
+--- Plays a sound from #Interface Sounds in sounds.tbl by specifying the name of the sound entry. Sounds using the retail sound syntax can be accessed by specifying the index number as a string.
+--- Returns: True if sound was played, false if not
+--- @field public playInterfaceSoundByName fun(name:string):boolean
+--- Plays a music file using FS2Open's builtin music system. Volume is currently ignored, uses players music volume setting. Files passed to this function are looped by default.
+--- Returns: Audiohandle of the created audiostream, or -1 on failure
+--- @field public playMusic fun(Filename:string, optional_volume:number, optional_looping:boolean):number
+--- Stops a playing music file, provided audiohandle is valid. If the 3rd arg is set to one of briefing,credits,mainhall then that music will be stopped despite the audiohandle given.
+--- Returns: Nothing
+--- @field public stopMusic fun(audiohandle:number, optional_fade:boolean, optional_music_type:string):nil
+--- Pauses or unpauses a playing music file, provided audiohandle is valid. The boolean argument should be true to pause and false to unpause. If the audiohandle is -1, *all* audio streams are paused or unpaused.
+--- Returns: Nothing
+--- @field public pauseMusic fun(audiohandle:number, pause:boolean):nil
+--- Opens an audio stream of the specified file and type. An audio stream is meant for more long time sounds since they are streamed from the file instead of loaded in its entirety.
+--- Returns: A handle to the opened stream or invalid on error
+--- @field public openAudioStream fun(fileName:string, stream_type:enumeration):audio_stream
+--- Pauses or unpauses all weapon sounds. The boolean argument should be true to pause and false to unpause.
+--- Returns: Nothing
+--- @field public pauseWeaponSounds fun(pause:boolean):nil
+--- Pauses or unpauses all voice message sounds. The boolean argument should be true to pause and false to unpause.
+--- Returns: Nothing
+--- @field public pauseVoiceMessages fun(pause:boolean):nil
+--- Kills all currently playing voice messages.
+--- Returns: Nothing
+--- @field public killVoiceMessages fun():nil
+
+--- Base FreeSpace 2 functions
+--- @class ba
+--- Prints a string
+--- Returns: Nothing
+--- @field public print fun(Message:string):nil
+--- Prints a string with a newline
+--- Returns: Nothing
+--- @field public println fun(Message:string):nil
+--- Displays a FreeSpace warning (debug build-only) message with the string provided
+--- Returns: Nothing
+--- @field public warning fun(Message:string):nil
+--- Displays a FreeSpace error message with the string provided
+--- Returns: Nothing
+--- @field public error fun(Message:string):nil
+--- Calls FSO's Random::next() function, which is higher-quality than Lua's ANSI C math.random().  If called with no arguments, returns a random integer from [0, 0x7fffffff].  If called with one argument, returns an integer from [0, a).  If called with two arguments, returns an integer from [a, b].
+--- Returns: A random integer
+--- @field public rand32 fun(optional_a:number, optional_b:number):number
+--- Calls FSO's Random::next() function and transforms the result to a float.  If called with no arguments, returns a random float from [0.0, 1.0).  If called with one argument, returns a float from [0.0, max).
+--- Returns: A random float
+--- @field public rand32f fun(optional_max:number):number
+--- Given 0 arguments, creates an identity orientation; 3 arguments, creates an orientation from pitch/bank/heading (in radians); 9 arguments, creates an orientation from a 3x3 row-major order matrix.
+--- Returns: New orientation object, or the identity orientation on failure
+--- @field public createOrientation fun():orientation--- @field public createOrientation fun(p:number, b:number, h:number):orientation--- @field public createOrientation fun(r1c1:number, r1c2:number, r1c3:number, r2c1:number, r2c2:number, r2c3:number, r3c1:number, r3c2:number, r3c3:number):orientation
+--- Given 0 to 3 arguments, creates an orientation object from 0 to 3 vectors.  (This is essentially a wrapper for the vm_vector_2_matrix function.)  If supplied 0 arguments, this will return the identity orientation.  The first vector, if supplied, must be non-null.
+--- Returns: New orientation object, or the identity orientation on failure
+--- @field public createOrientationFromVectors fun(optional_fvec:vector, optional_uvec:vector, optional_rvec:vector):orientation
+--- Creates a vector object
+--- Returns: Vector object
+--- @field public createVector fun(optional_x:number, optional_y:number, optional_z:number):vector
+--- Creates a random normalized vector object.
+--- Returns: Vector object
+--- @field public createRandomVector fun():vector
+--- Creates a random orientation object.
+--- Returns: Orientation object
+--- @field public createRandomOrientation fun():orientation
+--- Determines the surface normal of the plane defined by three points.  Returns a normalized vector.
+--- Returns: The surface normal, or NIL if a handle is invalid
+--- @field public createSurfaceNormal fun(point1:vector, point2:vector, point3:vector):vector
+--- Determines the point at which two lines intersect.  (The lines are assumed to extend infinitely in both directions; the intersection will not necessarily be between the points.)
+--- Returns: Returns two arguments.  The first is the point of intersection, if it exists and is unique (otherwise it will be NIL).  The second is the find_intersection return value: 0 for a unique intersection, -1 if the lines are colinear, and -2 if the lines do not intersect.
+--- @field public findIntersection fun(line1_point1:vector, line1_point2:vector, line2_point1:vector, line2_point2:vector):vector, number
+--- Determines the point on line 1 closest to line 2 when the lines are skew (non-intersecting in 3D space).  (The lines are assumed to extend infinitely in both directions; the point will not necessarily be between the other points.)
+--- Returns: The closest point, or NIL if a handle is invalid
+--- @field public findPointOnLineNearestSkewLine fun(line1_point1:vector, line1_point2:vector, line2_point1:vector, line2_point2:vector):vector
+--- The overall frame time in fix units (seconds * 65536) since the engine has started
+--- Returns: Overall time (fix units)
+--- @field public getFrametimeOverall fun():number
+--- The overall time in seconds since the engine has started
+--- Returns: Overall time (seconds)
+--- @field public getSecondsOverall fun():number
+--- Gets how long this frame is calculated to take. Use it to for animations, physics, etc to make incremental changes. Increased or decreased based on current time compression
+--- Returns: Frame time (seconds)
+--- @field public getMissionFrametime fun():number
+--- Gets how long this frame is calculated to take in real time. Not affected by time compression.
+--- Returns: Frame time (seconds)
+--- @field public getRealFrametime fun():number
+--- Gets how long this frame is calculated to take. Use it to for animations, physics, etc to make incremental changes.
+--- Deprecated starting with version 20.2.0: The parameter of this function is inverted from the naming (passing true returns non-adjusted time). Please use either getMissionFrametime() or getRealFrametime().
+--- Returns: Frame time (seconds)
+--- @field public getFrametime fun(optional_adjustForTimeCompression:boolean):number
+--- Gets current FreeSpace state; if a depth is specified, the state at that depth is returned. (IE at the in-game options game, a depth of 1 would give you the game state, while the function defaults to 0, which would be the options screen.
+--- Returns: Current game state at specified depth, or invalid handle if no game state is active yet
+--- @field public getCurrentGameState fun(optional_depth:number):gamestate
+--- Gets this computers current MP status
+--- Returns: Current MP status
+--- @field public getCurrentMPStatus fun():string
+--- Gets a handle of the currently used player.<br><b>Note:</b> If there is no current player then the first player will be returned, check the game state to make sure you have a valid player handle.
+--- Returns: Player handle
+--- @field public getCurrentPlayer fun():player
+--- Loads the player with the specified callsign.
+--- Returns: Player handle or invalid handle on load failure
+--- @field public loadPlayer fun(callsign:string):player
+--- Saves the specified player.
+--- Returns: true of successful, false otherwise
+--- @field public savePlayer fun(plr:player):boolean
+--- Sets the current control mode for the game.
+--- Returns: Current control mode
+--- @field public setControlMode fun(mode:nil | enumeration):string
+--- Sets the current control mode for the game.
+--- Returns: Current control mode
+--- @field public setButtonControlMode fun(mode:nil | enumeration):string
+--- Gets the control info handle.
+--- Returns: control info handle
+--- @field public getControlInfo fun():control_info
+--- Sets whether to display tips of the day the next time the current pilot enters the mainhall.
+--- Returns: Nothing
+--- @field public setTips fun(arg_1:boolean):nil
+--- Returns the difficulty level from 1-5, 1 being the lowest, (Very Easy) and 5 being the highest (Insane)
+--- Returns: Difficulty level as integer
+--- @field public getGameDifficulty fun():number
+--- Sets current game event. Note that you can crash FreeSpace 2 by posting an event at an improper time, so test extensively if you use it.
+--- Returns: True if event was posted, false if passed event was invalid
+--- @field public postGameEvent fun(Event:gameevent):boolean
+--- Gets the translated version of text with the given id. This uses the tstrings.tbl for performing the translation by default. Set tstrings to false to use strings.tbl instead. Passing -1 as the id will always return the given text.
+--- Returns: The translated text
+--- @field public XSTR fun(text:string, id:number, optional_tstrings:boolean):string
+--- Returns a string that replaces any default control binding to current binding (same as Directive Text). Default binding must be encapsulated by '$$' for replacement to work.
+--- Returns: Updated string or nil if invalid
+--- @field public replaceTokens fun(text:string):string
+--- Returns a string that replaces any variable name with the variable value (same as text in Briefings, Debriefings, or Messages). Variable name must be preceded by '$' for replacement to work.
+--- Returns: Updated string or nil if invalid
+--- @field public replaceVariables fun(text:string):string
+--- Determine if the current script is running in the mission editor (e.g. FRED2). This should be used to control which code paths will be executed even if running in the editor.
+--- Returns: true when we are in the mission editor, false otherwise
+--- @field public inMissionEditor fun():boolean
+--- Determines if FSO is running in Release or Debug
+--- Returns: true if debug, false if release
+--- @field public inDebug fun():boolean
+--- Checks if the current version of the engine is at least the specified version. This can be used to check if a feature introduced in a later version of the engine is available.
+--- Returns: true if the version is at least the specified version. false otherwise.
+--- @field public isEngineVersionAtLeast fun(major:number, minor:number, build:number, optional_revision:number):boolean
+--- Checks if the '$Lua API returns nil instead of invalid object:' option is set in game_settings.tbl.
+--- Returns: true if the option is set, false otherwise
+--- @field public usesInvalidInsteadOfNil fun():boolean
+--- Determines the language that is being used by the engine. This returns the full name of the language (e.g. "English").
+--- Returns: The current game language
+--- @field public getCurrentLanguage fun():string
+--- Determines the file extension of the language that is being used by the engine. This returns a short code for the current language that can be used for creating language specific file names (e.g. "gr" when the current language is German). This will return an empty string for the default language.
+--- Returns: The current game language
+--- @field public getCurrentLanguageExtension fun():string
+--- Returns a string describing the version of the build that is currently running. This is mostly intended to be displayed to the user and not processed by a script so don't rely on the exact format of the string.
+--- Returns: The version information
+--- @field public getVersionString fun():string
+--- Returns the name of the current mod's root folder.
+--- Returns: The mod root
+--- @field public getModRootName fun():string
+--- Returns the title of the current mod as defined in game_settings.tbl. Will return an empty string if not defined.
+--- Returns: The mod title
+--- @field public getModTitle fun():string
+--- Returns the version of the current mod as defined in game_settings.tbl. If the version is semantic versioning then the returned numbers will reflect that. String always returns the complete string. If semantic version is not used then the returned numbers will all be -1
+--- Returns: The mod version string; the major, minor, patch version numbers or -1 if invalid
+--- @field public getModVersion fun():string, number, number, number
+--- Determines if the game is currently in single- or multiplayer mode
+--- Value: true if in multiplayer mode, false if in singleplayer. If neither is the case (e.g. on game init) nil will be returned
+--- Setter type: boolean
+--- @field public MultiplayerMode boolean
+--- Serializes the specified value so that it can be stored and restored consistently later. The actual format of the returned data is implementation specific but will be deserializable by at least this engine version and following versions.
+--- Returns: The serialized representation of the value or nil on error.
+--- @field public serializeValue fun(value:any):bytearray
+--- Deserializes a previously serialized Lua value.
+--- Returns: The deserialized Lua value.
+--- @field public deserializeValue fun(serialized:bytearray):any
+--- Sets the Discord presence to a specific string. If Gameplay is true then the string is ignored and presence will be set as if the player is in-mission. The latter will fail if the player is not in a mission.
+--- Returns: nothing
+--- @field public setDiscordPresence fun(DisplayText:string, optional_Gameplay:boolean):nil
+--- Returns if the game engine has focus or not
+--- Returns: True if the game has focus, false if it has been lost
+--- @field public hasFocus fun():boolean
+--- Freespace 2 game events
+--- @field public GameEvents gameevent[]
+--- Freespace 2 states
+--- @field public GameStates gamestate[]
+
+--- Bitwise Operations library
+--- @class bit
+--- Values for which bitwise boolean AND operation is performed
+--- Returns: Result of the AND operation
+--- @field public AND fun(arg_1:number, arg_2:number, optional_arg_3:number, optional_arg_4:number, optional_arg_5:number, optional_arg_6:number, optional_arg_7:number, optional_arg_8:number, optional_arg_9:number, optional_arg_10:number):number
+--- Values for which bitwise boolean OR operation is performed
+--- Returns: Result of the OR operation
+--- @field public OR fun(arg_1:number, arg_2:number, optional_arg_3:number, optional_arg_4:number, optional_arg_5:number, optional_arg_6:number, optional_arg_7:number, optional_arg_8:number, optional_arg_9:number, optional_arg_10:number):number
+--- Values for which bitwise boolean AND operation is performed
+--- Returns: Result of the AND operation
+--- @field public EnumAND fun(arg_1:enumeration, arg_2:enumeration, optional_arg_3:enumeration, optional_arg_4:enumeration, optional_arg_5:enumeration, optional_arg_6:enumeration, optional_arg_7:enumeration, optional_arg_8:enumeration, optional_arg_9:enumeration, optional_arg_10:enumeration):number
+--- Values for which bitwise boolean OR operation is performed
+--- Returns: Result of the OR operation
+--- @field public EnumOR fun(arg_1:enumeration, arg_2:enumeration, optional_arg_3:enumeration, optional_arg_4:enumeration, optional_arg_5:enumeration, optional_arg_6:enumeration, optional_arg_7:enumeration, optional_arg_8:enumeration, optional_arg_9:enumeration, optional_arg_10:enumeration):number
+--- Values for which bitwise boolean XOR operation is performed
+--- Returns: Result of the XOR operation
+--- @field public XOR fun(arg_1:number, arg_2:number):number
+--- Toggles the value of the set bit in the given number for 32 bit integer
+--- Returns: Result of the operation
+--- @field public toggleBit fun(baseNumber:number, bit:number):number
+--- Checks the value of the set bit in the given number for 32 bit integer
+--- Returns: Was the bit true of false
+--- @field public checkBit fun(baseNumber:number, bit:number):boolean
+--- Performs inclusive or (OR) operation on the set bit of the value
+--- Deprecated starting with version 21.4.0: BitOps.addBit has been replaced by BitOps.setBit
+--- Returns: Result of the operation
+--- @field public addBit fun(baseNumber:number, bit:number):number
+--- Turns on the specified bit of baseNumber (sets it to 1)
+--- Returns: Result of the operation
+--- @field public setBit fun(baseNumber:number, bit:number):number
+--- Turns off the specified bit of baseNumber (sets it to 0)
+--- Returns: Result of the operation
+--- @field public unsetBit fun(baseNumber:number, bit:number):number
+
+--- Campaign Library
+--- @class ca
+--- Gets next mission filename
+--- Returns: Next mission filename, or nil if the next mission is invalid
+--- @field public getNextMissionFilename fun():string
+--- Gets previous mission filename
+--- Returns: Previous mission filename, or nil if the previous mission is invalid
+--- @field public getPrevMissionFilename fun():string
+--- Jumps to a mission based on the filename. Optionally, the player can be sent to a hub mission without setting missions to skipped.
+--- Returns: Jumps to a mission, or returns nil.
+--- @field public jumpToMission fun(filename:string, optional_hub:boolean):boolean
+
+--- CFile FS2 filesystem access
+--- @class cf
+--- Deletes given file. Path must be specified. Use a slash for the root directory.
+--- Returns: True if deleted, false
+--- @field public deleteFile fun(Filename:string, Path:string):boolean
+--- Checks if a file exists. Use a blank string for path for any directory, or a slash for the root directory.
+--- Returns: True if file exists, false or nil otherwise
+--- @field public fileExists fun(Filename:string, optional_Path:string, optional_CheckVPs:boolean):boolean
+--- Lists all the files in the specified directory matching a filter. The filter must have the format "*<rest>" (the wildcard has to appear at the start), "<subfolder>/*<rest>" (to check subfolder(s)) or "*/*<rest>" (for a glob search).
+--- Returns: A table with all matching files or nil on error
+--- @field public listFiles fun(directory:string, filter:string):string
+--- Opens a file. 'Mode' uses standard C fopen arguments. In read mode use a blank string for path for any directory, or a slash for the root directory. When using write mode a valid path must be specified. Be EXTREMELY CAREFUL when using this function, as you may PERMANENTLY delete any file by accident
+--- Returns: File handle, or invalid file handle if the specified file couldn't be opened
+--- @field public openFile fun(Filename:string, optional_Mode:string, optional_Path:string):file
+--- Opens a temp file that is automatically deleted when closed
+--- Returns: File handle, or invalid file handle if tempfile couldn't be created
+--- @field public openTempFile fun():file
+--- Renames given file. Path must be specified. Use a slash for the root directory.
+--- Returns: True if file was renamed, otherwise false
+--- @field public renameFile fun(CurrentFilename:string, NewFilename:string, Path:string):boolean
+
+--- Controls library
+--- @class io
+--- @field public Keybinding keybinding[]
+--- Gets Mouse X pos
+--- Returns: Mouse x position, or 0 if mouse is not initialized yet
+--- @field public getMouseX fun():number
+--- Gets Mouse Y pos
+--- Returns: Mouse y position, or 0 if mouse is not initialized yet
+--- @field public getMouseY fun():number
+--- Returns whether the specified mouse buttons are up or down
+--- Returns: Whether specified mouse buttons are down, or false if mouse is not initialized yet
+--- @field public isMouseButtonDown fun(buttonCheck1:enumeration, optional_buttonCheck2:enumeration, optional_buttonCheck3:enumeration):boolean
+--- Returns the pressed count of the specified button.  The count is then reset, unless reset_count (which defaults to true) is false.
+--- Returns: The number of frames this button has been pressed, or -1 if the mouse has not been initialized
+--- @field public mouseButtonDownCount fun(buttonCheck:enumeration, optional_reset_count:boolean):number
+--- Clears mouse input data, including button press count, button flags, wheel scroll value, and position delta.
+--- Returns: Returns nothing
+--- @field public flushMouse fun():nil
+--- Gets or sets whether the heading axis action's primary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public XAxisInverted boolean
+--- Gets or sets whether the pitch axis action's primary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public YAxisInverted boolean
+--- Gets or sets whether the bank axis action's primary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public ZAxisInverted boolean
+--- Gets or sets whether the heading axis action's primary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public HeadingAxisPrimaryInverted boolean
+--- Gets or sets whether the heading axis action's secondary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public HeadingAxisSecondaryInverted boolean
+--- Gets or sets whether the pitch axis action's primary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public PitchAxisPrimaryInverted boolean
+--- Gets or sets whether the pitch axis action's secondary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public PitchAxisSecondaryInverted boolean
+--- Gets or sets whether the bank axis action's primary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public BankAxisPrimaryInverted boolean
+--- Gets or sets whether the bank axis action's secondary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public BankAxisSecondaryInverted boolean
+--- Gets or sets whether the absolute throttle axis action's primary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public AbsoluteThrottleAxisPrimaryInverted boolean
+--- Gets or sets whether the absolute throttle axis action's secondary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public AbsoluteThrottleAxisSecondaryInverted boolean
+--- Gets or sets whether the relative throttle axis action's primary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public RelativeThrottleAxisPrimaryInverted boolean
+--- Gets or sets whether the relative throttle axis action's secondary binding is inverted
+--- Value: True/false
+--- Setter type: boolean
+--- @field public RelativeThrottleAxisSecondaryInverted boolean
+--- Gets or sets the given Joystick or Mouse axis inversion state.  Mouse cid = -1, Joystick cid = [0, 3]
+--- Returns: True/false
+--- @field public AxisInverted fun(cid:number, axis:number, inverted:boolean):boolean
+--- Flight Mode; uses LE_FLIGHTMODE_* enumerations.
+--- Value: enumeration flight mode
+--- Setter type: enumeration
+--- @field public FlightCursorMode enumeration
+--- How far from the center the cursor can go.
+--- Value: Flight cursor extent in radians
+--- Setter type: number
+--- @field public FlightCursorExtent number
+--- How far from the center the cursor needs to go before registering.
+--- Value: Flight cursor deadzone in radians
+--- Setter type: number
+--- @field public FlightCursorDeadzone number
+--- Flight cursor pitch value
+--- Value: Flight cursor pitch value
+--- Setter type: number
+--- @field public FlightCursorPitch number
+--- Flight cursor heading value
+--- Value: Flight cursor heading value
+--- Setter type: number
+--- @field public FlightCursorHeading number
+--- Resets flight cursor position to the center of the screen.
+--- Returns: Nothing
+--- @field public resetFlightCursor fun():nil
+--- Sets mouse cursor image, and allows you to lock/unlock the image. (A locked cursor may only be changed with the unlock parameter)
+--- Returns: true if successful, false otherwise
+--- @field public setCursorImage fun(filename:string):boolean
+--- Hides the cursor when <i>hide</i> is true, otherwise shows it. <i>grab</i> determines if the mouse will be restricted to the window. Set this to true when hiding the cursor while in game. By default grab will be true when we are in the game play state, false otherwise.
+--- Returns: Nothing
+--- @field public setCursorHidden fun(hide:boolean, optional_grab:boolean):nil
+--- function to force mouse position
+--- Returns: if the operation succeeded or not
+--- @field public forceMousePosition fun(x:number, y:number):boolean
+--- Gets and sets the retail mouse control status
+--- Value: if the retail mouse is on or off
+--- Setter type: boolean
+--- @field public MouseControlStatus boolean
+--- Gets mouse sensitivity setting
+--- Returns: Mouse sensitivity in range of 0-9
+--- @field public getMouseSensitivity fun():number
+--- Gets joystick sensitivity setting
+--- Returns: Joystick sensitivity in range of 0-9
+--- @field public getJoySensitivity fun():number
+--- Gets joystick deadzone setting
+--- Returns: Joystick deadzone in range of 0-9
+--- @field public getJoyDeadzone fun():number
+--- Updates Tracking Data. Call before using get functions
+--- Returns: Checks if trackir is available and updates variables, returns true if successful, otherwise false
+--- @field public updateTrackIR fun():boolean
+--- Gets pitch axis from last update
+--- Returns: Pitch value -1 to 1, or 0 on failure
+--- @field public getTrackIRPitch fun():number
+--- Gets yaw axis from last update
+--- Returns: Yaw value -1 to 1, or 0 on failure
+--- @field public getTrackIRYaw fun():number
+--- Gets roll axis from last update
+--- Returns: Roll value -1 to 1, or 0 on failure
+--- @field public getTrackIRRoll fun():number
+--- Gets x position from last update
+--- Returns: X value -1 to 1, or 0 on failure
+--- @field public getTrackIRX fun():number
+--- Gets y position from last update
+--- Returns: Y value -1 to 1, or 0 on failure
+--- @field public getTrackIRY fun():number
+--- Gets z position from last update
+--- Returns: Z value -1 to 1, or 0 on failure
+--- @field public getTrackIRZ fun():number
+
+--- Basic engine access functions
+--- @class engine
+--- Adds a function to be called from the specified game hook
+--- Returns: true if hook was installed properly, false otherwise
+--- @alias addHookFun fun():nil
+--- @alias addHookFun_rmqf fun():boolean
+--- @field public addHook fun(name:string, hookFunction:addHookFun, optional_conditionals:table, optional_override_func:addHookFun_rmqf):boolean
+--- Executes a <b>blocking</b> sleep. Usually only necessary for development or testing purposes. Use with care!
+--- Returns: Nothing
+--- @field public sleep fun(seconds:number):nil
+--- Creates a new category for tracing the runtime of a code segment. Also allows to trace how long the corresponding code took on the GPU.
+--- Returns: The allocated category.
+--- @field public createTracingCategory fun(name:string, optional_gpu_category:boolean):tracing_category
+--- Closes and reopens the fs2_open.log
+--- Returns: Nothing
+--- @field public restartLog fun():nil
+
+--- Graphics Library
+--- @class gr
+--- Cameras
+--- @field public Cameras camera[]
+--- Font library
+--- @field public Fonts font[]
+--- Current font
+--- Setter type: font
+--- @field public CurrentFont font
+--- Post-processing effects
+--- @field public PostEffects string[]
+--- Sets the intensity of the specified post-processing effect. Optionally sets RGB values for effects that use them (valid values are 0.0 to 1.0)
+--- Returns: true when successful, false otherwise
+--- @field public setPostEffect fun(name:string, optional_value:number, optional_red:number, optional_green:number, optional_blue:number):boolean
+--- Resets all post-processing effects to their default values
+--- Returns: true if successful, false otherwise
+--- @field public resetPostEffects fun():boolean
+--- Current alpha blending type; uses ALPHABLEND_* enumerations
+--- Setter type: enumeration
+--- @field public CurrentOpacityType enumeration
+--- Current rendering target
+--- Value: Current rendering target, or invalid texture handle if screen is render target
+--- Setter type: texture
+--- @field public CurrentRenderTarget texture
+--- Current resize mode; uses GR_RESIZE_* enumerations.  This resize mode will be used by the gr.* drawing methods.
+--- Setter type: enumeration
+--- @field public CurrentResizeMode enumeration
+--- Calls gr_clear(), which fills the entire screen with the currently active color.  Useful if you want to have a fresh start for drawing things.  (Call this between setClip and resetClip if you only want to clear part of the screen.)
+--- Returns: Nothing
+--- @field public clear fun():nil
+--- Clears the screen to black, or the color specified.
+--- Returns: Nothing
+--- @field public clearScreen fun(optional_arg_1:number | color, optional_green:number, optional_blue:number, optional_alpha:number):nil
+--- Creates a new camera using the specified position and orientation (World)
+--- Returns: Camera handle, or invalid camera handle if camera couldn't be created
+--- @field public createCamera fun(Name:string, optional_Position:vector, optional_Orientation:orientation):camera
+--- Returns whether the standard interface is stretched
+--- Returns: True if stretched, false if aspect ratio is maintained
+--- @field public isMenuStretched fun():boolean
+--- Gets screen width
+--- Returns: Width in pixels, or 0 if graphics are not initialized yet
+--- @field public getScreenWidth fun():number
+--- Gets screen height
+--- Returns: Height in pixels, or 0 if graphics are not initialized yet
+--- @field public getScreenHeight fun():number
+--- Gets width of center monitor (should be used in conjunction with getCenterOffsetX)
+--- Returns: Width of center monitor in pixels, or 0 if graphics are not initialized yet
+--- @field public getCenterWidth fun():number
+--- Gets height of center monitor (should be used in conjunction with getCenterOffsetY)
+--- Returns: Height of center monitor in pixels, or 0 if graphics are not initialized yet
+--- @field public getCenterHeight fun():number
+--- Gets X offset of center monitor
+--- Returns: X offset of center monitor in pixels
+--- @field public getCenterOffsetX fun():number
+--- Gets Y offset of center monitor
+--- Returns: Y offset of center monitor in pixels
+--- @field public getCenterOffsetY fun():number
+--- Gets the current camera handle, if argument is <i>true</i> then it will also return the main camera when no custom camera is in use
+--- Returns: camera handle or invalid handle on error
+--- @field public getCurrentCamera fun(optional_arg_1:boolean):camera
+--- Returns a vector through screen coordinates x and y. If depth is specified, vector is extended to Depth units into spaceIf normalize is true, vector will be normalized.
+--- Returns: Vector, or zero vector on failure
+--- @field public getVectorFromCoords fun(optional_X:number, optional_Y:number, optional_Depth:number, optional_normalize:boolean):vector
+--- If texture is specified, sets current rendering surface to a texture.Otherwise, sets rendering surface back to screen.
+--- Returns: True if successful, false otherwise
+--- @field public setTarget fun(optional_Texture:texture):boolean
+--- Sets current camera, or resets camera if none specified
+--- Returns: true if successful, false or nil otherwise
+--- @field public setCamera fun(optional_Camera:camera):boolean
+--- Sets 2D drawing color; each color number should be from 0 (darkest) to 255 (brightest)
+--- Returns: Nothing
+--- @field public setColor fun(arg_1:number | color, Green:number, Blue:number, optional_Alpha:number):nil
+--- Gets the active 2D drawing color. False to return raw rgb, true to return a color object. Defaults to false.
+--- Returns: rgba color which is currently in use for 2D drawing
+--- @field public getColor fun(arg_1:boolean):number, number, number, number, color
+--- Sets the line width for lines. This call might fail if the specified width is not supported by the graphics implementation. Then the width will be the nearest supported value.
+--- Returns: true if succeeded, false otherwise
+--- @field public setLineWidth fun(optional_width:number):boolean
+--- Draws a circle
+--- Returns: Nothing
+--- @field public drawCircle fun(Radius:number, X:number, Y:number, optional_Filled:boolean):nil
+--- Draws an arc
+--- Returns: Nothing
+--- @field public drawArc fun(Radius:number, X:number, Y:number, StartAngle:number, EndAngle:number, optional_Filled:boolean):nil
+--- Draws a curve
+--- Returns: Nothing
+--- @field public drawCurve fun(X:number, Y:number, Radius:number):nil
+--- Draws a line from (x1,y1) to (x2,y2) with the CurrentColor that steadily fades out
+--- Returns: Nothing
+--- @field public drawGradientLine fun(X1:number, Y1:number, X2:number, Y2:number):nil
+--- Draws a line from (x1,y1) to (x2,y2) with CurrentColor
+--- Returns: Nothing
+--- @field public drawLine fun(X1:number, Y1:number, X2:number, Y2:number):nil
+--- Sets pixel to CurrentColor
+--- Returns: Nothing
+--- @field public drawPixel fun(X:number, Y:number):nil
+--- Draws a polygon. May not work properly in hooks other than On Object Render.
+--- Returns: Nothing
+--- @field public drawPolygon fun(Texture:texture, optional_Position:vector, optional_Orientation:orientation, optional_Width:number, optional_Height:number):nil
+--- Draws a rectangle with CurrentColor. May be rotated by passing the angle parameter in radians.
+--- Returns: Nothing
+--- @field public drawRectangle fun(X1:number, Y1:number, X2:number, Y2:number, optional_Filled:boolean, optional_angle:number):nil
+--- Draws a rectangle centered at X,Y with CurrentColor. May be rotated by passing the angle parameter in radians.
+--- Returns: Nothing
+--- @field public drawRectangleCentered fun(X:number, Y:number, Width:number, Height:number, optional_Filled:boolean, optional_angle:number):nil
+--- Draws a sphere with radius Radius at world vector Position. May not work properly in hooks other than On Object Render.
+--- Returns: True if successful, false or nil otherwise
+--- @field public drawSphere fun(optional_Radius:number, optional_Position:vector):boolean
+--- Draws a line from origin to destination. The line may be translucent or solid. Translucent lines will NOT use the alpha value, instead being more transparent the darker the color is. The thickness at the start can be different from the thickness at the end, to draw a line that tapers or expands.
+--- Returns: Nothing
+--- @field public draw3dLine fun(origin:vector, destination:vector, optional_translucent:boolean, optional_thickness:number, optional_thicknessEnd:number):nil
+--- Draws the given model with the specified position and orientation.  Note: this method does NOT use CurrentResizeMode.
+--- Returns: Zero if successful, otherwise an integer error code
+--- @field public drawModel fun(model:model, position:vector, orientation:orientation):number
+--- Draws the given model with the specified position and orientation
+--- Returns: Zero if successful, otherwise an integer error code
+--- @field public drawModelOOR fun(Model:model, Position:vector, Orientation:orientation, optional_Flags:number):number
+--- Gets the edge positions of targeting brackets for the specified object. The brackets will only be drawn if draw is true or the default value of draw is used. Brackets are drawn with the current color. The brackets will have a padding (distance from the actual bounding box); the default value (used elsewhere in FS2) is 5.  Note: this method does NOT use CurrentResizeMode.
+--- Returns: Left, top, right, and bottom positions of the brackets, or nil if invalid
+--- @field public drawTargetingBrackets fun(Object:object, optional_draw:boolean, optional_padding:number):number, number, number, number
+--- Gets the edge position of the targeting brackets drawn for a subsystem as if they were drawn on the HUD. Only actually draws the brackets if <i>draw</i> is true, optionally sets the color the as if it was drawn on the HUD
+--- Returns: Left, top, right, and bottom positions of the brackets, or nil if invalid or off-screen
+--- @field public drawSubsystemTargetingBrackets fun(subsys:subsystem, optional_draw:boolean, optional_setColor:boolean):number, number, number, number
+--- Draws an off-screen indicator for the given object. The indicator will not be drawn if draw=false, but the coordinates will be returned in either case. The indicator will be drawn using the current color if setColor=true and using the IFF color of the object if setColor=false.
+--- Returns: Coordinates of the indicator (at the very edge of the screen), or nil if object is on-screen
+--- @field public drawOffscreenIndicator fun(Object:object, optional_draw:boolean, optional_setColor:boolean):number, number
+--- Draws a string. Use x1/y1 to control position, x2/y2 to limit textbox size.Text will automatically move onto new lines, if x2/y2 is specified.Additionally, calling drawString with only a string argument will automaticallydraw that string below the previously drawn string (or 0,0 if no stringshave been drawn yet
+--- Returns: Number of lines drawn, or 0 on failure
+--- @field public drawString fun(Message:string | boolean, optional_X1:number, optional_Y1:number, optional_X2:number, optional_Y2:number):number
+--- Draws a string, scaled according to the GR_RESIZE_* parameter. Use x1/y1 to control position, x2/y2 to limit textbox size.Text will automatically move onto new lines, if x2/y2 is specified, however the line spacing will probably not be correct.Additionally, calling drawString with only a string argument will automaticallydraw that string below the previously drawn string (or 0,0 if no stringshave been drawn yet
+--- Returns: Number of lines drawn, or 0 on failure
+--- @field public drawStringResized fun(ResizeMode:enumeration, Message:string | boolean, optional_X1:number, optional_Y1:number, optional_X2:number, optional_Y2:number):number
+--- Calls gr_set_screen_scale with the specified parameters.  This is useful for adjusting the drawing of graphics or text to be the same apparent size regardless of resolution.
+--- Returns: Nothing
+--- @field public setScreenScale fun(width:number, height:number, optional_zoom_x:number, optional_zoom_y:number, optional_max_x:number, optional_max_y:number, optional_center_x:number, optional_center_y:number, optional_force_stretch:boolean):nil
+--- Rolls back the most recent call to setScreenScale.
+--- Returns: Nothing
+--- @field public resetScreenScale fun():nil
+--- Gets string width
+--- Returns: String width, or 0 on failure
+--- @field public getStringWidth fun(String:string):number
+--- Gets string height
+--- Returns: String height, or 0 on failure
+--- @field public getStringHeight fun(String:string):number
+--- Gets string width and height
+--- Returns: String width and height, or 0, 0 on failure
+--- @field public getStringSize fun(String:string):number, number
+--- Plays a streaming animation, returning its handle. The optional booleans (except cache and grayscale) can also be set via the handle's virtvars<br>cache is best set to false when loading animations that are only intended to play once, e.g. headz<br>Remember to call the unload() function when you're finished using the animation to free up memory.
+--- Returns: Streaming animation handle, or invalid handle if animation couldn't be loaded
+--- @field public loadStreamingAnim fun(Filename:string, optional_loop:boolean, optional_reverse:boolean, optional_pause:boolean, optional_cache:boolean, optional_grayscale:boolean):streaminganim
+--- Creates a texture for rendering to.Types are TEXTURE_STATIC - for infrequent rendering - and TEXTURE_DYNAMIC - for frequent rendering.
+--- Returns: New texture handle, or invalid texture handle if texture couldn't be created
+--- @field public createTexture fun(optional_Width:number, optional_Height:number, optional_Type:enumeration):texture
+--- Gets a handle to a texture. If second argument is set to true, animations will also be loaded.If third argument is set to true, every other animation frame will not be loaded if system has less than 48 MB memory.<br><strong>IMPORTANT:</strong> Textures will not be unload themselves unless you explicitly tell them to do so.When you are done with a texture, call the unload() function to free up memory.
+--- Returns: Texture handle, or invalid texture handle if texture couldn't be loaded
+--- @field public loadTexture fun(Filename:string, optional_LoadIfAnimation:boolean, optional_NoDropFrames:boolean):texture
+--- Draws an image file or texture. Any image extension passed will be ignored.The UV variables specify the UV value for each corner of the image. In UV coordinates, (0,0) is the top left of the image; (1,1) is the lower right. If aaImage is true, image needs to be monochrome and will be drawn tinted with the currently active color.The angle variable can be used to rotate the image in radians.
+--- Returns: Whether image was drawn
+--- @field public drawImage fun(fileNameOrTexture:string | texture, optional_X1:number, optional_Y1:number, optional_X2:number, optional_Y2:number, optional_UVX1:number, optional_UVY1:number, optional_UVX2:number, optional_UVY2:number, optional_alpha:number, optional_aaImage:boolean, optional_angle:number):boolean
+--- Draws an image file or texture centered on the X,Y position. Any image extension passed will be ignored.The UV variables specify the UV value for each corner of the image. In UV coordinates, (0,0) is the top left of the image; (1,1) is the lower right. If aaImage is true, image needs to be monochrome and will be drawn tinted with the currently active color.The angle variable can be used to rotate the image in radians.
+--- Returns: Whether image was drawn
+--- @field public drawImageCentered fun(fileNameOrTexture:string | texture, optional_X:number, optional_Y:number, optional_W:number, optional_H:number, optional_UVX1:number, optional_UVY1:number, optional_UVX2:number, optional_UVY2:number, optional_alpha:number, optional_aaImage:boolean, optional_angle:number):boolean
+--- Draws a monochrome image from a texture or file using the current color
+--- Deprecated starting with version 21.0.0: gr.drawImage now has support for drawing monochrome images with full UV scaling support
+--- Returns: Whether image was drawn
+--- @field public drawMonochromeImage fun(fileNameOrTexture:string | texture, X1:number, Y1:number, optional_X2:number, optional_Y2:number, optional_alpha:number):boolean
+--- Gets image width
+--- Returns: Image width, or 0 if filename is invalid
+--- @field public getImageWidth fun(Filename:string):number
+--- Gets image height
+--- Returns: Image height, or 0 if filename is invalid
+--- @field public getImageHeight fun(name:string):number
+--- Flashes the screen
+--- Returns: Nothing
+--- @field public flashScreen fun(arg_1:number | color, Green:number, Blue:number):nil
+--- Loads the model - will not setup subsystem data, DO NOT USE FOR LOADING SHIP MODELS
+--- Returns: Handle to a model
+--- @field public loadModel fun(Filename:string):model
+--- Specifies if the current viemode has the specified flag, see VM_* enumeration
+--- Returns: true if flag is present, false otherwise
+--- @field public hasViewmode fun(arg_1:enumeration):boolean
+--- Sets the clipping region to the specified rectangle. Most drawing functions are able to handle the offset.
+--- Returns: true if successful, false otherwise
+--- @field public setClip fun(x:number, y:number, width:number, height:number, optional_ResizeMode:enumeration):boolean
+--- Resets the clipping region that might have been set
+--- Returns: true if successful, false otherwise
+--- @field public resetClip fun():boolean
+--- Opens the movie with the specified name. If the name has an extension it will be removed. This function will try all movie formats supported by the engine and use the first that is found.
+--- Returns: The cutscene player handle or invalid handle if cutscene could not be opened.
+--- @field public openMovie fun(name:string, optional_looping:boolean):movie_player
+--- Creates a persistent particle. Persistent variables are handled specially by the engine so that this function can return a handle to the caller. Only use this if you absolutely need it. Use createParticle if the returned handle is not required. Use PARTICLE_* enumerations for type.Reverse reverse animation, if one is specifiedAttached object specifies object that Position will be (and always be) relative to.
+--- Returns: Handle to the created particle
+--- @field public createPersistentParticle fun(Position:vector, Velocity:vector, Lifetime:number, Radius:number, optional_Type:enumeration, optional_TracerLength:number, optional_Reverse:boolean, optional_Texture:texture, optional_AttachedObject:object):particle
+--- Creates a non-persistent particle. Use PARTICLE_* enumerations for type.Reverse reverse animation, if one is specifiedAttached object specifies object that Position will be (and always be) relative to.
+--- Returns: true if particle was created, false otherwise
+--- @field public createParticle fun(Position:vector, Velocity:vector, Lifetime:number, Radius:number, optional_Type:enumeration, optional_TracerLength:number, optional_Reverse:boolean, optional_Texture:texture, optional_AttachedObject:object):boolean
+--- Clears all particles from a mission
+--- Returns: Nothing
+--- @field public killAllParticles fun():nil
+--- Captures the current render target and encodes it into a blob-PNG
+--- Returns: The png blob string
+--- @field public screenToBlob fun():string
+--- Releases all loaded models and frees the memory. Intended for use in UI situations and not within missions. Do not use after mission parse. Use at your own risk!
+--- Returns: Nothing
+--- @field public freeAllModels fun():nil
+--- Creates a color object. Values are capped 0-255. Alpha defaults to 255.
+--- Returns: The color
+--- @field public createColor fun(Red:number, Green:number, Blue:number, optional_Alpha:number):color
+--- Queries whether or not FSO is currently trying to render to a head-mounted VR display.
+--- Returns: true if FSO is currently outputting frames to a VR headset.
+--- @field public isVR fun():boolean
+
+--- Hook variables repository
+--- @class hv
+--- Retrieves a hook variable value
+--- Returns: The hook variable value or nil if hook variable is not defined
+--- @field public __indexer fun(variableName:string):any
+--- @field public Globals string[]
+
+--- HUD library
+--- @class hu
+--- Current HUD draw status
+--- Value: If the HUD is drawn or not
+--- Setter type: boolean
+--- @field public HUDDrawn boolean
+--- Gets or sets whether the HUD is currently high-contrast
+--- Value: Whether the HUD is high-contrast
+--- Setter type: boolean
+--- @field public HUDHighContrast boolean
+--- Specifies if only the messages gauges of the hud are drawn
+--- Value: true if only the message gauges are drawn, false otherwise
+--- Setter type: boolean
+--- @field public HUDDisabledExceptMessages boolean
+--- Specifies the number of HUD gauges defined by FSO.  Note that for historical reasons, HUD scripting functions use a zero-based index (0 to n-1) for gauges.
+--- Value: The number of FSO HUD gauges
+--- Setter type: number
+--- @field public HUDDefaultGaugeCount number
+--- Gets the HUD configuration show status for the specified default HUD gauge.
+--- Returns: Returns show status or nil if gauge invalid
+--- @field public getHUDConfigShowStatus fun(gaugeNameOrIndex:number | string):boolean
+--- Modifies color used to draw the gauge in the pilot config
+--- Returns: If the operation was successful
+--- @field public setHUDGaugeColor fun(gaugeNameOrIndex:number | string, optional_arg_2:number | color, optional_green:number, optional_blue:number, optional_alpha:number):boolean
+--- Color specified in the config to draw the gauge. False to return raw rgba, true to return color object. Defaults to false.
+--- Returns: Red, green, blue, and alpha of the gauge
+--- @field public getHUDGaugeColor fun(gaugeNameOrIndex:number | string, optional_ReturnType:boolean):number, number, number, number, color
+--- Set color currently used to draw the gauge
+--- Returns: If the operation was successful
+--- @field public setHUDGaugeColorInMission fun(gaugeNameOrIndex:number | string, optional_arg_2:number | color, optional_green:number, optional_blue:number, optional_alpha:number):boolean
+--- Color currently used to draw the gauge. False returns raw rgb, true returns color object. Defaults to false.
+--- Returns: Red, green, blue, and alpha of the gauge
+--- @field public getHUDGaugeColorInMission fun(gaugeNameOrIndex:number | string, optional_ReturnType:boolean):number, number, number, number, color
+--- Returns a handle to a specified HUD gauge
+--- Returns: HUD Gauge handle, or nil if invalid
+--- @field public getHUDGaugeHandle fun(Name:string):HudGauge
+--- Flashes a section of the target box with a default duration of 1400 milliseconds
+--- Returns: Nothing
+--- @field public flashTargetBox fun(section:enumeration, optional_duration_in_milliseconds:number):nil
+--- Returns the distance as displayed on the HUD, that is, the distance from a position to the bounding box of a target.  If targeter_position is nil, the function will use the player's position.
+--- Returns: The distance, or nil if invalid
+--- @field public getTargetDistance fun(targetee:object, optional_targeter_position:vector):number
+--- Returns the number of lines displayed by the currently active directives
+--- Returns: The number of lines
+--- @field public getDirectiveLines fun():number
+--- Returns whether the HUD comm menu is currently being displayed
+--- Returns: Whether the comm menu is open
+--- @field public isCommMenuOpen fun():boolean
+--- Gets or sets whether the the cockpit model will be rendered.
+--- Value: true if being rendered, false otherwise
+--- Setter type: boolean
+--- @field public toggleCockpits boolean
+--- Gets or sets whether the the cockpit model will sway due to ship acceleration.
+--- Value: true if using 'sway', false otherwise
+--- Setter type: boolean
+--- @field public toggleCockpitSway boolean
+
+--- Mission library
+--- @class mn
+--- Gets a handle of an object from its signature
+--- Returns: Handle of object with signaure, invalid handle if signature is not in use
+--- @field public getObjectFromSignature fun(Signature:number):object
+--- Runs the defined SEXP script, and returns the result as a boolean
+--- Returns: true if the SEXP returned SEXP_TRUE or SEXP_KNOWN_TRUE; false if the SEXP returned anything else (even a number)
+--- @field public evaluateSEXP fun(arg_1:string):boolean
+--- Runs the defined SEXP script, and returns the result as a number
+--- Returns: the value of the SEXP result (or NaN if the SEXP returned SEXP_NAN or SEXP_NAN_FOREVER)
+--- @field public evaluateNumericSEXP fun(arg_1:string):number
+--- Runs the defined SEXP script within a `when` operator
+--- Returns: if the operation was successful
+--- @field public runSEXP fun(arg_1:string):boolean
+--- Asteroids in the mission
+--- @field public Asteroids asteroid[]
+--- debris in the mission
+--- @field public Debris debris[]
+--- @field public EscortShips ship[]
+--- Events
+--- @field public Events event[]
+--- SEXP Variables
+--- @field public SEXPVariables sexpvariable[]
+--- The mission's ship registry: all ships parsed, created, or exited that the mission knows about
+--- @field public ShipRegistry ship_registry_entry[]
+--- Ships in the mission
+--- @field public Ships ship[]
+--- Parsed ships (aka parse objects) in the mission
+--- @field public ParsedShips parse_object[]
+--- @field public Waypoints waypoint[]
+--- @field public WaypointLists waypointlist[]
+--- @field public Weapons weapon[]
+--- @field public Beams beam[]
+--- @field public Wings wing[]
+--- @field public Teams team[]
+--- @field public Messages message[]
+--- @field public BuiltinMessages message[]
+--- @field public Personas persona[]
+--- @field public Fireballs fireball[]
+--- Adds a message
+--- Returns: The new message or invalid handle on error
+--- @field public addMessage fun(name:string, text:string, optional_persona:persona):message
+--- Sends a message from the given source or ship with the given priority, or optionally sends it from the mission's command source.<br>If delay is specified, the message will be delayed by the specified time in seconds.<br>If sender is <i>nil</i> the message will not have a sender.  If sender is a ship object the message will be sent from the ship; if sender is a string the message will have a non-ship source even if the string is a ship name.
+--- Returns: true if successful, false otherwise
+--- @field public sendMessage fun(sender:string | ship, message:message, optional_delay:number, optional_priority:enumeration, optional_fromCommand:boolean):boolean
+--- Sends a training message to the player. <i>time</i> is the amount in seconds to display the message, only whole seconds are used!
+--- Returns: true if successful, false otherwise
+--- @field public sendTrainingMessage fun(message:message, time:number, optional_delay:number):boolean
+--- Sends a plain text message without it being present in the mission message list
+--- Returns: true if successful false otherwise
+--- @field public sendPlainMessage fun(message:string):boolean
+--- Adds a string to the message log scrollback without sending it as a message first. Source should be either the team handle or one of the SCROLLBACK_SOURCE enumerations.
+--- Returns: true if successful, false otherwise
+--- @field public addMessageToScrollback fun(message:string, optional_source:team | enumeration):boolean
+--- Creates a ship and returns a handle to it using the specified name, class, world orientation, and world position; and logs it in the mission log unless specified otherwise
+--- Returns: Ship handle, or invalid ship handle if ship couldn't be created
+--- @field public createShip fun(optional_Name:string, optional_Class:shipclass, optional_Orientation:orientation, optional_Position:vector, optional_Team:team, optional_ShowInMissionLog:boolean):ship
+--- Creates a chunk or shard of debris with the specified parameters.  Vectors are in world coordinates.  Any parameter can be nil or negative to specify defaults.  A nil source will create generic or vaporized debris; submodel_index_or_name will be disregarded if source is submodel and can be nil to spawn random generic or vaporized debris; position defaults to 0,0,0; orientation defaults to the source orientation or a random orientation for non-ship sources or for generic/vaporized debris; create_flags can be any combination of DC_IS_HULL, DC_VAPORIZE, DC_SET_VELOCITY, or DC_FIRE_HOOK; hitpoints defaults to 1/8 source ship hitpoints or 10 hitpoints if there is no source ship; explosion_center and explosion_force_multiplier are only applicable for DC_SET_VELOCITY
+--- Returns: Debris handle, or invalid handle if the debris couldn't be created
+--- @field public createDebris fun(optional_source:ship | shipclass | model | submodel | nil, optional_submodel_index_or_name:string | nil, optional_position:vector, optional_arg_4:orientation, optional_create_flags:enumeration, optional_hitpoints:number, optional_spark_timeout_seconds:number, optional_arg_8:team, optional_explosion_center:vector, optional_explosion_force_multiplier:number):debris
+--- Creates a waypoint
+--- Returns: Waypoint handle, or invalid waypoint handle if waypoint couldn't be created
+--- @field public createWaypoint fun(optional_Position:vector, optional_List:waypointlist):waypoint
+--- Creates a weapon and returns a handle to it. 'Group' is used for lighting grouping purposes; for example, quad lasers would only need to act as one light source.  Use generateWeaponGroupId() if you need a group.
+--- Returns: Weapon handle, or invalid weapon handle if weapon couldn't be created.
+--- @field public createWeapon fun(optional_Class:weaponclass, optional_Orientation:orientation, optional_WorldPosition:vector, optional_Parent:object, optional_GroupId:number):weapon
+--- Generates a weapon group ID to be used with createWeapon.  This is only needed for weapons that should share a light source, such as quad lasers.  Group IDs may be reused by the engine.
+--- Returns: the group ID
+--- @field public generateWeaponGroupId fun():number
+--- Creates a warp-effect fireball and returns a handle to it.
+--- Returns: Fireball handle, or invalid fireball handle if fireball couldn't be created.
+--- @field public createWarpeffect fun(WorldPosition:vector, PointTo:vector, radius:number, duration:number, Class:fireballclass, WarpOpenSound:soundentry, WarpCloseSound:soundentry, optional_WarpOpenDuration:number, optional_WarpCloseDuration:number, optional_Velocity:vector, optional_Use3DModel:boolean):fireball
+--- Creates an explosion-effect fireball and returns a handle to it.
+--- Returns: Fireball handle, or invalid fireball handle if fireball couldn't be created.
+--- @field public createExplosion fun(WorldPosition:vector, radius:number, Class:fireballclass, optional_LargeExplosion:boolean, optional_Velocity:vector, optional_parent:object):fireball
+--- Creates a lightning bolt between the origin and target vectors. BoltName is name of a bolt from lightning.tbl
+--- Returns: True if successful, false if the bolt couldn't be created.
+--- @field public createBolt fun(BoltName:string, Origin:vector, Target:vector, optional_PlaySound:boolean):boolean
+--- Get whether or not the player's call for support will be successful. If simple check is false, the code will do a much more expensive, but accurate check.
+--- Returns: true if support can be called, false if not or not in a mission
+--- @field public getSupportAllowed fun(optional_SimpleCheck:boolean):boolean
+--- Gets mission filename
+--- Returns: Mission filename, or empty string if game is not in a mission
+--- @field public getMissionFilename fun():string
+--- Starts the defined mission
+--- Returns: True, or false if the function fails
+--- @field public startMission fun(mission:string | enumeration, optional_Briefing:boolean):boolean
+--- Game time in seconds since the mission was started; is affected by time compression
+--- Returns: Mission time (seconds) of the current or most recently played mission.
+--- @field public getMissionTime fun():number
+--- Gets or sets padding currently applied to the HUD mission timer.
+--- Value: the padding in seconds
+--- Setter type: number
+--- @field public MissionHUDTimerPadding number
+--- Loads a mission
+--- Returns: True if mission was loaded, otherwise false
+--- @field public loadMission fun(missionName:string):boolean
+--- Stops the current mission and unloads it. If forceUnload is true then the mission unload logic will run regardless of if a mission is loaded or not. Use with caution.
+--- Returns: Nothing
+--- @field public unloadMission fun(optional_forceUnload:boolean):nil
+--- Simulates mission frame
+--- Returns: Nothing
+--- @field public simulateFrame fun():nil
+--- Renders mission frame, but does not move anything
+--- Returns: Nothing
+--- @field public renderFrame fun():nil
+--- Applies a shudder effect to the camera. Time is in seconds. Intensity specifies the shudder effect strength; the Maxim has a value of 1440. If perpetual is true, the shudder does not decay. If everywhere is true, the shudder is applied regardless of view.
+--- Returns: true if successful, false otherwise
+--- @field public applyShudder fun(time:number, intensity:number, optional_perpetual:boolean, optional_everywhere:boolean):boolean
+--- Gets or sets whether the shudder is perpetual, i.e. with a constant intensity that does not decay.
+--- Value: the shudder perpetual flag
+--- Setter type: boolean
+--- @field public ShudderPerpetual boolean
+--- Gets or sets whether the shudder is applied everywhere regardless of camera view.
+--- Value: the shudder everywhere flag
+--- Setter type: boolean
+--- @field public ShudderEverywhere boolean
+--- Gets or sets the number of seconds until the shudder stops.  This is independent of the decay time.
+--- Value: the shudder time left variable
+--- Setter type: number
+--- @field public ShudderTimeLeft number
+--- Gets or sets the shudder decay time in seconds.  This can be zero in which case the shudder will not decay.
+--- Value: the shudder decay time variable
+--- Setter type: number
+--- @field public ShudderDecayTime number
+--- Gets or sets the shudder intensity variable.  For comparison, the Maxim has a value of 1440.
+--- Value: the shudder intensity variable
+--- Setter type: number
+--- @field public ShudderIntensity number
+--- Gravity acceleration vector in meters / second^2
+--- Value: gravity vector
+--- Setter type: vector
+--- @field public Gravity vector
+--- Gets the custom data table for this mission
+--- Value: The mission's custom data table
+--- @field public CustomData table
+--- Detects whether the mission has any custom data
+--- Returns: true if the mission's custom_data is not empty, false otherwise
+--- @field public hasCustomData fun():boolean
+--- Adds a custom data pair with the given key if it's unique. Only works in FRED! The description will be displayed in the FRED custom data editor.
+--- Returns: returns true if sucessful, false otherwise. Returns nil if not running in FRED.
+--- @field public addDefaultCustomData fun(key:string, value:string, description:string):boolean
+--- Gets the indexed custom data table for this mission. Each item in the table is a table with the following values: Name - the name of the custom string, Value - the value associated with the custom string, String - the custom string itself.
+--- Value: The mission's custom data table
+--- @field public CustomStrings table
+--- Detects whether the mission has any custom strings
+--- Returns: true if the mission's custom_strings is not empty, false otherwise
+--- @field public hasCustomStrings fun():boolean
+--- get whether or not a mission is currently being played
+--- Returns: true if in mission, false otherwise
+--- @field public isInMission fun():boolean
+--- Get whether or not the current mission being played in a campaign (as opposed to the tech room's simulator)
+--- Returns: true if in campaign, false if not
+--- @field public isInCampaign fun():boolean
+--- Get whether or not the current mission being played is a loop mission in the context of a campaign
+--- Returns: true if in loop and campaign, false if not
+--- @field public isInCampaignLoop fun():boolean
+--- Get whether or not the current mission being played is a training mission
+--- Returns: true if in training, false if not
+--- @field public isTraining fun():boolean
+--- Get whether or not the current mission being played is a scramble mission
+--- Returns: true if scramble, false if not
+--- @field public isScramble fun():boolean
+--- Get whether or not the player has reached the failure limit
+--- Returns: true if limit reached, false if not
+--- @field public isMissionSkipAllowed fun():boolean
+--- Get whether or not the mission is set to skip the briefing
+--- Returns: true if it should be skipped, false if not
+--- @field public hasNoBriefing fun():boolean
+--- Get whether or not the current mission being played is set in a nebula
+--- Returns: true if in nebula, false if not
+--- @field public isNebula fun():boolean
+--- Get whether or not the current mission being played contains a volumetric nebula
+--- Returns: true if has a volumetric nebula, false if not
+--- @field public hasVolumetricNebula fun():boolean
+--- Gets or sets the Neb2_awacs variable.  This is multiplied by a species-specific factor to get the "scan range".  Within the scan range, a ship is at least partially targetable (fuzzy blip); within half the scan range, a ship is fully targetable.  Beyond the scan range, a ship is not targetable.
+--- Value: the Neb2_awacs variable
+--- Setter type: number
+--- @field public NebulaSensorRange number
+--- Gets or sets the multiplier of the near plane of the current nebula.
+--- Value: The multiplier of the near plane.
+--- Setter type: number
+--- @field public NebulaNearMult number
+--- Gets or sets the multiplier of the far plane of the current nebula.
+--- Value: The multiplier of the far plane.
+--- Setter type: number
+--- @field public NebulaFarMult number
+--- Get whether or not the current mission being played is set in subspace
+--- Returns: true if in subspace, false if not
+--- @field public isSubspace fun():boolean
+--- Get the title of the current mission
+--- Returns: The mission title or an empty string if currently not in mission
+--- @field public getMissionTitle fun():string
+--- Get the modified date of the current mission
+--- Returns: The mission modified date or an empty string if currently not in mission
+--- @field public getMissionModifiedDate fun():string
+--- Suns in the current background
+--- @field public BackgroundSuns background_element[]
+--- Bitmaps in the current background
+--- @field public BackgroundBitmaps background_element[]
+--- Adds a background bitmap to the mission with the specified parameters, but using the old incorrectly-calculated angle math.
+--- Deprecated starting with version 22.2.0: addBackgroundBitmap uses the old incorrectly-calculated angle math; use addBackgroundBitmapNew instead
+--- Returns: A handle to the background element, or invalid handle if the function failed.
+--- @field public addBackgroundBitmap fun(name:string, optional_orientation:orientation, optional_scaleX:number, optional_scale_y:number, optional_div_x:number, optional_div_y:number):background_element
+--- Adds a background bitmap to the mission with the specified parameters, treating the angles as correctly calculated.
+--- Returns: A handle to the background element, or invalid handle if the function failed.
+--- @field public addBackgroundBitmapNew fun(name:string, optional_orientation:orientation, optional_scaleX:number, optional_scale_y:number, optional_div_x:number, optional_div_y:number):background_element
+--- Adds a sun bitmap to the mission with the specified parameters, but using the old incorrectly-calculated angle math.
+--- Deprecated starting with version 22.2.0: addSunBitmap uses the old incorrectly-calculated angle math; use addSunBitmapNew instead
+--- Returns: A handle to the background element, or invalid handle if the function failed.
+--- @field public addSunBitmap fun(name:string, optional_orientation:orientation, optional_scaleX:number, optional_scale_y:number):background_element
+--- Adds a sun bitmap to the mission with the specified parameters, treating the angles as correctly calculated.
+--- Returns: A handle to the background element, or invalid handle if the function failed.
+--- @field public addSunBitmapNew fun(name:string, optional_orientation:orientation, optional_scaleX:number, optional_scale_y:number):background_element
+--- Removes the background element specified by the handle. The handle must have been returned by either addBackgroundBitmap or addBackgroundSun. This handle will be invalidated by this function.
+--- Returns: true if successful
+--- @field public removeBackgroundElement fun(el:background_element):boolean
+--- Sets or returns the current skybox orientation
+--- Value: the orientation
+--- Setter type: orientation
+--- @field public SkyboxOrientation orientation
+--- Sets or returns the current skybox alpha
+--- Value: the alpha
+--- Setter type: number
+--- @field public SkyboxAlpha number
+--- Sets or returns the current skybox model
+--- Value: The skybox model
+--- Setter type: model
+--- @field public Skybox model
+--- Returns the current skybox model instance
+--- Returns: The skybox model instance
+--- @field public getSkyboxInstance fun():model_instance
+--- Determines if the current mission is a red alert mission
+--- Returns: true if red alert mission, false otherwise.
+--- @field public isRedAlertMission fun():boolean
+--- Determines if the current mission has a command briefing
+--- Returns: true if command briefing, false otherwise.
+--- @field public hasCommandBriefing fun():boolean
+--- Determines if the current mission will show a Goals briefing stage
+--- Returns: true if stage is active, false otherwise.
+--- @field public hasGoalsStage fun():boolean
+--- Determines if the current mission has a debriefing
+--- Returns: true if debriefing, false otherwise.
+--- @field public hasDebriefing fun():boolean
+--- Returns the music.tbl entry name for the specified mission music score
+--- Returns: The name, or nil if the score is invalid
+--- @field public getMusicScore fun(score:enumeration):string
+--- Sets the music.tbl entry for the specified mission music score
+--- Returns: Nothing
+--- @field public setMusicScore fun(score:enumeration, name:string):nil
+--- Checks whether the to-position is in line of sight from the from-position, disregarding specific excluded objects and objects with a radius of less then threshold.
+--- Returns: true if there is line of sight, false otherwise.
+--- @field public hasLineOfSight fun(from:vector, to:vector, optional_excludedObjects:table, optional_testForShields:boolean, optional_testForHull:boolean, optional_threshold:number):boolean
+--- Checks whether the to-position is in line of sight from the from-position and returns the distance and intersecting object to the first interruption of the line of sight, disregarding specific excluded objects and objects with a radius of less then threshold.
+--- Returns: true and zero and nil if there is line of sight, false and the distance and intersecting object otherwise.
+--- @field public getLineOfSightFirstIntersect fun(from:vector, to:vector, optional_excludedObjects:table, optional_testForShields:boolean, optional_testForHull:boolean, optional_threshold:number):boolean, number, object
+--- Gets an animation handle. Target is the object that should be animated (one of "cockpit", "skybox"), type is the string name of the animation type, triggeredBy is a closer specification which animation should trigger. See *-anim.tbm specifications.
+--- Returns: The animation handle for the specified animation, nil if invalid arguments.
+--- @field public getSpecialSubmodelAnimation fun(target:string, type:string, triggeredBy:string):animation_handle
+--- Updates a moveable animation. Name is the name of the moveable. For what values needs to contain, please refer to the table below, depending on the type of the moveable:Orientation:
+--- 	Three numbers, x, y, z rotation respectively, in degrees
+--- Rotation:
+--- 	Three numbers, x, y, z rotation respectively, in degrees
+--- Axis Rotation:
+--- 	One number, rotation angle in degrees
+--- Inverse Kinematics:
+--- 	Three required numbers: x, y, z position target relative to base, in 1/100th meters
+--- 	Three optional numbers: x, y, z rotation target relative to base, in degrees
+---
+--- Returns: True if successful, false or nil otherwise
+--- @field public updateSpecialSubmodelMoveable fun(target:string, name:string, values:table):boolean
+--- Lua Enums
+--- @field public LuaEnums LuaEnum[]
+--- Adds an enum with the given name if it's unique.
+--- Returns: Returns the enum handle or an invalid handle if the name was not unique.
+--- @field public addLuaEnum fun(name:string):LuaEnum
+--- Lua SEXPs
+--- @field public LuaSEXPs LuaSEXP[]
+--- Lua AI SEXPs
+--- @field public LuaAISEXPs LuaAISEXP[]
+--- Get the list of yet to arrive ships for this mission
+--- Returns: An iterator across all the yet to arrive ships. Can be used in a for .. in loop. Is not valid for more than one frame.
+--- @field public getArrivalList fun():fun():parse_object
+--- Get an iterator to the list of ships in this mission
+--- Returns: An iterator across all ships in the mission. Can be used in a for .. in loop. Is not valid for more than one frame.
+--- @field public getShipList fun():fun():ship
+--- Get an iterator to the list of missiles in this mission
+--- Returns: An iterator across all missiles in the mission. Can be used in a for .. in loop. Is not valid for more than one frame.
+--- @field public getMissileList fun():fun():weapon
+--- Performs an asynchronous wait until the specified amount of mission time has passed.
+--- Returns: A promise with no return value that resolves when the specified time has passed
+--- @field public waitAsync fun(seconds:number):promise
+
+--- Functions for scripting for and in multiplayer environments.
+--- @class multi
+--- Prints a string
+--- Returns: true if the script is running on the server, false if it is running on a client or in singleplayer.
+--- @field public isServer fun():boolean
+--- Adds a remote procedure call. This call must run on all clients / the server where the RPC is expected to be able to execute. The given RPC name must be unique.
+--- For advanced users: It is possible have different clients / servers add different RPC methods with the same name. In this case, each client will run their registered method when a different client calls the RPC with the corresponding name. Passing nil as the execution function means that the RPC can be called from this client, but not on this client.
+--- The mode is used to determine how the data is transmitted. RPC_RELIABLE means that data is guaranteed to arrive, and to be in order. RPC_ORDERED is a faster variant that guarantees that calls from the same caller to the same functions will always be in order, but can drop. Calls to clients are expected to drop slightly more often than calls to servers in this mode. RPC_UNRELIABLE is the fastest mode, but has no guarantees about ordering of calls, and does not guarantee arrival (but will be slightly better than RPC_ORDERED).
+--- The recipient will be used as the default recipient for this RPC, but can be overridden on a per-call basis. Valid are: RPC_SERVER, RPC_CLIENTS, RPC_BOTH
+--- Returns: An RPC object, or an invalid RPC object on failure.
+--- @alias addRPCFun fun(arg:any):nil
+--- @field public addRPC fun(name:string, rpc_body:addRPCFun, optional_mode:enumeration, optional_recipient:enumeration):rpc
+
+--- Options library
+--- @class opt
+--- The available options.
+--- Value: A table of all the options.
+--- @field public Options option
+--- Persist any changes made to the options system. Options can be incapable of applying changes immediately in which case they are returned here.
+--- Returns: The options that did not support changing their value
+--- @field public persistChanges fun():option
+--- Discard any changes made to the options system.
+--- Returns: True on success, false otherwise
+--- @field public discardChanges fun():boolean
+--- The multiplayer PXO login name
+--- Value: The login name
+--- Setter type: string
+--- @field public MultiLogin string
+--- The multiplayer PXO login password
+--- Value: True if a password is set, false otherwise
+--- Setter type: string
+--- @field public MultiPassword boolean
+--- The multiplayer PXO squad name
+--- Value: The squad name
+--- Setter type: string
+--- @field public MultiSquad string
+--- Gets the current multiplayer IP Address list as a table
+--- Returns: The IP Address table
+--- @field public readIPAddressTable fun():table
+--- Saves the table to the multiplayer IP Address list
+--- Returns: True if successful, false otherwise
+--- @field public writeIPAddressTable fun(arg_1:table):boolean
+--- Verifies if a string is a valid IP address
+--- Returns: True if valid, false otherwise
+--- @field public verifyIPAddress fun(arg_1:string):boolean
+
+--- Engine parsing library
+--- @class parse
+--- Reads the text of the given file into the parsing system. If a directory is given then the file is read from that location.
+--- Returns: true if the operation was successful, false otherwise
+--- @field public readFileText fun(file:string, optional_directory:string):boolean
+--- Stops parsing and frees any allocated resources.
+--- Returns: true if the operation was successful, false otherwise
+--- @field public stop fun():boolean
+--- Displays a message dialog which includes the current file name and line number. If <i>error</i> is set the message will be displayed as an error.
+--- Returns: true if the operation was successful, false otherwise
+--- @field public displayMessage fun(message:string, optional_error:boolean):boolean
+--- Search for specified string, skipping everything up to that point.
+--- Returns: true if the operation was successful, false otherwise
+--- @field public skipToString fun(token:string):boolean
+--- Require that a string appears at the current position.
+--- Returns: true if the operation was successful, false otherwise
+--- @field public requiredString fun(token:string):boolean
+--- Check if the string appears at the current position in the file.
+--- Returns: true if the token is present, false otherwise
+--- @field public optionalString fun(token:string):boolean
+--- Gets a single line of text from the file
+--- Returns: Text or nil on error
+--- @field public getString fun():string
+--- Gets a floating point number from the file
+--- Returns: number or nil on error
+--- @field public getFloat fun():string
+--- Gets an integer number from the file
+--- Returns: number or nil on error
+--- @field public getInt fun():string
+--- Gets a boolean value from the file
+--- Returns: boolean value or nil on error
+--- @field public getBoolean fun():boolean
+
+--- Tables library
+--- @class tb
+--- @field public ShipClasses shipclass[]
+--- @field public ShipTypes shiptype[]
+--- @field public WeaponClasses weaponclass[]
+--- @field public IntelEntries intel_entry[]
+--- @field public FireballClasses fireballclass[]
+--- @field public SimulatedSpeechOverrides string[]
+--- @field public DecalDefinitions decaldefinition[]
+--- Returns whether the decal system is able to work on the current machine
+--- Returns: true if active, false if inactive
+--- @field public isDecalSystemActive fun():boolean
+--- Gets or sets whether the decal option is active (note, decals will only work if the decal system is able to work on the current machine)
+--- Value: true if active, false if inactive
+--- Setter type: boolean
+--- @field public DecalOptionActive boolean
+--- @field public WingFormations wingformation[]
+
+--- Experimental or testing stuff
+--- @class ts
+--- Opens an audio stream of the specified in-memory file contents and type.
+--- Returns: A handle to the opened stream or invalid on error
+--- @field public openAudioStreamMem fun(snddata:string, stream_type:enumeration):audio_stream
+--- Test the AVD Physics code
+--- Returns: Nothing
+--- @field public avdTest fun():nil
+--- Creates a particle. Use PARTICLE_* enumerations for type.Reverse reverse animation, if one is specifiedAttached object specifies object that Position will be (and always be) relative to.
+--- Deprecated starting with version 19.0.0: Not available in the testing library anymore. Use gr.createPersistentParticle instead.
+--- Returns: Handle to the created particle
+--- @field public createParticle fun(Position:vector, Velocity:vector, Lifetime:number, Radius:number, Type:enumeration, optional_TracerLength:number, optional_Reverse:boolean, optional_Texture:texture, optional_AttachedObject:object):particle
+--- Generates an ADE stackdump
+--- Returns: Current Lua stack
+--- @field public getStack fun():string
+--- Returns whether current player is a multiplayer pilot or not.
+--- Returns: Whether current player is a multiplayer pilot or not
+--- @field public isCurrentPlayerMulti fun():boolean
+--- Returns whether PXO is currently enabled in the configuration.
+--- Returns: Whether PXO is enabled or not
+--- @field public isPXOEnabled fun():boolean
+--- Forces a cutscene by the specified filename string to play. Should really only be used in a non-gameplay state (i.e. start of GS_STATE_BRIEFING) otherwise odd side effects may occur. Highly Experimental.
+--- Returns: Nothing
+--- @field public playCutscene fun():string
+
+--- Real-Time library
+--- @class time
+--- Gets the current real-time timestamp, i.e. the actual elapsed time, regardless of whether the game has changed time compression or been paused.
+--- Returns: The current time
+--- @field public getCurrentTime fun():timestamp
+--- Gets the current mission-time timestamp, which can be affected by time compression and paused.
+--- Returns: The current mission time
+--- @field public getCurrentMissionTime fun():timestamp
+
+--- Functions for handling UTF-8 encoded unicode strings
+--- @class utf8
+--- This function is similar to the standard library string.sub but this can operate on UTF-8 encoded unicode strings. This function will respect the unicode mode setting of the current mod so you can use it even if you don't use Unicode strings.
+--- Returns: The requestd substring
+--- @field public sub fun(arg:string, start:number, optional_end:number):string
+--- Determines the number of codepoints in the given string. This respects the unicode mode setting of the mod.
+--- Returns: The number of code points in the string.
+--- @field public len fun(arg:string):number
+
+--- Functions for managing the "SCPUI" user interface system.
+--- @class ui
+--- Sets the offset from the top left corner at which <b>all</b> rocket contexts will be rendered
+--- Returns: true if the operation was successful, false otherwise
+--- @field public setOffset fun(x:number, y:number):boolean
+--- Enables input for the specified libRocket context
+--- Returns: true if successful
+--- @field public enableInput fun(context:any):boolean
+--- Disables UI input
+--- Returns: true if successful
+--- @field public disableInput fun():boolean
+--- The available tagged colors
+--- Value: A mapping from tag string to color value
+--- @field public ColorTags table<string, color>
+--- Gets the default color tag string for the specified state. 1 for Briefing, 2 for CBriefing, 3 for Debriefing, 4 for Fiction Viewer, 5 for Red Alert, 6 for Loop Briefing, 7 for Recommendation text. Defaults to 1. Index into ColorTags.
+--- Returns: The default color tag
+--- @field public DefaultTextColorTag fun(UiScreen:number):string
+--- Plays an element specific sound with an optional state for differentiating different UI states.
+--- Returns: true if a sound was played, false otherwise
+--- @field public playElementSound fun(element:any, event:string, optional_state:string):boolean
+--- Plays a cutscene, if one exists, for the appropriate state transition.  If RestartMusic is true, then the music score at ScoreIndex will be started after the cutscene plays.
+--- Returns: Returns nothing
+--- @field public maybePlayCutscene fun(MovieType:enumeration, RestartMusic:boolean, ScoreIndex:number):nil
+--- Plays a cutscene.  If RestartMusic is true, then the music score at ScoreIndex will be started after the cutscene plays.
+--- Returns: Returns nothing
+--- @field public playCutscene fun(Filename:string, RestartMusic:boolean, ScoreIndex:number):nil
+--- Checks if a cutscene is playing.
+--- Returns: Returns true if cutscene is playing, false otherwise
+--- @field public isCutscenePlaying fun():boolean
+--- Launches the given URL in a web browser
+--- Returns: Nothing
+--- @field public launchURL fun(url:string):nil
+--- Links a texture directly to librocket.
+--- Returns: The url string for librocket, or an empty string if invalid.
+--- @field public linkTexture fun(texture:texture):string
+--- API for accessing values specific to the Pilot Select UI.
+--- @field public PilotSelect PilotSelect
+--- API for accessing values specific to the Main Hall UI.
+--- @field public MainHall MainHall
+--- API for accessing values specific to the Barracks UI.
+--- @field public Barracks Barracks
+--- API for accessing values specific to the Options UI.
+--- @field public OptionsMenu OptionsMenu
+--- API for accessing data related to the Campaign UI.
+--- @field public CampaignMenu CampaignMenu
+--- API for accessing data related to the Briefing UI.
+--- @field public Briefing Briefing
+--- API for accessing data related to the Command Briefing UI.
+--- @field public CommandBriefing CommandBriefing
+--- API for accessing data related to the Debriefing UI.
+--- @field public Debriefing Debriefing
+--- API for accessing data related to the Loop Brief UI.
+--- @field public LoopBrief LoopBrief
+--- API for accessing data related to the Red Alert UI.
+--- @field public RedAlert RedAlert
+--- API for accessing data related to the Fiction Viewer UI.
+--- @field public FictionViewer FictionViewer
+--- API for accessing data related to the Ship and Weapon Select UIs.
+--- @field public ShipWepSelect ShipWepSelect
+--- API for accessing data related to the Tech Room UIs.
+--- @field public TechRoom TechRoom
+--- API for accessing data related to the Medals UI.
+--- @field public Medals Medals
+--- API for accessing data related to the Mission Hotkeys UI.
+--- @field public MissionHotkeys MissionHotkeys
+--- API for accessing data related to the Game Help UI.
+--- @field public GameHelp GameHelp
+--- API for accessing data related to the Mission Log UI.
+--- @field public MissionLog MissionLog
+--- API for accessing data related to the Control Config UI.
+--- @field public ControlConfig ControlConfig
+--- API for accessing data related to the HUD Config UI.
+--- @field public HudConfig HudConfig
+--- API for accessing data related to the Pause Screen UI.
+--- @field public PauseScreen PauseScreen
+--- API for accessing data related to the Multi PXO UI.
+--- @field public MultiPXO MultiPXO
+--- API for accessing general data related to all Multi UIs with the exception of the PXO Lobby.
+--- @field public MultiGeneral MultiGeneral
+--- API for accessing data related to the Multi Join Game UI.
+--- @field public MultiJoinGame MultiJoinGame
+--- API for accessing data related to the Multi Start Game UI.
+--- @field public MultiStartGame MultiStartGame
+--- API for accessing data related to the Multi Host Setup UI.
+--- @field public MultiHostSetup MultiHostSetup
+--- API for accessing data related to the Multi Client Setup UI.
+--- @field public MultiClientSetup MultiClientSetup
+--- API for accessing data related to the Multi Sync UI.
+--- @field public MultiSync MultiSync
+--- API for accessing data related to the Pre Join UI.
+--- @field public MultiPreJoin MultiPreJoin
+--- API for accessing data related to the Pause Screen UI.
+--- @field public MultiPauseScreen MultiPauseScreen
+--- API for accessing data related to the Dogfight Debrief UI.
+--- @field public MultiDogfightDebrief MultiDogfightDebrief
+
+--- API for accessing values specific to the Pilot Select UI.
+--- @class PilotSelect
+--- Gets the maximum number of possible pilots.
+--- Value: The maximum number of pilots
+--- @field public MAX_PILOTS number
+--- The amount of warnings caused by the mod while loading.
+--- Value: The maximum number of pilots
+--- @field public WarningCount number
+--- The amount of errors caused by the mod while loading.
+--- Value: The maximum number of pilots
+--- @field public ErrorCount number
+--- Lists all pilots available for the pilot selection<br>
+--- Returns: A table containing the pilots (without a file extension) or nil on error
+--- @field public enumeratePilots fun():string
+--- Reads the last active pilot from the config file and returns some information about it. callsign is the name of the player and is_multi indicates whether the pilot was last active as a multiplayer pilot.
+--- Returns: The pilot name or nil if there was no last pilot
+--- @field public getLastPilot fun():string
+--- Checks if the pilot with the specified callsign has the right language.
+--- Returns: true if pilot is valid, false otherwise
+--- @field public checkPilotLanguage fun(callsign:string):boolean
+--- Selects the pilot with the specified callsign and advances the game to the main menu.
+--- Returns: nothing
+--- @field public selectPilot fun(callsign:string, is_multi:boolean):nil
+--- Deletes the pilot with the specified callsign. This is not reversible!
+--- Returns: true on success, false otherwise
+--- @field public deletePilot fun(callsign:string):boolean
+--- Creates a new pilot in either single or multiplayer mode and optionally copies settings from an existing pilot.
+--- Returns: true on success, false otherwise
+--- @field public createPilot fun(callsign:string, is_multi:boolean, optional_copy_from:string):boolean
+--- Unloads a player file & associated campaign file. Can not be used outside of pilot select!
+--- Returns: Returns true if successful, false otherwise
+--- @field public unloadPilot fun():boolean
+--- Determines if the pilot selection screen should automatically select the default user.
+--- Returns: true if autoselect is enabled, false otherwise
+--- @field public isAutoselect fun():boolean
+--- The pilot chosen from commandline, if any.
+--- Value: The name if specified, nil otherwise
+--- @field public CmdlinePilot string
+
+--- API for accessing values specific to the Main Hall UI.
+--- @class MainHall
+--- Starts the ambient mainhall sound.
+--- Returns: nothing
+--- @field public startAmbientSound fun():nil
+--- Stops the ambient mainhall sound.
+--- Returns: nothing
+--- @field public stopAmbientSound fun():nil
+--- Starts the mainhall music.
+--- Returns: nothing
+--- @field public startMusic fun():nil
+--- Stops the mainhall music. True to fade, false to stop immediately.
+--- Returns: nothing
+--- @field public stopMusic fun(optional_Fade:boolean):nil
+--- Sets the mainhall F1 help overlay to display. True to display, false to hide
+--- Returns: nothing
+--- @field public toggleHelp fun(arg_1:boolean):nil
+
+--- API for accessing values specific to the Barracks UI.
+--- @class Barracks
+--- Lists the names of the available pilot images.
+--- Returns: The list of pilot filenames or nil on error
+--- @field public listPilotImages fun():string
+--- Lists the names of the available squad images.
+--- Returns: The list of squad filenames or nil on error
+--- @field public listSquadImages fun():string
+--- Accept the given player as the current player. Set second argument to false to prevent returning to the mainhall
+--- Returns: true on success, false otherwise
+--- @field public acceptPilot fun(selection:player, changeState:boolean):boolean
+
+--- API for accessing values specific to the Options UI.
+--- @class OptionsMenu
+--- Plays the example voice clip used for checking the voice volume
+--- Returns: true on success, false otherwise
+--- @field public playVoiceClip fun():boolean
+--- Saves all player data. This includes the player file and campaign file.
+--- Returns: Nothing
+--- @field public savePlayerData fun():nil
+
+--- API for accessing data related to the Campaign UI.
+--- @class CampaignMenu
+--- Loads the list of available campaigns
+--- Returns: false if something failed while loading the list, true otherwise
+--- @field public loadCampaignList fun():boolean
+--- Get the campaign name and description lists
+--- Returns: Three tables with the names, file names, and descriptions of the campaigns
+--- @field public getCampaignList fun():string, string, string
+--- Selects the specified campaign file name
+--- Returns: true if successful, false otherwise
+--- @field public selectCampaign fun(campaign_file:string):boolean
+--- Resets the campaign with the specified file name
+--- Returns: true if successful, false otherwise
+--- @field public resetCampaign fun(campaign_file:string):boolean
+
+--- API for accessing data related to the Briefing UI.
+--- @class Briefing
+--- Gets the file name of the music file to play for the briefing.
+--- Returns: The file name or empty if no music
+--- @field public getBriefingMusicName fun():string
+--- Run $On Briefing Stage: hooks.
+--- Returns: Nothing
+--- @field public runBriefingStageHook fun(oldStage:number, newStage:number):nil
+--- Initializes the briefing and prepares the map for drawing.  Also handles various non-UI housekeeping tasks and compacts the stages to remove those that should not be shown.
+--- Returns: Nothing
+--- @field public initBriefing fun():nil
+--- Closes the briefing and pauses the map. Required after using the briefing API!
+--- Returns: Nothing
+--- @field public closeBriefing fun():nil
+--- Get the briefing
+--- Returns: The briefing data
+--- @field public getBriefing fun():briefing
+--- Skips the current mission, exits the campaign loop, and loads the next non-loop mission in a campaign. Returns to the main hall if the player is not in a campaign.
+--- Returns: Nothing
+--- @field public exitLoop fun():nil
+--- Skips the current mission, and loads the next mission in a campaign. Returns to the main hall if the player is not in a campaign.
+--- Returns: Nothing
+--- @field public skipMission fun():nil
+--- Skips the current training mission, and loads the next mission in a campaign. Returns to the main hall if the player is not in a campaign.
+--- Returns: Nothing
+--- @field public skipTraining fun():nil
+--- Commits to the current mission with current loadout data, and starts the mission. Returns one of the COMMIT_ enums to indicate any errors.
+--- Returns: the error value
+--- @field public commitToMission fun():enumeration
+--- Draws a pof. True for regular lighting, false for flat lighting.
+--- Returns: Whether pof was rendered
+--- @field public renderBriefingModel fun(PofName:string, CloseupZoom:number, CloseupPos:vector, X1:number, Y1:number, X2:number, Y2:number, optional_RotationPercent:number, optional_PitchPercent:number, optional_BankPercent:number, optional_Zoom:number, optional_Lighting:boolean, optional_Jumpnode:boolean):boolean
+--- Draws the briefing map for the current mission at the specified coordinates. Note that the width and height must be a specific aspect ratio to match retail. If changed then some icons may be clipped from view unexpectedly. Must be called On Frame.
+--- Returns: Nothing
+--- @field public drawBriefingMap fun(x:number, y:number, optional_width:number, optional_height:number):nil
+--- Sends the mouse position to the brief map rendering functions to properly highlight icons.
+--- Returns: If an icon is highlighted then this will return the ship name for ships or the pof to render for asteroid, jumpnode, or unknown icons. also returns the closeup zoom, the closeup position, the closeup label, and the icon id. Otherwise it returns nil
+--- @field public checkStageIcons fun(xPos:number, yPos:number):string, number, vector, string, number
+--- Sends the briefing map to the next stage.
+--- Returns: Nothing
+--- @field public callNextMapStage fun():nil
+--- Sends the briefing map to the previous stage.
+--- Returns: Nothing
+--- @field public callPrevMapStage fun():nil
+--- Sends the briefing map to the first stage.
+--- Returns: Nothing
+--- @field public callFirstMapStage fun():nil
+--- Sends the briefing map to the last stage.
+--- Returns: Nothing
+--- @field public callLastMapStage fun():nil
+--- @field public Objectives mission_goal[]
+
+--- API for accessing data related to the Command Briefing UI.
+--- @class CommandBriefing
+--- Get the command briefing.
+--- Returns: The briefing data
+--- @field public getCmdBriefing fun():cmd_briefing
+
+--- API for accessing data related to the Debriefing UI.
+--- @class Debriefing
+--- Builds the debriefing, the stats, sets the next campaign mission, and makes all relevant data accessible
+--- Returns: Returns true when completed
+--- @field public initDebriefing fun():number
+--- Gets the file name of the music file to play for the debriefing.
+--- Returns: The file name or empty if no music
+--- @field public getDebriefingMusicName fun():string
+--- Get the debriefing
+--- Returns: The debriefing data
+--- @field public getDebriefing fun():debriefing
+--- Get the earned medal name and bitmap
+--- Returns: The name and bitmap or NIL if not earned
+--- @field public getEarnedMedal fun():string, string
+--- Get the earned promotion stage, name, and bitmap
+--- Returns: The promotion stage, name and bitmap or NIL if not earned
+--- @field public getEarnedPromotion fun():debriefing_stage, string, string
+--- Get the earned badge stage, name, and bitmap
+--- Returns: The badge stage, name and bitmap or NIL if not earned
+--- @field public getEarnedBadge fun():debriefing_stage, string, string
+--- Clears out the player's mission stats.
+--- Returns: Nothing
+--- @field public clearMissionStats fun():nil
+--- Get the traitor stage
+--- Returns: The traitor stage or nil if the player is not traitor. Should be coupled with clearMissionStats if true
+--- @field public getTraitor fun():debriefing_stage
+--- Gets whether or not the player must replay the mission. Should be coupled with clearMissionStats if true
+--- Returns: true if must replay, false otherwise
+--- @field public mustReplay fun():boolean
+--- Gets whether or not the player has failed enough times to trigger a skip dialog
+--- Returns: true if can skip, false otherwise
+--- @field public canSkip fun():boolean
+--- Resets the mission outcome, and optionally restarts the mission at the briefing; true to restart the mission, false to stay at current UI. Defaults to true.
+--- Returns: Nothing
+--- @field public replayMission fun(optional_restart:boolean):nil
+--- Accepts the mission outcome, saves the stats, and optionally begins the next mission if in campaign; true to start the next mission, false to stay at current UI. Defaults to true.
+--- Returns: Nothing
+--- @field public acceptMission fun(optional_start:boolean):nil
+
+--- API for accessing data related to the Loop Brief UI.
+--- @class LoopBrief
+--- Get the loop brief.
+--- Returns: The loop brief data
+--- @field public getLoopBrief fun():loop_brief_stage
+--- Accepts mission outcome and then True to go to loop, False to skip
+--- Returns: Nothing
+--- @field public setLoopChoice fun(arg_1:boolean):nil
+
+--- API for accessing data related to the Red Alert UI.
+--- @class RedAlert
+--- Get the red alert brief.
+--- Returns: The red-alert data
+--- @field public getRedAlert fun():red_alert_stage
+--- Loads the previous mission of the campaign, does nothing if not in campaign
+--- Returns: Returns true if the operation was successful, false otherwise
+--- @field public replayPreviousMission fun():boolean
+
+--- API for accessing data related to the Fiction Viewer UI.
+--- @class FictionViewer
+--- Get the fiction.
+--- Returns: The fiction data
+--- @field public getFiction fun():fiction_viewer_stage
+--- Gets the file name of the music file to play for the fiction viewer.
+--- Returns: The file name or empty if no music
+--- @field public getFictionMusicName fun():string
+
+--- API for accessing data related to the Ship and Weapon Select UIs.
+--- @class ShipWepSelect
+--- Initializes selection data including wing slots, ship and weapon pool, and loadout information. Must be called before every mission regardless if ship or weapon select is actually used! Should also be called on initialization of relevant briefing UIs such as briefing and red alert to ensure that the ships and weapons are properly set for the current mission.
+--- Returns: Nothing
+--- @field public initSelect fun():nil
+--- Saves the current loadout to the player file. Only should be used when a mission is loaded but has not been started.
+--- Returns: Nothing
+--- @field public saveLoadout fun():nil
+--- Gets the 3d select choices from game_settings.tbl relating to ships.
+--- Returns: 3d ship select choice(true for on, false for off), default ship select effect(0 = off, 1 = FS1, 2 = FS2), 3d ship icons choice(true for on, false for off)
+--- @field public get3dShipChoices fun():boolean, number, boolean
+--- Gets the 3d select choices from game_settings.tbl relating to weapons.
+--- Returns: 3d weapon select choice(true for on, false for off), default weapon select effect(0 = off, 1 = FS1, 2 = FS2), 3d weapon icons choice(true for on, false for off)
+--- @field public get3dWeaponChoices fun():boolean, number, boolean
+--- Gets the 3d select choices from game_settings.tbl relating to weapon select overhead view.
+--- Returns: 3d overhead select choice(true for on, false for off), default overhead style(0 for top view, 1 for rotate)
+--- @field public get3dOverheadChoices fun():boolean, number
+--- @field public Ship_Pool number[]
+--- @field public Weapon_Pool number[]
+--- Resets selection data to mission defaults including wing slots, ship and weapon pool, and loadout information
+--- Returns: Nothing
+--- @field public resetSelect fun():nil
+--- @field public Loadout_Wings loadout_wing[]
+--- @field public Loadout_Ships loadout_ship[]
+--- Sends a request to the host to change a ship slot. From/To types are 0 for Ship Slot, 1 for Player Slot, 2 for Pool
+--- Returns: Nothing
+--- @field public sendShipRequestPacket fun(FromType:number, ToType:number, FromSlotIndex:number, ToSlotIndex:number, ShipClassIndex:number):nil
+--- Sends a request to the host to change a ship slot.
+--- Returns: Nothing
+--- @field public sendWeaponRequestPacket fun(FromBank:number, ToBank:number, fromPoolWepIdx:number, toPoolWepIdx:number, shipSlot:number):nil
+
+--- API for accessing data related to the Tech Room UIs.
+--- @class TechRoom
+--- Builds the mission list for display. Must be called before the sim_mission handle will have data
+--- Returns: Returns 1 when completed
+--- @field public buildMissionList fun():number
+--- Builds the credits for display. Must be called before the credits_info handle will have data
+--- Returns: Returns 1 when completed
+--- @field public buildCredits fun():number
+--- @field public SingleMissions sim_mission[]
+--- @field public CampaignMissions sim_mission[]
+--- @field public Cutscenes cutscene_info[]
+--- @field public Credits Credits
+
+--- API for accessing data related to the Medals UI.
+--- @class Medals
+--- @field public Medals_List medal[]
+--- @field public Ranks_List rank[]
+
+--- API for accessing data related to the Mission Hotkeys UI.
+--- @class MissionHotkeys
+--- Initializes the hotkeys list. Must be used before the hotkeys list is accessed.
+--- Returns: Nothing
+--- @field public initHotkeysList fun():nil
+--- Resets the hotkeys list to previous setting, removing anything that wasn't saved. Returns nothing.
+--- Returns: Nothing
+--- @field public resetHotkeys fun():nil
+--- Saves changes to the hotkey list. Returns nothing.
+--- Returns: Nothing
+--- @field public saveHotkeys fun():nil
+--- Resets the hotkeys list to the default mission setting. Returns nothing.
+--- Returns: Nothing
+--- @field public resetHotkeysDefault fun():nil
+--- @field public Hotkeys_List hotkey_ship[]
+
+--- API for accessing data related to the Game Help UI.
+--- @class GameHelp
+--- Initializes the Game Help data. Must be used before Help Sections is accessed.
+--- Returns: Nothing
+--- @field public initGameHelp fun():nil
+--- Clears the Game Help data. Should be used when finished accessing Help Sections.
+--- Returns: Nothing
+--- @field public closeGameHelp fun():nil
+--- @field public Help_Sections help_section[]
+
+--- API for accessing data related to the Mission Log UI.
+--- @class MissionLog
+--- Initializes the Mission Log data. Must be used before Mission Log is accessed.
+--- Returns: Nothing
+--- @field public initMissionLog fun():nil
+--- Clears the Mission Log data. Should be used when finished accessing Mission Log Entries.
+--- Returns: Nothing
+--- @field public closeMissionLog fun():nil
+--- @field public Log_Entries log_entry[]
+--- @field public Log_Messages message_entry[]
+
+--- API for accessing data related to the Control Config UI.
+--- @class ControlConfig
+--- Inits the control config UI elements. Must be used before accessing control config elements!
+--- Returns: Nothing
+--- @field public initControlConfig fun():nil
+--- Closes the control config UI elements. Must be used when finished accessing control config elements!
+--- Returns: Nothing
+--- @field public closeControlConfig fun():nil
+--- Clears all control bindings.
+--- Returns: Returns true if successful, false otherwise
+--- @field public clearAll fun():boolean
+--- Resets all control bindings to the current preset defaults.
+--- Returns: Returns true if successful, false otherwise
+--- @field public resetToPreset fun():boolean
+--- Uses a defined preset if it can be found.
+--- Returns: Returns true if successful, false otherwise
+--- @field public usePreset fun(PresetName:string):boolean
+--- Creates a new preset with the given name. Returns true if successful, false otherwise.
+--- Returns: The return status
+--- @field public createPreset fun(Name:string):boolean
+--- Reverts the last change to the control bindings
+--- Returns: Nothing
+--- @field public undoLastChange fun():nil
+--- Waits for a keypress to search for. Returns index into Control Configs if the key matches a bind. Should run On Frame.
+--- Returns: Control Config index, or 0 if no key was found. Returns -1 if Escape was pressed.
+--- @field public searchBinds fun():number
+--- Accepts changes to the keybindings. Returns true if successful, false if there are key conflicts or the preset needs to be saved.
+--- Returns: The return status
+--- @field public acceptBinding fun():boolean
+--- Cancels changes to the keybindings, reverting changes to the state it was when initControlConfig was called.
+--- Returns: Nothing
+--- @field public cancelBinding fun():nil
+--- Returns the name of the current controls preset.
+--- Returns: The name of the preset or nil if the current binds do not match a preset
+--- @field public getCurrentPreset fun():string
+--- @field public ControlPresets preset[]
+--- @field public ControlConfigs control[]
+
+--- API for accessing data related to the HUD Config UI.
+--- @class HudConfig
+--- Initializes the HUD Configuration data. Must be used before HUD Configuration data accessed. X and Y are the coordinates where the HUD preview will be drawn when drawHudConfig is used. Width is the pixel width to draw the gauges preview.
+--- Returns: Nothing
+--- @field public initHudConfig fun(optional_X:number, optional_Y:number, optional_Width:number):nil
+--- If True then saves the gauge configuration, discards if false. Defaults to false. Then cleans up memory. Should be used when finished accessing HUD Configuration.
+--- Returns: Nothing
+--- @field public closeHudConfig fun(Save:boolean):nil
+--- Draws the HUD for the HUD Config UI. Should be called On Frame.
+--- Returns: Returns the gauge currently being hovered over, or empty handle if nothing is hovered
+--- @field public drawHudConfig fun(optional_MouseX:number, optional_MouseY:number):gauge_config
+--- Sets all gauges as selected. True for select all, False to unselect all. Defaults to False.
+--- Returns: Nothing
+--- @field public selectAllGauges fun(Toggle:boolean):nil
+--- Sets all gauges to the defined default. If no filename is provided then 'hud_3.hcf' is used.
+--- Returns: Nothing
+--- @field public setToDefault fun(Filename:string):nil
+--- Saves all gauges to the file with the name provided. Filename should not include '.hcf' extension and not be longer than 28 characters.
+--- Returns: Nothing
+--- @field public saveToPreset fun(Filename:string):nil
+--- Sets all gauges to the provided preset file settings.
+--- Returns: Nothing
+--- @field public usePresetFile fun(Filename:string):nil
+--- @field public GaugeConfigs gauge_config[]
+--- @field public GaugePresets hud_preset[]
+
+--- API for accessing data related to the Pause Screen UI.
+--- @class PauseScreen
+--- Returns true if the game is paused, false otherwise
+--- Value: true if paused, false if unpaused
+--- @field public isPaused boolean
+--- Makes sure everything is done correctly to pause the game.
+--- Returns: Nothing
+--- @field public initPause fun():nil
+--- Makes sure everything is done correctly to unpause the game.
+--- Returns: Nothing
+--- @field public closePause fun():nil
+
+--- API for accessing data related to the Multi PXO UI.
+--- @class MultiPXO
+--- Makes sure everything is done correctly to begin a multi lobby session.
+--- Returns: Nothing
+--- @field public initPXO fun():nil
+--- Makes sure everything is done correctly to end a multi lobby session.
+--- Returns: Nothing
+--- @field public closePXO fun():nil
+--- Runs the network commands to update the lobby lists once.
+--- Returns: Nothing
+--- @field public runNetwork fun():nil
+--- Gets all the various PXO links and returns them as a table of strings
+--- Returns: A table of URLs
+--- @field public getPXOLinks fun():table
+--- Gets the entire chat as a table of tables each with the following values: Callsign - the name of the message sender, Message - the message text, Mode - the mode where 0 is normal, 1 is private message, 2 is channel switch, 3 is server message, 4 is MOTD
+--- Returns: A table of chat strings
+--- @field public getChat fun():table
+--- Sends a string to the current channel's IRC chat
+--- Returns: Nothing
+--- @field public sendChat fun(arg_1:string):nil
+--- Gets the entire player list as a table of strings
+--- Returns: A table of player names
+--- @field public getPlayers fun():string
+--- Searches for a player and returns if they were found and the channel they are on. Channel is an empty string if channel is private or player is not found.
+--- Returns: The response string and the player's channel
+--- @field public getPlayerChannel fun(arg_1:string):string
+--- Gets a handle of the player stats by player name or invalid handle if the name is invalid
+--- Returns: Player stats handle
+--- @field public getPlayerStats fun(arg_1:string):scoring_stats
+--- The current status text
+--- Value: the status text
+--- @field public StatusText string
+--- The current message of the day
+--- Value: the motd text
+--- @field public MotdText string
+--- The current banner filename
+--- Value: the banner filename
+--- @field public bannerFilename string
+--- The current banner URL
+--- Value: the banner url
+--- @field public bannerURL string
+--- @field public Channels pxo_channel[]
+--- Joins the specified private channel
+--- Returns: Nothing
+--- @field public joinPrivateChannel fun():nil
+--- Gets the help text lines as a table of strings
+--- Returns: The help lines
+--- @field public getHelpText fun():string
+
+--- API for accessing general data related to all Multi UIs with the exception of the PXO Lobby.
+--- @class MultiGeneral
+--- The current status text
+--- Value: the status text
+--- @field public StatusText string
+--- The current info text
+--- Value: the info text
+--- @field public InfoText string
+--- The handle to the netgame. Note that the netgame will be invalid if a multiplayer game has not been joined or created.
+--- Returns: The netgame handle
+--- @field public getNetGame fun():netgame
+--- @field public NetPlayers net_player[]
+--- Gets the entire chat as a table of tables each with the following values: Callsign - the name of the message sender, Message - the message text, Color - the color the text should be according to the player id
+--- Returns: A table of chat strings
+--- @field public getChat fun():table
+--- Sends a string to the current game's IRC chat. Limited to 125 characters. Anything after that is dropped.
+--- Returns: Nothing
+--- @field public sendChat fun(arg_1:string):nil
+--- Quits the game for the current player and returns them to the PXO lobby
+--- Returns: Nothing
+--- @field public quitGame fun():nil
+--- Sets the current player's network state based on the current game state.
+--- Returns: Nothing
+--- @field public setPlayerState fun():nil
+
+--- API for accessing data related to the Multi Join Game UI.
+--- @class MultiJoinGame
+--- Makes sure everything is done correctly to begin a multi join session.
+--- Returns: Nothing
+--- @field public initMultiJoin fun():nil
+--- Makes sure everything is done correctly to end a multi join session.
+--- Returns: Nothing
+--- @field public closeMultiJoin fun():nil
+--- Runs the network required commands to update the lists once and handle join requests
+--- Returns: Nothing
+--- @field public runNetwork fun():nil
+--- Force refreshing the games list
+--- Returns: Nothing
+--- @field public refresh fun():nil
+--- Starts creating a new game and moves to the new UI
+--- Returns: Nothing
+--- @field public createGame fun():nil
+--- Sends a join game request
+--- Returns: True if successful, false otherwise
+--- @field public sendJoinRequest fun(optional_AsObserver:boolean):boolean
+--- @field public ActiveGames active_game[]
+
+--- API for accessing data related to the Multi Start Game UI.
+--- @class MultiStartGame
+--- Initializes the Create Game methods and variables
+--- Returns: Nothing
+--- @field public initMultiStart fun():nil
+--- Finalizes the new game settings and moves to the host game UI if true or cancels if false. Defaults to true.
+--- Returns: Nothing
+--- @field public closeMultiStart fun(Start_or_Quit:boolean):nil
+--- Runs the network required commands to update the status text
+--- Returns: Nothing
+--- @field public runNetwork fun():nil
+--- Sets the game's name
+--- Returns: True if successful, false otherwise
+--- @field public setName fun(Name:string):boolean
+--- Sets the game's type and, optionally, the password or rank index.
+--- Returns: True if successful, false otherwise
+--- @field public setGameType fun(optional_type:enumeration, optional_password_or_rank_index:string | number):boolean
+
+--- API for accessing data related to the Multi Host Setup UI.
+--- @class MultiHostSetup
+--- Makes sure everything is done correctly to begin the host setup ui.
+--- Returns: Nothing
+--- @field public initMultiHostSetup fun():nil
+--- Closes Multi Host Setup. True to commit, false to quit.
+--- Returns: Nothing
+--- @field public closeMultiHostSetup fun(Commit_or_Quit:boolean):nil
+--- Runs the network required commands to update the lists and run the chat
+--- Returns: Nothing
+--- @field public runNetwork fun():nil
+--- @field public NetMissions net_mission[]
+--- @field public NetCampaigns net_campaign[]
+
+--- API for accessing data related to the Multi Client Setup UI.
+--- @class MultiClientSetup
+--- Makes sure everything is done correctly to begin the client setup ui.
+--- Returns: Nothing
+--- @field public initMultiClientSetup fun():nil
+--- Cancels Multi Client Setup and leaves the game.
+--- Returns: Nothing
+--- @field public closeMultiClientSetup fun():nil
+--- Runs the network required commands to update the lists and run the chat
+--- Returns: Nothing
+--- @field public runNetwork fun():nil
+
+--- API for accessing data related to the Multi Sync UI.
+--- @class MultiSync
+--- Makes sure everything is done correctly to begin the multi sync ui.
+--- Returns: Nothing
+--- @field public initMultiSync fun():nil
+--- Closes MultiSync. If QuitGame is true then it cancels and leaves the game automatically.
+--- Returns: Nothing
+--- @field public closeMultiSync fun(QuitGame:boolean):nil
+--- Runs the network required commands to run the chat
+--- Returns: Nothing
+--- @field public runNetwork fun():nil
+--- Starts the Launch Mission Countdown that, when finished, will move all players into the mission.
+--- Returns: Nothing
+--- @field public startCountdown fun():nil
+--- Gets the current countdown time. Will be -1 before the countdown starts otherwise will be the num seconds until missions starts.
+--- Returns: Nothing
+--- @field public getCountdownTime fun():nil
+
+--- API for accessing data related to the Pre Join UI.
+--- @class MultiPreJoin
+--- Makes sure everything is done correctly to init the pre join ui.
+--- Returns: Nothing
+--- @field public initPreJoin fun():nil
+--- @field public JoinShipChoices net_join_choice[]
+--- Makes sure everything is done correctly to accept or cancel the pre join. True to accept, False to quit
+--- Returns: returns true if successful, false otherwise
+--- @field public closePreJoin fun(optional_Accept:boolean):boolean
+--- Runs the network required commands.
+--- Returns: The seconds left until pre join times out
+--- @field public runNetwork fun():number
+
+--- API for accessing data related to the Pause Screen UI.
+--- @class MultiPauseScreen
+--- Returns true if the game is paused, false otherwise
+--- Value: true if paused, false if unpaused
+--- @field public isPaused boolean
+--- The callsign of who paused the game. Empty string if invalid
+--- Value: the callsign
+--- @field public Pauser string
+--- Sends a request to unpause the game.
+--- Returns: Nothing
+--- @field public requestUnpause fun():nil
+--- Makes sure everything is done correctly to pause the game.
+--- Returns: Nothing
+--- @field public initPause fun():nil
+--- Makes sure everything is done correctly to unpause the game. If end mission is true then it tries to end the mission.
+--- Returns: Nothing
+--- @field public closePause fun(optional_EndMission:boolean):nil
+--- Runs the network required commands.
+--- Returns: Nothing
+--- @field public runNetwork fun():nil
+
+--- API for accessing data related to the Dogfight Debrief UI.
+--- @class MultiDogfightDebrief
+--- The handle to the dogfight scores
+--- Returns: The dogfight scores handle
+--- @field public getDogfightScores fun(arg_1:net_player):dogfight_scores
+--- Makes sure everything is done correctly to init the dogfight scores.
+--- Returns: Nothing
+--- @field public initDebrief fun():nil
+--- Makes sure everything is done correctly to accept or close the debrief. True to accept, False to quit
+--- Returns: Nothing
+--- @field public closeDebrief fun(optional_Accept:boolean):nil
+--- Runs the network required commands.
+--- Returns: Nothing
+--- @field public runNetwork fun():nil
+
+--- @class Credits
+--- The credits music filename
+--- Value: The music filename
+--- @field public Music string
+--- The total number of credits images
+--- Value: The number of images
+--- @field public NumImages number
+--- The image index to begin with
+--- Value: The index
+--- @field public StartIndex number
+--- The display time for each image
+--- Value: The display time
+--- @field public DisplayTime number
+--- The crossfade time for each image
+--- Value: The fade time
+--- @field public FadeTime number
+--- The scroll rate of the text
+--- Value: The scroll rate
+--- @field public ScrollRate number
+--- The complete credits string
+--- Value: The credits
+--- @field public Complete string
+
+--- Active Game handle
+--- @class active_game
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- The status of the game
+--- Value: The status
+--- @field public Status string
+--- The type of the game
+--- Value: The type
+--- @field public Type string
+--- The speed of the game
+--- Value: The speed
+--- @field public Speed string
+--- Whether or not the game is standalone
+--- Value: True for standalone, false otherwise
+--- @field public Standalone boolean
+--- Whether or not the game is campaign
+--- Value: True for campaign, false otherwise
+--- @field public Campaign boolean
+--- The server name of the game
+--- Value: The server
+--- @field public Server string
+--- The mission name of the game
+--- Value: The mission
+--- @field public Mission string
+--- The ping average of the game
+--- Value: The ping
+--- @field public Ping number
+--- The number of players in the game
+--- Value: The number of players
+--- @field public Players number
+--- Sets the specified game as the selected game to possibly join. Must be used before sendJoinRequest will work.
+--- Returns: Nothing
+--- @field public setSelected fun():nil
+
+--- A helper object to access functions for ship manipulation during AI phase
+--- @class ai_helper
+--- The ship this AI runs for
+--- Value: The ship, or invalid ship if the handle is invalid
+--- @field public Ship ship
+--- The pitch thrust rate for the ship this frame, -1 to 1
+--- Value: The pitch rate, or 0 if the handle is invalid
+--- Setter type: number
+--- @field public Pitch number
+--- The bank thrust rate for the ship this frame, -1 to 1
+--- Value: The bank rate, or 0 if the handle is invalid
+--- Setter type: number
+--- @field public Bank number
+--- The heading thrust rate for the ship this frame, -1 to 1
+--- Value: The heading rate, or 0 if the handle is invalid
+--- Setter type: number
+--- @field public Heading number
+--- The forward thrust rate for the ship this frame, -1 to 1
+--- Value: The forward thrust rate, or 0 if the handle is invalid
+--- Setter type: number
+--- @field public ForwardThrust number
+--- The vertical thrust rate for the ship this frame, -1 to 1
+--- Value: The vertical thrust rate, or 0 if the handle is invalid
+--- Setter type: number
+--- @field public VerticalThrust number
+--- The sideways thrust rate for the ship this frame, -1 to 1
+--- Value: The sideways thrust rate, or 0 if the handle is invalid
+--- Setter type: number
+--- @field public SidewaysThrust number
+--- turns the ship towards the specified point during this frame
+--- Returns: Nothing
+--- @field public turnTowardsPoint fun(target:vector, optional_respectDifficulty:boolean, optional_turnrateModifier:vector, optional_bank:number):nil
+--- turns the ship towards the specified orientation during this frame
+--- Returns: Nothing
+--- @field public turnTowardsOrientation fun(target:orientation, optional_respectDifficulty:boolean, optional_turnrateModifier:vector):nil
+
+--- A handle for animation instances
+--- @class animation_handle
+--- Triggers an animation. Forwards controls the direction of the animation. ResetOnStart will cause the animation to play from its initial state, as opposed to its current state. CompleteInstant will immediately complete the animation. Pause will instead stop the animation at the current state.
+--- Returns: True if successful, false if no animation was started or nil on failure
+--- @field public start fun(optional_forwards:boolean, optional_resetOnStart:boolean, optional_completeInstant:boolean, optional_pause:boolean):boolean
+--- Returns the total duration of this animation, unaffected by the speed set, in seconds.
+--- Returns: The time this animation will take to complete
+--- @field public getTime fun():number
+--- Will stop this looping animation on its next repeat.
+--- Returns: Nothing
+--- @field public stopNextLoop fun():nil
+
+--- Asteroid handle
+--- @class asteroid : object
+--- Asteroid target object; may be object derivative, such as ship.
+--- Value: Target object, or invalid handle if asteroid handle is invalid
+--- Setter type: object
+--- @field public Target object
+--- Kills the asteroid. Set "killer" to designate a specific ship as having been the killer, and "hitpos" to specify the world position of the hit location; if nil, the asteroid center is used.
+--- Returns: True if successful, false or nil otherwise
+--- @field public kill fun(optional_killer:ship, optional_hitpos:vector):boolean
+
+--- An audio stream handle
+--- @class audio_stream
+--- Starts playing the audio stream
+--- Returns: true on success, false otherwise
+--- @field public play fun(optional_volume:number, optional_loop:boolean):boolean
+--- Pauses the audio stream
+--- Returns: true on success, false otherwise
+--- @field public pause fun():boolean
+--- Unpauses the audio stream
+--- Returns: true on success, false otherwise
+--- @field public unpause fun():boolean
+--- Stops the audio stream so that it can be started again later
+--- Returns: true on success, false otherwise
+--- @field public stop fun():boolean
+--- Irrevocably closes the audio file and optionally fades the music before stopping playback. This invalidates the audio stream handle.
+--- Returns: true on success, false otherwise
+--- @field public close fun(optional_fade:boolean):boolean
+--- Determines if the audio stream is still playing
+--- Returns: true when still playing, false otherwise
+--- @field public isPlaying fun():boolean
+--- Sets the volume of the audio stream, 0 - 1
+--- Returns: true on success, false otherwise
+--- @field public setVolume fun(volume:number):boolean
+--- Gets the duration of the stream
+--- Returns: the duration in float seconds or nil if invalid
+--- @field public getDuration fun():number
+--- Determines if the handle is valid
+--- Returns: true if valid, false otherwise
+--- @field public isValid fun():boolean
+
+--- Background element handle
+--- @class background_element
+--- Determines if this handle is valid
+--- Returns: true if valid, false if not.
+--- @field public isValid fun():boolean
+--- Backround element orientation (treating the angles as correctly calculated)
+--- Value: Orientation, or null orientation if handle is invalid
+--- Setter type: orientation
+--- @field public Orientation orientation
+--- Division X
+--- Value: Division X, or 0 if handle is invalid
+--- Setter type: number
+--- @field public DivX number
+--- Division Y
+--- Value: Division Y, or 0 if handle is invalid
+--- Setter type: number
+--- @field public DivY number
+--- Scale X
+--- Value: Scale X, or 0 if handle is invalid
+--- Setter type: number
+--- @field public ScaleX number
+--- Scale Y
+--- Value: Scale Y, or 0 if handle is invalid
+--- Setter type: number
+--- @field public ScaleY number
+--- Sets Division X and Division Y at the same time.  For Bitmaps this avoids a double recalculation of the vertex buffer, if both values need to be set.  For all background elements this also avoids fetching and setting the data twice.
+--- Returns: True if the operation was successful
+--- @field public setDiv fun(arg_1:number, arg_2:number):boolean
+--- Sets Scale X and Scale Y at the same time.  For Bitmaps this avoids a double recalculation of the vertex buffer, if both values need to be set.  For all background elements this also avoids fetching and setting the data twice.
+--- Returns: True if the operation was successful
+--- @field public setScale fun(arg_1:number, arg_2:number):boolean
+--- Sets Scale X, Scale Y, Division X, and Division Y at the same time.  For Bitmaps this avoids a quadruple recalculation of the vertex buffer, if all four values need to be set.  For all background elements this also avoids fetching and setting the data four times.
+--- Returns: True if the operation was successful
+--- @field public setScaleAndDiv fun(arg_1:number, arg_2:number, arg_3:number, arg_4:number):boolean
+
+--- Beam handle
+--- @class beam : object
+--- Weapon's class
+--- Value: Weapon class, or invalid weaponclass handle if beam handle is invalid
+--- Setter type: weaponclass
+--- @field public Class weaponclass
+--- End point of the beam
+--- Value: vector or null vector if beam handle is not valid
+--- Setter type: vector
+--- @field public LastShot vector
+--- Start point of the beam
+--- Value: vector or null vector if beam handle is not valid
+--- Setter type: vector
+--- @field public LastStart vector
+--- Target of beam. Value may also be a deriviative of the 'object' class, such as 'ship'.
+--- Value: Beam target, or invalid object handle if beam handle is invalid
+--- Setter type: object
+--- @field public Target object
+--- Subsystem that beam is targeting.
+--- Value: Target subsystem, or invalid subsystem handle if beam handle is invalid
+--- Setter type: subsystem
+--- @field public TargetSubsystem subsystem
+--- Parent of the beam.
+--- Value: Beam parent, or invalid object handle if beam handle is invalid
+--- Setter type: object
+--- @field public ParentShip object
+--- Subsystem that beam is fired from.
+--- Value: Parent subsystem, or invalid subsystem handle if beam handle is invalid
+--- Setter type: subsystem
+--- @field public ParentSubsystem subsystem
+--- Beam's team
+--- Value: Beam team, or invalid team handle if beam handle is invalid
+--- Setter type: team
+--- @field public Team team
+--- Get the number of collisions in frame.
+--- Returns: Number of beam collisions
+--- @field public getCollisionCount fun():number
+--- Get the position of the defined collision.
+--- Returns: World vector
+--- @field public getCollisionPosition fun(arg_1:number):vector
+--- Get the collision information of the specified collision
+--- Returns: handle to information or invalid handle on error
+--- @field public getCollisionInformation fun(arg_1:number):collision_info
+--- Get the target of the defined collision.
+--- Returns: Object the beam collided with
+--- @field public getCollisionObject fun(arg_1:number):object
+--- Checks if the defined collision was exit collision.
+--- Returns: True if the collision was exit collision, false if entry, nil otherwise
+--- @field public isExitCollision fun(arg_1:number):boolean
+--- Gets the start information about the direction. The vector is a normalized vector from LastStart showing the start direction of a slashing beam
+--- Returns: The start direction or null vector if invalid
+--- @field public getStartDirectionInfo fun():vector
+--- Gets the end information about the direction. The vector is a normalized vector from LastStart showing the end direction of a slashing beam
+--- Returns: The start direction or null vector if invalid
+--- @field public getEndDirectionInfo fun():vector
+--- Vanishes this beam from the mission.
+--- Returns: True if the deletion was successful, false otherwise.
+--- @field public vanish fun():boolean
+
+--- Briefing handle
+--- @class briefing
+--- The list of stages in the briefing.
+--- Returns: The stage at the specified location.
+--- @field public __indexer fun(index:number):briefing_stage
+--- The number of stages in the briefing
+--- Returns: The number of stages.
+--- @field public __len fun():number
+
+--- Briefing stage handle
+--- @class briefing_stage
+--- The text of the stage
+--- Value: The text
+--- @field public Text string
+--- The filename of the audio file to play
+--- Value: The file name
+--- @field public AudioFilename string
+--- If the stage has a forward cut flag
+--- Value: true if the stage is set to cut to the next stage, false otherwise
+--- @field public hasForwardCut boolean
+--- If the stage has a backward cut flag
+--- Value: true if the stage is set to cut to the previous stage, false otherwise
+--- @field public hasBackwardCut boolean
+
+--- An array of binary data
+--- @class bytearray
+--- The number of bytes in this array
+--- Returns: The length in bytes
+--- @field public __len fun():number
+
+--- Camera handle
+--- @class camera
+--- Camera name
+--- Returns: Camera name, or an empty string if handle is invalid
+--- @field public __tostring fun():string
+--- True if valid, false or nil if not
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- New camera name
+--- Value: Camera name
+--- Setter type: string
+--- @field public Name string
+--- New camera FOV (in radians)
+--- Value: Camera FOV (in radians)
+--- Setter type: number
+--- @field public FOV number
+--- New camera orientation
+--- Value: Camera orientation
+--- Setter type: orientation
+--- @field public Orientation orientation
+--- New camera position
+--- Value: Camera position
+--- Setter type: vector
+--- @field public Position vector
+--- New mount object
+--- Value: Camera object
+--- Setter type: object
+--- @field public Self object
+--- New mount object subsystem
+--- Value: Subsystem that the camera is mounted on
+--- Setter type: subsystem
+--- @field public SelfSubsystem subsystem
+--- New target object
+--- Value: Camera target object
+--- Setter type: object
+--- @field public Target object
+--- New target subsystem
+--- Value: Subsystem that the camera is pointed at
+--- Setter type: subsystem
+--- @field public TargetSubsystem subsystem
+--- Sets camera FOV<br>FOV is the final field of view, in radians, of the camera.<br>Zoom Time is the total time to take zooming in or out.<br>Acceleration Time is the total time it should take the camera to get up to full zoom speed.<br>Deceleration Time is the total time it should take the camera to slow down from full zoom speed.
+--- Returns: true if successful, false or nil otherwise
+--- @field public setFOV fun(optional_FOV:number, optional_ZoomTime:number, optional_ZoomAccelerationTime:number, optional_ZoomDecelerationTime:number):boolean
+--- Sets camera orientation and velocity data.<br>Orientation is the final orientation for the camera, after it has finished moving. If not specified, the camera will simply stop at its current orientation.<br>Rotation time (seconds) is how long total, including acceleration, the camera should take to rotate. If it is not specified, the camera will jump to the specified orientation.<br>Acceleration time (seconds) is how long it should take the camera to get 'up to speed'. If not specified, the camera will instantly start moving.<br>Deceleration time (seconds) is how long it should take the camera to slow down. If not specified, the camera will instantly stop moving.
+--- Returns: true if successful, false or nil otherwise
+--- @field public setOrientation fun(optional_WorldOrientation:orientation, optional_RotationTime:number, optional_AccelerationTime:number, optional_DecelerationTime:number):boolean
+--- Sets camera position and velocity data.<br>Position is the final position for the camera. If not specified, the camera will simply stop at its current position.<br>Translation time (seconds) is how long total, including acceleration, the camera should take to move. If it is not specified, the camera will jump to the specified position.<br>Acceleration time (seconds) is how long it should take the camera to get 'up to speed'. If not specified, the camera will instantly start moving.<br>Deceleration time (seconds) is how long it should take the camera to slow down. If not specified, the camera will instantly stop moving.
+--- Returns: true if successful, false or nil otherwise
+--- @field public setPosition fun(optional_Position:vector, optional_TranslationTime:number, optional_AccelerationTime:number, optional_DecelerationTime:number):boolean
+
+--- Command briefing handle
+--- @class cmd_briefing
+--- The list of stages in the command briefing.
+--- Returns: The stage at the specified location.
+--- @field public __indexer fun(index:number):cmd_briefing_stage
+--- The number of stages in the command briefing
+--- Returns: The number of stages.
+--- @field public __len fun():number
+
+--- Command briefing stage handle
+--- @class cmd_briefing_stage
+--- The text of the stage
+--- Value: The text
+--- @field public Text string
+--- The filename of the animation to play
+--- Value: The file name
+--- @field public AniFilename string
+--- The filename of the audio file to play
+--- Value: The file name
+--- @field public AudioFilename string
+
+--- Array of cockpit display information
+--- @class cockpitdisplays
+--- Number of cockpit displays for this ship class
+--- Returns: number of cockpit displays or -1 on error
+--- @field public __len fun():number
+--- Returns the handle at the requested index or the handle with the specified name
+--- Returns: display handle or invalid handle on error
+--- @field public __indexer fun(arg_1:number | string):display_info
+--- Detects whether this handle is valid
+--- Returns: true if valid, false otehrwise
+--- @field public isValid fun():boolean
+
+--- Information about a collision
+--- @class collision_info
+--- The model this collision info is about
+--- Value: The model, or an invalid model if the handle is not valid
+--- Setter type: model
+--- @field public Model model
+--- The submodel where the collision occurred, if applicable
+--- Returns: The submodel, or nil if none or if the handle is not valid
+--- @field public getCollisionSubmodel fun():submodel
+--- The distance to the closest collision point
+--- Returns: distance or -1 on error
+--- @field public getCollisionDistance fun():number
+--- The collision point of this information (local to the object if boolean is set to <i>true</i>)
+--- Returns: The collision point, or nil if none or if the handle is not valid
+--- @field public getCollisionPoint fun(optional_local:boolean):vector
+--- The collision normal of this information (local to object if boolean is set to <i>true</i>)
+--- Returns: The collision normal, or nil if none or if the handle is not valid
+--- @field public getCollisionNormal fun(optional_local:boolean):vector
+--- Detects if this handle is valid
+--- Returns: true if valid false otherwise
+--- @field public isValid fun():boolean
+
+--- A color value
+--- @class color
+--- The 'red' value of the color in the range from 0 to 255
+--- Value: The 'red' value
+--- Setter type: number
+--- @field public Red number
+--- The 'green' value of the color in the range from 0 to 255
+--- Value: The 'green' value
+--- Setter type: number
+--- @field public Green number
+--- The 'blue' value of the color in the range from 0 to 255
+--- Value: The 'blue' value
+--- Setter type: number
+--- @field public Blue number
+--- The 'alpha' or opacity value of the color in the range from 0 to 255. 0 is totally transparent, 255 is completely opaque.
+--- Value: The 'alpha' value
+--- Setter type: number
+--- @field public Alpha number
+
+--- Control handle
+--- @class control
+--- The name of the control
+--- Value: The name
+--- @field public Name string
+--- Gets a table of bindings for the control
+--- Value: The keys table
+--- @field public Bindings table<number, string>
+--- Returns if the selected bind is inverted. Number is 1 for first bind 2 for second.
+--- Returns: True if inverted, false otherwise. False if the bind is not an axis.
+--- @field public isBindInverted fun(Bind:number):boolean
+--- Returns whether or not the keybind is Shifted
+--- Value: True if shifted, false otherwise.
+--- @field public Shifted boolean
+--- Returns whether or not the keybind is Alted
+--- Value: True if alted, false otherwise.
+--- @field public Alted boolean
+--- The tab the control belongs in. 0 = Target Tab, 1 = Ship Tab, 2 = Weapon Tab, 3 = Computer Tab
+--- Value: The tab number
+--- @field public Tab number
+--- Whether or not the control is disabled and should be hidden.
+--- Value: True for disabled, false otherwise
+--- @field public Disabled boolean
+--- Whether or not the bound control is an axis control.
+--- Value: True for axis, false otherwise
+--- @field public IsAxis boolean
+--- Whether or not the bound control is a modifier.
+--- Value: True for modifier, false otherwise
+--- @field public IsModifier boolean
+--- Whether or not the bound control has a conflict.
+--- Value: Returns the conflict string if true, nil otherwise
+--- @field public Conflicted boolean
+--- Waits for a keypress to use as a keybind. Binds the key if found. Will need to disable UI input if enabled first. Should run On Frame. Item is first bind (1) or second bind (2)
+--- Returns: 1 if successful or ESC was pressed, 0 otherwise. Returns -1 if the keypress is invalid
+--- @field public detectKeypress fun(Item:number):number
+--- Clears the control binding. Item is all controls (1), first control (2), or second control (3)
+--- Returns: Returns true if successful, false otherwise
+--- @field public clearBind fun(Item:number):boolean
+--- Clears all binds that conflict with the selected bind index.
+--- Returns: Returns true if successful, false otherwise
+--- @field public clearConflicts fun():boolean
+--- Toggles whether or not the current bind uses SHIFT modifier.
+--- Returns: Returns true if successful, false otherwise
+--- @field public toggleShifted fun():boolean
+--- Toggles whether or not the current bind uses ALT modifier.
+--- Returns: Returns true if successful, false otherwise
+--- @field public toggleAlted fun():boolean
+--- Toggles whether or not the current bind axis is inverted. Item is all controls (1), first control (2), or second control (3)
+--- Returns: Returns true if successful, false otherwise
+--- @field public toggleInverted fun(Item:number):boolean
+
+--- control info handle
+--- @class control_info
+--- Pitch of the player ship
+--- Value: Pitch
+--- Setter type: number
+--- @field public Pitch number
+--- Heading of the player ship
+--- Value: Heading
+--- Setter type: number
+--- @field public Heading number
+--- Bank of the player ship
+--- Value: Bank
+--- Setter type: number
+--- @field public Bank number
+--- Vertical control of the player ship
+--- Value: Vertical control
+--- Setter type: number
+--- @field public Vertical number
+--- Sideways control of the player ship
+--- Value: Sideways control
+--- Setter type: number
+--- @field public Sideways number
+--- Forward control of the player ship
+--- Value: Forward
+--- Setter type: number
+--- @field public Forward number
+--- Forward control of the player ship
+--- Value: Forward
+--- Setter type: number
+--- @field public ForwardCruise number
+--- Number of primary weapons that will fire
+--- Value: Number of weapons to fire, or 0 if handle is invalid
+--- Setter type: number
+--- @field public PrimaryCount number
+--- Number of secondary weapons that will fire
+--- Value: Number of weapons to fire, or 0 if handle is invalid
+--- Setter type: number
+--- @field public SecondaryCount number
+--- Number of countermeasures that will launch
+--- Value: Number of countermeasures to launch, or 0 if handle is invalid
+--- Setter type: number
+--- @field public CountermeasureCount number
+--- Clears the lua button control info
+--- Returns: Nothing
+--- @field public clearLuaButtonInfo fun():nil
+--- Access the four bitfields containing the button info
+--- Returns: Four bitfields
+--- @field public getButtonInfo fun():number, number, number, number
+--- Access the four bitfields containing the button info
+--- Returns: Four bitfields
+--- @field public accessButtonInfo fun(arg_1:number, arg_2:number, arg_3:number, arg_4:number):number, number, number, number
+--- Adds the defined button control to lua button control data, if number is -1 it tries to use the string
+--- Returns: Nothing
+--- @field public useButtonControl fun(arg_1:number, arg_2:string):nil
+--- Gives the name of the command corresponding with the given number
+--- Returns: Name of the command
+--- @field public getButtonControlName fun(arg_1:number):string
+--- Gives the number of the command corresponding with the given string
+--- Returns: Number of the command
+--- @field public getButtonControlNumber fun(arg_1:string):number
+--- Toggles the all button polling for lua
+--- Value: If the all button polling is enabled or not
+--- Setter type: boolean
+--- @field public AllButtonPolling boolean
+--- Access the four bitfields containing the button info
+--- Returns: Four bitfields
+--- @field public pollAllButtons fun():number, number, number, number
+
+--- Tech Room cutscene handle
+--- @class cutscene_info
+--- The name of the cutscene
+--- Value: The cutscene name
+--- @field public Name string
+--- The filename of the cutscene
+--- Value: The cutscene filename
+--- @field public Filename string
+--- The cutscene description
+--- Value: The cutscene description
+--- @field public Description string
+--- If the cutscene should be visible by default
+--- Value: true if visible, false if not visible
+--- Setter type: boolean
+--- @field public isVisible boolean
+--- Gets the custom data table for this cutscene
+--- Value: The cutscene's custom data table
+--- @field public CustomData table
+--- Detects whether the cutscene has any custom data
+--- Returns: true if the cutscene's custom_data is not empty, false otherwise
+--- @field public hasCustomData fun():boolean
+--- Detects whether cutscene is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- Debriefing handle
+--- @class debriefing
+--- The list of stages in the debriefing.
+--- Returns: The stage at the specified location.
+--- @field public __indexer fun(index:number):debriefing_stage
+--- The number of stages in the debriefing
+--- Returns: The number of stages.
+--- @field public __len fun():number
+
+--- Debriefing stage handle
+--- @class debriefing_stage
+--- The text of the stage
+--- Value: The text
+--- @field public Text string
+--- The filename of the audio file to play
+--- Value: The file name
+--- @field public AudioFilename string
+--- The recommendation text of the stage
+--- Value: The recommendation text
+--- @field public Recommendation string
+--- Evaluates the stage formula and returns the result. Could potentially have side effects if the stage formula has a 'perform-actions' or similar operator. Note that the standard UI evaluates the formula exactly once per stage on debriefing initialization.
+--- Returns: true if the stage should be displayed, false otherwise
+--- @field public checkVisible fun():boolean
+
+--- Debris handle
+--- @class debris : object
+--- Whether or not debris is a piece of hull
+--- Value: Whether debris is a hull fragment, or false if handle is invalid
+--- Setter type: boolean
+--- @field public IsHull boolean
+--- The shipclass of the ship this debris originates from
+--- Value: The shipclass of the ship that created this debris
+--- Setter type: shipclass
+--- @field public OriginClass shipclass
+--- Whether the debris should expire.  Normally, debris does not expire if it is from ships destroyed before mission or from ships that are more than 50 meters in radius.
+--- Value: True if flag is set, false if flag is not set and nil on error
+--- Setter type: boolean
+--- @field public DoNotExpire boolean
+--- The time this debris piece will last.  When this is 0 (and DoNotExpire is false) the debris will explode.
+--- Value: The amount of time, in seconds, the debris will last
+--- Setter type: number
+--- @field public LifeLeft number
+--- The radius of this debris piece
+--- Returns: The radius of this debris piece or -1 if invalid
+--- @field public getDebrisRadius fun():number
+--- Return if this debris handle is valid
+--- Returns: true if valid false otherwise
+--- @field public isValid fun():boolean
+--- Return if this debris is the generic debris model, not a model subobject
+--- Returns: true if Debris_model
+--- @field public isGeneric fun():boolean
+--- Return if this debris is the vaporized debris model, not a model subobject
+--- Returns: true if Debris_vaporize_model
+--- @field public isVaporized fun():boolean
+--- Vanishes this piece of debris from the mission.
+--- Returns: True if the deletion was successful, false otherwise.
+--- @field public vanish fun():boolean
+
+--- Decal definition handle
+--- @class decaldefinition
+--- Decal definition name
+--- Returns: Decal definition unique id, or an empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Checks if the two definitions are equal
+--- Returns: true if equal, false otherwise
+--- @field public __eq fun(arg_1:decaldefinition, arg_2:decaldefinition):boolean
+--- Detects whether handle is valid
+--- Returns: true if valid, false if invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Decal definition name
+--- Value: Decal definition name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Creates a decal with the specified parameters.  A negative value for either lifetime will result in a perpetual decal.  The position and orientation are in the frame-of-reference of the submodel.
+--- Returns: Nothing
+--- @field public create fun(width:number, height:number, minLifetime:number, maxLifetime:number, host:object, submodel:submodel, optional_local_pos:vector, optional_local_orient:orientation):nil
+
+--- weapon index
+--- @class default_primary
+--- Array of ship default primaries for each bank. Returns the Weapon Class or nil if the bank is invalid for the ship class.
+--- Returns: The weapon index
+--- @field public __indexer fun(idx:number):weaponclass
+--- The number of primary banks with defaults
+--- Returns: The number of primary banks.
+--- @field public __len fun():number
+
+--- weapon index
+--- @class default_secondary
+--- Array of ship default secondaries for each bank. Returns the Weapon Class or nil if the bank is invalid for the ship class.
+--- Returns: The weapon index
+--- @field public __indexer fun(idx:number):weaponclass
+--- The number of secondary banks with defaults
+--- Returns: The number of secondary banks.
+--- @field public __len fun():number
+
+--- Cockpit display handle
+--- @class display
+--- Starts rendering to this cockpit display. That means if you get a valid texture handle from this function then the rendering system is ready to do a render to texture. If setClip is true then the clipping region will be set to the region of the cockpit display.<br><b>Important:</b> You have to call stopRendering after you're done or this render target will never be released!
+--- Returns: texture handle that is being drawn to or invalid handle on error
+--- @field public startRendering fun(optional_setClip:boolean):texture
+--- Stops rendering to this cockpit display
+--- Returns: true if successful, false otherwise
+--- @field public stopRendering fun():boolean
+--- Gets the background texture handle of this cockpit display
+--- Returns: texture handle or invalid handle if no background texture or an error happened
+--- @field public getBackgroundTexture fun():texture
+--- Gets the foreground texture handle of this cockpit display<br><b>Important:</b> If you want to do render to texture then you have to use startRendering/stopRendering
+--- Returns: texture handle or invalid handle if no foreground texture or an error happened
+--- @field public getForegroundTexture fun():texture
+--- Gets the size of this cockpit display
+--- Returns: Width and height of the display or -1, -1 on error
+--- @field public getSize fun():number, number
+--- Gets the offset of this cockpit display
+--- Returns: x and y offset of the display or -1, -1 on error
+--- @field public getOffset fun():number, number
+--- Detects whether this handle is valid or not
+--- Returns: true if valid, false otherwise
+--- @field public isValid fun():boolean
+
+--- Ship cockpit display information handle
+--- @class display_info
+--- Gets the name of this cockpit display as defined in ships.tbl
+--- Returns: Name string or empty string on error
+--- @field public getName fun():string
+--- Gets the file name of the target texture of this cockpit display
+--- Returns: Texture name string or empty string on error
+--- @field public getFileName fun():string
+--- Gets the file name of the foreground texture of this cockpit display
+--- Returns: Foreground texture name string or nil if texture is not set or on error
+--- @field public getForegroundFileName fun():string
+--- Gets the file name of the background texture of this cockpit display
+--- Returns: Background texture name string or nil if texture is not set or on error
+--- @field public getBackgroundFileName fun():string
+--- Gets the size of this cockpit display
+--- Returns: Width and height of the display or -1, -1 on error
+--- @field public getSize fun():number, number
+--- Gets the offset of this cockpit display
+--- Returns: x and y offset of the display or -1, -1 on error
+--- @field public getOffset fun():number, number
+--- Detects whether this handle is valid
+--- Returns: true if valid false otherwise
+--- @field public isValid fun():boolean
+
+--- Player cockpit displays array handle
+--- @class displays
+--- Gets the number of cockpit displays for the player ship
+--- Returns: number of displays or -1 on error
+--- @field public __len fun():number
+--- Gets a cockpit display from the present player displays by either the index or the name of the display
+--- Returns: Display handle or invalid handle on error
+--- @field public __indexer fun(arg_1:number | string):display
+--- Detects whether this handle is valid or not
+--- Returns: true if valid, false otherwise
+--- @field public isValid fun():boolean
+
+--- Handle to a model docking bay
+--- @class dockingbay
+--- Gets the number of docking points in this bay
+--- Returns: The number of docking points or 0 on error
+--- @field public __len fun():number
+--- Gets the name of this docking bay
+--- Returns: The name or an empty string on error
+--- @field public getName fun():string
+--- Gets the location of a docking point in this bay
+--- Returns: The local location or empty vector on error
+--- @field public getPoint fun(index:number):vector
+--- Gets the normal of a docking point in this bay
+--- Returns: The normal vector or empty vector on error
+--- @field public getNormal fun(index:number):vector
+--- Computes the final position and orientation of a docker bay that docks with this bay.
+--- Returns: The local location and orientation of the docker vessel in the reference to the vessel of the docking bay handle, or a nil value on error
+--- @field public computeDocker fun(arg_1:dockingbay):vector, orientation
+--- Detects whether is valid or not
+--- Returns: <i>true</i> if valid, <i>false</i> otherwise
+--- @field public isValid fun():number
+
+--- The docking bays of a model
+--- @class dockingbays
+--- Gets a dockingbay handle from this model. If a string is given then a dockingbay with that name is searched.
+--- Returns: Handle or invalid handle on error
+--- @field public __indexer fun(arg_1:dockingbay):dockingbay
+--- Retrieves the number of dockingbays on this model
+--- Returns: number of docking bays or 0 on error
+--- @field public __len fun():number
+
+--- Dogfight scores handle
+--- @class dogfight_scores
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Gets the callsign for the player who's scores these are
+--- Value: the callsign or nil if invalid
+--- @field public Callsign string
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public getKillsOnPlayer fun(arg_1:net_player):boolean
+
+--- Enumeration object
+--- @class enumeration
+--- Sets enumeration to specified value (if it is not a global)
+--- Returns: enumeration
+--- @field public __newindex fun(arg_1:enumeration):enumeration
+--- Returns enumeration name
+--- Returns: Enumeration name, or "<INVALID>" if invalid
+--- @field public __tostring fun():string
+--- Compares the two enumerations for equality
+--- Returns: true if equal, false otherwise
+--- @field public __eq fun(arg_1:enumeration):boolean
+--- Calculates the logical OR of the two enums. Only applicable for certain bitfield enums (OS_*, DC_*, ...)
+--- Returns: Result of the OR operation. Invalid enum if input was not a valid enum or a bitfield enum.
+--- @field public __add fun(arg_1:enumeration):enumeration
+--- Calculates the logical AND of the two enums. Only applicable for certain bitfield enums (OS_*, DC_*, ...)
+--- Returns: Result of the AND operation. Invalid enum if input was not a valid enum or a bitfield enum.
+--- @field public __mul fun(arg_1:enumeration):enumeration
+--- Internal value of the enum.  Probably not useful unless this enum is a bitfield or corresponds to a #define somewhere else in the source code.
+--- Value: Integer (index) value of the enum
+--- Setter type: enumeration
+--- @field public IntValue number
+--- Internal bitfield value of the enum. -1 if the enum is not a bitfield
+--- Value: Integer value of the enum
+--- Setter type: enumeration
+--- @field public Value number
+
+--- Mission event handle
+--- @class event
+--- Mission event name
+--- Setter type: string
+--- @field public Name string
+--- Directive text
+--- Setter type: string
+--- @field public DirectiveText string
+--- Raw directive keypress text, as seen in FRED.
+--- Setter type: string
+--- @field public DirectiveKeypressText string
+--- Time for event to repeat (in seconds)
+--- Value: Repeat time, or 0 if invalid handle
+--- Setter type: number
+--- @field public Interval number
+--- Number of objects left for event
+--- Value: Repeat count, or 0 if invalid handle
+--- Setter type: number
+--- @field public ObjectCount number
+--- Event repeat count
+--- Value: Repeat count, or 0 if invalid handle
+--- Setter type: number
+--- @field public RepeatCount number
+--- Event score
+--- Value: Event score, or 0 if invalid handle
+--- Setter type: number
+--- @field public Score number
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- An execution context for asynchronous operations
+--- @class execution_context
+--- Determines the current state of the context.
+--- Returns: One of the CONTEXT_ enumerations
+--- @field public determineState fun():enumeration
+--- Determines if the handle is valid
+--- Returns: true if valid, false otherwise
+--- @field public isValid fun():boolean
+
+--- An executor that can be used for scheduling the execution of a function.
+--- @class executor
+--- Takes a function that returns a boolean and schedules that for execution on this executor. If the function returns true it will be run again the. If it returns false it will be removed from the executor.<br>Note: Use this with care since using this without proper care can lead to the function being run in states that are not desired. Consider using async.run.
+--- Returns: true if function was scheduled, false otherwise.
+--- @alias scheduleFun fun():boolean
+--- @field public schedule fun(arg_1:scheduleFun):boolean
+--- Determined if this handle is valid
+--- Returns: true if valid, false otherwise.
+--- @field public isValid fun():boolean
+
+--- Eyepoint handle
+--- @class eyepoint
+--- Eyepoint normal
+--- Value: Eyepoint normal, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public Normal vector
+--- Eyepoint location (Local vector)
+--- Value: Eyepoint location, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public Position vector
+--- Detect whether this handle is valid
+--- Returns: true if valid false otherwise
+--- @field public isValid fun():boolean
+--- Detect whether this handle is valid
+--- Deprecated starting with version 24.0.0: IsValid is named with the incorrect case. Use isValid instead.
+--- Returns: true if valid false otherwise
+--- @field public IsValid fun():boolean
+
+--- Array of model eye points
+--- @class eyepoints
+--- Gets the number of eyepoints on this model
+--- Returns: Number of eyepoints on this model or 0 on error
+--- @field public __len fun():number
+--- Gets an eyepoint handle
+--- Returns: eye handle or invalid handle on error
+--- @field public __indexer fun(arg_1:eyepoint):eyepoint
+--- Detects whether handle is valid or not
+--- Returns: true if valid false otherwise
+--- @field public isValid fun():boolean
+
+--- Fiction Viewer stage handle
+--- @class fiction_viewer_stage
+--- The text file of the stage
+--- Value: The text filename
+--- @field public TextFile string
+--- The font file of the stage
+--- Value: The font filename
+--- @field public FontFile string
+--- The voice file of the stage
+--- Value: The voice filename
+--- @field public VoiceFile string
+
+--- File handle
+--- @class file
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Instantly closes file and invalidates all file handles
+--- Returns: Nothing
+--- @field public close fun():nil
+--- Flushes file buffer to disk.
+--- Returns: True for success, false on failure
+--- @field public flush fun():boolean
+--- Returns the name of the given file
+--- Returns: Name of the file handle, or an empty string if it doesn't have one, or the handle is invalid
+--- @field public getName fun():string
+--- Determines path of the given file
+--- Returns: Path string of the file handle, or an empty string if it doesn't have one, or the handle is invalid
+--- @field public getPath fun():string
+--- Reads part of or all of a file, depending on arguments passed. Based on basic Lua file:read function.Returns nil when the end of the file is reached.<br><ul><li>"*n" - Reads a number.</li><li>"*a" - Reads the rest of the file and returns it as a string.</li><li>"*l" - Reads a line. Skips the end of line markers.</li><li>(number) - Reads given number of characters, then returns them as a string.</li></ul>
+--- Returns: Requested data, or nil if the function fails
+--- @field public read fun(arg_1:number | string, ...:any):number | string
+--- Changes position of file, or gets location.Whence can be:<li>"set" - File start.</li><li>"cur" - Current position in file.</li><li>"end" - File end.</li></ul>
+--- Returns: new offset, or false or nil on failure
+--- @field public seek fun(optional_Whence:string, optional_Offset:number):number
+--- Writes a series of Lua strings or numbers to the current file.
+--- Returns: Number of items successfully written.
+--- @field public write fun(arg_1:string | number, ...:any):number
+--- Writes the specified data to the file
+--- Returns: Number of bytes successfully written.
+--- @field public writeBytes fun(bytes:bytearray):number
+--- Reads the entire contents of the file as a byte array.<br><b>Warning:</b> This may change the position inside the file.
+--- Returns: The bytes read from the file or empty array on error
+--- @field public readBytes fun():bytearray
+
+--- Fireball handle
+--- @class fireball : object
+--- Fireball's class
+--- Value: Fireball class, or invalid fireballclass handle if fireball handle is invalid
+--- Setter type: fireballclass
+--- @field public Class fireballclass
+--- Fireball's render type
+--- Value: Fireball rendertype, or handle to invalid enum if fireball handle is invalid or a bad enum was given
+--- Setter type: enumeration
+--- @field public RenderType enumeration
+--- Time this fireball exists in seconds
+--- Value: Time this fireball exists or 0 if fireball handle is invalid
+--- @field public TimeElapsed number
+--- Total lifetime of the fireball's animation in seconds
+--- Value: Total lifetime of the fireball's animation or 0 if fireball handle is invalid
+--- @field public TotalTime number
+--- Checks if the fireball is a warp effect.
+--- Returns: boolean value of the fireball warp status or false if the handle is invalid
+--- @field public isWarp fun():boolean
+--- Vanishes this fireball from the mission.
+--- Returns: True if the deletion was successful, false otherwise.
+--- @field public vanish fun():boolean
+
+--- Fireball class handle
+--- @class fireballclass
+--- Fireball class name
+--- Returns: Fireball class unique id, or an empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Checks if the two classes are equal
+--- Returns: true if equal, false otherwise
+--- @field public __eq fun(arg_1:fireballclass, arg_2:fireballclass):boolean
+--- Fireball class name
+--- Value: Fireball class unique id, or empty string if handle is invalid
+--- Setter type: string
+--- @field public UniqueID string
+--- Fireball class animation filename (LOD 0)
+--- Value: Filename, or empty string if handle is invalid
+--- @field public Filename string
+--- Amount of frames the animation has (LOD 0)
+--- Value: Amount of frames, or -1 if handle is invalid
+--- @field public NumberFrames number
+--- The FPS with which this fireball's animation is played (LOD 0)
+--- Value: FPS, or -1 if handle is invalid
+--- @field public FPS number
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Gets the index value of the fireball class
+--- Returns: index value of the fireball class
+--- @field public getTableIndex fun():number
+
+--- font handle
+--- @class font
+--- Name of font
+--- Returns: Font filename, or an empty string if the handle is invalid
+--- @field public __tostring fun():string
+--- Checks if the two fonts are equal
+--- Returns: true if equal, false otherwise
+--- @field public __eq fun(arg_1:font, arg_2:font):boolean
+--- Name of font (including extension)<br><b>Important:</b>This variable is deprecated. Use <i>Name</i> instead.
+--- Setter type: string
+--- @field public Filename string
+--- Name of font (including extension)
+--- Setter type: string
+--- @field public Name string
+--- Height of font (in pixels)
+--- Value: Font height, or 0 if the handle is invalid
+--- Setter type: number
+--- @field public Height number
+--- The offset this font has from the baseline of textdrawing downwards. (in pixels)
+--- Value: Font top offset, or 0 if the handle is invalid
+--- Setter type: number
+--- @field public TopOffset number
+--- The space (in pixels) this font skips downwards after drawing a line of text
+--- Value: Font bottom offset, or 0 if the handle is invalid
+--- Setter type: number
+--- @field public BottomOffset number
+--- True if valid, false or nil if not
+--- Returns: Detects whether handle is valid
+--- @field public isValid fun():boolean
+
+--- Game event
+--- @class gameevent
+--- Game event name
+--- Returns: Game event name, or empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Game event name
+--- Value: Game event name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+
+--- Game state
+--- @class gamestate
+--- Game state name
+--- Returns: Game state name, or empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Game state name
+--- Value: Game state name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+
+--- Gauge config handle
+--- @class gauge_config
+--- The name of this gauge
+--- Value: The name
+--- @field public Name string
+--- Gets the current color of the gauge. If setting the color, gauges that use IFF for color cannot be set.
+--- Value: The gauge color or nil if the gauge is invalid
+--- Setter type: color
+--- @field public CurrentColor color
+--- Gets the current status of the show gauge flag.
+--- Value: True if on, false if otherwise
+--- Setter type: boolean
+--- @field public ShowGaugeFlag boolean
+--- Gets the current status of the popup gauge flag.
+--- Value: True if on, false otherwise
+--- Setter type: boolean
+--- @field public PopupGaugeFlag boolean
+--- Gets whether or not the gauge can have the popup flag.
+--- Value: True if can popup, false otherwise
+--- @field public CanPopup boolean
+--- Gets whether or not the gauge uses IFF for color.
+--- Value: True if uses IFF, false otherwise
+--- @field public UsesIffForColor boolean
+--- Sets if the gauge is the currently selected gauge for drawing as selected.
+--- Returns: Nothing
+--- @field public setSelected fun(arg_1:boolean):nil
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- A model glowpoint
+--- @class glowpoint
+--- The (local) vector to the position of the glowpoint
+--- Value: The local vector to the glowpoint or nil if invalid
+--- @field public Position vector
+--- The normal of the glowpoint
+--- Value: The normal of the glowpoint or nil if invalid
+--- @field public Normal vector
+--- The radius of the glowpoint
+--- Value: The radius of the glowpoint or -1 if invalid
+--- @field public Radius number
+--- Returns whether this handle is valid or not
+--- Returns: True if handle is valid, false otherwise
+--- @field public isValid fun():boolean
+
+--- A model glow point bank
+--- @class glowpointbank
+--- Gets the number of glow points in this bank
+--- Returns: Number of glow points in this bank or 0 on error
+--- @field public __len fun():number
+--- Gets a glow point handle
+--- Returns: glowpoint handle or invalid handle on error
+--- @field public __indexer fun(arg_1:glowpoint):glowpoint
+--- Detects whether handle is valid or not
+--- Returns: true if valid false otherwise
+--- @field public isValid fun():boolean
+
+--- Array of model glow point banks
+--- @class glowpointbanks
+--- Gets the number of glow point banks on this model
+--- Returns: Number of glow point banks on this model or 0 on error
+--- @field public __len fun():number
+--- Gets a glow point bank handle
+--- Returns: glowpointbank handle or invalid handle on error
+--- @field public __indexer fun(arg_1:glowpointbank):glowpointbank
+--- Detects whether handle is valid or not
+--- Returns: true if valid false otherwise
+--- @field public isValid fun():boolean
+
+--- Help Section handle
+--- @class help_section
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- The title of the help section
+--- Value: The title
+--- @field public Title string
+--- The header of the help section
+--- Value: The header
+--- @field public Header string
+--- Gets a table of keys in the help section
+--- Value: The keys table
+--- @field public Keys table<number, string>
+--- Gets a table of texts in the help section
+--- Value: The texts table
+--- @field public Texts table<number, string>
+
+--- Hotkey handle
+--- @class hotkey_ship
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- The text of this hotkey line
+--- Value: The text
+--- @field public Text string
+--- The type of this hotkey line: HOTKEY_LINE_NONE, HOTKEY_LINE_HEADING, HOTKEY_LINE_WING, HOTKEY_LINE_SHIP, or HOTKEY_LINE_SUBSHIP.
+--- Value: The type
+--- @field public Type enumeration
+--- Gets a table of hotkeys set to the ship in the order from F5 - F12
+--- Value: The hotkeys table
+--- @field public Keys table<number, boolean>
+--- Adds a hotkey to the to the ship in the list. 1-8 correspond to F5-F12. Returns nothing.
+--- Returns: Nothing
+--- @field public addHotkey fun(Key:number):nil
+--- Removes a hotkey from the ship in the list. 1-8 correspond to F5-F12. Returns nothing.
+--- Returns: Nothing
+--- @field public removeHotkey fun(Key:number):nil
+--- Clears all hotkeys from the ship in the list. Returns nothing.
+--- Returns: Nothing
+--- @field public clearHotkeys fun():nil
+
+--- Hud preset handle
+--- @class hud_preset
+--- The name of this preset
+--- Value: The name
+--- @field public Name string
+--- Deletes the preset file
+--- Returns: Nothing
+--- @field public deletePreset fun():nil
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- HUD Gauge handle
+--- @class HudGauge
+--- Custom HUD Gauge status
+--- Returns: Returns true if this is a custom HUD gauge, or false if it is a non-custom (default) HUD gauge
+--- @field public isCustom fun():boolean
+--- Custom HUD Gauge name
+--- Value: Custom HUD Gauge name, or blank if this is a default gauge, or nil if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Custom HUD Gauge text
+--- Value: Custom HUD Gauge text, or blank if this is a default gauge, or nil if handle is invalid
+--- Setter type: string
+--- @field public Text string
+--- Returns the base width and base height (which may be different from the screen width and height) used by the specified HUD gauge.
+--- Returns: Base width and height
+--- @field public getBaseResolution fun():number, number
+--- Returns the aspect quotient (ratio between the current aspect ratio and the HUD's native aspect ratio) used by the specified HUD gauge.
+--- Returns: Aspect quotient
+--- @field public getAspectQuotient fun():number
+--- Returns the position of the specified HUD gauge.
+--- Returns: X and Y coordinates
+--- @field public getPosition fun():number, number
+--- Sets the position of the specified HUD gauge.
+--- Returns: Nothing
+--- @field public setPosition fun(arg_1:number, arg_2:number):nil
+--- Returns the font used by the specified HUD gauge.
+--- Returns: The font handle
+--- @field public getFont fun():font
+--- Returns the origin and offset of the specified HUD gauge as specified in the table.
+--- Returns: Origin X, Origin Y, Offset X, Offset Y
+--- @field public getOriginAndOffset fun():number, number, number, number
+--- Returns the coordinates of the specified HUD gauge as specified in the table.
+--- Returns: Coordinates flag (whether coordinates are used), X, Y
+--- @field public getCoords fun():boolean, number, number
+--- Returns whether this is a hi-res HUD gauge, determined by whether the +Filename property is prefaced with "2_".  Not all gauges have such a filename.
+--- Returns: Whether the HUD gauge is known to be hi-res
+--- @field public isHiRes fun():boolean
+--- For scripted HUD gauges, the function that will be called for rendering the HUD gauge
+--- Value: Render function or nil if no action is set or handle is invalid
+--- Setter type: fun(gauge_handle:HudGaugeDrawFunctions):nil
+--- @field public RenderFunction fun(gauge_handle:HudGaugeDrawFunctions):nil
+
+--- Handle to the rendering functions used for HUD gauges. Do not keep a reference to this since these are only useful inside the rendering callback of a HUD gauge.
+--- @class HudGaugeDrawFunctions
+--- Draws a string in the context of the HUD gauge.
+--- Returns: true on success, false otherwise
+--- @field public drawString fun(text:string, x:number, y:number):boolean
+--- Draws a line in the context of the HUD gauge.
+--- Returns: true on success, false otherwise
+--- @field public drawLine fun(X1:number, Y1:number, X2:number, Y2:number):boolean
+--- Draws a circle in the context of the HUD gauge.
+--- Returns: true on success, false otherwise
+--- @field public drawCircle fun(radius:number, X:number, Y:number, optional_filled:boolean):boolean
+--- Draws a rectangle in the context of the HUD gauge.
+--- Returns: true on success, false otherwise
+--- @field public drawRectangle fun(X1:number, Y1:number, X2:number, Y2:number, optional_Filled:boolean):boolean
+--- Draws an image in the context of the HUD gauge.
+--- Returns: true on success, false otherwise
+--- @field public drawImage fun(Texture:texture, optional_X:number, optional_Y:number):boolean
+
+--- Intel entry handle
+--- @class intel_entry
+--- Intel entry name
+--- Returns: Intel entry name, or an empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Checks if the two entries are equal
+--- Returns: true if equal, false otherwise
+--- @field public __eq fun(arg_1:intel_entry, arg_2:intel_entry):boolean
+--- Intel entry name
+--- Value: Intel entry name, or an empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Intel entry description
+--- Value: Description, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Description string
+--- Intel entry animation filename
+--- Value: Filename, or empty string if handle is invalid
+--- Setter type: string
+--- @field public AnimFilename string
+--- Gets or sets whether this intel entry is visible in the tech room
+--- Value: True or false
+--- Setter type: boolean
+--- @field public InTechDatabase boolean
+--- Gets the custom data table for this entry
+--- Value: The entry's custom data table
+--- @field public CustomData table
+--- Detects whether the entry has any custom data
+--- Returns: true if the entry's custom_data is not empty, false otherwise
+--- @field public hasCustomData fun():boolean
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Gets the index value of the intel entry
+--- Returns: index value of the intel entry
+--- @field public getIntelEntryIndex fun():number
+
+--- Key Binding
+--- @class keybinding
+--- Key binding name
+--- Returns: Key binding name, or empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Key binding name
+--- Value: Key binding name, or empty string if handle is invalid
+--- @field public Name string
+--- The name of the bound input
+--- Returns: The name of the bound input, or empty string if nothing is bound or handle is invalid
+--- @field public getInputName fun(optional_primaryBinding:boolean):string
+--- Locks this control binding when true, disables if false. Persistent between missions.
+--- Returns: Nothing
+--- @field public lock fun(lock:boolean):nil
+--- If this control is locked
+--- Returns: If this control is locked, nil if the handle is invalid
+--- @field public isLocked fun():boolean
+--- Registers a hook for this keybinding, either as a normal hook, or as an override
+--- Returns: Nothing
+--- @alias registerHookFun fun():nil | boolean
+--- @field public registerHook fun(hook:registerHookFun, optional_enabledByDefault:boolean, optional_isOverride:boolean):nil
+--- Enables scripted control hooks for this keybinding when true, disables if false. Not persistent between missions.
+--- Returns: Nothing
+--- @field public enableScripting fun(enable:boolean):nil
+
+--- Loadout handle
+--- @class loadout_amount
+--- Array of ship bank weapons. 1-3 are Primary weapons. 4-7 are Secondary weapons. Note that banks that do not exist on the ship class are still valid here as a loadout slot. Also note that primary banks will hold the value of 1 even if it is ballistic. If the amount to set is greater than the bank's capacity then it will be set to capacity. Set to -1 to empty the slot. Amounts less than -1 will be set to -1.
+--- Returns: Amount of the currently loaded weapon, -1 if bank has no weapon, or nil if the ship or index is invalid
+--- @field public __indexer fun(bank:number, amount:number):number
+--- The number of weapon banks in the slot
+--- Returns: The number of banks.
+--- @field public __len fun():number
+
+--- Loadout handle
+--- @class loadout_ship
+--- The index of the Ship Class. When setting the ship class this will also set the weapons to empty slots. Use .Weapons and .Amounts to set those afterwards. Set to -1 to empty the slot and be sure to set the slot to empty using Loadout_Wings[slot].isFilled.
+--- Value: The index or nil if handle is invalid
+--- Setter type: number
+--- @field public ShipClassIndex number
+--- Array of weapons in the loadout slot
+--- Value: The weapons array or nil if handle is invalid
+--- @field public Weapons loadout_weapon
+--- Array of weapon amounts in the loadout slot
+--- Value: The weapon amounts array or nil if handle is invalid
+--- @field public Amounts loadout_amount
+
+--- Loadout handle
+--- @class loadout_weapon
+--- Array of ship bank weapons. 1-3 are Primary weapons. 4-7 are Secondary weapons. Note that banks that do not exist on the ship class are still valid here as a loadout slot. When setting the weapon it will be checked if it is valid for the ship and bank. If it is not then it will be set to -1 and the amount will be set to -1. If it is valid for the ship then the amount is set to 0. Use .Amounts to set the amount afterwards. Set to -1 to empty the slot.
+--- Returns: index into Weapon Classes, 0 if bank is empty, -1 if the ship cannot carry the weapon, or nil if the ship or index is invalid
+--- @field public __indexer fun(bank:number, WeaponIndex:number):number
+--- The number of weapon banks in the slot
+--- Returns: The number of banks.
+--- @field public __len fun():number
+
+--- Loadout handle
+--- @class loadout_wing
+--- Array of loadout wing slot data
+--- Returns: loadout slot handle, or invalid handle if index is invalid
+--- @field public __indexer fun(idx:number):loadout_wing_slot
+--- The number of slots in the wing
+--- Returns: The number of slots.
+--- @field public __len fun():number
+--- The name of the wing
+--- Value: The wing
+--- @field public Name string
+
+--- Loadout wing slot handle
+--- @class loadout_wing_slot
+--- If the slot's ship is locked
+--- Value: The slot ship status
+--- @field public isShipLocked boolean
+--- If the slot's weapons are locked
+--- Value: The slot weapon status
+--- @field public isWeaponLocked boolean
+--- If the slot is not used in the current mission or disabled for the current player in multi
+--- Value: The slot disabled status
+--- @field public isDisabled boolean
+--- If the slot is empty or filled. true if filled, false if empty
+--- Value: The slot filled status
+--- Setter type: boolean
+--- @field public isFilled boolean
+--- If the slot is a player ship
+--- Value: The slot player status
+--- @field public isPlayer boolean
+--- If the slot is allowed to have player ship. In single player this is functionally the same as isPlayer.
+--- Value: The slot player allowed status
+--- @field public isPlayerAllowed boolean
+--- The index of the ship class assigned to the slot
+--- Value: The ship class index
+--- @field public ShipClassIndex number
+--- The callsign of the ship slot. In multiplayer this may be the player's callsign.
+--- Value: the callsign
+--- @field public Callsign string
+
+--- Log Entry handle
+--- @class log_entry
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- The timestamp of the log entry
+--- Value: The timestamp
+--- @field public Timestamp string
+--- The timestamp of the log entry that accounts for timer padding
+--- Value: The timestamp
+--- @field public paddedTimestamp string
+--- The flag of the log entry. 1 for Goal True, 2 for Goal Failed, 0 otherwise.
+--- Value: The flag
+--- @field public Flags number
+--- The objective text of the log entry
+--- Value: The objective text
+--- @field public ObjectiveText string
+--- The objective color of the log entry.
+--- Value: The objective color
+--- @field public ObjectiveColor color
+--- Gets a table of segment texts in the log entry
+--- Value: The segment texts table
+--- @field public SegmentTexts table<number, string>
+--- Gets a table of segment colors in the log entry.
+--- Value: The segment colors table
+--- @field public SegmentColors table<number, color>
+
+--- Loop Brief stage handle
+--- @class loop_brief_stage
+--- The text of the stage
+--- Value: The text
+--- @field public Text string
+--- The ani filename of the stage
+--- Value: The ani filename
+--- @field public AniFilename string
+--- The audio file of the stage
+--- Value: The audio filename
+--- @field public AudioFilename string
+
+--- Lua AI SEXP handle
+--- @class LuaAISEXP
+--- The action of this AI SEXP to be executed once when the AI receives this order. Return true if the AI goal is complete.
+--- Value: The action function or nil on error
+--- Setter type: fun(helper:ai_helper, args:any):boolean
+--- @field public ActionEnter fun(helper:ai_helper, args:any):boolean
+--- The action of this AI SEXP to be executed each frame while active. Return true if the AI goal is complete.
+--- Value: The action function or nil on error
+--- Setter type: fun(helper:ai_helper, args:any):boolean
+--- @field public ActionFrame fun(helper:ai_helper, args:any):boolean
+--- An optional function that specifies whether the AI mode is achieveable. Return LUAAI_ACHIEVABLE if it can be achieved, LUAAI_NOT_YET_ACHIEVABLE if it can be achieved later and execution should be delayed, and LUAAI_UNACHIEVABLE if the AI mode will never be achievable and should be cancelled. Assumes LUAAI_ACHIEVABLE if not specified.
+--- Value: The achievability function or nil on error
+--- Setter type: fun(ship:ship, args:any):enumeration
+--- @field public Achievability fun(ship:ship, args:any):enumeration
+--- An optional function that specifies whether a target is a valid target for a player order. Result must be true and the player order +Target Restrict: must be fulfilled for the target to be valid. Assumes true if not specified.
+--- Value: The target restrict function or nil on error
+--- Setter type: fun(ship:ship, arg:oswpt | nil):boolean
+--- @field public TargetRestrict fun(ship:ship, arg:oswpt | nil):boolean
+
+--- Lua Enum handle
+--- @class LuaEnum
+--- The enum name
+--- Value: The enum name or nil if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Array of enum items
+--- Returns: enum item string, or nil if index or enum handle is invalid
+--- @field public __indexer fun(Index:number):string
+--- The number of Lua enum items
+--- Returns: The number of Lua enums item or nil if handle is invalid
+--- @field public __len fun():number
+--- Adds an enum item with the given string.
+--- Returns: Returns true if successful, false otherwise
+--- @field public addEnumItem fun(itemname:string):boolean
+--- Removes an enum item with the given string.
+--- Returns: Returns true if successful, false otherwise
+--- @field public removeEnumItem fun(itemname:string):boolean
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- Lua SEXP handle
+--- @class LuaSEXP
+--- The action of this SEXP
+--- Value: The action function or nil on error
+--- Setter type: fun(args:any):nil
+--- @field public Action fun(args:any):nil
+
+--- Medal handle
+--- @class medal
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- The name of the medal
+--- Value: The name
+--- @field public Name string
+--- The bitmap of the medal
+--- Value: The bitmap
+--- @field public Bitmap string
+--- The number of mods of the medal
+--- Value: The number of mods
+--- @field public NumMods number
+--- The first mod of the medal. Some start at 1, some start at 0
+--- Value: The first mod
+--- @field public FirstMod number
+--- The number of kills needed to earn this badge. If not a badge, then returns 0
+--- Value: The number of kills needed
+--- @field public KillsNeeded number
+--- Detects whether medal is the rank medal
+--- Returns: true if yes, false if not, nil if a syntax/type error occurs
+--- @field public isRank fun():boolean
+
+--- Handle to a mission message
+--- @class message
+--- The name of the message as specified in the mission file
+--- Value: The name or an empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- The unaltered text of the message, see getMessage() for options to replace variables<br><b>NOTE:</b> Changing the text will also change the text for messages not yet played but already in the message queue!
+--- Value: The message or an empty string if handle is invalid
+--- Setter type: string
+--- @field public Message string
+--- The voice file of the message
+--- Value: The voice file handle or invalid handle when not present
+--- Setter type: soundfile
+--- @field public VoiceFile soundfile
+--- The persona of the message
+--- Value: The persona handle or invalid handle if not present
+--- Setter type: persona
+--- @field public Persona persona
+--- Gets the text of the message and optionally replaces SEXP variables with their respective values.
+--- Returns: The message or an empty string if handle is invalid
+--- @field public getMessage fun(optional_replaceVars:boolean):string
+--- Checks if the message handle is valid
+--- Returns: true if valid, false otherwise
+--- @field public isValid fun():boolean
+
+--- Message Entry handle
+--- @class message_entry
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- The timestamp of the message entry
+--- Value: The timestamp
+--- @field public Timestamp string
+--- The timestamp of the message entry that accounts for mission timer padding
+--- Value: The timestamp
+--- @field public paddedTimestamp string
+--- The color of the message entry.
+--- Value: The color
+--- @field public Color color
+--- The text of the message entry
+--- Value: The text
+--- @field public Text string
+
+--- Mission objective handle
+--- @class mission_goal
+--- The name of the goal
+--- Value: The goal name
+--- @field public Name string
+--- The message of the goal
+--- Value: The goal message
+--- @field public Message string
+--- The goal type
+--- Value: primary, secondary, bonus, or none
+--- @field public Type string
+--- The goal team
+--- Value: The goal team
+--- @field public Team team
+--- The status of the goal
+--- Value: 0 if failed, 1 if complete, 2 if incomplete
+--- @field public isGoalSatisfied number
+--- The score of the goal
+--- Value: the score
+--- @field public Score number
+--- The goal validity
+--- Value: true if valid, false otherwise
+--- @field public isGoalValid boolean
+--- Detect if the handle is valid
+--- Returns: true if valid, false otherwise
+--- @field public isValid fun():boolean
+
+--- 3D Model (POF) handle
+--- @class model
+--- Model submodels
+--- Value: Model submodels, or an invalid submodels handle if the model handle is invalid
+--- @field public Submodels submodels
+--- Model textures
+--- Value: Model textures, or an invalid textures handle if the model handle is invalid
+--- @field public Textures textures
+--- Model thrusters
+--- Value: Model thrusters, or an invalid thrusters handle if the model handle is invalid
+--- @field public Thrusters thrusters
+--- Model glow point banks
+--- Value: Model glow point banks, or an invalid glowpointbanks handle if the model handle is invalid
+--- @field public GlowPointBanks glowpointbanks
+--- Model eyepoints
+--- Value: Array of eyepoints, or an invalid eyepoints handle if the model handle is invalid
+--- @field public Eyepoints eyepoints
+--- Model docking bays
+--- Value: Array of docking bays, or an invalid dockingbays handle if the model handle is invalid
+--- @field public Dockingbays dockingbays
+--- Model bounding box maximum
+--- Value: Model bounding box, or an empty vector if the handle is not valid
+--- Setter type: vector
+--- @field public BoundingBoxMax vector
+--- Model bounding box minimum
+--- Value: Model bounding box, or an empty vector if the handle is not valid
+--- Setter type: vector
+--- @field public BoundingBoxMin vector
+--- Model filename
+--- Value: Model filename, or an empty string if the handle is not valid
+--- Setter type: string
+--- @field public Filename string
+--- Model mass
+--- Value: Model mass, or 0 if the model handle is invalid
+--- Setter type: number
+--- @field public Mass number
+--- Model moment of inertia
+--- Value: Moment of Inertia matrix or identity matrix if invalid
+--- Setter type: orientation
+--- @field public MomentOfInertia orientation
+--- Model radius (Used for collision & culling detection)
+--- Value: Model Radius or 0 if invalid
+--- Setter type: number
+--- @field public Radius number
+--- Returns the root submodel of the specified detail level - 0 for detail0, etc.
+--- Returns: A submodel, or an invalid submodel if handle is not valid
+--- @field public getDetailRoot fun(optional_detailLevel:number):submodel
+--- True if valid, false or nil if not
+--- Returns: Detects whether handle is valid
+--- @field public isValid fun():boolean
+
+--- Model instance handle
+--- @class model_instance
+--- Returns the model used by this instance
+--- Returns: A model
+--- @field public getModel fun():model
+--- Returns the object that this instance refers to
+--- Returns: An object
+--- @field public getObject fun():object
+--- Gets model instance textures
+--- Value: Model instance textures, or invalid modelinstancetextures handle if modelinstance handle is invalid
+--- Setter type: modelinstancetextures
+--- @field public Textures modelinstancetextures
+--- Submodel instances
+--- Value: Model submodel instances, or an invalid modelsubmodelinstances handle if the model instance handle is invalid
+--- @field public SubmodelInstances submodel_instances
+--- True if valid, false or nil if not
+--- Returns: Detects whether handle is valid
+--- @field public isValid fun():boolean
+
+--- Model instance textures handle
+--- @class modelinstancetextures
+--- Number of textures on a model instance
+--- Returns: Number of textures on the model instance, or 0 if handle is invalid
+--- @field public __len fun():number
+--- Array of model instance textures
+--- Returns: Texture, or invalid texture handle on failure
+--- @field public __indexer fun(IndexOrTextureFilename:number | string):texture
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- Path of a model
+--- @class modelpath
+--- Gets the number of points in this path
+--- Returns: The number of points or 0 on error
+--- @field public __len fun():number
+--- Determines if the handle is valid
+--- Returns: True if valid, false otherwise
+--- @field public isValid fun():boolean
+--- Returns the point in the path with the specified index
+--- Returns: The point or invalid handle if index is invalid
+--- @field public __indexer fun(arg_1:number):modelpathpoint
+--- The name of this model path
+--- Value: The name or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+
+--- Point in a model path
+--- @class modelpathpoint
+--- Determines if the handle is valid
+--- Returns: True if valid, false otherwise
+--- @field public isValid fun():boolean
+--- The current, global position of this path point.
+--- Value: The current position of the point.
+--- Setter type: vector
+--- @field public Position vector
+--- The radius of the path point.
+--- Value: The radius of the point.
+--- Setter type: number
+--- @field public Radius number
+
+--- A movie player instance
+--- @class movie_player
+--- Determines the width in pixels of this movie <b>Read-only</b>
+--- Value: The width of the movie or -1 if handle is invalid
+--- Setter type: number
+--- @field public Width number
+--- Determines the height in pixels of this movie <b>Read-only</b>
+--- Value: The height of the movie or -1 if handle is invalid
+--- Setter type: number
+--- @field public Height number
+--- Determines the frames per second of this movie <b>Read-only</b>
+--- Value: The FPS of the movie or -1 if handle is invalid
+--- Setter type: number
+--- @field public FPS number
+--- Determines the duration in seconds of this movie <b>Read-only</b>
+--- Value: The duration of the movie or -1 if handle is invalid
+--- Setter type: number
+--- @field public Duration number
+--- Updates the current state of the movie and moves the internal timer forward by the specified time span.
+--- Returns: true if there is more to display, false otherwise
+--- @field public update fun(step_time:timespan):boolean
+--- Determines if the player is ready to display the movie. Since the movie frames are loaded asynchronously there is a short delay between the creation of a player and when it is possible to start displaying the movie. This function can be used to determine if playback is possible at the moment.
+--- Returns: true if playback is ready, false otherwise
+--- @field public isPlaybackReady fun():boolean
+--- Draws the current frame of the movie at the specified coordinates.
+--- Returns: Returns nothing
+--- @field public drawMovie fun(x1:number, y1:number, optional_x2:number, optional_y2:number):nil
+--- Explicitly stops playback. This function should be called when the player isn't needed anymore to free up some resources.
+--- Returns: Returns nothing
+--- @field public stop fun():nil
+--- Determines if this handle is valid
+--- Returns: true if valid, false otherwise
+--- @field public isValid fun():boolean
+
+--- Net Campaign handle
+--- @class net_campaign
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- The name of the mission
+--- Value: The name
+--- @field public Name string
+--- The filename of the mission
+--- Value: The filename
+--- @field public Filename string
+--- The max players for the mission
+--- Value: The max number of players
+--- @field public Players number
+--- The mission specified respawn count
+--- Value: The respawn count
+--- @field public Respawn number
+--- The validity status of the mission tracker
+--- Value: true if valid, false if invalid, nil if unknown or handle is invalid
+--- @field public Tracker boolean
+--- The type of mission. Can be MULTI_TYPE_COOP, MULTI_TYPE_TEAM, or MULTI_TYPE_DOGFIGHT
+--- Value: the type
+--- @field public Type enumeration
+--- Is true if the mission is a built-in Volition mission. False otherwise
+--- Value: builtin
+--- @field public Builtin boolean
+
+--- Join Choice handle
+--- @class net_join_choice
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Gets the name of the ship
+--- Value: the name or nil if invalid
+--- @field public Name string
+--- Gets the index of the ship class
+--- Value: the index or nil if invalid
+--- @field public ShipIndex string
+--- Gets the table of primary weapon indexes on the ship
+--- Returns: the table of indexes or nil if invalid
+--- @field public getPrimaryWeaponsList fun():table
+--- Gets the table of secondary weapon indexes on the ship
+--- Returns: the table of indexes or nil if invalid
+--- @field public getSecondaryWeaponsList fun():table
+--- Gets the status of the ship's hull and shields
+--- Returns: The hull health and then a table of shield quadrant healths
+--- @field public getStatus fun():number
+--- Sets the current ship as chosen when Accept is clicked
+--- Returns: returns true if successful, Nil if there's handle error.
+--- @field public setChoice fun():boolean
+
+--- Net Mission handle
+--- @class net_mission
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- The name of the mission
+--- Value: The name
+--- @field public Name string
+--- The filename of the mission
+--- Value: The filename
+--- @field public Filename string
+--- The max players for the mission
+--- Value: The max number of players
+--- @field public Players number
+--- The mission specified respawn count
+--- Value: The respawn count
+--- @field public Respawn number
+--- The validity status of the mission tracker
+--- Value: true if valid, false if invalid, nil if unknown or handle is invalid
+--- @field public Tracker boolean
+--- The type of mission. Can be MULTI_TYPE_COOP, MULTI_TYPE_TEAM, or MULTI_TYPE_DOGFIGHT
+--- Value: the type
+--- @field public Type enumeration
+--- Is true if the mission is a built-in Volition mission. False otherwise
+--- Value: builtin
+--- @field public Builtin boolean
+
+--- Net Player handle
+--- @class net_player
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- The player's callsign
+--- Value: The player callsign
+--- @field public Name string
+--- The player's team as an integer
+--- Value: The team
+--- Setter type: number
+--- @field public Team number
+--- The player's current state string
+--- Value: The state
+--- @field public State string
+--- Whether or not the player is the current game instance's player
+--- Returns: The self value
+--- @field public isSelf fun():boolean
+--- Whether or not the player is the game master
+--- Value: The master value
+--- @field public Master boolean
+--- Whether or not the player is the game host
+--- Value: The host value
+--- @field public Host boolean
+--- Whether or not the player is an observer
+--- Value: The observer value
+--- @field public Observer boolean
+--- Whether or not the player is the team captain
+--- Value: The captain value
+--- @field public Captain boolean
+--- Gets a handle of the player stats by player name or invalid handle if the name is invalid
+--- Returns: Player stats handle
+--- @field public getStats fun():scoring_stats
+--- Kicks the player from the game
+--- Returns: Nothing
+--- @field public kickPlayer fun():nil
+
+--- Netgame handle
+--- @class netgame
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- The name of the game
+--- Value: the name
+--- @field public Name string
+--- The filename of the currently selected mission
+--- Value: the mission filename
+--- @field public MissionFilename string
+--- The title of the currently selected mission
+--- Value: the mission title
+--- @field public MissionTitle string
+--- The name of the currently selected campaign
+--- Value: the campaign name
+--- @field public CampaignName string
+--- The current password for the game
+--- Value: the password
+--- @field public Password string
+--- Whether or not the game is closed
+--- Value: true for closed, false otherwise
+--- Setter type: boolean
+--- @field public Closed boolean
+--- Whether or not the only the host can modify ships
+--- Value: true if enabled, false otherwise
+--- Setter type: boolean
+--- @field public HostModifiesShips boolean
+--- Who can give orders during the game. Will be one of the MULTI_OPTION enums. Returns nil if there's an error.
+--- Value: the option type
+--- Setter type: enumeration
+--- @field public Orders enumeration
+--- Who can end the game. Will be one of the MULTI_OPTION enums. Returns nil if there's an error.
+--- Value: the option type
+--- Setter type: enumeration
+--- @field public EndMission enumeration
+--- The current skill level the game, 0-4
+--- Value: the skill level
+--- @field public SkillLevel number
+--- The current respawn limit
+--- Value: the respawn limit
+--- @field public RespawnLimit number
+--- The current time limit in minutes. -1 means no limit.
+--- Value: the time limit
+--- @field public TimeLimit number
+--- The current kill limit
+--- Value: the kill limit
+--- @field public KillLimit number
+--- The current observer limit
+--- Value: the observer limit
+--- @field public ObserverLimit number
+--- Whether or not the loadouts have been locked for the current team. Can be set only by the host or team captain.
+--- Value: the locked status
+--- @field public Locked number
+--- The current game type. Will be one of the MULTI_TYPE enums. Returns nil if there's an error.
+--- Value: the game type
+--- Setter type: enumeration
+--- @field public Type enumeration
+--- Accepts the current game options and pushes them to the the network.
+--- Returns: returns true if successful, false otherwise
+--- @field public acceptOptions fun():boolean
+--- Sets the mission or campaign for the Netgame. Handles changing all netgame values and updating the server.
+--- Returns: returns true if successful, false otherwise
+--- @field public setMission fun(optional_arg_1:net_mission | net_campaign):boolean
+
+--- Object handle
+--- @class object
+--- Checks whether two object handles are for the same object
+--- Returns: True if equal, false if not or a handle is invalid
+--- @field public __eq fun(arg_1:object, arg_2:object):boolean
+--- Returns name of object (if any)
+--- Returns: Object name, or empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Parent of the object. Value may also be a deriviative of the 'object' class, such as 'ship'.
+--- Value: Parent handle, or invalid handle if object is invalid
+--- Setter type: object
+--- @field public Parent object
+--- Radius of an object
+--- Value: Radius, or 0 if handle is invalid
+--- Setter type: number
+--- @field public Radius number
+--- Object world position (World vector)
+--- Value: World position, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public Position vector
+--- Object world position as of last frame (World vector)
+--- Value: World position, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public LastPosition vector
+--- Object world orientation (World orientation)
+--- Value: Orientation, or null orientation if handle is invalid
+--- Setter type: orientation
+--- @field public Orientation orientation
+--- Object world orientation as of last frame (World orientation)
+--- Value: Orientation, or null orientation if handle is invalid
+--- Setter type: orientation
+--- @field public LastOrientation orientation
+--- model instance used by this object
+--- Value: Model instance, nil if this object does not have one, or invalid model instance handle if object handle is invalid
+--- @field public ModelInstance model_instance
+--- Physics data used to move ship between frames
+--- Value: Physics data, or invalid physics handle if object handle is invalid
+--- Setter type: physics
+--- @field public Physics physics
+--- Hitpoints an object has left
+--- Value: Hitpoints left, or 0 if handle is invalid
+--- Setter type: number
+--- @field public HitpointsLeft number
+--- Simulated hitpoints an object has left
+--- Value: Simulated hitpoints left, or 0 if handle is invalid
+--- Setter type: number
+--- @field public SimHitpointsLeft number
+--- Shields
+--- Value: Shields handle, or invalid shields handle if object handle is invalid
+--- Setter type: shields
+--- @field public Shields shields
+--- Gets the object's unique signature
+--- Returns: Returns the object's unique numeric signature, or -1 if invalid.  Useful for creating a metadata system
+--- @field public getSignature fun():number
+--- Detects whether handle is valid
+--- Returns: true if handle is valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Checks whether the object has the should-be-dead flag set, which will cause it to be deleted within one frame
+--- Returns: true or false according to the flag, or nil if a syntax/type error occurs
+--- @field public isExpiring fun():boolean
+--- Gets object type
+--- Returns: Object type name, or empty string if handle is invalid
+--- @field public getBreedName fun():string
+--- Collision group data
+--- Value: Current set of collision groups. NOTE: This is a bitfield, NOT a normal number.
+--- Setter type: number
+--- @field public CollisionGroups number
+--- Adds this object to the specified collision group.  The group must be between 0 and 31, inclusive.
+--- Returns: Returns nothing
+--- @field public addToCollisionGroup fun(group:number):nil
+--- Removes this object from the specified collision group.  The group must be between 0 and 31, inclusive.
+--- Returns: Returns nothing
+--- @field public removeFromCollisionGroup fun(group:number):nil
+--- Returns the objects' current fvec.
+--- Returns: Objects' forward vector, or nil if invalid. If called with a true argument, vector will be normalized.
+--- @field public getfvec fun(optional_normalize:boolean):vector
+--- Returns the objects' current uvec.
+--- Returns: Objects' up vector, or nil if invalid. If called with a true argument, vector will be normalized.
+--- @field public getuvec fun(optional_normalize:boolean):vector
+--- Returns the objects' current rvec.
+--- Returns: Objects' rvec, or nil if invalid. If called with a true argument, vector will be normalized.
+--- @field public getrvec fun(optional_normalize:boolean):vector
+--- Checks the collisions between the polygons of the current object and a ray.  Start and end vectors are in world coordinates.  If a submodel is specified, collision is restricted to that submodel if checkSubmodelChildren is false, or to that submodel and its children if it is true.
+--- Returns: Returns collision point in world coordinates (local coordinates if Local is true) and the specific collision info; returns nil if no collisions
+--- @field public checkRayCollision fun(StartPoint:vector, EndPoint:vector, optional_Local:boolean, optional_submodel:submodel, optional_checkSubmodelChildren:boolean):vector, collision_info
+--- Registers a callback on this object which is called every time <i>before</i> the physics rules are applied to the object. The callback is attached to this specific object and will not be called anymore once the object is deleted. The parameter of the function is the object that is being moved.
+--- Returns: Returns nothing.
+--- @alias addPreMoveHookFun fun(object:object):nil
+--- @field public addPreMoveHook fun(callback:addPreMoveHookFun):nil
+--- Registers a callback on this object which is called every time <i>after</i> the physics rules are applied to the object. The callback is attached to this specific object and will not be called anymore once the object is deleted. The parameter of the function is the object that is being moved.
+--- Returns: Returns nothing.
+--- @alias addPostMoveHookFun fun(object:object):nil
+--- @field public addPostMoveHook fun(callback:addPostMoveHookFun):nil
+--- Assigns a sound to this object, with optional offset, sound flags (OS_XXXX), and associated subsystem.
+--- Returns: Returns the index of the sound on this object, or -1 if a sound could not be assigned.
+--- @field public assignSound fun(GameSnd:soundentry, optional_Offset:vector, optional_Flags:enumeration, optional_Subsys:subsystem):number
+--- Removes an assigned sound from this object.
+--- Returns: Returns nothing.
+--- @field public removeSoundByIndex fun(index:number):nil
+--- Returns the current number of sounds assigned to this object
+--- Returns: the number of sounds
+--- @field public getNumAssignedSounds fun():number
+--- Removes all sounds of the given type from the object or object's subsystem
+--- Returns: Returns nothing.
+--- @field public removeSound fun(GameSnd:soundentry, optional_Subsys:subsystem):nil
+--- Gets the IFF color of the object. False to return raw rgb, true to return color object. Defaults to false.
+--- Returns: IFF rgb color of the object or nil if object invalid
+--- @field public getIFFColor fun(ReturnType:boolean):number, number, number, number, color
+
+--- Option handle
+--- @class option
+--- The title of this option (read-only)
+--- Value: The title or nil on error
+--- @field public Title string
+--- The description of this option (read-only)
+--- Value: The description or nil on error
+--- @field public Description string
+--- The configuration key of this option. This will be a unique string. (read-only)
+--- Value: The key or nil on error
+--- @field public Key string
+--- The category of this option. (read-only)
+--- Value: The category or nil on error
+--- @field public Category string
+--- The type of this option. One of the OPTION_TYPE_* values. (read-only)
+--- Value: The enum or nil on error
+--- @field public Type enumeration
+--- The current value of this option.
+--- Value: The current value or nil on error
+--- Setter type: ValueDescription
+--- @field public Value ValueDescription
+--- Contains a list mapping a flag name to its value. Possible names are:<ul><li><b>ForceMultiValueSelection:</b> If true, a selection option with two values should be displayed the same as an option with more possible values</li><li><b>RetailBuiltinOption:</b> If true, the option is one of the original retail options</li><li><b>RangeTypeInteger:</b> If true, this range option requires an integer for the range value rather than a float</li></ul>
+--- Value: The table of flags values.
+--- @field public Flags table<string, boolean>
+--- Gets a value from an option range. The specified value must be between 0 and 1.
+--- Returns: The value at the specifiedposition
+--- @field public getValueFromRange fun(interpolant:number):ValueDescription
+--- From a value description of this option, determines the range value.
+--- Returns: The range value or 0 on error.
+--- @field public getInterpolantFromValue fun(value:ValueDescription):number
+--- Gets the valid values of this option. The order or the returned values must be maintained in the UI. This is only valid for selection or boolean options.
+--- Returns: A table containing the possible values or nil on error.
+--- @field public getValidValues fun():ValueDescription
+--- Immediately persists any changes made to this specific option.
+--- Returns: true if the change was applied successfully, false otherwise. nil on error.
+--- @field public persistChanges fun():boolean
+
+--- order handle
+--- @class order
+--- Priority of the given order
+--- Value: Order priority or 0 if invalid
+--- Setter type: number
+--- @field public Priority number
+--- Removes the given order from the ship's priority queue.
+--- Returns: True if order was successfully removed, otherwise false or nil.
+--- @field public remove fun():boolean
+--- Gets the type of the order.
+--- Returns: The type of the order as one of the ORDER_* enumerations.
+--- @field public getType fun():enumeration
+--- Target of the order. Value may also be a deriviative of the 'object' class, such as 'ship'.
+--- Value: Target object or invalid object handle if order handle is invalid or order requires no target.
+--- Setter type: object
+--- @field public Target object
+--- Target subsystem of the order.
+--- Value: Target subsystem, or invalid subsystem handle if order handle is invalid or order requires no subsystem target.
+--- Setter type: subsystem
+--- @field public TargetSubsystem subsystem
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- Orientation matrix object
+--- @class orientation
+--- Orientation component - pitch, bank, heading, or index into 3x3 matrix (1-9)
+--- Returns: Number at the specified index, or 0 if index is invalid.
+--- @field public __indexer fun(axis:string):number--- @field public __indexer fun(element:number):number
+--- Multiplies two matrix objects)
+--- Returns: matrix, or empty matrix if unsuccessful
+--- @field public __mul fun(arg_1:orientation):orientation
+--- Converts a matrix to a string with format "[r1c1 r2c1 r3c1 | r1c2 r2c2 r3c2| r1c3 r2c3 r3c3]"
+--- Returns: Formatted string or "<NULL"
+--- @field public __tostring fun():string
+--- Returns a copy of the orientation
+--- Returns: The copy, or null orientation on failure
+--- @field public copy fun():orientation
+--- Returns orientation that has been interpolated to Final by Factor (0.0-1.0).  This is a pure linear interpolation with no consideration given to matrix validity or normalization.  You may want 'rotationalInterpolate' instead.
+--- Returns: Interpolated orientation, or null orientation on failure
+--- @field public getInterpolated fun(Final:orientation, Factor:number):orientation
+--- Interpolates between this (initial) orientation and a second one, using t as the multiplier of progress between them.  Intended values for t are [0.0f, 1.0f], but values outside this range are allowed.
+--- Returns: The interpolated orientation, or NIL if any handle is invalid
+--- @field public rotationalInterpolate fun(final:orientation, t:number):orientation
+--- Returns a transpose version of the specified orientation
+--- Returns: Transpose matrix, or null orientation on failure
+--- @field public getTranspose fun():orientation
+--- Returns rotated version of given vector
+--- Returns: Rotated vector, or empty vector on error
+--- @field public rotateVector fun(Input:vector):vector
+--- Returns unrotated version of given vector
+--- Returns: Unrotated vector, or empty vector on error
+--- @field public unrotateVector fun(Input:vector):vector
+--- Returns the vector that points up (0,1,0 unrotated by this matrix)
+--- Returns: Vector or null vector on error
+--- @field public getUvec fun():vector
+--- Returns the vector that points to the front (0,0,1 unrotated by this matrix)
+--- Returns: Vector or null vector on error
+--- @field public getFvec fun():vector
+--- Returns the vector that points to the right (1,0,0 unrotated by this matrix)
+--- Returns: Vector or null vector on error
+--- @field public getRvec fun():vector
+--- Create a new normalized vector, randomly perturbed around a cone in the given orientation.  Angles are in degrees.  If only one angle is specified, it is the max angle.  If both are specified, the first is the minimum and the second is the maximum.
+--- Returns: A vector, somewhat perturbed from the experience
+--- @field public perturb fun(angle1:number, optional_angle2:number):vector
+
+--- Handle for LuaSEXP arguments that can hold different types (Object/Ship/Wing/Waypoint/Team)
+--- @class oswpt
+--- The data-type this OSWPT yields on the get method.
+--- Returns: The name of the data type. Either 'ship', 'parseobject' (a yet-to-spawn ship), 'wing' (can include yet-to-arrive wings with 0 current ships), 'team' (both explicit and ship-on-team), 'waypoint',  or 'none' (either explicitly specified, a ship that doesn't exist anymore, or invalid OSWPT object).
+--- @field public getType fun():string
+--- Returns the data held by this OSWPT.
+--- Returns: Returns the data held by this OSWPT, nil if type is 'none'.
+--- @field public get fun():ship | parse_object | wing | team | waypoint | nil
+--- Applies this function to each (present) ship this OSWPT applies to.
+--- Returns: Nothing
+--- @alias forAllShipsFun fun(ship:ship):nil
+--- @field public forAllShips fun(body:forAllShipsFun):nil
+--- Applies this function to each not-yet-present ship (includes not-yet-present wings and not-yet-present ships of a specified team!) this OSWPT applies to.
+--- Returns: Nothing
+--- @alias forAllParseObjectsFun fun(po:parse_object):nil
+--- @field public forAllParseObjects fun(body:forAllParseObjectsFun):nil
+
+--- Handle to a parsed ship
+--- @class parse_object
+--- The name of the parsed ship. If possible, don't set the name but set the display name instead.
+--- Value: The name or empty string on error
+--- Setter type: string
+--- @field public Name string
+--- The display name of the parsed ship. If the name should be shown to the user, use this since it can be translated.
+--- Value: The display name or empty string on error
+--- Setter type: string
+--- @field public DisplayName string
+--- Detect whether the parsed ship handle is valid
+--- Returns: true if valid false otherwise
+--- @field public isValid fun():boolean
+--- Checks whether the parsed ship is a player ship
+--- Returns: Whether the parsed ship is a player ship
+--- @field public isPlayer fun():boolean
+--- Sets or clears one or more flags - this function can accept an arbitrary number of flag arguments.  The flag names can be any string that the alter-ship-flag SEXP operator supports.
+--- Returns: Returns nothing
+--- @field public setFlag fun(set_it:boolean, flag_name:string):nil
+--- Checks whether one or more flags are set - this function can accept an arbitrary number of flag arguments.  The flag names can be any string that the alter-ship-flag SEXP operator supports.
+--- Returns: Returns whether all flags are set, or nil if the parsed ship is not valid
+--- @field public getFlag fun(flag_name:string):boolean
+--- The position at which the parsed ship will arrive.
+--- Value: The position of the parsed ship.
+--- Setter type: vector
+--- @field public Position vector
+--- The orientation of the parsed ship.
+--- Value: The orientation
+--- Setter type: orientation
+--- @field public Orientation orientation
+--- The ship class of the parsed ship.
+--- Value: The ship class
+--- Setter type: shipclass
+--- @field public ShipClass shipclass
+--- The team of the parsed ship.
+--- Value: The team
+--- Setter type: team
+--- @field public Team team
+--- The initial hull percentage of this parsed ship.
+--- Value: The initial hull
+--- Setter type: number
+--- @field public InitialHull number
+--- The initial shields percentage of this parsed ship.
+--- Value: The initial shields
+--- Setter type: number
+--- @field public InitialShields number
+--- Gets the "subsystem" status of the ship itself. This is a special subsystem that represents the primary and secondary weapons and the AI class.
+--- Value: The subsystem handle or invalid handle if there were no changes to the main status
+--- @field public MainStatus parse_subsystem
+--- Get the list of subsystems of this parsed ship
+--- Value: An array of the parse subsystems of this parsed ship
+--- @field public Subsystems parse_subsystem
+--- The ship's arrival location
+--- Value: Arrival location, or nil if handle is invalid
+--- Setter type: string
+--- @field public ArrivalLocation string
+--- The ship's departure location
+--- Value: Departure location, or nil if handle is invalid
+--- Setter type: string
+--- @field public DepartureLocation string
+--- The ship's arrival anchor
+--- Value: Arrival anchor, or nil if handle is invalid
+--- Setter type: string
+--- @field public ArrivalAnchor string
+--- The ship's departure anchor
+--- Value: Departure anchor, or nil if handle is invalid
+--- Setter type: string
+--- @field public DepartureAnchor string
+--- The ship's arrival path mask
+--- Value: Arrival path mask, or nil if handle is invalid
+--- Setter type: number
+--- @field public ArrivalPathMask number
+--- The ship's departure path mask
+--- Value: Departure path mask, or nil if handle is invalid
+--- Setter type: number
+--- @field public DeparturePathMask number
+--- The ship's arrival delay
+--- Value: Arrival delay, or nil if handle is invalid
+--- Setter type: number
+--- @field public ArrivalDelay number
+--- The ship's departure delay
+--- Value: Departure delay, or nil if handle is invalid
+--- Setter type: number
+--- @field public DepartureDelay number
+--- The ship's arrival distance
+--- Value: Arrival distance, or nil if handle is invalid
+--- Setter type: number
+--- @field public ArrivalDistance number
+--- Determines if this parsed ship is a player start.
+--- Returns: true if player start, false if not or if invalid
+--- @field public isPlayerStart fun():boolean
+--- Returns the ship that was created from this parsed ship, if it is present in the mission.  Note that parse objects are reused when a wing has multiple waves, so this will always return a ship from the most recently created wave.
+--- Returns: The created ship, an invalid handle if no ship exists, or nil if the current handle is invalid
+--- @field public getShip fun():ship
+--- Returns the wing that this parsed ship belongs to, if any
+--- Returns: The parsed ship's wing, an invalid wing handle if no wing exists, or nil if the handle is invalid
+--- @field public getWing fun():wing
+--- Causes this parsed ship to arrive as if its arrival cue had become true.  Note that reinforcements are only marked as available, not actually created.
+--- Returns: true if created, false otherwise
+--- @field public makeShipArrive fun():boolean
+--- Collision group data
+--- Value: Current set of collision groups. NOTE: This is a bitfield, NOT a normal number.
+--- Setter type: number
+--- @field public CollisionGroups number
+--- Adds this parsed ship to the specified collision group.  The group must be between 0 and 31, inclusive.
+--- Returns: Returns nothing
+--- @field public addToCollisionGroup fun(group:number):nil
+--- Removes this parsed ship from the specified collision group.  The group must be between 0 and 31, inclusive.
+--- Returns: Returns nothing
+--- @field public removeFromCollisionGroup fun(group:number):nil
+
+--- Handle to a parse subsystem
+--- @class parse_subsystem
+--- The name of the subsystem. If possible, don't set the name but set the display name instead.
+--- Value: The name or empty string on error
+--- Setter type: string
+--- @field public Name string
+--- The percentage to what the subsystem is damage
+--- Value: The percentage or negative on error
+--- Setter type: number
+--- @field public Damage number
+--- The overridden primary banks
+--- Value: The primary bank weapons or nil if not changed from default
+--- @field public PrimaryBanks weaponclass
+--- The overridden primary ammunition, as a percentage of the default
+--- Value: The primary bank ammunition percantage or nil if not changed from default
+--- @field public PrimaryAmmo weaponclass
+--- The overridden secondary banks
+--- Value: The secondary bank weapons or nil if not changed from default
+--- @field public SecondaryBanks weaponclass
+--- The overridden secondary ammunition, as a percentage of the default
+--- Value: The secondary bank ammunition percantage or nil if not changed from default
+--- @field public SecondaryAmmo weaponclass
+
+--- Handle to a particle
+--- @class particle
+--- The current position of the particle (world vector)
+--- Value: The current position
+--- Setter type: vector
+--- @field public Position vector
+--- The current velocity of the particle (world vector)
+--- Value: The current velocity
+--- Setter type: vector
+--- @field public Velocity vector
+--- The time this particle already lives
+--- Value: The current age or -1 on error
+--- Setter type: number
+--- @field public Age number
+--- The time this particle can live
+--- Value: The maximal life or -1 on error
+--- Setter type: number
+--- @field public MaximumLife number
+--- The looping status of the particle. If a particle loops then it will not be removed when its max_life value has been reached. Instead its animation will be reset to the start. When the particle should finally be removed then set this to false and set MaxLife to 0.
+--- Value: The looping status
+--- Setter type: boolean
+--- @field public Looping boolean
+--- The radius of the particle
+--- Value: The radius or -1 on error
+--- Setter type: number
+--- @field public Radius number
+--- The tracer legth of the particle
+--- Value: The radius or -1 on error
+--- Setter type: number
+--- @field public TracerLength number
+--- The object this particle is attached to. If valid the position will be relative to this object and the velocity will be ignored.
+--- Value: Attached object or invalid object handle on error
+--- Setter type: object
+--- @field public AttachedObject object
+--- Detects whether this handle is valid
+--- Returns: true if valid false if not
+--- @field public isValid fun():boolean
+--- Sets the color for a particle.  If the particle does not support color, the function does nothing.  (Currently only debug particles support color.)
+--- Returns: Nothing
+--- @field public setColor fun(r:number, g:number, b:number):nil
+
+--- Persona handle
+--- @class persona
+--- The name of the persona
+--- Value: The name or empty string on error
+--- Setter type: string
+--- @field public Name string
+--- Detect if the handle is valid
+--- Returns: true if valid, false otherwise
+--- @field public isValid fun():boolean
+
+--- Physics handle
+--- @class physics
+--- Afterburner acceleration time
+--- Value: Afterburner acceleration time, or 0 if handle is invalid
+--- Setter type: number
+--- @field public AfterburnerAccelerationTime number
+--- Afterburner max velocity (Local vector)
+--- Value: Afterburner max velocity, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public AfterburnerVelocityMax vector
+--- Banking constant
+--- Value: Banking constant, or 0 if handle is invalid
+--- Setter type: number
+--- @field public BankingConstant number
+--- Forward acceleration time
+--- Value: Forward acceleration time, or 0 if handle is invalid
+--- Setter type: number
+--- @field public ForwardAccelerationTime number
+--- Forward deceleration time
+--- Value: Forward deceleration time, or 0 if handle is invalid
+--- Setter type: number
+--- @field public ForwardDecelerationTime number
+--- Forward thrust amount (-1 - 1), used primarily for thruster graphics and does not affect any physical behavior
+--- Value: Forward thrust, or 0 if handle is invalid
+--- Setter type: number
+--- @field public ForwardThrust number
+--- Object mass
+--- Value: Object mass, or 0 if handle is invalid
+--- Setter type: number
+--- @field public Mass number
+--- Rotational velocity (Local vector)
+--- Value: Rotational velocity, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public RotationalVelocity vector
+--- Rotational damping, ie derivative of rotational speed
+--- Value: Rotational damping, or 0 if handle is invalid
+--- Setter type: number
+--- @field public RotationalVelocityDamping number
+--- Desired rotational velocity
+--- Value: Desired rotational velocity, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public RotationalVelocityDesired vector
+--- Maximum rotational velocity (Local vector)
+--- Value: Maximum rotational velocity, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public RotationalVelocityMax vector
+--- How much shaking from shockwaves is applied to object
+--- Value: Shockwave shake amplitude, or 0 if handle is invalid
+--- Setter type: number
+--- @field public ShockwaveShakeAmplitude number
+--- Side thrust amount (-1 - 1), used primarily for thruster graphics and does not affect any physical behavior
+--- Value: Side thrust amount, or 0 if handle is invalid
+--- Setter type: number
+--- @field public SideThrust number
+--- Time to accelerate to maximum slide velocity
+--- Value: Sliding acceleration time, or 0 if handle is invalid
+--- Setter type: number
+--- @field public SlideAccelerationTime number
+--- Time to decelerate from maximum slide speed
+--- Value: Sliding deceleration time, or 0 if handle is invalid
+--- Setter type: number
+--- @field public SlideDecelerationTime number
+--- Object world velocity (World vector). Setting this value may have minimal effect unless the $Fix scripted velocity game settings flag is used.
+--- Value: Object velocity, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public Velocity vector
+--- Damping, the natural period (1 / omega) of the dampening effects on top of the acceleration model. Called 'side_slip_time_const' in code base.
+--- Value: Damping, or 0 if handle is invalid
+--- Setter type: number
+--- @field public VelocityDamping number
+--- Desired velocity (World vector)
+--- Value: Desired velocity, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public VelocityDesired vector
+--- Object max local velocity (Local vector)
+--- Value: Maximum velocity, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public VelocityMax vector
+--- Vertical thrust amount (-1 - 1), used primarily for thruster graphics and does not affect any physical behavior
+--- Value: Vertical thrust amount, or 0 if handle is invalid
+--- Setter type: number
+--- @field public VerticalThrust number
+--- Specifies if the afterburner is active or not
+--- Value: true if afterburner is active false otherwise
+--- Setter type: boolean
+--- @field public AfterburnerActive boolean
+--- Multiplier for the effect of gravity on this object
+--- Value: Multiplier, or 0 if handle is invalid
+--- Setter type: number
+--- @field public GravityConst number
+--- True if valid, false or nil if not
+--- Returns: Detects whether handle is valid
+--- @field public isValid fun():boolean
+--- Gets total speed as of last frame
+--- Returns: Total speed, or 0 if handle is invalid
+--- @field public getSpeed fun():number
+--- Gets total speed in the ship's 'forward' direction as of last frame
+--- Returns: Total forward speed, or 0 if handle is invalid
+--- @field public getForwardSpeed fun():number
+--- True if Afterburners are on, false or nil if not
+--- Returns: Detects whether afterburner is active
+--- @field public isAfterburnerActive fun():boolean
+--- True if glide mode is on, false or nil if not
+--- Returns: Detects if ship is gliding
+--- @field public isGliding fun():boolean
+--- Applies a whack to an object based on an impulse vector, indicating the direction and strength of whack and optionally at a position relative to the ship in world orientation, the ship's center being default.
+--- Returns: true if it succeeded, false otherwise
+--- @field public applyWhack fun(Impulse:vector, optional_Position:vector):boolean
+--- Applies a whack to an object based on an impulse vector, indicating the direction and strength of whack and optionally at a world position, the ship's center being default.
+--- Returns: true if it succeeded, false otherwise
+--- @field public applyWhackWorld fun(Impulse:vector, optional_Position:vector):boolean
+
+--- Player handle
+--- @class player
+--- The scoring stats of this player (read-only)
+--- Value: The player stats or invalid handle
+--- Setter type: scoring_stats
+--- @field public Stats scoring_stats
+--- The image filename of this pilot
+--- Value: Player image filename, or empty string if handle is invalid
+--- Setter type: string
+--- @field public ImageFilename string
+--- The singleplayer squad filename of this pilot
+--- Value: singleplayer squad image filename, or empty string if handle is invalid
+--- Setter type: string
+--- @field public SingleSquadFilename string
+--- The multiplayer squad filename of this pilot
+--- Value: Multiplayer squad image filename, or empty string if handle is invalid
+--- Setter type: string
+--- @field public MultiSquadFilename string
+--- Determines if this player is currently configured for multiplayer.
+--- Value: true if this is a multiplayer pilot, false otherwise or if the handle is invalid
+--- Setter type: boolean
+--- @field public IsMultiplayer boolean
+--- Determines if this player is currently configured for multiplayer.
+--- Value: true if this is a multiplayer pilot, false otherwise or if the handle is invalid
+--- Setter type: boolean
+--- @field public WasMultiplayer boolean
+--- Determines if briefing stages should be auto advanced.
+--- Value: true if auto advance is enabled, false otherwise or if the handle is invalid
+--- Setter type: boolean
+--- @field public AutoAdvance boolean
+--- Determines if the skip mission popup is shown for the current mission.
+--- Value: true if it should be shown, false otherwise or if the handle is invalid
+--- Setter type: boolean
+--- @field public ShowSkipPopup boolean
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Gets current player name
+--- Returns: Player name, or empty string if handle is invalid
+--- @field public getName fun():string
+--- Gets current player campaign filename
+--- Returns: Campaign name, or empty string if handle is invalid
+--- @field public getCampaignFilename fun():string
+--- Gets current player image filename
+--- Returns: Player image filename, or empty string if handle is invalid
+--- @field public getImageFilename fun():string
+--- Gets player's current main hall name
+--- Returns: Main hall name, or name of first mainhall in campaign if something goes wrong
+--- @field public getMainHallName fun():string
+--- Gets player's current main hall number
+--- Returns: Main hall index, or index of first mainhall in campaign if something goes wrong
+--- @field public getMainHallIndex fun():number
+--- Gets current player squad name
+--- Returns: Squadron name, or empty string if handle is invalid
+--- @field public getSquadronName fun():string
+--- Gets current player multi squad name
+--- Returns: Squadron name, or empty string if handle is invalid
+--- @field public getMultiSquadronName fun():string
+--- Loads the specified campaign save file.
+--- Returns: true on success, false otherwise
+--- @field public loadCampaignSavefile fun(optional_campaign:string):boolean
+--- Loads the specified campaign file and return to it's mainhall.
+--- Returns: true on success, false otherwise
+--- @field public loadCampaign fun(campaign:string):boolean
+
+--- Control Preset handle
+--- @class preset
+--- The name of the preset
+--- Value: The name
+--- @field public Name string
+--- Clones the preset into a new preset with the specified name. Sets it as the active preset
+--- Returns: Returns true if successful, false otherwise
+--- @field public clonePreset fun(Name:string):boolean
+--- Deletes the preset file entirely. Cannot delete a currently active preset.
+--- Returns: Returns true if successful, false otherwise
+--- @field public deletePreset fun():boolean
+
+--- A promise that represents an operation that will return a value at some point in the future
+--- @class promise
+--- When the called on promise resolves, this function will be called with the resolved value of the promise.
+--- Returns: A promise that will resolve with the return value of the passed function.
+--- @alias continueWithFun fun(args:any):any
+--- @field public continueWith fun(arg_1:continueWithFun):promise
+--- When the called on promise produces an error, this function will be called with the error value of the promise.
+--- Returns: A promise that will resolve with the return value of the passed function.
+--- @alias catchFun fun(args:any):any
+--- @field public catch fun(arg_1:catchFun):promise
+--- Checks if the promise is already resolved.
+--- Returns: true if resolved, false if result is still pending.
+--- @field public isResolved fun():boolean
+--- Checks if the promise is already in an error state.
+--- Returns: true if errored, false if result is still pending.
+--- @field public isErrored fun():boolean
+--- Gets the resolved value of this promise. Causes an error when used on an unresolved or errored promise!
+--- Returns: The resolved values.
+--- @field public getValue fun():any
+--- Gets the error value of this promise. Causes an error when used on an unresolved or resolved promise!
+--- Returns: The error values.
+--- @field public getErrorValue fun():any
+
+--- Channel Section handle
+--- @class pxo_channel
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- The name of the channel
+--- Value: The name
+--- @field public Name string
+--- The description of the channel
+--- Value: The description
+--- @field public Description string
+--- The number of players in the channel
+--- Value: The number of players
+--- @field public NumPlayers string
+--- The number of games the channel
+--- Value: The number of games
+--- @field public NumGames string
+--- Returns whether this is the current channel
+--- Returns: true for current, false otherwise. Nil if invalid.
+--- @field public isCurrent fun():boolean
+--- Joins the specified channel
+--- Returns: Nothing
+--- @field public joinChannel fun():nil
+
+--- Rank handle
+--- @class rank
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- The name of the rank
+--- Value: The name
+--- @field public Name string
+--- The alt name of the rank
+--- Value: The alt name
+--- @field public AltName string
+--- The title of the rank
+--- Value: The title
+--- @field public Title string
+--- The bitmap of the rank
+--- Value: The bitmap
+--- @field public Bitmap string
+--- The index of the rank within the Ranks list
+--- Value: The rank index
+--- @field public Index number
+
+--- Red Alert stage handle
+--- @class red_alert_stage
+--- The briefing text of the stage
+--- Value: The text string
+--- @field public Text string
+--- The audio file of the stage
+--- Value: The audio file
+--- @field public AudioFilename string
+
+--- A function object for remote procedure calls
+--- @class rpc
+--- Sets the function to be called when the RPC is invoked on this client
+--- Returns: The function the RPC is set to
+--- @alias __newindexFun fun(arg:any):nil
+--- @field public __newindex fun(rpc_body:__newindexFun):fun(arg:any):nil
+--- Calls the RPC on the specified recipients with the given argument.
+--- Returns: True, if RPC call happened (not a guarantee for arrival at the recipient!)
+--- @field public __call fun(optional_arg_1:any, optional_recipient:enumeration):boolean
+--- Performs an asynchronous wait until this RPC has been evoked on this client and the RPC function has finished running. Does NOT trigger when the RPC is called from this client.
+--- Returns: A promise with no return value that resolves when this RPC has been called the next time.
+--- @field public waitRPC fun():promise
+
+--- Player related scoring stats.
+--- @class scoring_stats
+--- The current score.
+--- Value: The score value
+--- Setter type: number
+--- @field public Score number
+--- The number of primary shots that have been fired.
+--- Value: The score value
+--- Setter type: number
+--- @field public PrimaryShotsFired number
+--- The number of primary shots that have hit.
+--- Value: The score value
+--- Setter type: number
+--- @field public PrimaryShotsHit number
+--- The number of primary friendly fire hits.
+--- Value: The score value
+--- Setter type: number
+--- @field public PrimaryFriendlyHit number
+--- The number of secondary shots that have been fired.
+--- Value: The score value
+--- Setter type: number
+--- @field public SecondaryShotsFired number
+--- The number of secondary shots that have hit.
+--- Value: The score value
+--- Setter type: number
+--- @field public SecondaryShotsHit number
+--- The number of secondary friendly fire hits.
+--- Value: The score value
+--- Setter type: number
+--- @field public SecondaryFriendlyHit number
+--- The total number of kills.
+--- Value: The score value
+--- Setter type: number
+--- @field public TotalKills number
+--- The total number of assists.
+--- Value: The score value
+--- Setter type: number
+--- @field public Assists number
+--- Returns the number of kills of a specific ship class recorded in this statistics structure.
+--- Returns: The kills for that specific ship class
+--- @field public getShipclassKills fun(class:shipclass):number
+--- The number of primary shots that have been fired in the current mission.
+--- Value: The score value
+--- Setter type: number
+--- @field public MissionPrimaryShotsFired number
+--- The number of primary shots that have hit in the current mission.
+--- Value: The score value
+--- Setter type: number
+--- @field public MissionPrimaryShotsHit number
+--- The number of primary friendly fire hits in the current mission.
+--- Value: The score value
+--- Setter type: number
+--- @field public MissionPrimaryFriendlyHit number
+--- The number of secondary shots that have been fired in the current mission.
+--- Value: The score value
+--- Setter type: number
+--- @field public MissionSecondaryShotsFired number
+--- The number of secondary shots that have hit in the current mission.
+--- Value: The score value
+--- Setter type: number
+--- @field public MissionSecondaryShotsHit number
+--- The number of secondary friendly fire hits in the current mission.
+--- Value: The score value
+--- Setter type: number
+--- @field public MissionSecondaryFriendlyHit number
+--- The total number of kills in the current mission.
+--- Value: The score value
+--- Setter type: number
+--- @field public MissionTotalKills number
+--- The total number of assists in the current mission.
+--- Value: The score value
+--- Setter type: number
+--- @field public MissionAssists number
+--- Returns the number of kills of a specific ship class recorded in this statistics structure for the current mission.
+--- Returns: The kills for that specific ship class
+--- @field public getMissionShipclassKills fun(class:shipclass):number
+--- Sets the number of kills of a specific ship class recorded in this statistics structure for the current mission. Returns true if successful.
+--- Returns: True if successful
+--- @field public setMissionShipclassKills fun(class:shipclass, kills:number):boolean
+--- Gets a table of medals that the player has earned. The number returned is the number of times the player has won that medal. The index position in the table is an index into Medals.
+--- Value: The medals table
+--- @field public Medals table<number, number>
+--- Returns the player's current rank
+--- Value: The current rank
+--- @field public Rank rank
+
+--- SEXP Variable handle
+--- @class sexpvariable
+--- SEXP Variable name.
+--- Value: SEXP Variable name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- SEXP Variable persistence, uses SEXPVAR_*_PERSISTENT enumerations
+--- Value: SEXPVAR_*_PERSISTENT enumeration, or invalid numeration if handle is invalid
+--- Setter type: enumeration
+--- @field public Persistence enumeration
+--- SEXP Variable type, uses SEXPVAR_TYPE_* enumerations
+--- Value: SEXPVAR_TYPE_* enumeration, or invalid numeration if handle is invalid
+--- Setter type: enumeration
+--- @field public Type enumeration
+--- SEXP variable value
+--- Value: SEXP variable contents, or nil if the variable is of an invalid type or the handle is invalid
+--- Setter type: number | string
+--- @field public Value string
+--- Returns SEXP name
+--- Returns: SEXP name, or empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Deletes a SEXP Variable
+--- Returns: True if successful, false if the handle is invalid
+--- @field public delete fun():boolean
+
+--- Shields handle
+--- @class shields
+--- Number of shield segments
+--- Returns: Number of shield segments or 0 if handle is invalid
+--- @field public __len fun():number
+--- Gets or sets shield segment strength. Use "SHIELD_*" enumerations (for standard 4-quadrant shields) or index of a specific segment, or NONE for the entire shield
+--- Returns: Segment/shield strength, or 0 if handle is invalid
+--- @field public __indexer fun(arg_1:enumeration | number):number
+--- Total shield hitpoints left (for all segments combined)
+--- Value: Combined shield strength, or 0 if handle is invalid
+--- Setter type: number
+--- @field public CombinedLeft number
+--- Maximum shield hitpoints (for all segments combined)
+--- Value: Combined maximum shield strength, or 0 if handle is invalid
+--- Setter type: number
+--- @field public CombinedMax number
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- Ship handle
+--- @class ship : object
+--- Array of ship subsystems
+--- Returns: Subsystem handle, or invalid subsystem handle if index or ship handle is invalid
+--- @field public __indexer fun(NameOrIndex:string | number):subsystem
+--- Number of subsystems on ship
+--- Returns: Subsystem number, or 0 if handle is invalid
+--- @field public __len fun():number
+--- Sets or clears one or more flags - this function can accept an arbitrary number of flag arguments.  The flag names can be any string that the alter-ship-flag SEXP operator supports.
+--- Returns: Returns nothing
+--- @field public setFlag fun(set_it:boolean, flag_name:string):nil
+--- Checks whether one or more flags are set - this function can accept an arbitrary number of flag arguments.  The flag names can be any string that the alter-ship-flag SEXP operator supports.
+--- Returns: Returns whether all flags are set, or nil if the ship is not valid
+--- @field public getFlag fun(flag_name:string):boolean
+--- Current Armor class of the ships' shield
+--- Value: Armor class name, or empty string if none is set
+--- Setter type: string
+--- @field public ShieldArmorClass string
+--- Current Impact Damage class
+--- Value: Impact Damage class name, or empty string if none is set
+--- Setter type: string
+--- @field public ImpactDamageClass string
+--- Current Armor class
+--- Value: Armor class name, or empty string if none is set
+--- Setter type: string
+--- @field public ArmorClass string
+--- Ship name. This is the actual name of the ship. Use <i>getDisplayString</i> to get the string which should be displayed to the player.
+--- Value: Ship name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Ship display name
+--- Value: The display name of the ship or empty if there is no display string
+--- Setter type: string
+--- @field public DisplayName string
+--- Checks whether the ship is a player ship
+--- Returns: Whether the ship is a player ship
+--- @field public isPlayer fun():boolean
+--- Afterburner fuel left
+--- Value: Afterburner fuel left, or 0 if handle is invalid
+--- Setter type: number
+--- @field public AfterburnerFuelLeft number
+--- Afterburner fuel capacity
+--- Value: Afterburner fuel capacity, or 0 if handle is invalid
+--- Setter type: number
+--- @field public AfterburnerFuelMax number
+--- Ship class
+--- Value: Ship class, or invalid shipclass handle if ship handle is invalid
+--- Setter type: shipclass
+--- @field public Class shipclass
+--- Number of countermeasures left
+--- Value: Countermeasures left, or 0 if ship handle is invalid
+--- Setter type: number
+--- @field public CountermeasuresLeft number
+--- An array of the cockpit displays on this ship.<br>NOTE: Only the ship of the player has these
+--- Value: displays handle or invalid handle on error
+--- Setter type: displays
+--- @field public CockpitDisplays displays
+--- Weapon class mounted on this ship's countermeasure point
+--- Value: Countermeasure hardpoint weapon class, or invalid weaponclass handle if no countermeasure class or ship handle is invalid
+--- Setter type: weaponclass
+--- @field public CountermeasureClass weaponclass
+--- Total hitpoints
+--- Value: Ship maximum hitpoints, or 0 if handle is invalid
+--- Setter type: number
+--- @field public HitpointsMax number
+--- Maximum percentage/100 of shield energy regenerated per second. For example, 0.02 = 2% recharge per second.
+--- Value: Ship maximum shield regeneration rate, or 0 if handle is invalid
+--- Setter type: number
+--- @field public ShieldRegenRate number
+--- Maximum percentage/100 of weapon energy regenerated per second. For example, 0.02 = 2% recharge per second.
+--- Value: Ship maximum weapon regeneration rate, or 0 if handle is invalid
+--- Setter type: number
+--- @field public WeaponRegenRate number
+--- Current weapon energy reserves
+--- Value: Ship current weapon energy reserve level, or 0 if invalid
+--- Setter type: number
+--- @field public WeaponEnergyLeft number
+--- Maximum weapon energy
+--- Value: Ship maximum weapon energy reserve level, or 0 if invalid
+--- Setter type: number
+--- @field public WeaponEnergyMax number
+--- FOV of ship's autoaim, if any
+--- Value: FOV (in degrees), or 0 if ship uses no autoaim or if handle is invalid
+--- Setter type: number
+--- @field public AutoaimFOV number
+--- Determines if primary trigger is pressed or not
+--- Value: True if pressed, false if not, nil if ship handle is invalid
+--- Setter type: boolean
+--- @field public PrimaryTriggerDown boolean
+--- Array of primary weapon banks
+--- Value: Primary weapon banks, or invalid weaponbanktype handle if ship handle is invalid
+--- Setter type: weaponbanktype
+--- @field public PrimaryBanks weaponbanktype
+--- Array of secondary weapon banks
+--- Value: Secondary weapon banks, or invalid weaponbanktype handle if ship handle is invalid
+--- Setter type: weaponbanktype
+--- @field public SecondaryBanks weaponbanktype
+--- Array of tertiary weapon banks
+--- Value: Tertiary weapon banks, or invalid weaponbanktype handle if ship handle is invalid
+--- Setter type: weaponbanktype
+--- @field public TertiaryBanks weaponbanktype
+--- Target of ship. Value may also be a deriviative of the 'object' class, such as 'ship'.
+--- Value: Target object, or invalid object handle if no target or ship handle is invalid
+--- Setter type: object
+--- @field public Target object
+--- Target subsystem of ship.
+--- Value: Target subsystem, or invalid subsystem handle if no target or ship handle is invalid
+--- Setter type: subsystem
+--- @field public TargetSubsystem subsystem
+--- Ship's team
+--- Value: Ship team, or invalid team handle if ship handle is invalid
+--- Setter type: team
+--- @field public Team team
+--- Persona index
+--- Value: The index of the persona from messages.tbl, 0 if no persona is set
+--- Setter type: number
+--- @field public PersonaIndex number
+--- Gets ship textures
+--- Value: Ship textures, or invalid shiptextures handle if ship handle is invalid
+--- Setter type: modelinstancetextures
+--- @field public Textures modelinstancetextures
+--- Checks for the "affected-by-gravity" flag
+--- Value: True if flag is set, false if flag is not set and nil on error
+--- Setter type: boolean
+--- @field public FlagAffectedByGravity boolean
+--- The disabled state of this ship
+--- Value: true if ship is disabled, false otherwise
+--- Setter type: boolean
+--- @field public Disabled boolean
+--- Stealth status of this ship
+--- Value: true if stealthed, false otherwise or on error
+--- Setter type: boolean
+--- @field public Stealthed boolean
+--- Hidden from sensors status of this ship
+--- Value: true if invisible to hidden from sensors, false otherwise or on error
+--- Setter type: boolean
+--- @field public HiddenFromSensors boolean
+--- Specifies whether this ship is currently gliding or not.
+--- Value: true if gliding, false otherwise or in case of error
+--- Setter type: boolean
+--- @field public Gliding boolean
+--- (SET not implemented, see EtsSetIndexes)
+--- Value: Ships ETS Engine index value, 0 to MAX_ENERGY_INDEX
+--- Setter type: number
+--- @field public EtsEngineIndex number
+--- (SET not implemented, see EtsSetIndexes)
+--- Value: Ships ETS Shield index value, 0 to MAX_ENERGY_INDEX
+--- Setter type: number
+--- @field public EtsShieldIndex number
+--- (SET not implemented, see EtsSetIndexes)
+--- Value: Ships ETS Weapon index value, 0 to MAX_ENERGY_INDEX
+--- Setter type: number
+--- @field public EtsWeaponIndex number
+--- Array of ship orders
+--- Value: Ship orders, or invalid handle if ship handle is invalid
+--- Setter type: shiporders
+--- @field public Orders shiporders
+--- Waypoint speed cap
+--- Value: The limit on the ship's speed for traversing waypoints.  -1 indicates no speed cap.  0 will be returned if handle is invalid.
+--- Setter type: number
+--- @field public WaypointSpeedCap number
+--- The ship's arrival location
+--- Value: Arrival location, or nil if handle is invalid
+--- Setter type: string
+--- @field public ArrivalLocation string
+--- The ship's departure location
+--- Value: Departure location, or nil if handle is invalid
+--- Setter type: string
+--- @field public DepartureLocation string
+--- The ship's arrival anchor
+--- Value: Arrival anchor, or nil if handle is invalid
+--- Setter type: string
+--- @field public ArrivalAnchor string
+--- The ship's departure anchor
+--- Value: Departure anchor, or nil if handle is invalid
+--- Setter type: string
+--- @field public DepartureAnchor string
+--- The ship's arrival path mask
+--- Value: Arrival path mask, or nil if handle is invalid
+--- Setter type: number
+--- @field public ArrivalPathMask number
+--- The ship's departure path mask
+--- Value: Departure path mask, or nil if handle is invalid
+--- Setter type: number
+--- @field public DeparturePathMask number
+--- The ship's arrival delay
+--- Value: Arrival delay, or nil if handle is invalid
+--- Setter type: number
+--- @field public ArrivalDelay number
+--- The ship's departure delay
+--- Value: Departure delay, or nil if handle is invalid
+--- Setter type: number
+--- @field public DepartureDelay number
+--- The ship's arrival distance
+--- Value: Arrival distance, or nil if handle is invalid
+--- Setter type: number
+--- @field public ArrivalDistance number
+--- Sends a message from the given ship with the given priority.<br>If delay is specified, the message will be delayed by the specified time in seconds.
+--- Returns: true if successful, false otherwise
+--- @field public sendMessage fun(message:message, optional_delay:number, optional_priority:enumeration):boolean
+--- turns the ship towards the specified point during this frame
+--- Returns: Nothing
+--- @field public turnTowardsPoint fun(target:vector, optional_respectDifficulty:boolean, optional_turnrateModifier:vector, optional_bank:number):nil
+--- turns the ship towards the specified orientation during this frame
+--- Returns: Nothing
+--- @field public turnTowardsOrientation fun(target:orientation, optional_respectDifficulty:boolean, optional_turnrateModifier:vector):nil
+--- Returns the position of the ship's physical center, which may not be the position of the origin of the model
+--- Returns: World position of the center of the ship, or nil if an error occurred
+--- @field public getCenterPosition fun():vector
+--- Kills the ship. Set "Killer" to a ship (or a weapon fired by that ship) to credit it for the kill in the mission log. Set it to the ship being killed to self-destruct. Set "Hitpos" to the world coordinates of the weapon impact.
+--- Returns: True if successful, false or nil otherwise
+--- @field public kill fun(optional_Killer:object, optional_Hitpos:vector):boolean
+--- checks if a ship can appear on the viewer's radar. If a viewer is not provided it assumes the viewer is the player.
+---
+--- Returns: Returns 0 - not visible, 1 - partially visible, 2 - fully visible
+--- @field public checkVisibility fun(optional_viewer:ship):number
+--- Activates an effect for this ship. Effect names are defined in Post_processing.tbl, and need to be implemented in the main shader. This functions analogous to the ship-effect sexp. NOTE: only one effect can be active at any time, adding new effects will override effects already in progress.
+---
+--- Returns: Returns true if the effect was successfully added, false otherwise
+--- @field public addShipEffect fun(name:string, durationMillis:number):boolean
+--- Checks if the ship explosion event has already happened
+--- Returns: Returns 1 if first explosion timestamp is passed, 2 if second is passed, 0 otherwise
+--- @field public hasShipExploded fun():number
+--- Checks if the ship is arriving via warp.  This includes both stage 1 (when the portal is opening) and stage 2 (when the ship is moving through the portal).
+--- Returns: True if the ship is warping in, false otherwise
+--- @field public isArrivingWarp fun():boolean
+--- Checks if the ship is departing via warp
+--- Returns: True if the Depart_warp flag is set, false otherwise
+--- @field public isDepartingWarp fun():boolean
+--- Checks if the ship is departing via warp
+--- Returns: True if the Depart_dockbay flag is set, false otherwise
+--- @field public isDepartingDockbay fun():boolean
+--- Checks if the ship is dying (doing its death roll or exploding)
+--- Returns: True if the Dying flag is set, false otherwise
+--- @field public isDying fun():boolean
+--- Launches a countermeasure from the ship
+--- Returns: Whether countermeasure was launched or not
+--- @field public fireCountermeasure fun():boolean
+--- Fires ship primary bank(s)
+--- Returns: Number of primary banks fired
+--- @field public firePrimary fun():number
+--- Fires ship secondary bank(s)
+--- Returns: Number of secondary banks fired
+--- @field public fireSecondary fun():number
+--- Gets time that animation will be done
+--- Deprecated starting with version 22.0.0: To account for the new animation tables, please use getSubmodelAnimationTime()
+--- Returns: Time (seconds), or 0 if ship handle is invalid
+--- @field public getAnimationDoneTime fun(Type:number, Subtype:number):number
+--- Clears a ship's orders list
+--- Returns: True if successful, otherwise false or nil
+--- @field public clearOrders fun():boolean
+--- Uses the goal code to execute orders
+--- Returns: True if order was given, otherwise false or nil
+--- @field public giveOrder fun(Order:enumeration, optional_Target:object, optional_TargetSubsystem:subsystem, optional_Priority:number, optional_TargetShipclass:shipclass):boolean
+--- Sets ship maneuver over the defined time period
+--- Returns: True if maneuver order was given, otherwise false or nil
+--- @field public doManeuver fun(Duration:number, Heading:number, Pitch:number, Bank:number, ApplyAllRotation:boolean, Vertical:number, Sideways:number, Forward:number, ApplyAllMovement:boolean, ManeuverBitfield:number):boolean
+--- Triggers an animation. Type is the string name of the animation type, Subtype is the subtype number, such as weapon bank #, Forwards and Instant are boolean, defaulting to true & false respectively.<br><strong>IMPORTANT: Function is in testing and should not be used with official mod releases</strong>
+--- Deprecated starting with version 22.0.0: To account for the new animation tables, please use triggerSubmodelAnimation()
+--- Returns: True if successful, false or nil otherwise
+--- @field public triggerAnimation fun(Type:string, optional_Subtype:number, optional_Forwards:boolean, optional_Instant:boolean):boolean
+--- Triggers an animation. If used often with the same type / triggeredBy, consider using getSubmodelAnimation for performance reasons. Type is the string name of the animation type, triggeredBy is a closer specification which animation should trigger. See *-anim.tbm specifications. Forwards controls the direction of the animation. ResetOnStart will cause the animation to play from its initial state, as opposed to its current state. CompleteInstant will immediately complete the animation. Pause will instead stop the animation at the current state.
+--- Returns: True if successful, false or nil otherwise
+--- @field public triggerSubmodelAnimation fun(type:string, triggeredBy:string, optional_forwards:boolean, optional_resetOnStart:boolean, optional_completeInstant:boolean, optional_pause:boolean):boolean
+--- Gets an animation handle. Type is the string name of the animation type, triggeredBy is a closer specification which animation should trigger. See *-anim.tbm specifications.
+--- Returns: The animation handle for the specified animation, nil if invalid arguments.
+--- @field public getSubmodelAnimation fun(type:string, triggeredBy:string):animation_handle
+--- Stops a currently looping animation after it has finished its current loop. If used often with the same type / triggeredBy, consider using getSubmodelAnimation for performance reasons. Type is the string name of the animation type, triggeredBy is a closer specification which animation was triggered. See *-anim.tbm specifications.
+--- Returns: True if successful, false or nil otherwise
+--- @field public stopLoopingSubmodelAnimation fun(type:string, triggeredBy:string):boolean
+--- Sets the speed multiplier at which an animation runs. If used often with the same type / triggeredBy, consider using getSubmodelAnimation for performance reasons. Anything other than 1 will not work in multiplayer. Type is the string name of the animation type, triggeredBy is a closer specification which animation should trigger. See *-anim.tbm specifications.
+--- Returns: Nothing
+--- @field public setAnimationSpeed fun(type:string, triggeredBy:string, optional_speedMultiplier:number):nil
+--- Gets time that animation will be done. If used often with the same type / triggeredBy, consider using getSubmodelAnimation for performance reasons.
+--- Returns: Time (seconds), or 0 if ship handle is invalid
+--- @field public getSubmodelAnimationTime fun(type:string, triggeredBy:string):number
+--- Updates a moveable animation. Name is the name of the moveable. For what values needs to contain, please refer to the table below, depending on the type of the moveable:Orientation:
+--- 	Three numbers, x, y, z rotation respectively, in degrees
+--- Rotation:
+--- 	Three numbers, x, y, z rotation respectively, in degrees
+--- Axis Rotation:
+--- 	One number, rotation angle in degrees
+--- Inverse Kinematics:
+--- 	Three required numbers: x, y, z position target relative to base, in 1/100th meters
+--- 	Three optional numbers: x, y, z rotation target relative to base, in degrees
+---
+--- Returns: True if successful, false or nil otherwise
+--- @field public updateSubmodelMoveable fun(name:string, values:table):boolean
+--- Warps ship in
+--- Returns: True if successful, or nil if ship handle is invalid
+--- @field public warpIn fun():boolean
+--- Warps ship out
+--- Returns: True if successful, or nil if ship handle is invalid
+--- @field public warpOut fun():boolean
+--- Checks whether ship has a working subspace drive, is allowed to use it, and is not disabled or limited by subsystem strength.
+--- Returns: True if successful, or nil if ship handle is invalid
+--- @field public canWarp fun():boolean
+--- Checks whether ship has a bay departure location and if its mother ship is present.
+--- Returns: True if successful, or nil if ship handle is invalid
+--- @field public canBayDepart fun():boolean
+--- Checks if ship is in stage 1 of warping in
+--- Deprecated starting with version 24.2.0: This function's name may imply that it tests for the entire warping sequence.  To avoid confusion, it has been deprecated in favor of isWarpingStage1.
+--- Returns: True if the ship is in stage 1 of warping in; false if not; nil for an invalid handle
+--- @field public isWarpingIn fun():boolean
+--- Checks if ship is in stage 1 of warping in, which is the stage when the warp portal is opening but before the ship has gone through.  During this stage, the ship's radar blip is blue, while the ship itself is invisible, does not collide, and has velocity 0.
+--- Returns: True if the ship is in stage 1 of warping in; false if not; nil for an invalid handle
+--- @field public isWarpingStage1 fun():boolean
+--- Checks if ship is in stage 2 of warping in, which is the stage when it is traversing the warp portal.  Stage 2 ends as soon as the ship is completely through the portal and does not include portal closing or ship deceleration.
+--- Returns: True if the ship is in stage 2 of warping in; false if not; nil for an invalid handle
+--- @field public isWarpingStage2 fun():boolean
+--- Returns the current emp effect strength acting on the object
+--- Returns: Current EMP effect strength or NIL if object is invalid
+--- @field public getEMP fun():number
+--- Returns the time in seconds until the ship explodes (the ship's final_death_time timestamp)
+--- Returns: Time until explosion or -1, if invalid handle or ship isn't exploding
+--- @field public getTimeUntilExplosion fun():number
+--- Sets the time in seconds until the ship explodes (the ship's final_death_time timestamp).  This function will only work if the ship is in its death roll but hasn't exploded yet, which can be checked via isDying() or getTimeUntilExplosion().
+--- Returns: True if successful, false if the ship is invalid or not currently exploding
+--- @field public setTimeUntilExplosion fun(Time:number):boolean
+--- Gets the callsign of the ship in the current mission
+--- Returns: The callsign or an empty string if the ship doesn't have a callsign or an error occurs
+--- @field public getCallsign fun():string
+--- Gets the alternate class name of the ship
+--- Returns: The alternate class name or an empty string if the ship doesn't have such a thing or an error occurs
+--- @field public getAltClassName fun():string
+--- Gets the maximum speed of the ship with the given energy on the engines
+--- Returns: The maximum speed or -1 on error
+--- @field public getMaximumSpeed fun(optional_energy:number):number
+--- Sets ships ETS systems to specified values
+--- Returns: True if successful, false if target ships ETS was missing, or only has one system
+--- @field public EtsSetIndexes fun(EngineIndex:number, ShieldIndex:number, WeaponIndex:number):boolean
+--- Returns the parsed ship that was used to create this ship, if any
+--- Returns: The parsed ship, an invalid handle if no parsed ship exists, or nil if the current handle is invalid
+--- @field public getParsedShip fun():parse_object
+--- Returns the ship's wing
+--- Returns: Wing handle, or invalid wing handle if ship is not part of a wing
+--- @field public getWing fun():wing
+--- Returns the string which should be used when displaying the name of the ship to the player
+--- Returns: The display string or empty if handle is invalid
+--- @field public getDisplayString fun():string
+--- Vanishes this ship from the mission. Works in Singleplayer only and will cause the ship exit to not be logged.
+--- Returns: True if the deletion was successful, false otherwise.
+--- @field public vanish fun():boolean
+--- Activates or deactivates one or more of a ship's glow point banks - this function can accept an arbitrary number of bank arguments.  Omit the bank number or specify -1 to activate or deactivate all banks.
+--- Returns: Returns nothing
+--- @field public setGlowPointBankActive fun(active:boolean, optional_bank:number):nil
+--- Returns the number of ships this ship is directly docked with
+--- Returns: The number of ships
+--- @field public numDocked fun():number
+--- Returns whether this ship is docked to all of the specified dockee ships, or is docked at all if no ships are specified
+--- Returns: Returns whether the ship is docked
+--- @field public isDocked fun(...:ship):boolean
+--- Immediately docks this ship with another ship.
+--- Returns: Returns whether the docking was successful, or nil if an input was invalid
+--- @field public setDocked fun(dockee_ship:ship, optional_docker_point:string | number, optional_dockee_point:string | number):boolean
+--- Immediately undocks one or more dockee ships from this ship.
+--- Returns: Returns the number of ships undocked
+--- @field public setUndocked fun(...:ship):number
+--- Jettisons one or more dockee ships from this ship at the specified speed.
+--- Returns: Returns the number of ships jettisoned
+--- @field public jettison fun(jettison_speed:number, ...:ship):number
+--- Creates an electric arc on the ship between two points in the ship's reference frame, for the specified duration in seconds, and the specified width in meters.
+--- Returns: The arc index if successful, 0 otherwise
+--- @field public AddElectricArc fun(firstPoint:vector, secondPoint:vector, duration:number, width:number):number
+--- Removes the specified electric arc from the ship.
+--- Returns: Nothing
+--- @field public DeleteElectricArc fun(index:number):nil
+--- Sets the endpoints (in the ship's reference frame) and width of the specified electric arc on the ship, .
+--- Returns: Nothing
+--- @field public ModifyElectricArc fun(index:number, firstPoint:vector, secondPoint:vector, optional_width:number):nil
+
+--- Ship entry handle
+--- @class ship_registry_entry
+--- Name of ship
+--- Value: Ship name, or empty string if handle is invalid
+--- @field public Name string
+--- Detects whether handle is valid
+--- Returns: true if valid, false if invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Status of ship
+--- Value: INVALID, NOT_YET_PRESENT, PRESENT, DEATH_ROLL, EXITED, or nil if handle is invalid
+--- @field public Status enumeration
+--- Return the parsed ship associated with this ship registry entry
+--- Returns: The parsed ship, or nil if handle is invalid.  If this ship entry is for a ship-create'd ship, the returned handle may be invalid.
+--- @field public getParsedShip fun():parse_object
+--- Return the ship associated with this ship registry entry
+--- Returns: The ship, or nil if handle is invalid.  The returned handle will be invalid if the ship has not yet arrived in-mission.
+--- @field public getShip fun():ship
+
+--- Ship class handle
+--- @class shipclass
+--- Ship class name
+--- Returns: Ship class name, or an empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Checks if the two classes are equal
+--- Returns: true if equal, false otherwise
+--- @field public __eq fun(arg_1:shipclass, arg_2:shipclass):boolean
+--- Ship class name
+--- Value: Ship class name, or an empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Ship class short name
+--- Value: Ship short name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public ShortName string
+--- Ship class type string
+--- Value: Type string, or empty string if handle is invalid
+--- Setter type: string
+--- @field public TypeString string
+--- Ship class maneuverability string
+--- Value: Maneuverability string, or empty string if handle is invalid
+--- Setter type: string
+--- @field public ManeuverabilityString string
+--- Ship class armor string
+--- Value: Armor string, or empty string if handle is invalid
+--- Setter type: string
+--- @field public ArmorString string
+--- Ship class manufacturer
+--- Value: Manufacturer, or empty string if handle is invalid
+--- Setter type: string
+--- @field public ManufacturerString string
+--- Ship class length
+--- Value: Length, or empty string if handle is invalid
+--- Setter type: string
+--- @field public LengthString string
+--- Ship class gun mounts
+--- Value: Gun mounts, or empty string if handle is invalid
+--- Setter type: string
+--- @field public GunMountsString string
+--- Ship class missile banks
+--- Value: Missile banks, or empty string if handle is invalid
+--- Setter type: string
+--- @field public MissileBanksString string
+--- Ship class velocity
+--- Value: velocity, or empty string if handle is invalid
+--- Setter type: string
+--- @field public VelocityString string
+--- Ship class description
+--- Value: Description, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Description string
+--- Ship class select icon filename
+--- Value: Filename, or empty string if handle is invalid
+--- Setter type: string
+--- @field public SelectIconFilename string
+--- Ship class select animation filename
+--- Value: Filename, or empty string if handle is invalid
+--- Setter type: string
+--- @field public SelectAnimFilename string
+--- Ship class select overhead filename
+--- Value: Filename, or empty string if handle is invalid
+--- Setter type: string
+--- @field public SelectOverheadFilename string
+--- Ship class tech description
+--- Value: Tech description, or empty string if handle is invalid
+--- Setter type: string
+--- @field public TechDescription string
+--- Number of primary banks on this ship class
+--- Value: number of banks or nil is ship handle is invalid
+--- @field public numPrimaryBanks number
+--- Returns the capacity of the specified primary bank
+--- Returns: The bank capacity or nil if the index is invalid
+--- @field public getPrimaryBankCapacity fun(index:number):number
+--- Number of secondary banks on this ship class
+--- Value: number of banks or nil is ship handle is invalid
+--- @field public numSecondaryBanks number
+--- Returns the capacity of the specified secondary bank
+--- Returns: The bank capacity or nil if the index is invalid
+--- @field public getSecondaryBankCapacity fun(index:number):number
+--- Array of default primary weapons
+--- Value: The weapons array or nil if handle is invalid
+--- Setter type: number
+--- @field public defaultPrimaries default_primary
+--- Array of default secondary weapons
+--- Value: The weapons array or nil if handle is invalid
+--- Setter type: number
+--- @field public defaultSecondaries default_secondary
+--- Gets whether or not a weapon is allowed on a ship class. Optionally check a specific bank. Banks are 1 to a maximum of 7 where the first banks are Primaries and rest are Secondaries. Exact numbering depends on the ship class being checked. Note also that this will consider dogfight weapons only if a dogfight mission has been loaded. Index is index into Weapon Classes.
+--- Returns: True if allowed, false if not.
+--- @field public isWeaponAllowedOnShip fun(index:number, optional_bank:number):boolean
+--- Afterburner fuel capacity
+--- Value: Afterburner capacity, or 0 if handle is invalid
+--- Setter type: number
+--- @field public AfterburnerFuelMax number
+--- Ship scan time
+--- Value: Time required to scan, or 0 if handle is invalid. This property is read-only
+--- @field public ScanTime number
+--- The default countermeasure class assigned to this ship class
+--- Value: Countermeasure hardpoint weapon class, or invalid weaponclass handle if no countermeasure class or ship handle is invalid
+--- Setter type: weaponclass
+--- @field public CountermeasureClass weaponclass
+--- Maximum number of countermeasures the ship can carry
+--- Value: Countermeasure capacity, or 0 if handle is invalid
+--- Setter type: number
+--- @field public CountermeasuresMax number
+--- Model
+--- Value: Ship class model, or invalid model handle if shipclass handle is invalid
+--- Setter type: model
+--- @field public Model model
+--- Model used for first-person cockpit
+--- Value: Cockpit model
+--- Setter type: model
+--- @field public CockpitModel model
+--- Gets the cockpit display information array of this ship class
+--- Value: Array handle containing the information or invalid handle on error
+--- Setter type: cockpitdisplays
+--- @field public CockpitDisplays cockpitdisplays
+--- Ship class hitpoints
+--- Value: Hitpoints, or 0 if handle is invalid
+--- Setter type: number
+--- @field public HitpointsMax number
+--- Ship class species
+--- Value: Ship class species, or invalid species handle if shipclass handle is invalid
+--- Setter type: species
+--- @field public Species species
+--- Ship class type
+--- Value: Ship type, or invalid handle if shipclass handle is invalid
+--- Setter type: shiptype
+--- @field public Type shiptype
+--- Alternate name for ship class
+--- Value: Alternate string or empty string if handle is invalid
+--- Setter type: string
+--- @field public AltName string
+--- Ship's lateral and forward speeds
+--- Value: Maximum velocity, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public VelocityMax vector
+--- Damping, the natural period (1 / omega) of the dampening effects on top of the acceleration model.
+--- Value: Damping, or 0 if handle is invalid
+--- Setter type: number
+--- @field public VelocityDamping number
+--- The maximum rear velocity of the ship
+--- Value: Speed, or 0 if handle is invalid
+--- Setter type: number
+--- @field public RearVelocityMax number
+--- Forward acceleration time
+--- Value: Forward acceleration time, or 0 if handle is invalid
+--- Setter type: number
+--- @field public ForwardAccelerationTime number
+--- Forward deceleration time
+--- Value: Forward deceleration time, or 0 if handle is invalid
+--- Setter type: number
+--- @field public ForwardDecelerationTime number
+--- Maximum rotation time on each axis
+--- Value: Full rotation time for each axis, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public RotationTime vector
+--- Rotational damping, ie derivative of rotational speed
+--- Value: Rotational damping, or 0 if handle is invalid
+--- Setter type: number
+--- @field public RotationalVelocityDamping number
+--- Afterburner acceleration time
+--- Value: Afterburner acceleration time, or 0 if handle is invalid
+--- Setter type: number
+--- @field public AfterburnerAccelerationTime number
+--- Afterburner max velocity
+--- Value: Afterburner max velocity, or null vector if handle is invalid
+--- Setter type: vector
+--- @field public AfterburnerVelocityMax vector
+--- Afterburner maximum rear velocity
+--- Value: Rear velocity, or 0 if handle is invalid
+--- Setter type: number
+--- @field public AfterburnerRearVelocityMax number
+--- The score of this ship class
+--- Value: The score or -1 on invalid ship class
+--- Setter type: string
+--- @field public Score number
+--- Gets or sets whether this ship class is visible in the tech room
+--- Value: True or false
+--- Setter type: boolean
+--- @field public InTechDatabase boolean
+--- Gets or sets whether this ship class is allowed in loadouts in campaign mode
+--- Value: True or false
+--- Setter type: boolean
+--- @field public AllowedInCampaign boolean
+--- Gets or sets a ship class' power output
+--- Value: The ship class' current power output
+--- Setter type: number
+--- @field public PowerOutput number
+--- Time multiplier for scans performed by this ship class
+--- Value: Scanning time multiplier, or 0 if handle is invalid
+--- @field public ScanningTimeMultiplier number
+--- Range multiplier for scans performed by this ship class
+--- Value: Scanning range multiplier, or 0 if handle is invalid
+--- @field public ScanningRangeMultiplier number
+--- Gets the custom data table for this ship class
+--- Value: The ship class's custom data table
+--- @field public CustomData table
+--- Detects whether the ship class has any custom data
+--- Returns: true if the shipclass's custom_data is not empty, false otherwise
+--- @field public hasCustomData fun():boolean
+--- Gets the indexed custom string table for this ship. Each item in the table is a table with the following values: Name - the name of the custom string, Value - the value associated with the custom string, String - the custom string itself.
+--- Value: The ship's custom data table
+--- @field public CustomStrings table
+--- Detects whether the ship has any custom strings
+--- Returns: true if the ship's custom_strings is not empty, false otherwise
+--- @field public hasCustomStrings fun():boolean
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Gets whether or not the ship class is available in the techroom
+--- Returns: Whether ship has been revealed in the techroom, false if handle is invalid
+--- @field public isInTechroom fun():boolean
+--- Draws ship model as if in techroom. True for regular lighting, false for flat lighting.
+--- Returns: Whether ship was rendered
+--- @field public renderTechModel fun(X1:number, Y1:number, X2:number, Y2:number, optional_RotationPercent:number, optional_PitchPercent:number, optional_BankPercent:number, optional_Zoom:number, optional_Lighting:boolean):boolean
+--- Draws ship model as if in techroom
+--- Returns: Whether ship was rendered
+--- @field public renderTechModel2 fun(X1:number, Y1:number, X2:number, Y2:number, optional_Orientation:orientation, optional_Zoom:number):boolean
+--- Draws the 3D select ship model with the chosen effect at the specified coordinates. Restart should be true on the first frame this is called and false on subsequent frames. Valid selection effects are 1 (fs1) or 2 (fs2), defaults to the mod setting or the model's setting. Zoom is a multiplier to the model's closeup_zoom value.
+--- Returns: true if rendered, false if error
+--- @field public renderSelectModel fun(restart:boolean, x:number, y:number, optional_width:number, optional_height:number, optional_currentEffectSetting:number, optional_zoom:number):boolean
+--- Draws the 3D overhead ship model with the lines pointing from bank weapon selections to bank firepoints. SelectedSlot refers to loadout ship slots 1-12 where wing 1 is 1-4, wing 2 is 5-8, and wing 3 is 9-12. SelectedWeapon is the index into weapon classes. HoverSlot refers to the bank slots 1-7 where 1-3 are primaries and 4-6 are secondaries. Lines will be drawn from any bank containing the SelectedWeapon to the firepoints on the model of that bank. Similarly, lines will be drawn from the bank defined by HoverSlot to the firepoints on the model of that slot. Line drawing for HoverSlot takes precedence over line drawing for SelectedWeapon. Set either or both to -1 to stop line drawing. The bank coordinates are the coordinates from which the lines for that bank will be drawn. It is expected that primary slots will be on the left of the ship model and secondaries will be on the right. The lines have a hard-coded curve expecing to be drawn from those directions. Style can be 0 or 1. 0 for the ship to be drawn stationary from top down, 1 for the ship to be rotating.
+--- Returns: true if rendered, false if error
+--- @field public renderOverheadModel fun(x:number, y:number, optional_width:number, optional_height:number, optional_arg_5:number | table, optional_selectedWeapon:number, optional_hoverSlot:number, optional_bank1_x:number, optional_bank1_y:number, optional_bank2_x:number, optional_bank2_y:number, optional_bank3_x:number, optional_bank3_y:number, optional_bank4_x:number, optional_bank4_y:number, optional_bank5_x:number, optional_bank5_y:number, optional_bank6_x:number, optional_bank6_y:number, optional_bank7_x:number, optional_bank7_y:number, optional_style:number):boolean
+--- Checks if the model used for this shipclass is loaded or not and optionally loads the model, which might be a slow operation.
+--- Returns: If the model is loaded or not
+--- @field public isModelLoaded fun(optional_Load:boolean):boolean
+--- Detects whether the ship has the player allowed flag
+--- Returns: true if player allowed, false otherwise, nil if a syntax/type error occurs
+--- @field public isPlayerAllowed fun():boolean
+--- Gets the index value of the ship class
+--- Returns: index value of the ship class
+--- @field public getShipClassIndex fun():number
+
+--- Ship orders
+--- @class shiporders
+--- Number of ship orders
+--- Returns: Number of ship orders, or 0 if handle is invalid
+--- @field public __len fun():number
+--- Array of ship orders
+--- Returns: Order, or invalid order handle on failure
+--- @field public __indexer fun(Index:number):order
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- Ship type handle
+--- @class shiptype
+--- Ship type name
+--- Value: Ship type name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- Tech Room mission handle
+--- @class sim_mission
+--- The name of the mission
+--- Value: The name
+--- @field public Name string
+--- The filename of the mission
+--- Value: The filename
+--- @field public Filename string
+--- The mission description
+--- Value: The description
+--- @field public Description string
+--- The mission author
+--- Value: The author
+--- @field public Author string
+--- If the mission should be visible by default
+--- Value: true if visible, false if not visible
+--- @field public isVisible boolean
+--- If the mission is campaign or single
+--- Value: true if campaign, false if single
+--- @field public isCampaignMission boolean
+
+--- sound instance handle
+--- @class sound
+--- Pitch of sound, from 100 to 100000
+--- Value: Pitch, or 0 if handle is invalid
+--- Setter type: number
+--- @field public Pitch number
+--- The remaining time of this sound handle
+--- Returns: Remaining time, or -1 on error
+--- @field public getRemainingTime fun():number
+--- Sets the volume of this sound instance. Set voice to true to use the voice channel multiplier, or false to use the effects channel multiplier
+--- Returns: true if succeeded, false otherwise
+--- @field public setVolume fun(arg_1:number, optional_voice:boolean):boolean
+--- Sets the panning of this sound. Argument ranges from -1.0 for left to 1.0 for right
+--- Returns: true if succeeded, false otherwise
+--- @field public setPanning fun(arg_1:number):boolean
+--- Sets the absolute position of the sound. If boolean argument is true then the value is given as a percentage.<br>This operation fails if there is no backing soundentry!
+--- Returns: true if successful, false otherwise
+--- @field public setPosition fun(value:number, optional_percent:boolean):boolean
+--- Rewinds the sound by the given number of seconds<br>This operation fails if there is no backing soundentry!
+--- Returns: true if succeeded, false otherwise
+--- @field public rewind fun(arg_1:number):boolean
+--- Skips the given number of seconds of the sound<br>This operation fails if there is no backing soundentry!
+--- Returns: true if succeeded, false otherwise
+--- @field public skip fun(arg_1:number):boolean
+--- Checks if this handle is currently playing
+--- Returns: true if playing, false if otherwise
+--- @field public isPlaying fun():boolean
+--- Stops the sound of this handle
+--- Returns: true if succeeded, false otherwise
+--- @field public stop fun():boolean
+--- Pauses the sound of this handle
+--- Returns: true if succeeded, false otherwise
+--- @field public pause fun():boolean
+--- Resumes the sound of this handle
+--- Returns: true if succeeded, false otherwise
+--- @field public resume fun():boolean
+--- Detects whether this sound, as well as its associated sound entry, are both valid.<br><b>Warning:</b> A sound can be usable without a sound entry! This function will not return true for sounds started by a directly loaded sound file. Use isSoundValid() in that case instead.
+--- Returns: true if sound and entry are both valid, false if not, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Checks if the sound is valid without regard for whether the entry is valid. Should be used for non soundentry sounds.
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isSoundValid fun():boolean
+
+--- 3D sound instance handle
+--- @class sound3D : sound
+--- Updates the given 3D sound with the specified position and an optional range value.<br>This operation fails if there is no backing soundentry!
+--- Returns: true if succeeded, false otherwise
+--- @field public updatePosition fun(Position:vector, optional_radius:number):boolean
+
+--- sounds.tbl table entry handle
+--- @class soundentry
+--- The default volume of this game sound. If the sound entry has a volume range then the maximum volume will be returned by this.
+--- Value: Volume in the range from 1 to 0 or -1 on error
+--- Setter type: number
+--- @field public DefaultVolume number
+--- Returns the filename of this sound. If the sound has multiple entries then the filename of the first entry will be returned.
+--- Returns: filename or empty string on error
+--- @field public getFilename fun():string
+--- Returns the length of the sound in seconds. If the sound has multiple entries or a pitch range then the maximum duration of the sound will be returned.
+--- Returns: the length, or -1 on error
+--- @field public getDuration fun():number
+--- Computes the volume and the panning of the sound when it would be played from the specified position.<br>If range is given then the volume will diminish when the listener is within that distance to the source.<br>The position of the listener is always the the current viewing position.
+--- Returns: The volume and the panning, in that sequence, or both -1 on error
+--- @field public get3DValues fun(Position:vector, optional_radius:number):number, number
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Detects whether handle references a sound that can be loaded
+--- Returns: true if a load succeeded, false if not, nil if a syntax/type error occurs
+--- @field public tryLoad fun():boolean
+
+--- Handle to a sound file
+--- @class soundfile
+--- The duration of the sound file, in seconds
+--- Value: The duration or -1 on error
+--- Setter type: number
+--- @field public Duration number
+--- The filename of the file
+--- Value: The file name or empty string on error
+--- Setter type: string
+--- @field public Filename string
+--- Plays the sound. If voice is true then uses the Voice channel volume, else uses the Effects channel volume.
+--- Returns: A sound handle or invalid handle on error
+--- @field public play fun(optional_volume:number, optional_panning:number, optional_voice:boolean):sound
+--- Unloads the audio data loaded for this sound file. This invalidates the handle on which this is called!
+--- Returns: true if successful, false otherwise
+--- @field public unload fun():boolean
+--- Checks if the soundfile handle is valid
+--- Returns: true if valid, false otherwise
+--- @field public isValid fun():boolean
+
+--- Species handle
+--- @class species
+--- Species name
+--- Value: Species name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- Streaming Animation handle
+--- @class streaminganim
+--- Make the streaming animation loop.
+--- Value: Is the animation looping, or nil if anim invalid
+--- Setter type: boolean
+--- @field public Loop boolean
+--- Pause the streaming animation.
+--- Value: Is the animation paused, or nil if anim invalid
+--- Setter type: boolean
+--- @field public Pause boolean
+--- Make the streaming animation play in reverse.
+--- Value: Is the animation playing in reverse, or nil if anim invalid
+--- Setter type: boolean
+--- @field public Reverse boolean
+--- Whether the streaming animation is drawn as grayscale multiplied by the current color (the HUD method).
+--- Value: Boolean flag
+--- Setter type: boolean
+--- @field public Grayscale boolean
+--- Get the filename of the animation
+--- Returns: Filename or nil if invalid
+--- @field public getFilename fun():string
+--- Get the number of frames in the animation.
+--- Returns: Total number of frames
+--- @field public getFrameCount fun():number
+--- Get the current frame index of the animation
+--- Returns: Current frame index
+--- @field public getFrameIndex fun():number
+--- Get the height of the animation in pixels
+--- Returns: Height or nil if invalid
+--- @field public getHeight fun():number
+--- Get the width of the animation in pixels
+--- Returns: Width or nil if invalid
+--- @field public getWidth fun():number
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Load all apng animations into memory, enabling apng frame cache if not already enabled
+--- Returns: true if preload was successful, nil if a syntax/type error occurs
+--- @field public preload fun():boolean
+--- Processes a streaming animation, including selecting the correct frame & drawing it.
+--- Returns: True if processing was successful, otherwise nil
+--- @field public process fun(optional_x1:number, optional_y1:number, optional_x2:number, optional_y2:number, optional_u0:number, optional_v0:number, optional_u1:number, optional_v1:number, optional_alpha:number, optional_draw:boolean):boolean
+--- Reset a streaming animation back to its 1st frame
+--- Returns: True if successful, otherwise nil
+--- @field public reset fun():boolean
+--- Get the amount of time left in the animation, in seconds
+--- Returns: Time left in secs or nil if invalid
+--- @field public timeLeft fun():number
+--- Unloads a streaming animation from memory
+--- Returns: Nothing
+--- @field public unload fun():nil
+
+--- Handle to a submodel
+--- @class submodel
+--- Gets the submodel's name
+--- Value: The name or an empty string if invalid
+--- @field public Name string
+--- Gets the submodel's index
+--- Value: The number (adjusted for lua) or -1 if invalid
+--- @field public Index number
+--- Gets the submodel's offset from its parent submodel
+--- Value: The offset vector or a empty vector if invalid
+--- @field public Offset vector
+--- Gets the submodel's radius
+--- Value: The radius of the submodel or -1 if invalid
+--- @field public Radius number
+--- Returns the number of vertices in the submodel's mesh
+--- Returns: The number of vertices, or 0 if the submodel was invalid
+--- @field public NumVertices fun():number
+--- Gets the specified vertex, or a random one if no index specified
+--- Returns: The vertex position in the submodel's frame of reference, or nil if the submodel was invalid
+--- @field public GetVertex fun(optional_index:number):vector
+--- Gets the model that this submodel belongs to
+--- Returns: A model, or an invalid model if the handle is not valid
+--- @field public getModel fun():model
+--- Gets the first child submodel of this submodel
+--- Returns: A submodel, or nil if there is no child, or an invalid submodel if the handle is not valid
+--- @field public getFirstChild fun():submodel
+--- Gets the next sibling submodel of this submodel
+--- Returns: A submodel, or nil if there are no remaining siblings, or an invalid submodel if the handle is not valid
+--- @field public getNextSibling fun():submodel
+--- Gets the parent submodel of this submodel
+--- Returns: A submodel, or nil if there is no parent, or an invalid submodel if the handle is not valid
+--- @field public getParent fun():submodel
+--- True if valid, false or nil if not
+--- Returns: Detects whether handle is valid
+--- @field public isValid fun():boolean
+--- Whether the submodel and its children ignore collisions
+--- Value: The flag, or error-false if invalid
+--- @field public NoCollide boolean
+--- Whether the submodel itself ignores collisions
+--- Value: The flag, or error-false if invalid
+--- @field public NoCollideThisOnly boolean
+
+--- Submodel instance handle
+--- @class submodel_instance
+--- Gets the model instance of this submodel
+--- Returns: A model instancve
+--- @field public getModelInstance fun():model_instance
+--- Gets the submodel of this instance
+--- Returns: A submodel
+--- @field public getSubmodel fun():submodel
+--- Gets or sets the submodel instance orientation
+--- Value: Orientation, or identity orientation if handle is not valid
+--- Setter type: orientation
+--- @field public Orientation orientation
+--- Gets or sets the translated submodel instance offset.  This is relative to the existing submodel offset to its parent; a non-translated submodel will have a TranslationOffset of zero.
+--- Value: Offset, or zero vector if handle is not valid
+--- Setter type: vector
+--- @field public TranslationOffset vector
+--- Calculates the world coordinates of a point in a submodel's frame of reference
+--- Returns: Point, or empty vector if handle is not valid
+--- @field public findWorldPoint fun(arg_1:vector):vector
+--- Calculates the world direction of a vector in a submodel's frame of reference
+--- Returns: Vector, or empty vector if handle is not valid
+--- @field public findWorldDir fun(arg_1:vector):vector
+--- Calculates the coordinates and orientation, in an object's frame of reference, of a point and orientation in a submodel's frame of reference
+--- Returns: Vector and orientation, or empty values if a handle is invalid
+--- @field public findObjectPointAndOrientation fun(arg_1:vector, arg_2:orientation):vector, orientation
+--- Calculates the world coordinates and orientation of a point and orientation in a submodel's frame of reference
+--- Returns: Vector and orientation, or empty values if a handle is invalid
+--- @field public findWorldPointAndOrientation fun(arg_1:vector, arg_2:orientation):vector, orientation
+--- Calculates the coordinates and orientation in the submodel's frame of reference, of a point and orientation in world coordinates [world = true] / in the object's frame of reference [world = false]
+--- Returns: Vector and orientation, or empty values if a handle is invalid
+--- @field public findLocalPointAndOrientation fun(arg_1:vector, arg_2:orientation, optional_world:boolean):vector, orientation
+--- True if valid, false or nil if not
+--- Returns: Detects whether handle is valid
+--- @field public isValid fun():boolean
+
+--- Array of submodel instances
+--- @class submodel_instances
+--- Number of submodel instances on model
+--- Returns: Number of model submodel instances
+--- @field public __len fun():number
+--- number|string IndexOrName
+--- Returns: Model submodel instances, or invalid modelsubmodelinstances handle if model instance handle is invalid
+--- @field public __indexer fun(arg_1:submodel_instance):submodel_instance
+--- Detects whether handle is valid
+--- Returns: true if valid, false if invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- Array of submodels
+--- @class submodels
+--- Number of submodels on model
+--- Returns: Number of model submodels
+--- @field public __len fun():number
+--- number|string IndexOrName
+--- Returns: Model submodels, or invalid modelsubmodels handle if model handle is invalid
+--- @field public __indexer fun(arg_1:submodel):submodel
+--- Detects whether handle is valid
+--- Returns: true if valid, false if invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- Ship subsystem handle
+--- @class subsystem
+--- Returns name of subsystem
+--- Returns: Subsystem name, or empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Current Armor class
+--- Value: Armor class name, or empty string if none is set
+--- Setter type: string
+--- @field public ArmorClass string
+--- Subsystem AWACS intensity
+--- Value: AWACS intensity, or 0 if handle is invalid
+--- Setter type: number
+--- @field public AWACSIntensity number
+--- Subsystem AWACS radius
+--- Value: AWACS radius, or 0 if handle is invalid
+--- Setter type: number
+--- @field public AWACSRadius number
+--- Orientation of subobject or turret base
+--- Value: Subsystem orientation, or identity orientation if handle is invalid
+--- Setter type: orientation
+--- @field public Orientation orientation
+--- Orientation of turret gun
+--- Value: Gun orientation, or null orientation if handle is invalid
+--- Setter type: orientation
+--- @field public GunOrientation orientation
+--- Gets or sets the translated submodel instance offset of the subsystem or turret base.  This is relative to the existing submodel offset to its parent; a non-translated submodel will have a TranslationOffset of zero.
+--- Value: Offset, or zero vector if handle is not valid
+--- Setter type: vector
+--- @field public TranslationOffset vector
+--- Subsystem hitpoints left
+--- Value: Hitpoints left, or 0 if handle is invalid. Setting a value of 0 will disable it - set a value of -1 or lower to actually blow it up.
+--- Setter type: number
+--- @field public HitpointsLeft number
+--- Subsystem hitpoints max
+--- Value: Max hitpoints, or 0 if handle is invalid
+--- Setter type: number
+--- @field public HitpointsMax number
+--- Subsystem position with regards to main ship (Local Vector)
+--- Value: Subsystem position, or null vector if subsystem handle is invalid
+--- Setter type: vector
+--- @field public Position vector
+--- Subsystem position in world space. This handles subsystem attached to a rotating submodel properly.
+--- Value: Subsystem position, or null vector if subsystem handle is invalid
+--- Setter type: vector
+--- @field public WorldPosition vector
+--- Subsystem gun position with regards to main ship (Local vector)
+--- Value: Gun position, or null vector if subsystem handle is invalid
+--- Setter type: vector
+--- @field public GunPosition vector
+--- Subsystem name
+--- Value: Subsystem name, or an empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Number of firepoints
+--- Value: Number of fire points, or 0 if handle is invalid
+--- Setter type: number
+--- @field public NumFirePoints number
+--- Factor by which turret's rate of fire is multiplied.  This can also be set with the turret-set-rate-of-fire SEXP.  As with the SEXP, assigning a negative value will cause this to be reset to default.
+--- Value: Firing rate multiplier, or 0 if handle is invalid
+--- Setter type: number
+--- @field public FireRateMultiplier number
+--- Returns the original name of the subsystem in the model file
+--- Returns: name or empty string on error
+--- @field public getModelName fun():string
+--- Array of primary weapon banks
+--- Value: Primary banks, or invalid weaponbanktype handle if subsystem handle is invalid
+--- Setter type: weaponbanktype
+--- @field public PrimaryBanks weaponbanktype
+--- Array of secondary weapon banks
+--- Value: Secondary banks, or invalid weaponbanktype handle if subsystem handle is invalid
+--- Setter type: weaponbanktype
+--- @field public SecondaryBanks weaponbanktype
+--- Object targeted by this subsystem. If used to set a new target or clear it, AI targeting will be switched off.
+--- Value: Targeted object, or invalid object handle if subsystem handle is invalid
+--- Setter type: object
+--- @field public Target object
+--- Specifies whether this turrets resets after a certain time of inactivity
+--- Value: true if turret resets, false otherwise
+--- Setter type: boolean
+--- @field public TurretResets boolean
+--- The time (in milliseconds) after that the turret resets itself
+--- Value: Reset delay
+--- Setter type: number
+--- @field public TurretResetDelay number
+--- The turn rate
+--- Value: Turnrate or -1 on error
+--- Setter type: number
+--- @field public TurnRate number
+--- Targetability of this subsystem
+--- Value: true if targetable, false otherwise or on error
+--- Setter type: boolean
+--- @field public Targetable boolean
+--- The radius of this subsystem
+--- Value: The radius or 0 on error
+--- Setter type: number
+--- @field public Radius number
+--- Whether the turret is locked. Setting to true locks the turret; setting to false frees it.
+--- Value: True if turret is locked, false otherwise
+--- Setter type: boolean
+--- @field public TurretLocked boolean
+--- Behaves like TurretLocked, but when the turret is freed, there will be a short random delay (between 50 and 4000 milliseconds) before firing, to be consistent with SEXP behavior.
+--- Value: True if turret is locked, false otherwise
+--- Setter type: boolean
+--- @field public TurretLockedWithTimestamp boolean
+--- Whether the turret is beam-freed. Setting to true beam-frees the turret; setting to false beam-locks it.
+--- Value: True if turret is beam-freed, false otherwise
+--- Setter type: boolean
+--- @field public BeamFree boolean
+--- Behaves like BeamFree, but when the turret is freed, there will be a short random delay (between 50 and 4000 milliseconds) before firing, to be consistent with SEXP behavior.
+--- Value: True if turret is beam-freed, false otherwise
+--- Setter type: boolean
+--- @field public BeamFreeWithTimestamp boolean
+--- The next time the turret may attempt to fire
+--- Value: Mission time (seconds) or -1 on error
+--- Setter type: number
+--- @field public NextFireTimestamp number
+--- The model path points belonging to this subsystem
+--- Value: The model path of this subsystem
+--- Setter type: modelpath
+--- @field public ModelPath modelpath
+--- If set to true, AI targeting for this turret is switched off. If set to false, the AI will take over again.
+--- Returns: Returns true if successful, false otherwise
+--- @field public targetingOverride fun(arg_1:boolean):boolean
+--- Checks whether one or more <a href="https://wiki.hard-light.net/index.php/Subsystem#.24Flags:">model subsystem flags</a> are set - this function can accept an arbitrary number of flag arguments.  The flag names can be any string that the alter-ship-flag SEXP operator supports.
+--- Returns: Returns whether all flags are set, or nil if the subsystem is not valid
+--- @field public getModelFlag fun(flag_name:string):boolean
+--- Determine if a subsystem has fired
+--- Returns: true if if fired, false if not fired, or nil if invalid. resets fired flag when called.
+--- @field public hasFired fun():boolean
+--- Determines if this subsystem is a turret
+--- Returns: true if subsystem is turret, false otherwise or nil on error
+--- @field public isTurret fun():boolean
+--- Determines if this subsystem is a multi-part turret
+--- Returns: true if subsystem is multi-part turret, false otherwise or nil on error
+--- @field public isMultipartTurret fun():boolean
+--- Determines if the object is in the turrets FOV
+--- Returns: true if in FOV, false if not, nil on error or if subsystem is not a turret
+--- @field public isTargetInFOV fun(Target:object):boolean
+--- Determines if a position is in the turrets FOV
+--- Returns: true if in FOV, false if not, nil on error or if subsystem is not a turret
+--- @field public isPositionInFOV fun(Target:vector):boolean
+--- Fires weapon on turret
+--- Returns: Nothing
+--- @field public fireWeapon fun(optional_TurretWeaponIndex:number, optional_FlakRange:number, optional_OverrideFiringVec:vector):nil
+--- Rotates the turret to face Pos or resets the turret to its original state
+--- Returns: true on success false otherwise
+--- @field public rotateTurret fun(Pos:vector, optional_reset:boolean):boolean
+--- Returns the turrets forward vector
+--- Returns: Returns a normalized version of the forward vector in the ship's reference frame or null vector on error
+--- @field public getTurretHeading fun():vector
+--- Returns current turrets FOVs
+--- Returns: Standard FOV, maximum barrel elevation, turret base fov.
+--- @field public getFOVs fun():number, number, number
+--- Retrieves the next position and firing normal this turret will fire from. This function returns a world position
+--- Returns: vector or null vector on error
+--- @field public getNextFiringPosition fun():vector, vector
+--- Returns current subsystems turret matrix
+--- Returns: Turret matrix.
+--- @field public getTurretMatrix fun():orientation
+--- The object parent of this subsystem, is of type ship
+--- Returns: object handle or invalid handle on error
+--- @field public getParent fun():object
+--- Checks if the subsystem is in view from the specified position. This only checks for occlusion by the parent object, not by other objects in the mission.
+--- Returns: true if in view, false otherwise
+--- @field public isInViewFrom fun(from:vector):boolean
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- Team handle
+--- @class team
+--- Checks whether two teams are the same team
+--- Returns: true if equal, false otherwise
+--- @field public __eq fun(arg_1:team, arg_2:team):boolean
+--- Team name
+--- Value: Team name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Gets the IFF color of the specified Team. False to return raw rgb, true to return color object. Defaults to false.
+--- Returns: rgb color for the specified team or nil if invalid
+--- @field public getColor fun(ReturnType:boolean):number, number, number, number, color
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Checks the IFF status of another team
+--- Returns: True if this team attacks the specified team
+--- @field public attacks fun(arg_1:team):boolean
+
+--- Texture handle
+--- @class texture
+--- Checks if two texture handles refer to the same texture
+--- Returns: True if textures are equal
+--- @field public __eq fun(arg_1:texture, arg_2:texture):boolean
+--- Returns texture handle to specified frame number in current texture's animation.This means that [1] will always return the first frame in an animation, no matter what frame an animation is.You cannot change a texture animation frame.
+--- Returns: Texture handle, or invalid texture handle if index is invalid
+--- @field public __indexer fun(arg_1:number):texture
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Unloads a texture from memory
+--- Returns: Nothing
+--- @field public unload fun():nil
+--- Destroys a texture's render target. Call this when done drawing to a texture, as it frees up resources.
+--- Returns: Nothing
+--- @field public destroyRenderTarget fun():nil
+--- Returns filename for texture
+--- Returns: Filename, or empty string if handle is invalid
+--- @field public getFilename fun():string
+--- Gets texture width
+--- Returns: Texture width, or 0 if handle is invalid
+--- @field public getWidth fun():number
+--- Gets texture height
+--- Returns: Texture height, or 0 if handle is invalid
+--- @field public getHeight fun():number
+--- Gets frames-per-second of texture
+--- Returns: Texture FPS, or 0 if handle is invalid
+--- @field public getFPS fun():number
+--- Gets number of frames left, from handle's position in animation
+--- Returns: Frames left, or 0 if handle is invalid
+--- @field public getFramesLeft fun():number
+--- Get the frame number from the elapsed time of the animation<br>The 1st argument is the time that has elapsed since the animation started<br>If 2nd argument is set to true, the animation is expected to loop when the elapsed time exceeds the duration of a single playback
+--- Returns: Frame number
+--- @field public getFrame fun(ElapsedTimeSeconds:number, optional_Loop:boolean):number
+
+--- Array of textures
+--- @class textures
+--- Number of textures on model
+--- Returns: Number of model textures
+--- @field public __len fun():number
+--- number Index/string TextureName
+--- Returns: Model textures, or invalid modeltextures handle if model handle is invalid
+--- @field public __indexer fun(arg_1:texture):texture
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- A model thrusterbank
+--- @class thrusterbank
+--- Number of thrusters on this thrusterbank
+--- Returns: Number of thrusters on this bank or 0 if handle is invalid
+--- @field public __len fun():number
+--- Array of glowpoint
+--- Returns: Glowpoint, or invalid glowpoint handle on failure
+--- @field public __indexer fun(Index:number):glowpoint
+--- Detects if this handle is valid
+--- Returns: true if this handle is valid, false otherwise
+--- @field public isValid fun():boolean
+
+--- The thrusters of a model
+--- @class thrusters
+--- Number of thruster banks on the model
+--- Returns: Number of thrusterbanks
+--- @field public __len fun():number
+--- Array of all thrusterbanks on this thruster
+--- Returns: Handle to the thrusterbank or invalid handle if index is invalid
+--- @field public __indexer fun(Index:number):thrusterbank
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- A difference between two time stamps
+--- @class timespan
+--- Gets the value of this timestamp in seconds
+--- Returns: The timespan value in seconds
+--- @field public getSeconds fun():number
+
+--- A real time time stamp of unspecified precision and resolution.
+--- @class timestamp
+--- Computes the difference between two timestamps
+--- Returns: The time difference
+--- @field public __sub fun(other:timestamp):timespan
+
+--- A category for tracing engine performance
+--- @class tracing_category
+--- Traces the run time of the specified function that will be invoked in this call.
+--- Returns: Nothing
+--- @alias traceFun fun():nil
+--- @field public trace fun(body:traceFun):nil
+
+--- An option value that contains a displayable string and the serialized value.
+--- @class ValueDescription
+--- Value display string
+--- Returns: The display string or nil on error
+--- @field public __tostring fun():string
+--- Compares two value descriptions
+--- Returns: True if equal, false otherwise
+--- @field public __eq fun(other:ValueDescription):string
+--- Value display string
+--- Value: The display string or nil on error
+--- @field public Display string
+--- Serialized string value of the contained value
+--- Value: The serialized string or nil on error
+--- @field public Serialized string
+
+--- Vector object
+--- @class vector
+--- Vector component
+--- Returns: Value at index, or 0 if vector handle is invalid
+--- @field public __indexer fun(axis:string):number--- @field public __indexer fun(element:number):number
+--- Adds vector by another vector, or adds all axes by value
+--- Returns: Final vector, or null vector if error occurs
+--- @field public __add fun(arg_1:number | vector):vector
+--- Subtracts vector from another vector, or subtracts all axes by value
+--- Returns: Final vector, or null vector if error occurs
+--- @field public __sub fun(arg_1:number | vector):vector
+--- Scales vector object (Multiplies all axes by number), or multiplies each axes by the other vector's axes.
+--- Returns: Final vector, or null vector if error occurs
+--- @field public __mul fun(arg_1:number | vector):vector
+--- Scales vector object (Divide all axes by number), or divides each axes by the dividing vector's axes.
+--- Returns: Final vector, or null vector if error occurs
+--- @field public __div fun(arg_1:number | vector):vector
+--- Converts a vector to string with format "(x,y,z)"
+--- Returns: Vector as string, or empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Returns a copy of the vector
+--- Returns: The copy, or null vector on failure
+--- @field public copy fun():vector
+--- Returns vector that has been interpolated to Final by Factor (0.0-1.0)
+--- Returns: Interpolated vector, or null vector on failure
+--- @field public getInterpolated fun(Final:vector, Factor:number):vector
+--- Interpolates between this (initial) vector and a second one, using t as the multiplier of progress between them, rotating around their cross product vector.  Intended values for t are [0.0f, 1.0f], but values outside this range are allowed.
+--- Returns: The interpolated vector, or NIL if any handle is invalid
+--- @field public rotationalInterpolate fun(final:vector, t:number):vector
+--- Returns orientation object representing the direction of the vector. Does not require vector to be normalized.  Note: the orientation is constructed with the vector as the forward vector (fvec).  You can also specify up (uvec) and right (rvec) vectors as optional arguments.
+--- Returns: Orientation object, or null orientation object if handle is invalid
+--- @field public getOrientation fun():orientation
+--- Returns the magnitude of a vector (Total regardless of direction)
+--- Returns: Magnitude of vector, or 0 if handle is invalid
+--- @field public getMagnitude fun():number
+--- Distance
+--- Returns: Returns distance from another vector
+--- @field public getDistance fun(otherPos:vector):number
+--- Distance squared
+--- Returns: Returns distance squared from another vector
+--- @field public getDistanceSquared fun(otherPos:vector):number
+--- Returns dot product of vector object with vector argument
+--- Returns: Dot product, or 0 if a handle is invalid
+--- @field public getDotProduct fun(OtherVector:vector):number
+--- Returns cross product of vector object with vector argument
+--- Returns: Cross product, or null vector if a handle is invalid
+--- @field public getCrossProduct fun(OtherVector:vector):vector
+--- Gets screen cordinates of a world vector
+--- Returns: X (number), Y (number), or false if off-screen
+--- @field public getScreenCoords fun():number, number
+--- Returns a normalized version of the vector
+--- Returns: Normalized Vector, or NIL if invalid
+--- @field public getNormalized fun():vector
+--- Returns a projection of the vector along a unit vector.  The unit vector MUST be normalized.
+--- Returns: The projected vector, or NIL if a handle is invalid
+--- @field public projectParallel fun(unitVector:vector):vector
+--- Returns a projection of the vector onto a plane defined by a surface normal.  The surface normal MUST be normalized.
+--- Returns: The projected vector, or NIL if a handle is invalid
+--- @field public projectOntoPlane fun(surfaceNormal:vector):vector
+--- Finds the point on the line defined by point1 and point2 that is closest to this point.  (The line is assumed to extend infinitely in both directions; the closest point will not necessarily be between the two points.)
+--- Returns: Returns two arguments.  The first is the nearest point, and the second is a value indicating where on the line the point lies.  From the code: '0.0 means nearest_point is p1; 1.0 means it's p2; 2.0 means it's beyond p2 by 2x; -1.0 means it's "before" p1 by 1x'.
+--- @field public findNearestPointOnLine fun(point1:vector, point2:vector):vector, number
+--- Create a new normalized vector, randomly perturbed around a given (normalized) vector.  Angles are in degrees.  If only one angle is specified, it is the max angle.  If both are specified, the first is the minimum and the second is the maximum.
+--- Returns: A vector, somewhat perturbed from the experience
+--- @field public perturb fun(angle1:number, optional_angle2:number):vector
+--- Given this vector (the origin point), an orientation, and a radius, generate a point on the plane of the circle.  If on_edge is true, the point will be on the edge of the circle. If bias_towards_center is true, the probability will be higher towards the center.
+--- Returns: A point within the plane of the circle
+--- @field public randomInCircle fun(orient:orientation, radius:number, on_edge:boolean, optional_bias_towards_center:boolean):vector
+--- Given this vector (the origin point) and a radius, generate a point in the volume of the sphere.  If on_surface is true, the point will be on the surface of the sphere. If bias_towards_center is true, the probability will be higher towards the center
+--- Returns: A point within the plane of the circle
+--- @field public randomInSphere fun(radius:number, on_surface:boolean, optional_bias_towards_center:boolean):vector
+
+--- waypoint handle
+--- @class waypoint : object
+--- Returns the waypoint list
+--- Returns: waypointlist handle or invalid handle if waypoint was invalid
+--- @field public getList fun():waypointlist
+
+--- waypointlist handle
+--- @class waypointlist
+--- Array of waypoints that are part of the waypoint list
+--- Returns: Waypoint, or invalid handle if the index or waypointlist handle is invalid
+--- @field public __indexer fun(Index:number):waypoint
+--- Number of waypoints in the list. Note that the value returned cannot be relied on for more than one frame.
+--- Returns: Number of waypoints in the list, or 0 if handle is invalid
+--- @field public __len fun():number
+--- Name of WaypointList
+--- Value: Waypointlist name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Return if this waypointlist handle is valid
+--- Returns: true if valid false otherwise
+--- @field public isValid fun():boolean
+
+--- Weapon handle
+--- @class weapon : object
+--- Weapon's class
+--- Value: Weapon class, or invalid weaponclass handle if weapon handle is invalid
+--- Setter type: weaponclass
+--- @field public Class weaponclass
+--- Whether weapon was destroyed by another weapon
+--- Value: True if weapon was destroyed by another weapon, false if weapon was destroyed by another object or if weapon handle is invalid
+--- Setter type: boolean
+--- @field public DestroyedByWeapon boolean
+--- Weapon life left (in seconds)
+--- Value: Life left (seconds) or 0 if weapon handle is invalid
+--- Setter type: number
+--- @field public LifeLeft number
+--- Range at which flak will detonate (meters)
+--- Value: Detonation range (meters) or 0 if weapon handle is invalid
+--- Setter type: number
+--- @field public FlakDetonationRange number
+--- Target of weapon. Value may also be a deriviative of the 'object' class, such as 'ship'.
+--- Value: Weapon target, or invalid object handle if weapon handle is invalid
+--- Setter type: object
+--- @field public Target object
+--- Turret which fired this weapon.
+--- Value: Turret subsystem handle, or an invalid handle if the weapon not fired from a turret
+--- Setter type: subsystem
+--- @field public ParentTurret subsystem
+--- Object that weapon will home in on. Value may also be a deriviative of the 'object' class, such as 'ship'
+--- Value: Object that weapon is homing in on, or an invalid object handle if weapon is not homing or the weapon handle is invalid
+--- Setter type: object
+--- @field public HomingObject object
+--- Position that weapon will home in on (World vector), setting this without a homing object in place will not have any effect!
+--- Value: Homing point, or null vector if weapon handle is invalid
+--- Setter type: vector
+--- @field public HomingPosition vector
+--- Subsystem that weapon will home in on.
+--- Value: Homing subsystem, or invalid subsystem handle if weapon is not homing or weapon handle is invalid
+--- Setter type: subsystem
+--- @field public HomingSubsystem subsystem
+--- Weapon's team
+--- Value: Weapon team, or invalid team handle if weapon handle is invalid
+--- Setter type: team
+--- @field public Team team
+--- Whether homing is overridden for this weapon. When homing is overridden then the engine will not update the homing position of the weapon which means that it can be handled by scripting.
+--- Value: true if homing is overridden
+--- Setter type: boolean
+--- @field public OverrideHoming boolean
+--- Checks if the weapon is armed.
+--- Returns: boolean value of the weapon arming status
+--- @field public isArmed fun(optional_HitTarget:boolean):boolean
+--- Returns the collision information for this weapon
+--- Returns: The collision information or invalid handle if none
+--- @field public getCollisionInformation fun():collision_info
+--- Triggers an animation. Type is the string name of the animation type, triggeredBy is a closer specification which animation should trigger. See *-anim.tbm specifications. Forwards controls the direction of the animation. ResetOnStart will cause the animation to play from its initial state, as opposed to its current state. CompleteInstant will immediately complete the animation. Pause will instead stop the animation at the current state.
+--- Returns: True if successful, false or nil otherwise
+--- @field public triggerSubmodelAnimation fun(type:string, triggeredBy:string, optional_forwards:boolean, optional_resetOnStart:boolean, optional_completeInstant:boolean, optional_pause:boolean):boolean
+--- Gets time that animation will be done
+--- Returns: Time (seconds), or 0 if weapon handle is invalid
+--- @field public getSubmodelAnimationTime fun(type:string, triggeredBy:string):number
+--- Vanishes this weapon from the mission.
+--- Returns: True if the deletion was successful, false otherwise.
+--- @field public vanish fun():boolean
+
+--- Ship/subystem weapons bank handle
+--- @class weaponbank
+--- Class of weapon mounted in the bank. As of FSO 21.0, also changes the maximum ammo to its proper value, which is what the support ship will rearm the ship to.
+--- Value: Weapon class, or an invalid weaponclass handle if bank handle is invalid
+--- Setter type: weaponclass
+--- @field public WeaponClass weaponclass
+--- Ammo left for the current bank
+--- Value: Ammo left, or 0 if handle is invalid
+--- Setter type: number
+--- @field public AmmoLeft number
+--- Maximum ammo for the current bank<br><b>Note:</b> Setting this value actually sets the <i>capacity</i> of the weapon bank. To set the actual maximum ammunition use <tt>AmmoMax = <amount> * class.CargoSize</tt>
+--- Value: Ammo capacity, or 0 if handle is invalid
+--- Setter type: number
+--- @field public AmmoMax number
+--- Weapon armed status. Does not take linking into account.
+--- Value: True if armed, false if unarmed or handle is invalid
+--- Setter type: boolean
+--- @field public Armed boolean
+--- The actual capacity of a weapon bank as specified in the table
+--- Value: The capacity or -1 if handle is invalid
+--- Setter type: number
+--- @field public Capacity number
+--- The FOF cooldown value. A value of 0 means the default weapon FOF is used. A value of 1 means that the max FOF will be used
+--- Value: The cooldown value or -1 if invalid
+--- Setter type: number
+--- @field public FOFCooldown number
+--- The burst counter for this bank. Starts at 1, counting every shot up to and including the weapon class's burst shots value before resetting to 1.
+--- Value: The counter or -1 if handle is invalid
+--- Setter type: number
+--- @field public BurstCounter number
+--- A random seed associated to the current burst. Changes only when a new burst starts.
+--- Value: The seed or -1 if handle is invalid
+--- Setter type: number
+--- @field public BurstSeed number
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
+--- Ship/subsystem weapons bank type handle
+--- @class weaponbanktype
+--- Array of weapon banks
+--- Returns: Weapon bank, or invalid handle on failure
+--- @field public __indexer fun(Index:number):weaponbank
+--- Whether bank is in linked or unlinked fire mode (Primary-only)
+--- Value: Link status, or false if handle is invalid
+--- Setter type: boolean
+--- @field public Linked boolean
+--- Whether bank is in dual fire mode (Secondary-only)
+--- Value: Dual fire status, or false if handle is invalid
+--- Setter type: boolean
+--- @field public DualFire boolean
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Number of weapons in the mounted bank
+--- Returns: Number of bank weapons, or 0 if handle is invalid
+--- @field public __len fun():number
+
+--- Weapon class handle
+--- @class weaponclass
+--- Weapon class name
+--- Returns: Weapon class name, or an empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Checks if the two classes are equal
+--- Returns: true if equal, false otherwise
+--- @field public __eq fun(arg_1:weaponclass, arg_2:weaponclass):boolean
+--- Weapon class name. This is the possibly untranslated name. Use tostring(class) to get the string which should be shown to the user.
+--- Value: Weapon class name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- The alternate weapon class name.
+--- Value: Alternate weapon class name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public AltName string
+--- Weapon class title
+--- Value: Weapon class title, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Title string
+--- Weapon class description string
+--- Value: Description string, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Description string
+--- Weapon class tech title
+--- Value: Tech title, or empty string if handle is invalid
+--- Setter type: string
+--- @field public TechTitle string
+--- Weapon class animation filename
+--- Value: Filename, or empty string if handle is invalid
+--- Setter type: string
+--- @field public TechAnimationFilename string
+--- Weapon class select icon filename
+--- Value: Filename, or empty string if handle is invalid
+--- Setter type: string
+--- @field public SelectIconFilename string
+--- Weapon class select animation filename
+--- Value: Filename, or empty string if handle is invalid
+--- Setter type: string
+--- @field public SelectAnimFilename string
+--- Weapon class tech description string
+--- Value: Description string, or empty string if handle is invalid
+--- Setter type: string
+--- @field public TechDescription string
+--- Model
+--- Value: Weapon class model, or invalid model handle if weaponclass handle is invalid
+--- Setter type: model
+--- @field public Model model
+--- Amount of weapon damage applied to ship hull (0-1.0)
+--- Value: Armor factor, or empty string if handle is invalid
+--- Setter type: number
+--- @field public ArmorFactor number
+--- Amount of damage that weapon deals
+--- Value: Damage amount, or 0 if handle is invalid
+--- Setter type: number
+--- @field public Damage number
+--- Value: Damage Type index, or 0 if handle is invalid. Index is index into armor.tbl
+--- @field public DamageType number
+--- Weapon fire wait (cooldown time) in seconds
+--- Value: Fire wait time, or 0 if handle is invalid
+--- Setter type: number
+--- @field public FireWait number
+--- The time the weapon will fly before turing onto its target
+--- Value: Free flight time or empty string if invalid
+--- Setter type: number
+--- @field public FreeFlightTime number
+--- Value: If the weapon has the swarm flag , the number of swarm missiles, the swarm wait. Returns nil if the handle is invalid.
+--- @field public SwarmInfo boolean, number, number
+--- Value: If the weapon has the corkscrew flag, the number of corkscrew missiles fired, the radius, the fire delay, counter rotate settings, the twist value. Returns nil if the handle is invalid.
+--- @field public CorkscrewInfo boolean, number, number, number, boolean, number
+--- Life of weapon in seconds
+--- Value: Life of weapon, or 0 if handle is invalid
+--- Setter type: number
+--- @field public LifeMax number
+--- Range of weapon in meters
+--- Value: Weapon Range, or 0 if handle is invalid
+--- Setter type: number
+--- @field public Range number
+--- Weapon mass
+--- Value: Weapon mass, or 0 if handle is invalid
+--- Setter type: number
+--- @field public Mass number
+--- Amount of weapon damage applied to ship shields (0-1.0)
+--- Value: Shield damage factor, or 0 if handle is invalid
+--- Setter type: number
+--- @field public ShieldFactor number
+--- Amount of weapon damage applied to ship subsystems (0-1.0)
+--- Value: Subsystem damage factor, or 0 if handle is invalid
+--- Setter type: number
+--- @field public SubsystemFactor number
+--- LOD used for weapon model in the targeting computer
+--- Value: LOD number, or 0 if handle is invalid
+--- Setter type: number
+--- @field public TargetLOD number
+--- Weapon max speed, aka $Velocity in weapons.tbl
+--- Value: Weapon speed, or 0 if handle is invalid
+--- Setter type: number
+--- @field public Speed number
+--- Value: Energy Consumed, or 0 if handle is invalid
+--- @field public EnergyConsumed number
+--- Damage the shockwave is set to if damage is overriden
+--- Value: Shockwave Damage, or 0 if weapon shockwave damage is not overriden. Returns nil if handle is invalid
+--- Setter type: number
+--- @field public ShockwaveDamage number
+--- Radius at which the full explosion damage is done. Marks the line where damage attenuation begins. Same as $Inner Radius in weapons.tbl
+--- Value: Inner Radius, or 0 if handle is invalid
+--- Setter type: number
+--- @field public InnerRadius number
+--- Maximum Radius at which any damage is done with this weapon. Same as $Outer Radius in weapons.tbl
+--- Value: Outer Radius, or 0 if handle is invalid
+--- Setter type: number
+--- @field public OuterRadius number
+--- Is weapon class flagged as bomb
+--- Value: New flag
+--- Setter type: boolean
+--- @field public Bomb boolean
+--- Gets the custom data table for this weapon class
+--- Value: The weapon class's custom data table
+--- @field public CustomData table
+--- Detects whether the weapon class has any custom data
+--- Returns: true if the weaponclass's custom_data is not empty, false otherwise
+--- @field public hasCustomData fun():boolean
+--- Gets the indexed custom string table for this weapon. Each item in the table is a table with the following values: Name - the name of the custom string, Value - the value associated with the custom string, String - the custom string itself.
+--- Value: The weapon's custom data table
+--- @field public CustomStrings table
+--- Detects whether the weapon has any custom strings
+--- Returns: true if the weapon's custom_strings is not empty, false otherwise
+--- @field public hasCustomStrings fun():boolean
+--- Gets or sets whether this weapon class is visible in the tech room
+--- Value: True or false
+--- Setter type: boolean
+--- @field public InTechDatabase boolean
+--- Gets or sets whether this weapon class is allowed in loadouts in campaign mode
+--- Value: True or false
+--- Setter type: boolean
+--- @field public AllowedInCampaign boolean
+--- The cargo size of this weapon class
+--- Value: The new cargo size or -1 on error
+--- Setter type: number
+--- @field public CargoSize number
+--- The number of shots in a burst from this weapon.
+--- Value: Burst shots, 1 for non-burst weapons, or 0 if handle is invalid
+--- Setter type: number
+--- @field public BurstShots number
+--- The time in seconds between shots in a burst.
+--- Value: Burst delay, or 0 if handle is invalid
+--- Setter type: number
+--- @field public BurstDelay number
+--- The angular spread for shots of this weapon.
+--- Value: Fof in degrees, or 0 if handle is invalid
+--- Setter type: number
+--- @field public FieldOfFire number
+--- The maximum field of fire this weapon can have if it increases while firing.
+--- Value: Max Fof in degrees, or 0 if handle is invalid
+--- Setter type: number
+--- @field public MaxFieldOfFire number
+--- The time in seconds that a beam lasts while firing.
+--- Value: Beam life, or 0 if handle is invalid or the weapon is not a beam
+--- Setter type: number
+--- @field public BeamLife number
+--- The time in seconds that a beam takes to warm up.
+--- Value: Warmup time, or 0 if handle is invalid or the weapon is not a beam
+--- Setter type: number
+--- @field public BeamWarmup number
+--- The time in seconds that a beam takes to warm down.
+--- Value: Warmdown time, or 0 if handle is invalid or the weapon is not a beam
+--- Setter type: number
+--- @field public BeamWarmdown number
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Draws weapon tech model. True for regular lighting, false for flat lighting.
+--- Returns: Whether weapon was rendered
+--- @field public renderTechModel fun(X1:number, Y1:number, X2:number, Y2:number, optional_RotationPercent:number, optional_PitchPercent:number, optional_BankPercent:number, optional_Zoom:number, optional_Lighting:boolean):boolean
+--- Draws weapon tech model
+--- Returns: Whether weapon was rendered
+--- @field public renderTechModel2 fun(X1:number, Y1:number, X2:number, Y2:number, optional_Orientation:orientation, optional_Zoom:number):boolean
+--- Draws the 3D select weapon model with the chosen effect at the specified coordinates. Restart should be true on the first frame this is called and false on subsequent frames. Note that primary weapons will not render anything if they do not have a valid pof model defined! Valid selection effects are 1 (fs1) or 2 (fs2), defaults to the mod setting or the model's setting. Zoom is a multiplier to the model's closeup_zoom value.
+--- Returns: true if rendered, false if error
+--- @field public renderSelectModel fun(x:number, y:number, optional_width:number, optional_height:number, optional_currentEffectSetting:number, optional_zoom:number):boolean
+--- Gets the index value of the weapon class
+--- Returns: index value of the weapon class
+--- @field public getWeaponClassIndex fun():number
+--- Return true if the weapon is a primary weapon (this includes Beams). This function is deprecated, use isPrimary instead.
+--- Returns: true if the weapon is a primary, false otherwise
+--- @field public isLaser fun():boolean
+--- Return true if the weapon is a secondary weapon. This function is deprecated, use isSecondary instead.
+--- Returns: true if the weapon is a secondary, false otherwise
+--- @field public isMissile fun():boolean
+--- Return true if the weapon is a primary weapon (this includes Beams)
+--- Returns: true if the weapon is a primary, false otherwise
+--- @field public isPrimary fun():boolean
+--- Return true if the weapon is a secondary weapon
+--- Returns: true if the weapon is a secondary, false otherwise
+--- @field public isSecondary fun():boolean
+--- Return true if the weapon is a beam
+--- Returns: true if the weapon is a beam, false otherwise
+--- @field public isBeam fun():boolean
+--- Checks if a weapon is required for the currently loaded mission
+--- Returns: true if required, false if otherwise. Nil if the weapon class is invalid or a mission has not been loaded
+--- @field public isWeaponRequired fun():boolean
+--- Detects whether the weapon has the player allowed flag
+--- Returns: true if player allowed, false otherwise, nil if a syntax/type error occurs
+--- @field public isPlayerAllowed fun():boolean
+--- Return true if the weapon is paged in.
+--- Returns: True if the weapon is paged in, false if otherwise
+--- @field public isWeaponUsed fun():boolean
+--- Pages in a weapon. Returns True on success.
+--- Returns: True if page in was successful, false otherwise.
+--- @field public loadWeapon fun():boolean
+
+--- Wing handle
+--- @class wing
+--- Array of ships in the wing
+--- Returns: Ship handle, or invalid ship handle if index is invalid or wing handle is invalid
+--- @field public __indexer fun(Index:number):ship
+--- Gets the number of ships in the wing
+--- Returns: Number of ships in wing, or 0 if invalid handle
+--- @field public __len fun():number
+--- Name of Wing
+--- Value: Wing name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+--- Sets or clears one or more flags - this function can accept an arbitrary number of flag arguments.  The flag names are currently limited to the arrival and departure parseable flags.
+--- Returns: Returns nothing
+--- @field public setFlag fun(set_it:boolean, flag_name:string):nil
+--- Checks whether one or more flags are set - this function can accept an arbitrary number of flag arguments.  The flag names are currently limited to the arrival and departure parseable flags.
+--- Returns: Returns whether all flags are set, or nil if the wing is not valid
+--- @field public getFlag fun(flag_name:string):boolean
+--- Causes this wing to arrive as if its arrival cue had become true.  Note that reinforcements are only marked as available, not actually created.
+--- Returns: true if created, false otherwise
+--- @field public makeWingArrive fun():boolean
+--- Gets or sets the formation of the wing.
+--- Value: Wing formation, or nil if wing is invalid
+--- Setter type: wingformation
+--- @field public Formation wingformation
+--- Gets or sets the scale (i.e. distance multiplier) of the current wing formation.
+--- Value: scale of wing formation, nil if wing or formation invalid
+--- Setter type: number
+--- @field public FormationScale number
+--- Gets the number of ships in the wing that are currently present
+--- Value: Number of ships, or nil if invalid handle
+--- @field public CurrentCount number
+--- Gets the maximum number of ships in a wave for this wing
+--- Value: Number of ships, or nil if invalid handle
+--- @field public WaveCount number
+--- Gets the number of waves for this wing
+--- Value: Number of waves, or nil if invalid handle
+--- @field public NumWaves number
+--- Gets the current wave number for this wing
+--- Value: Wave number, 0 if the wing has not yet arrived, or nil if invalid handle
+--- @field public CurrentWave number
+--- Gets the number of ships that have arrived over the course of the mission, regardless of wave
+--- Value: Number of ships, or nil if invalid handle
+--- @field public TotalArrived number
+--- Gets the number of ships that have been destroyed over the course of the mission, regardless of wave
+--- Value: Number of ships, or nil if invalid handle
+--- @field public TotalDestroyed number
+--- Gets the number of ships that have departed over the course of the mission, regardless of wave
+--- Value: Number of ships, or nil if invalid handle
+--- @field public TotalDeparted number
+--- Gets the number of ships that have vanished over the course of the mission, regardless of wave
+--- Value: Number of ships, or 0 if invalid handle
+--- @field public TotalVanished number
+--- The wing's arrival location
+--- Value: Arrival location, or nil if handle is invalid
+--- Setter type: string
+--- @field public ArrivalLocation string
+--- The wing's departure location
+--- Value: Departure location, or nil if handle is invalid
+--- Setter type: string
+--- @field public DepartureLocation string
+--- The wing's arrival anchor
+--- Value: Arrival anchor, or nil if handle is invalid
+--- Setter type: string
+--- @field public ArrivalAnchor string
+--- The wing's departure anchor
+--- Value: Departure anchor, or nil if handle is invalid
+--- Setter type: string
+--- @field public DepartureAnchor string
+--- The wing's arrival path mask
+--- Value: Arrival path mask, or nil if handle is invalid
+--- Setter type: number
+--- @field public ArrivalPathMask number
+--- The wing's departure path mask
+--- Value: Departure path mask, or nil if handle is invalid
+--- Setter type: number
+--- @field public DeparturePathMask number
+--- The wing's arrival delay
+--- Value: Arrival delay, or nil if handle is invalid
+--- Setter type: number
+--- @field public ArrivalDelay number
+--- The wing's departure delay
+--- Value: Departure delay, or nil if handle is invalid
+--- Setter type: number
+--- @field public DepartureDelay number
+--- The wing's arrival distance
+--- Value: Arrival distance, or nil if handle is invalid
+--- Setter type: number
+--- @field public ArrivalDistance number
+--- The wing's minimum wave delay
+--- Value: Min wave delay, or nil if handle is invalid
+--- Setter type: number
+--- @field public WaveDelayMinimum number
+--- The wing's maximum wave delay
+--- Value: Max wave delay, or nil if handle is invalid
+--- Setter type: number
+--- @field public WaveDelayMaximum number
+
+--- Wing formation handle
+--- @class wingformation
+--- Wing formation name
+--- Returns: Wing formation name, or an empty string if handle is invalid
+--- @field public __tostring fun():string
+--- Checks if the two formations are equal
+--- Returns: true if equal, false otherwise
+--- @field public __eq fun(arg_1:wingformation, arg_2:wingformation):boolean
+--- Wing formation name
+--- Value: Wing formation name, or empty string if handle is invalid
+--- Setter type: string
+--- @field public Name string
+--- Detects whether handle is valid
+--- Returns: true if valid, false if handle is invalid, nil if a syntax/type error occurs
+--- @field public isValid fun():boolean
+
