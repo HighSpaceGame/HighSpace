@@ -167,6 +167,7 @@ function GameSystemMap:update()
     GameState.FrameTimeDiff = GameState.CurrentTime - GameState.LastUpdateTime
     last_update_ts = time.getCurrentTime()
 
+    AIController:update()
     GameState.System:update()
     self.Camera:update()
 

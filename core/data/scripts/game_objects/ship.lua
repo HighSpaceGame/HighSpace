@@ -5,6 +5,7 @@ local Satellite      = require('satellite')
 local Utils          = require('utils')
 local Vector         = require('vector')
 
+--- @class Ship
 local Ship = Class(Satellite)
 
 local icon_map = {

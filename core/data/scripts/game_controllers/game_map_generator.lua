@@ -50,6 +50,7 @@ function GameMapGenerator.chaseRandomShip(ship, chased_ships, system)
     )
     system:add(ship, target.Parent)
     ship:updatePosition()
+    AIController:addSystemAIToShip(ship, AIController.SystemAIs.SystemSimpleAggroAI)
 end
 
 return GameMapGenerator
