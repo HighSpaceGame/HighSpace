@@ -2,6 +2,7 @@ local Class     = require("class")
 local Inspect   = require('inspect')
 local Utils     = require('utils')
 
+--- @class Vector
 local Vector = Class()
 
 function Vector:init(x, y, z)

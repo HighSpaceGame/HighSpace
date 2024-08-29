@@ -5,7 +5,6 @@ local SystemFile = require('system_file')
 
 GameState = Class()
 
-
 GameState.CurrentTime = 0
 GameState.LastUpdateTime = 0
 GameState.FrameTimeDiff = 0

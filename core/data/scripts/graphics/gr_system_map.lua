@@ -170,6 +170,7 @@ function gr_system_map.drawMap(mousePos, subspace, drawTarget)
     end
 
     --GameSystemMap.ObjectKDTree:draw() -- TODO: for debugging, do not commit uncommented
+    --require('gr_debug'):drawAggro() -- TODO: for debugging, do not commit uncommented
     gr.setTarget()
 end
 

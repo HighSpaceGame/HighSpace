@@ -1,3 +1,4 @@
+local AIController		= require("ai_controller")
 local Inspect			= require("inspect")
 local GameMissionTact	= require("game_mission")
 local GameMapGenerator	= require("game_map_generator")
