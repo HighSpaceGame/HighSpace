@@ -12,7 +12,10 @@ local SystemMapUIController = Class(UIController)()
 
 local draw_map = nil
 local last_time_button
+local pause_button
+local play_button
 local current_time_display
+local time_speed_display
 local system_map_offset = Vector(0,0)
 
 function SystemMapUIController:initialize(document)
@@ -27,7 +30,10 @@ function SystemMapUIController:initialize(document)
     }
 
     last_time_button = self.Document:GetElementById("system-time-pause")
+    pause_button = self.Document:GetElementById("system-time-pause")
+    play_button = self.Document:GetElementById("system-time-normal")
     current_time_display = self.Document:GetElementById("system-current-time")
+    time_speed_display = self.Document:GetElementById("system-time-speed")
 
     local system_map = self.Document:GetElementById("system-map")
     draw_map.Tex = gr.createTexture(system_map.offset_width, system_map.offset_height)
@@ -110,6 +116,22 @@ function SystemMapUIController:keyUp(_, event)
     self:storeKeyUp(event)
 end
 
+function SystemMapUIController:changeTimeSpeed(speedChange, event, element)
+    local base = 2.0
+    local speed = GameState.TimeSpeed > 0 and math.log(GameState.TimeSpeed)/math.log(base) or -1
+    speed = speed + speedChange
+
+    if speed < 0 then
+        speed = 0
+        element = pause_button
+    else
+        speed = math.pow(base, speed)
+        element = play_button
+    end
+
+    self:setTimeSpeed(speed, event, element)
+end
+
 function SystemMapUIController:setTimeSpeed(speed, event, element)
     event:StopPropagation()
 
@@ -117,6 +139,7 @@ function SystemMapUIController:setTimeSpeed(speed, event, element)
         last_time_button:SetClass("active", false)
     end
 
+    time_speed_display.inner_rml = "x" .. speed
     element:SetClass("active", true)
     last_time_button = element
 

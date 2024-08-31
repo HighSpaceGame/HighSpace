@@ -21,12 +21,17 @@
 						 onmousescroll="Controller:wheel(event, document, element)"></div>
 				</div>
 				<div id="system-time-window" class="window" >
-					<span id="system-current-time" class="h2-10">2023-09-11 0800</span>
+					<div id="system-time-info" class="h2-10">
+						<span id="system-current-time">2023-09-11 0800</span>
+					</div>
+					<div class="h2-10">
+						<span id="system-time-speed">x0</span>
+					</div>
 					<div id="system-time-buttons" class="h2-1">
 						<div id="system-time-pause" class="time-button active" onmousedown="Controller:setTimeSpeed(0, event, element)">||</div>
 						<div id="system-time-normal" class="time-button" onmousedown="Controller:setTimeSpeed(1, event, element)">&gt;</div>
-						<div id="system-time-fast" class="time-button" onmousedown="Controller:setTimeSpeed(3600, event, element)">&gt;&gt;</div>
-						<div id="system-time-x-fast" class="time-button" onmousedown="Controller:setTimeSpeed(86400, event, element)">&gt;&gt;&gt;</div>
+						<div id="system-time-fast" class="time-button" onmousedown="Controller:changeTimeSpeed(-1, event, element)">-</div>
+						<div id="system-time-x-fast" class="time-button" onmousedown="Controller:changeTimeSpeed(1, event, element)">+</div>
 					</div>
 				</div>
 			</div>

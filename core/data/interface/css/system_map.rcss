@@ -59,8 +59,14 @@ div#title-bar span
 div#system-time-window
 {
 	margin: 10px auto auto auto;
-	width: 50%;
+	width: 55%;
 	padding: 24px;
+	text-align: center;
+}
+
+#system-time-speed
+{
+	margin-left: 24px;
 	text-align: center;
 }
 
