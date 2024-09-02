@@ -4,6 +4,7 @@ local Ship           = require("ship")
 local ShipList       = require("ship_list")
 local Utils          = require('utils')
 
+--- @class ShipGroup
 local ShipGroup = Class(Ship)
 
 local group_no = 1
@@ -17,7 +18,7 @@ function ShipGroup:init(properties)
     self.Name =  "Group " .. group_no
     group_no = group_no + 1
 
-    local list = properties.Ships or {}
+    local list = properties.Type == "Group" and properties.Ships or {}
     list = list._list or list
 
     for _, ship in pairs(list) do
@@ -88,17 +89,19 @@ function ShipGroup:split(ship_list)
         self:remove(split_ships)
     end
 
-    self.Parent:add(split_ships)
+    GameState.System:add(split_ships, self.Parent)
     split_ships.System.Position = self.System.Position:copy()
     split_ships:recalculateOrbit()
+    AIController:onShipGroupSplit(self, split_ships)
 
     if self.Ships:count() == 1 then
         local _, leftover = next(self.Ships._list)
-        self.Parent:add(leftover)
+        GameState.System:add(leftover, self.Parent)
         leftover.System.Position = self.System.Position:copy()
         leftover:recalculateOrbit()
         self:remove(leftover)
-        self.Parent:remove(self)
+        AIController:onShipGroupSplit(self, leftover)
+        GameState.System:remove(self)
     end
 
     return split_ships
@@ -106,25 +109,27 @@ end
 
 function ShipGroup.join(ship1, ship2)
     local result
+    local parent = ship1.Parent
+
+    GameState.System:remove(ship1)
+    GameState.System:remove(ship2)
 
     if ship1.Type == "Group" then
         result = ship1
-        ship2.Parent:remove(ship2)
         result:add(ship2)
     elseif ship2.Type == "Group" then
         result = ship2
-        ship1.Parent:remove(ship1)
         result:add(ship1)
     else
-        local parent = ship1.Parent
         result = ShipGroup(ship1)
-        ship1.Parent:remove(ship1)
-        ship2.Parent:remove(ship2)
         result:add(ship1)
         result:add(ship2)
-        parent:add(result)
-        result:recalculateOrbit()
     end
+
+    global_debug = 1
+    GameState.System:add(result, parent)
+    result:recalculateOrbit()
+    AIController:onShipGroupMerge(ship1, ship2, result)
 
     return result
 end
