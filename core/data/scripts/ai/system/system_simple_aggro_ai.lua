@@ -10,29 +10,59 @@ local SystemSimpleAggroAI = Class(SystemAI)
 --- @param ship Ship
 function SystemSimpleAggroAI:init(ship)
     self.Ship = ship
-    self.Aggro = {
-        { ["Ship"] = GameState.System:get("Taganrog").Parent, ["Aggro"] = 50 }
-    }
+    self.Aggro = {}
+    self._highest_aggro = nil
+
+    local playerShip = GameState.System:get("Taganrog").Parent
+    self.Aggro[playerShip.Name] = { ["Ship"] = playerShip, ["Level"] = 50 }
 end
 
-function SystemSimpleAggroAI:aggroLevel()
-    local aggroInfo = self.Aggro[1]
-    local distance = (aggroInfo.Ship.System.Position - self.Ship.System.Position):getMagnitude() / Utils.Math.AU
+function SystemSimpleAggroAI:aggroLevel(aggroInfo)
+    if not aggroInfo then aggroInfo = self._highest_aggro end
+    if not aggroInfo then return 0 end
 
-    return aggroInfo.Aggro / distance
+    local distance = (aggroInfo.Ship.System.Position - self.Ship.System.Position):getMagnitude() / Utils.Math.AU
+    return aggroInfo.Level / distance
 end
 
 function SystemSimpleAggroAI:update()
-    table.sort(self.Aggro, function(a,b) return a.Aggro > b.Aggro end)
-    local aggroInfo = self.Aggro[1]
-    if not aggroInfo then return end
+    self._highest_aggro = Utils.Table.areduce(self.Aggro, function(acc, el)
+        return (not acc or self:aggroLevel(el) > self:aggroLevel(acc)) and el or acc
+    end, nil)
+
+    if not self._highest_aggro then return end
 
     local level = self:aggroLevel()
     if level < 100 then return end
 
-    self.Ship.System.Destination = { ["Position"] = aggroInfo.Ship.System.Position - aggroInfo.Ship.Parent.System.Position }
-    self.Ship.System.Destination.Parent = aggroInfo.Ship.Parent
+    self.Ship.System.Destination = { ["Position"] = self._highest_aggro.Ship.System.Position - self._highest_aggro.Ship.Parent.System.Position }
+    self.Ship.System.Destination.Parent = self._highest_aggro.Ship.Parent
     self.Ship.System.IsInSubspace = true
+end
+
+--- React to a ShipGroup splitting
+--- @param group ShipGroup
+--- @param ship Ship
+function SystemSimpleAggroAI:onShipGroupSplit(group, ship)
+    if not self.Aggro[group.Name] then return end
+
+    self.Aggro[ship.Name] = { ["Ship"] = ship, ["Level"] = self.Aggro[group.Name].Level }
+    if group.Ships:count() <= 0 then
+        self.Aggro[group.Name] = nil
+    end
+end
+
+--- Send ShipGroupMerge event to active AIs
+--- @param ship1 Ship
+--- @param ship2 Ship
+--- @param group ShipGroup
+function SystemSimpleAggroAI:onShipGroupMerge(ship1, ship2, group)
+    local max_aggro = self.Aggro[ship1.Name] and self.Aggro[ship1.Name].Level or 0
+    max_aggro = math.max(max_aggro, self.Aggro[ship2.Name] and self.Aggro[ship2.Name].Level or 0)
+
+    self.Aggro[ship1.Name] = nil
+    self.Aggro[ship2.Name] = nil
+    self.Aggro[group.Name] = { ["Ship"] = group, ["Level"] = max_aggro }
 end
 
 return SystemSimpleAggroAI

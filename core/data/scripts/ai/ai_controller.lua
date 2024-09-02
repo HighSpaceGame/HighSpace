@@ -28,4 +28,23 @@ function AIController:update()
     end
 end
 
+--- Send ShipGroupSplit event to active AIs
+--- @param group ShipGroup
+--- @param ship Ship
+function AIController:onShipGroupSplit(group, ship)
+    for ship_name, ai in pairs(self._system_ais) do
+        ai:onShipGroupSplit(group, ship)
+    end
+end
+
+--- Send ShipGroupMerge event to active AIs
+--- @param ship1 Ship
+--- @param ship2 Ship
+--- @param group ShipGroup
+function AIController:onShipGroupMerge(ship1, ship2, group)
+    for ship_name, ai in pairs(self._system_ais) do
+        ai:onShipGroupMerge(ship1, ship2, group)
+    end
+end
+
 return AIController
