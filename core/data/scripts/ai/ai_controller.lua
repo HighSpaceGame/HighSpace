@@ -47,4 +47,14 @@ function AIController:onShipGroupMerge(ship1, ship2, group)
     end
 end
 
+--- Send ShipGroupMerge event to active AIs
+--- @param ship1 Ship
+--- @param ship2 Ship
+--- @param group ShipGroup
+function AIController:onShipDeath(died, killer)
+    for ship_name, ai in pairs(self._system_ais) do
+        ai:onShipDeath(died, killer)
+    end
+end
+
 return AIController

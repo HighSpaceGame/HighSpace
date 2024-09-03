@@ -6,7 +6,7 @@ function gr_debug:drawAggro()
     for _, ai in pairs(AIController._system_ais) do
         local screen_position = GameSystemMap.Camera:getScreenCoords(ai.Ship.System.Position)
 
-        local text = "Aggro: " .. ai:aggroLevel()
+        local text = "Aggro: " .. ai:aggroLevel() .. " - " .. ai._highest_aggro.Ship.Name .. " - " .. ai._highest_aggro.Level
         local text_width = gr.getStringWidth(text)
         local r,g,b = ai.Ship.Team:getColor()
         gr.setColor(r,g,b)
