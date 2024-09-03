@@ -53,13 +53,12 @@ ship_initializers = {
         return ShipGroup(data)
     end,
     ["Wing"] = function(data)
-        local ships = {}
+        local wing = Wing(data)
         for _, ship_data in pairs(data.Ships) do
-            table.insert(ships, ship_initializers[ship_data.Type](ship_data))
+            wing:add(ship_initializers[ship_data.Type](ship_data))
         end
 
-        data.Ships = ships
-        return Wing(data)
+        return wing
     end
 }
 

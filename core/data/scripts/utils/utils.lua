@@ -218,11 +218,13 @@ function Utils.Game.getMandatoryProperty(properties, prop_name)
 end
 
 local ship_type_scores = {
-    ["Wing"] = 1,
-    ["Cruiser"] = 2,
-    ["Transport"] = 2,
-    ["Corvette"] = 3,
-    ["Capital"] = 4,
+    ["Fighter"] = 1,
+    ["Bomber"] = 2,
+    ["Wing"] = 5,
+    ["Transport"] = 10,
+    ["Cruiser"] = 10,
+    ["Corvette"] = 25,
+    ["Capital"] = 50,
 }
 
 function Utils.Game.getShipScore(ship)

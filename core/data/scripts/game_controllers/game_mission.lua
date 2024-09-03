@@ -8,6 +8,7 @@ local Utils         = require('utils')
 local Vector        = require('vector')
 local Wing          = require('wing')
 
+--- @class GameMission
 GameMission = Class()
 
 GameMission.TacticalMode = false
@@ -191,6 +192,20 @@ end
 
 engine.addHook("On Ship Death Started", function()
     ba.println("Ship Died: " .. Inspect({ hv.Ship.Name, hv.Killer, hv.Hitpos }))
+
+    local killed = GameState.System:get(hv.Ship.Name)
+    local killer
+
+    require("mobdebug").start()
+
+    GameMission.Ships:forEach(function(ship)
+        if killed.Team ~= ship.Team then
+            killer = ship
+            return false
+        end
+    end)
+
+    AIController:onShipDeath(killed, killer)
     GameState.removeShip(hv.Ship.Name)
 end, {}, function()
     return false

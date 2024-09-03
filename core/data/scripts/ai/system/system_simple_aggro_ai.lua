@@ -1,4 +1,5 @@
 local Class           = require("class")
+local Ship            = require("ship")
 local SystemAI        = require("system_ai")
 local Utils           = require('utils')
 
@@ -52,7 +53,7 @@ function SystemSimpleAggroAI:onShipGroupSplit(group, ship)
     end
 end
 
---- Send ShipGroupMerge event to active AIs
+--- React to a ShipGroupMerge event
 --- @param ship1 Ship
 --- @param ship2 Ship
 --- @param group ShipGroup
@@ -63,6 +64,22 @@ function SystemSimpleAggroAI:onShipGroupMerge(ship1, ship2, group)
     self.Aggro[ship1.Name] = nil
     self.Aggro[ship2.Name] = nil
     self.Aggro[group.Name] = { ["Ship"] = group, ["Level"] = max_aggro }
+end
+
+--- React to a onShipDeath event
+--- @param ship1 Ship
+--- @param ship2 Ship
+--- @param group ShipGroup
+function SystemSimpleAggroAI:onShipDeath(died, killer)
+    while killer.Parent and killer.Parent:is_a(Ship) do
+        killer = killer.Parent
+    end
+
+    if not (self.Aggro[killer.Name]) then
+        self.Aggro[killer.Name] = { ["Ship"] = killer, ["Level"] = 0 }
+    end
+
+    self.Aggro[killer.Name].Level = self.Aggro[killer.Name].Level + Utils.Game.getShipScore(died)
 end
 
 return SystemSimpleAggroAI
