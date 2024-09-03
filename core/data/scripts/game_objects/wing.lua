@@ -7,9 +7,18 @@ local Utils          = require('utils')
 local Wing = Class(ShipGroup)
 
 local icon_map = {
-    ["Terran"] = GrCommon.loadTexture("iconT-fightW", true),
-    ["Vasudan"] = GrCommon.loadTexture("iconv-fightW", true),
-    ["Shivan"] = GrCommon.loadTexture("icons-fighterW", true),
+    ["Terran"] = {
+        ["Fighter"] = GrCommon.loadTexture("iconT-fightW", true),
+        ["Bomber"] = GrCommon.loadTexture("iconT-bomberW", true),
+    },
+    ["Vasudan"] = {
+        ["Fighter"] = GrCommon.loadTexture("iconv-fightW", true),
+        ["Bomber"] = GrCommon.loadTexture("iconv-bomberW", true),
+    },
+    ["Shivan"] = {
+        ["Fighter"] = GrCommon.loadTexture("icons-fighterW", true),
+        ["Bomber"] = GrCommon.loadTexture("icons-bomberW", true),
+    },
 }
 
 function Wing:init(properties)
@@ -43,7 +52,7 @@ function Wing:getMapDisplayName()
 end
 
 function Wing:getIcon()
-    return self._top_ship and icon_map[self._top_ship.Species] or icon_map["Terran"]
+    return self._top_ship and icon_map[self._top_ship.Species][self._top_ship.Type] or icon_map["Terran"]
 end
 
 return Wing
